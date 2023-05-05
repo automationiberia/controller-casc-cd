@@ -1,0 +1,115 @@
+:sectnums:
+
+== Day-0: Deploy the SUPERADMIN organization
+
+Once all the objects are already configured at the GitLab repository, they can be deployed for the first time into the target Automation Controller.
+
+=== Create the objects in the Controller
+
+[IMPORTANT]
+====
+In order to be able to run the playbooks from the command line using `ansible-navigator`, the file `.vault_password` is needed and must contain the vault password to decrypt the vaulted files:
+
+.#Content to be customized#
+[.console-input]
+[source,bash]
+----
+echo "vault-password" > .vault_password
+----
+
+That file may already be ignored in the contents of the `.gitignore`, so it can't be uploaded to the GitLab repository. See the xref:021-initial-dir-and-files.adoc#_recommended_basic_files[Recommended basic files]
+====
+
+[IMPORTANT]
+====
+Another important thing to remember is to add the public key part of the private key configured at `orgs_vars/$\{SUPERADMIN_ORG\}/env/dev/controller_credentials.d/controller_credentials_scm.yml` to the GitLab and GitHub repositories used by the configured projects. See the xref:021-initial-dir-and-files.adoc#_dev_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup[(dev) Source Control Manager and GitLab API Token Credentials will let the Job Templates to connect to the GitLab repository/group]
+====
+
+Run the configuration playbook to create the defined objects in the target AAP Controller, running the following command:
+
+[.console-input]
+[source,bash]
+----
+ansible-navigator run casc_ctrl_config.yml -i inventory -l dev -e "{orgs: ${SUPERADMIN_ORG}, dir_orgs_vars: orgs_vars, env: dev}" -m stdout --eei ${AUTOMATIONHUB_HOST}/ee-casc:latest --vault-password-file .vault_password --pull-arguments=--tls-verify=false
+----
+
+[IMPORTANT]
+====
+The execution above will fail because there are missing credentials to be assigned to the new organization. To workaround that, run the same command adding the flag `--tags credentials` and, when finished, run the original command again.
+====
+
+[TIP]
+====
+The following requirements must be taken in consideration:
+
+* `ansible-navigator` command must be available to run the playbook
+* An Execution Environment with all the required collections must exist and be available to be pulled and used:
++
+.See the `requirements.yaml` contents
+[%collapsible]
+=====
+[source,yaml]
+----
+include::../examples/collections/requirements.yaml[]
+----
+=====
+
+* The target AAP Controller must be available when running the previous command
+====
+
+[TIP]
+====
+The file `.vault_password` used in the previous command, must exist and contain the vault password needed to access the vaulted variables
+====
+
+[TIP]
+====
+The file `inventory` must be filled accordingly to the corresponding `group_vars` configuration file to reach the correct Automation Controller instance
+====
+
+=== Configure the GitLab Webhooks
+
+Once the objects has been created at the Ansible Automation Controller, there are two options to configure the GitLab Webhook to run the Continuous Integration for the CasC:
+
+==== Manually
+
+Following steps must be performed to configure the GitLab Webhook to run the Continuous Integration for the CasC in the specified organization:
+
+===== Get the Job Template's webhook configuration:
+
+.Configure Webhook Get Config
+image::configure_webhook_get_config.png[]
+
+[IMPORTANT]
+====
+The Url displayed in the (Workflow) Job Template configuration is using the ID to identify the (Workflow) Job Template, but it's not recommended to use this identifier, as it can change if the configuration is replied at different AAP instances. Instead, the `named_url` from the API may be used.
+
+.Configure Webhook Named URL
+image::configure_webhook_named_url.png[]
+====
+   
+===== Set the webhook information at the GitLab repository:
+
+.Configure webhook Set Info
+image::configure_webhook_set_info.png[]
+
+==== Automatically
+
+A Job Template and a Project have been created to automatically configure the GitLab Webhook making use of the `GitLab API Token` credential defined and vaulted in the configuration files (take a look at [`orgs_vars/$\{SUPERADMIN_ORG\}/env/dev/controller_credentials.d/controller_credentials_gitlab_api_token.yml`](orgs_vars/superadmin/env/dev/controller_credentials.d/controller_credentials_gitlab_api_token.yml)):
+
+.Configure Webhook Launch
+image::configure_webhook_launch.png[]
+
+.Configure Webhook Params
+image::configure_webhook_launch_params.png[]
+
+After running the Job, the webhook will already be configured at the git repository for the specified organization, which will point to the selected Job Template in the selected Automation Controller.
+
+.Configure Webhook Result
+image::configure_webhook_result.png[]
+
+== All done
+
+Now, all the initial configuration is done and from that moment, only pushing new commits to the `dev` branch will create or update all the objects at the Automation Controller.
+
+Follow with the xref:023-superadmin-create-new-organization.adoc[Day-2: Create a new Organization] steps to create normal organizations.

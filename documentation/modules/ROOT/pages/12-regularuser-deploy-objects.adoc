@@ -1,0 +1,66 @@
+:sectnums:
+ifndef::imagesdir[:imagesdir: ../assets/images/]
+
+
+= Push the changes to create the new objects through Merge Requests
+
+== Commit the changes to the new branch
+====
+[.console-input]
+[source,console]
+git add -A
+git commit -m "Add new objects to the new org"
+git push -u origin creation_new_objects
+====
+
+== Create and accept a Merge Request from creation_new_objects to dev
+
+=== Create Merge Request
+
+Create a Merge Request in Gitlab from creation_new_objects to dev branch:
+
+image::generalmergerequest.png[General Merge Request]
+
+image::mergerequestnewobjecttodev.png[Dev Merge Request]
+
+=== Accept Merge Request
+
+Approve the Merge Request in Gitlab to merge creation_new_objects into dev branch:
+
+image::mergenewobjectstodev.png[Merge Dev Merge Request]
+
+=== Check new objects in the Organization for the dev controller
+
+Go to #ToDo URL jobs#  and check that #To Do job names# were finished well.
+
+Go to #ToDo URL projects#  and check that %ORGNAME% New Job Template was created.
+
+Go to #ToDo URL job_template#  and check that %ORGNAME%_project_example was created.
+
+Go to #ToDo URL inventory#  and check that %ORGNAME% Localhost was created and it has a host #ToDo URL host inventory# 
+
+Go to #ToDo URL credential#  and check that %ORGNAME% Gitlab Credential %ORGNAME%_project_example was created.
+
+== Promote dev to pro through a Merge Request
+
+=== Create Merge Request
+image::generalmergerequest.png[General Merge Request]
+image::mergerequesttopro.png[Pro Merge Request]
+
+=== Accept Merge Request
+
+Approve the Merge Request in Gitlab to merge dev into pro branch:
+
+image::mergenewobjectstopro.png[Merge Pro Merge Request]
+
+=== Check new objects in the Organization for the pro controller
+
+Go to #ToDo URL jobs#  and check that #To Do job names# were finished well.
+
+Go to #ToDo URL projects#  and check that %ORGNAME% New Job Template was created.
+
+Go to #ToDo URL job_template#  and check that %ORGNAME%_project_example was created.
+
+Go to #ToDo URL inventory#  and check that %ORGNAME% Localhost was created and it has a host #ToDo URL host inventory# 
+
+Go to #ToDo URL credential#  and check that %ORGNAME% Gitlab Credential %ORGNAME%_project_example was created.

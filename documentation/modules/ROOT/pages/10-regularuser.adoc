@@ -1,0 +1,18 @@
+= Regular User
+
+Now, we are going to create a few objects for the new organization with a GitOps approach.
+
+There is already a repository deployed with a some example playbooks: #ToDo: URL al repo#. A project pointing to this repository will be created.
+
+The following steps will populate and deploy different obects in the controller: a project, a job_template, an inventory and a credential.
+Once these new objects were deployed, an intentionally wrong change will be made to, afterwards, test a rollback.
+
+== Clone the repository and create a new branch
+
+====
+[.console-input]
+[source,console]
+git clone git@gitlab.com:%GITLABGROUP%/%ORGNAME%.git
+cd %ORGNAME%/
+git checkout -b creation_new_objects
+====

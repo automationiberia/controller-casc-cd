@@ -1,0 +1,8 @@
+---
+controller_hosts:
+  - name:  "${CONTROLLER_DEV_HOST}"
+    description: "Controller host (pointing to LB)"
+    inventory: "{{ orgs }} Controller"
+    variables:
+      ansible_host: "${CONTROLLER_DEV_HOST}"
+...

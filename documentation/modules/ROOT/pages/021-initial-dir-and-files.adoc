@@ -1,0 +1,570 @@
+:sectnums:
+// :page-toclevels: 3
+
+include::_attributes.adoc[]
+
+== Pre-Requisites
+
+An *empty GitLab repository* is required to follow this workshop.
+
+[NOTE]
+=======
+All the files for the repo will be created from scratch and synchronized during this lab.
+
+The creation process for the new repository is not in the scope of the current workshop. For more info see: https://docs.gitlab.com/ee/user/project/repository/[Create a repository on Gitlab.com]
+=======
+
+== Day-0: Create SuperAdmin organization directory structure and initial files
+
+The following lines will show the organization directory structure creation:
+
+* *`group_vars`*, which will contain the credentials to reach the Ansible Automation Controller
+* *`orgs_vars`* directory, which will contain all the organization object files.
+
+[IMPORTANT]
+======
+All the steps below are meant to be locally executed from the base directory of the repository.
+======
+
+
+=== Housekeeping (optional steps)
+
+.Create the following `.gitignore` file to avoid accidentally uploading undesired files to the GitLab repository:
+[%collapsible]
+======
+[.console-input]
+[source,console]
+----
+cat > .gitignore <<EOF
+include::../examples/dot.gitignore[]
+EOF
+----
+======
+
+.Create the file `.yamllint.yml` to run basic syntax checks:
+[%collapsible]
+======
+[.console-input]
+[source,bash]
+----
+cat > .yamllint.yml <<EOF
+include::../examples/dot.yamllint.yml[]
+EOF
+----
+======
+
+.Create the file `.gitlab-ci.yml` to run lintering and create tags+releases when pushes are against the `main` branch:
+[%collapsible]
+======
+[.console-input]
+[source,bash]
+----
+cat > .gitlab-ci.yml <<'EOF'
+include::../examples/dot.gitlab-ci.yml[]
+EOF
+----
+======
+
+=== Create the ansible inventory file for the environment
+
+.#Content to be customized#
+[.console-input]
+[source,bash]
+----
+export CONTROLLER_DEV_HOST=lb-ctrl-dev.lab.example.com
+export CONTROLLER_PRO_HOST=lb-ctrl-pro.lab.example.com
+----
+
+[.console-input]
+[source,bash]
+----
+cat > inventory <<EOF
+include::../examples/inventory.ini[]
+EOF
+----
+
+=== Create the automation directories structure
+
+[NOTE]
+======
+We will set the superadmin org name to *'superadmin'* for this workshop.
+======
+
+======
+.#Content to be customized#
+[.console-input]
+[source,console]
+----
+export SUPERADMIN_ORG=superadmin
+----
+
+[.console-input]
+[source,console]
+----
+mkdir -p group_vars/{all,dev,pro}
+----
+
+[.console-input]
+[source,console]
+----
+mkdir -p orgs_vars/${SUPERADMIN_ORG}/env/{dev,pro}/controller_{instance_groups.d,instance_groups.d/app-example,hosts.d,hosts.d/aap-casc,users.d,users.d/app-example,execution_environments.d,execution_environments.d/app-casc,settings.d,settings.d/jobs,settings.d/user_interface,settings.d/authentication,settings.d/system,inventory_sources.d,credentials.d}
+----
+
+[.console-input]
+[source,console]
+----
+mkdir -p orgs_vars/${SUPERADMIN_ORG}/env/common/controller_{schedules.d,schedules.d/app-casc,workflow_job_templates.d,workflow_job_templates.d/app-casc,job_templates.d,job_templates.d/app-casc,job_templates.d/app-example,job_templates.d/app-gitlab,projects.d,projects.d/app-casc,projects.d/app-gitlab,teams.d,credential_types.d,credential_types.d/aap-casc,roles.d,roles.d/app-example,inventories.d,inventories.d/app-casc,organizations.d,organizations.d/app-casc,organizations.d/app-example,credentials.d}
+----
+======
+
+=== Configure ansible connection to the AAP Controllers (common and per environment variables)
+
+Initial configuration files must be created. First of all, the connection credentials to the controller are needed. They will be created under the `group_vars` directory as it will differ from one environment to another, and Ansible provides this method for the implementationfootnote:[https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html].
+
+.#Content to be customized#
+======
+.Assume all the environments will use the same `username`
+[.console-input]
+[source,bash]
+----
+cat > group_vars/all/configure_connection_controller_credentials.yml <<EOF
+include::../examples/group_vars/all/configure_connection_controller_credentials.yml[]
+EOF
+----
+
+.Set the password and the Controller host for the `dev` environment
+[.console-input]
+[source,bash]
+----
+cat > group_vars/dev/configure_connection_controller_credentials.yml <<EOF
+include::../examples/group_vars/dev/configure_connection_controller_credentials.yml[]
+EOF
+----
+
+.Set the password and the Controller host for the `pro` environment
+[.console-input]
+[source,bash]
+----
+cat > group_vars/pro/configure_connection_controller_credentials.yml <<EOF
+include::../examples/group_vars/pro/configure_connection_controller_credentials.yml[]
+EOF
+----
+======
+
+[IMPORTANT]
+======
+The previous files should be encrypted as they contain sensitive information and is not recommended to store it in plain text. In our case we will use `ansible-vault`
+======
+
+.Encrypt the files with sensitive data
+[.console-input]
+[source,console]
+----
+ansible-vault encrypt \
+  group_vars/dev/configure_connection_controller_credentials.yml \
+  group_vars/pro/configure_connection_controller_credentials.yml
+----
+
+[NOTE]
+======
+Write down the encryption password as it will be used later on the workshop
+======
+
+=== Create the CaC playbooks
+
+Next, we need the playbooks that allow us to implement the CaC.
+
+All this playbooks are available on the repository https://gitlab.com/automationiberia/aap-cac/superadmin-workshop-template.git[SuperAdmin Workshop Template] 
+
+.Download gitLab repository
+[.console-input]
+[source,bash]
+----
+curl -s https://gitlab.com/automationiberia/aap-cac/superadmin-workshop-template/-/archive/main/superadmin-workshop-template-main.tar.gz | tar xvzf - --strip-components=1 -C .
+----
+
+==== Playbooks reference (informational only)
+
+All the playbooks that have been created in the
+xref:#_create_the_cac_playbooks[previous step] can be found here for further reference:
+
+=======
+.Playbook to create all the objects (casc_ctrl_config.yml)
+[%collapsible]
+======
+[.console-input]
+[source,bash]
+----
+cat > casc_ctrl_config.yml <<EOF
+include::../examples/casc_ctrl_config.yml[]
+EOF
+----
+======
+
+.Playbook for the centralized CaC to create all the objects (casc_ctrl_config_unified.yml)
+[%collapsible]
+======
+[.console-input]
+[source,bash]
+----
+cat > casc_ctrl_config_unified.yml <<EOF
+include::../examples/casc_ctrl_config_unified.yml[]
+EOF
+----
+======
+
+.Playbook to drop all the objects not defined as code (casc_ctrl_drop_diff.yml)
+[%collapsible]
+======
+[.console-input]
+[source,bash]
+----
+cat > casc_ctrl_drop_diff.yml <<EOF
+include::../examples/casc_ctrl_drop_diff.yml[]
+EOF
+----
+======
+
+.Playbook for the centralized CaC to delete all the objects not defined as code (casc_ctrl_drop_diff_unified.yml)
+[%collapsible]
+======
+[.console-input]
+[source,bash]
+----
+cat > casc_ctrl_drop_diff_unified.yml <<EOF
+include::../examples/casc_ctrl_drop_diff_unified.yml[]
+EOF
+----
+======
+
+.Playbook to treat the incoming webhook calls (casc_ctrl_cd_webhook_trigger.yml)
+[%collapsible]
+======
+[.console-input]
+[source,bash]
+----
+cat > casc_ctrl_cd_webhook_trigger.yml <<EOF
+include::../examples/casc_ctrl_cd_webhook_trigger.yml[]
+EOF
+----
+======
+
+.Playbook to automatically create new organizations' basic objects in the SuperAdmin organization (new_project.yml)
+[%collapsible]
+======
+[.console-input]
+[source,bash]
+----
+cat > new_project.yml <<EOF
+include::../examples/new_project.yml[]
+EOF
+----
+======
+
+.Playbook to automatically create new organizations' GitLab repository (gitlab_setup.yml)
+[%collapsible]
+======
+[.console-input]
+[source,bash]
+----
+cat > gitlab_setup.yml <<EOF
+include::../examples/gitlab_setup.yml[]
+EOF
+----
+======
+=======
+
+=== Define Controller Objects as Code
+
+With these files, the SuperAdmin repo will have all the CaC related playbooks that will create and/or destroy the objects at the Ansible Controller.
+
+==== (dev) Ansible Automation Platform Credentials will let the Job Templates to connect to the Controller
+[.console-input]
+[source,bash]
+----
+cat > orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_aap.yml <<EOF
+include::../examples/orgs_vars/superadmin/env/dev/controller_credentials.d/controller_credentials_aap.yml[]
+EOF
+----
+
+[NOTE]
+======
+Encrypting that file is not needed, as it is getting all the sensible information from the files in `group_vars`.
+======
+
+.#Content to be customized#
+==== (dev) Source Control Manager and GitLab API Token Credentials will let the Job Templates to connect to the GitLab repository/group
+[.console-input]
+[source,bash]
+----
+cat > orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_scm.yml <<EOF
+include::../examples/orgs_vars/superadmin/env/dev/controller_credentials.d/controller_credentials_scm.yml[]
+EOF
+----
+
+.#Content to be customized#
+[.console-input]
+[source,bash]
+----
+cat > orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_gitlab_api_token.yml <<EOF
+include::../examples/orgs_vars/superadmin/env/dev/controller_credentials.d/controller_credentials_gitlab_api_token.yml[]
+EOF
+----
+
+These files should be encrypted as they contains the private key and a token that will allow read/write access to the GitLab repository/group:
+
+[.console-input]
+[source,bash]
+----
+ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/{controller_credentials_scm.yml,controller_credentials_gitlab_api_token.yml}
+----
+
+==== (dev) Vault Credentials will let the Job Templates to decrypt the sensitive information from ``ansible-vault``ed files
+
+.#Content to be customized#
+[.console-input]
+[source,bash]
+----
+cat > orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_vault.yml <<EOF
+include::../examples/orgs_vars/superadmin/env/dev/controller_credentials.d/controller_credentials_vault.yml[]
+EOF
+----
+
+Encrypt the file in the same way as before:
+
+[.console-input]
+[source,bash]
+----
+ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_vault.yml
+----
+
+==== (dev) Galaxy Credential will let the Job Templates to connect to the Private Automation Hub and get the required Ansible Collections
+
+.#Content to be customized#
+[.console-input]
+[source,bash]
+----
+export AUTOMATIONHUB_HOST=lb-hub-dev-site.lab.example.com
+----
+
+.#Content to be customized#
+[.console-input]
+[source,bash]
+----
+cat > orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_galaxy.yml <<EOF
+include::../examples/orgs_vars/superadmin/env/dev/controller_credentials.d/controller_credentials_galaxy.yml[]
+EOF
+----
+
+Encrypt the file in the same way as before:
+
+[.console-input]
+[source,bash]
+----
+ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_galaxy.yml
+----
+
+==== (dev) Registry Credential will let the Job Templates to connect to the Private Automation Hub and get the required Execution Environments
+
+.#Content to be customized#
+[.console-input]
+[source,bash]
+----
+cat > orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_registry.yml <<EOF
+include::../examples/orgs_vars/superadmin/env/dev/controller_credentials.d/controller_credentials_registry.yml[]
+EOF
+----
+
+Encrypt the file in the same way as before:
+
+[.console-input]
+[source,bash]
+----
+ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_registry.yml
+----
+
+==== (dev) Execution Environments to be used by the Job Templates
+
+.#Content to be customized#
+[.console-input]
+[source,bash]
+----
+cat > orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_execution_environments.d/app-casc/controller_execution_environments_ee-casc.yml <<EOF
+include::../examples/orgs_vars/superadmin/env/dev/controller_execution_environments.d/app-casc/controller_execution_environments_ee-casc.yml[]
+EOF
+----
+
+==== (dev) Hosts to be used by the inventory for the Job Templates
+
+[.console-input]
+[source,bash]
+----
+cat > orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_hosts.d/aap-casc/controller_hosts.yml <<EOF
+include::../examples/orgs_vars/superadmin/env/dev/controller_hosts.d/aap-casc/controller_hosts.yml[]
+EOF
+----
+
+==== (dev) Users that will be administrators of the superadmin organization
+
+.#Content to be customized#
+[.console-input]
+[source,bash]
+----
+cat > orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_users.d/controller_user_accounts.yml <<EOF
+include::../examples/orgs_vars/superadmin/env/dev/controller_users.d/controller_user_accounts.yml[]
+EOF
+----
+
+This file should be encrypted as it contains the password of the superadmin user:
+
+[.console-input]
+[source,bash]
+----
+ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_users.d/controller_user_accounts.yml
+----
+
+==== (common) Credential Types that will be needed for the Job Templates
+
+[.console-input]
+[source,bash]
+----
+cat > orgs_vars/${SUPERADMIN_ORG}/env/common/controller_credential_types.d/aap-casc/controller_credential_types_gitlab_api.yml <<EOF
+include::../examples/orgs_vars/superadmin/env/common/controller_credential_types.d/aap-casc/controller_credential_types_gitlab_api.yml[]
+EOF
+----
+
+==== (common) Inventory to be used for the Job Templates
+
+[.console-input]
+[source,bash]
+----
+cat > orgs_vars/${SUPERADMIN_ORG}/env/common/controller_inventories.d/app-casc/controller_inventories_controller.yml <<EOF
+include::../examples/orgs_vars/superadmin/env/common/controller_inventories.d/app-casc/controller_inventories_controller.yml[]
+EOF
+----
+
+==== (common) Job Template to receive all the webhooks from GitLab
+
+[.console-input]
+[source,bash]
+----
+cat > orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-casc/controller_jt_casc_cd_webhook.yml <<EOF
+include::../examples/orgs_vars/superadmin/env/common/controller_job_templates.d/app-casc/controller_jt_casc_cd_webhook.yml[]
+EOF
+----
+
+==== (common) Job Template to deploy all the object defined as code
+
+[.console-input]
+[source,bash]
+----
+cat > orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-casc/controller_jt_casc_config.yml <<EOF
+include::../examples/orgs_vars/superadmin/env/common/controller_job_templates.d/app-casc/controller_jt_casc_config.yml[]
+EOF
+----
+
+==== (common) Job Template to remove all the objects in the Controller that are not defined as code
+
+[.console-input]
+[source,bash]
+----
+cat > orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-casc/controller_jt_casc_drop_diff.yml <<EOF
+include::../examples/orgs_vars/superadmin/env/common/controller_job_templates.d/app-casc/controller_jt_casc_drop_diff.yml[]
+EOF
+----
+
+==== (common) Job Template to create new GitLab repositories when creating additional organizations
+
+.#Content to be customized#
+[.console-input]
+[source,bash]
+----
+cat > orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-gitlab/controller_jt_casc_gitlab_project_creation.yml <<EOF
+include::../examples/orgs_vars/superadmin/env/common/controller_job_templates.d/app-gitlab/controller_jt_casc_gitlab_project_creation.yml[]
+EOF
+----
+
+==== (common) Job Template to configure the GitLab webhooks for each organization's repository to apply the CaC
+
+.#Content to be customized#
+[.console-input]
+[source,bash]
+----
+cat > orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-gitlab/controller_jt_casc_gitlab_webhook.yml <<EOF
+include::../examples/orgs_vars/superadmin/env/common/controller_job_templates.d/app-gitlab/controller_jt_casc_gitlab_webhook.yml[]
+EOF
+----
+
+==== (common) Organization to be created: `superadmin`
+
+[.console-input]
+[source,bash]
+----
+cat > orgs_vars/${SUPERADMIN_ORG}/env/common/controller_organizations.d/app-casc/controller_organization_superadmin.yml <<EOF
+include::../examples/orgs_vars/superadmin/env/common/controller_organizations.d/app-casc/controller_organization_superadmin.yml[]
+EOF
+----
+
+==== (common) Project to get the CaC related playbooks
+
+.#Content to be customized#
+[.console-input]
+[source,bash]
+----
+export PROJECT_URL_CASC='<superadmin_git_url>'
+----
+
+[.console-input]
+[source,bash]
+----
+cat > orgs_vars/${SUPERADMIN_ORG}/env/common/controller_projects.d/app-casc/controller_projects_casc.yml <<EOF
+include::../examples/orgs_vars/superadmin/env/common/controller_projects.d/app-casc/controller_projects_casc.yml[]
+EOF
+----
+
+==== (common) Project to get the GitLab related playbooks
+
+.#Content to be customized#
+[.console-input]
+[source,bash]
+----
+export PROJECT_URL_CASC_SETUP='<casc_setup_git_url>'
+----
+
+[.console-input]
+[source,bash]
+----
+cat > orgs_vars/${SUPERADMIN_ORG}/env/common/controller_projects.d/app-gitlab/controller_projects_gitlab.yml <<EOF
+include::../examples/orgs_vars/superadmin/env/common/controller_projects.d/app-gitlab/controller_projects_gitlab.yml[]
+EOF
+----
+
+==== (common) Workflow Job Template to manage the CaC of the organization SuperAdmin 
+
+[.console-input]
+[source,bash]
+----
+cat > orgs_vars/${SUPERADMIN_ORG}/env/common/controller_workflow_job_templates.d/app-casc/controller_workflow_job_templates_casc.yml <<EOF
+include::../examples/orgs_vars/superadmin/env/common/controller_workflow_job_templates.d/app-casc/controller_workflow_job_templates_casc.yml[]
+EOF
+----
+
+=== Commit and push the initial version of CaC
+
+Once all the objects are created in the local working directory, all the changes can be uploaded to the GitLab repository:
+
+[.console-input]
+[source,bash]
+----
+git init .
+git add .
+git branch -m dev
+git remote add origin ${PROJECT_URL_CASC}
+git commit -m "Initial commit"
+git push -u origin dev
+----
+
+[TIP]
+======
+Take in consideration that in this documentation the branch `dev` is used, but it can be any other branch if it have the corresponding environment configured as well.
+======

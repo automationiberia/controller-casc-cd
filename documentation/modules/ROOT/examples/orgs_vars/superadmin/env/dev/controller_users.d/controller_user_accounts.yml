@@ -1,0 +1,11 @@
+---
+controller_user_accounts:
+  - username: "superadmin"
+    password: "superpassword"
+    email: "superadmin@example.com"
+    firstname: "superadmin"
+    lastname: "superadmin"
+    is_auditor: False
+    is_superuser: True
+    update_secrets: False
+...
