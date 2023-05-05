@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Populate new organization objects :: Automation Controller configuration Continuous Deployment with CasC</title>
     <link rel="canonical" href="https://automationiberia.github.io/controller-casc-cd/controller-casc-cd/11-regularuser-initial-dir-and-files.html">
-    <link rel="prev" href="023-superadmin-create-new-organization.html">
+    <link rel="prev" href="10-regularuser.html">
     <link rel="next" href="12-regularuser-deploy-objects.html">
     <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../_/css/site.css">
@@ -105,14 +105,29 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">3. CasC setup part 2 (to be executed by an organization admin user)</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="2">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Day Zero</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="10-regularuser.html">Clone the newly assigned GitLab Repository</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="3">
     <a class="nav-link" href="11-regularuser-initial-dir-and-files.html">Populate new organization objects</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="12-regularuser-deploy-objects.html">Push the changes to create the new objects</a>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Day Two</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="12-regularuser-deploy-objects.html">Push the changes to create the new objects</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="13-regularuser-manual-change.html">Manual changes and revert them with Desired State</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -148,6 +163,7 @@
   <ul>
     <li><a href="index.html">Automation Controller configuration Continuous Deployment with CasC</a></li>
     <li>3. CasC setup part 2 (to be executed by an organization admin user)</li>
+    <li>Day Zero</li>
     <li><a href="11-regularuser-initial-dir-and-files.html">Populate new organization objects</a></li>
   </ul>
 </nav>
@@ -157,39 +173,23 @@
 <article class="doc">
 <h1 class="page">Populate new organization objects</h1>
 <div class="sect1">
-<h2 id="_create_orgname_organization_directory_structure_and_initial_files"><a class="anchor" href="#_create_orgname_organization_directory_structure_and_initial_files"></a>1. Create %ORGNAME% organization directory structure and initial files</h2>
+<h2 id="_create_the_organization_directory_structure_and_initial_files"><a class="anchor" href="#_create_the_organization_directory_structure_and_initial_files"></a>1. Create the organization directory structure and initial files</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The following lines will show the organization directory structure creation and how to populate the new objects for this organization.</p>
 </div>
 <div class="sect2">
-<h3 id="_directories_creation"><a class="anchor" href="#_directories_creation"></a>1.1. Directories creation</h3>
-<div class="exampleblock">
-<div class="content">
+<h3 id="_populate_a_new_project"><a class="anchor" href="#_populate_a_new_project"></a>1.1. Populate a new project</h3>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">mkdir -p group_vars/{all,dev,pro}
-mkdir -p orgs_vars/%ORGNAME%/env/{dev,pro}/controller_{instance_groups.d,instance_groups.d/app-example,hosts.d,hosts.d/aap-casc,users.d,users.d/app-example,execution_environments.d,execution_environments.d/app-casc,settings.d,settings.d/jobs,settings.d/user_interface,settings.d/authentication,settings.d/system,inventory_sources.d,credentials.d}
-mkdir -p orgs_vars/%ORGNAME%/env/common/controller_{schedules.d,schedules.d/app-casc,workflow_job_templates.d,workflow_job_templates.d/app-casc,job_templates.d,job_templates.d/app-casc,job_templates.d/app-example,job_templates.d/app-gitlab,projects.d,projects.d/app-casc,projects.d/app-gitlab,teams.d,credential_types.d,credential_types.d/aap-casc,roles.d,roles.d/app-example,inventories.d,inventories.d/app-casc,organizations.d,organizations.d/app-casc,organizations.d/app-example,credentials.d}</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_populate_a_new_project"><a class="anchor" href="#_populate_a_new_project"></a>1.2. Populate a new project</h3>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">cat &gt; orgs_vars/%ORGNAME%/env/common/controller_projects.d/project_example.yaml &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">cat &gt; orgs_vars/${ORGNAME}/env/common/controller_projects.d/project_example.yaml &lt;&lt;EOF
 ---
 controller_projects:
-  - name: "%ORGNAME%_project_example"
+  - name: "${ORGNAME}_project_example"
     description: "Project to include some example job_templates"
-    organization: "%ORGNAME%"
+    organization: "${ORGNAME}"
     scm_type: git
-    scm_url: "https://gitlab.com/automationiberia/aap-cac/project_example.git"
+    scm_url: "${GITORG}"
     scm_clean: false
     scm_delete_on_update: false
     scm_update_on_launch: false
@@ -200,64 +200,53 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-</div>
-</div>
 <div class="sect2">
-<h3 id="_populate_a_new_job_template"><a class="anchor" href="#_populate_a_new_job_template"></a>1.3. Populate a new job_template</h3>
-<div class="exampleblock">
-<div class="content">
+<h3 id="_populate_a_new_job_template"><a class="anchor" href="#_populate_a_new_job_template"></a>1.2. Populate a new job_template</h3>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">cat &gt; orgs_vars/%ORGNAME%/env/common/controller_job_templates.d/job_template_example.yaml &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">cat &gt; orgs_vars/${ORGNAME}/env/common/controller_job_templates.d/job_template_example.yaml &lt;&lt;EOF
 ---
 controller_templates:
-  - name: "%ORGNAME% New Job Template"
+  - name: "${ORGNAME} New Job Template"
     description: "Template to show how to add a new JT"
-    organization: "%ORGNAME%"
-    project: "%ORGNAME%_project_example"
-    inventory: "%ORGNAME% Localhost"
+    organization: "${ORGNAME}"
+    project: "${ORGNAME}_project_example"
+    inventory: "${ORGNAME} Localhost"
     playbook: "job_template.yaml"
     job_type: run
 ...
-
 EOF</code></pre>
 </div>
 </div>
 </div>
-</div>
-</div>
 <div class="sect2">
-<h3 id="_populate_a_new_inventory_and_host"><a class="anchor" href="#_populate_a_new_inventory_and_host"></a>1.4. Populate a new inventory and host</h3>
-<div class="exampleblock">
-<div class="content">
+<h3 id="_populate_a_new_inventory_and_host"><a class="anchor" href="#_populate_a_new_inventory_and_host"></a>1.3. Populate a new inventory and host</h3>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">cat &gt; orgs_vars/%ORGNAME%/env/common/controller_inventories.d/inventory_example.yaml &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">cat &gt; orgs_vars/${ORGNAME}/env/common/controller_inventories.d/inventory_example.yaml &lt;&lt;EOF
 ---
 controller_inventories:
-  - name: "%ORGNAME% Localhost"
+  - name: "${ORGNAME} Localhost"
     description: "Inventory for the Localhost"
-    organization: "%ORGNAME%"
+    organization: "${ORGNAME}"
 ...
 EOF
 
-cat &gt; orgs_vars/%ORGNAME%/env/{dev,pro}/controller_hosts.d/inventory_example.yaml &lt;&lt;EOF
+cat &gt; orgs_vars/${ORGNAME}/env/{dev,pro}/controller_hosts.d/host_example.yaml &lt;&lt;EOF
 ---
 controller_hosts:
   - name: localhost
     description: localhost
-    inventory: "%ORGNAME% Localhost"
+    inventory: "${ORGNAME} Localhost"
 ...
 EOF</code></pre>
-</div>
-</div>
 </div>
 </div>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="023-superadmin-create-new-organization.html">Create New Organization</a></span>
+  <span class="prev"><a href="10-regularuser.html">Clone the newly assigned GitLab Repository</a></span>
   <span class="next"><a href="12-regularuser-deploy-objects.html">Push the changes to create the new objects</a></span>
 </nav>
 </article>

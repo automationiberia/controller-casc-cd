@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Regular User :: Automation Controller configuration Continuous Deployment with CasC</title>
     <link rel="canonical" href="https://automationiberia.github.io/controller-casc-cd/controller-casc-cd/10-regularuser.html">
+    <link rel="prev" href="023-superadmin-create-new-organization.html">
+    <link rel="next" href="11-regularuser-initial-dir-and-files.html">
     <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../_/css/site.css">
 <link rel="icon" href="../_/img/favicon.ico" type="image/x-icon">
@@ -104,13 +106,28 @@
     <span class="nav-text">3. CasC setup part 2 (to be executed by an organization admin user)</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Day Zero</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="10-regularuser.html">Clone the newly assigned GitLab Repository</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="11-regularuser-initial-dir-and-files.html">Populate new organization objects</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="12-regularuser-deploy-objects.html">Push the changes to create the new objects</a>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Day Two</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="12-regularuser-deploy-objects.html">Push the changes to create the new objects</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="13-regularuser-manual-change.html">Manual changes and revert them with Desired State</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -145,7 +162,9 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Automation Controller configuration Continuous Deployment with CasC</a></li>
-    <li><a href="10-regularuser.html">Regular User</a></li>
+    <li>3. CasC setup part 2 (to be executed by an organization admin user)</li>
+    <li>Day Zero</li>
+    <li><a href="10-regularuser.html">Clone the newly assigned GitLab Repository</a></li>
   </ul>
 </nav>
   <div class="edit-this-page"><a href="https://github.com/automationiberia/controller-casc-cd/edit/main/documentation/modules/ROOT/pages/10-regularuser.adoc">Edit this Page</a></div>
@@ -156,33 +175,618 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Now, we are going to create a few objects for the new organization with a GitOps approach.</p>
+<p>The SuperAdmin user has created all the objects needed for the new regular organization.</p>
 </div>
 <div class="paragraph">
-<p>There is already a repository deployed with a some example playbooks: <mark>ToDo: URL al repo</mark>. A project pointing to this repository will be created.</p>
+<p>The credentials to access the Automation Controller by the new regular organization&#8217;s administrator account has been provided to the correct people.</p>
 </div>
 <div class="paragraph">
-<p>The following steps will populate and deploy different obects in the controller: a project, a job_template, an inventory and a credential.
-Once these new objects were deployed, an intentionally wrong change will be made to, afterwards, test a rollback.</p>
+<p>All the following steps will be performed by the new organization&#8217;s administrator user, who also have access to the GitLab repository created to contain all the organizations' objects.</p>
+</div>
+<div class="paragraph">
+<p>All the steps described here are also available in the <code>README.md</code> file at the new organization&#8217;s GitLab repository.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_clone_the_repository_and_create_a_new_branch"><a class="anchor" href="#_clone_the_repository_and_create_a_new_branch"></a>Clone the repository and create a new branch</h2>
+<h2 id="_clone_the_repository_and_create_a_new_branch"><a class="anchor" href="#_clone_the_repository_and_create_a_new_branch"></a>1. Clone the repository and create a new branch</h2>
 <div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>All the steps could also be done creating/editing the files directly at the GitLab repository using the Web UI, but this approach is not recommended as a general option. Instead of this, use a local copy of the repository to work there.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock console-input">
+<div class="title">Export the repository URL <mark>Content to be customized</mark></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">export ORGNAME=NewOrg
+export GITORG=git@gitlab.iam.lab:automationiberia/aap-cac/${ORGNAME}.git</code></pre>
+</div>
+</div>
+<div class="listingblock console-input">
+<div class="title">The first step is cloning the repository</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">git clone ${GITORG}
+cd ${ORGNAME}/
+git checkout -b casc-dev-day0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Before using CasC as a GitOps approach, it is needed to launch an initialization from CLI which it is called Day-Zero.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_edit_credentials_to_connect_to_the_controller_for_day_zero"><a class="anchor" href="#_edit_credentials_to_connect_to_the_controller_for_day_zero"></a>2. Edit credentials to connect to the controller for day zero.</h2>
+<div class="sectionbody">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">vi group_vars/dev/configure_connection_controller_credentials.yml</code></pre>
+</div>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">vi group_vars/pro/configure_connection_controller_credentials.yml</code></pre>
+</div>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-vault encrypt group_vars/dev/configure_connection_controller_credentials.yml group_vars/pro/configure_connection_controller_credentials.yml</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_edit_credentials_objects"><a class="anchor" href="#_edit_credentials_objects"></a>3. Edit credentials objects</h2>
+<div class="sectionbody">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">vi orgs_vars/${ORGNAME}/env/dev/controller_credentials.d/controller_credentials.yml</code></pre>
+</div>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">vi orgs_vars/${ORGNAME}/env/pro/controller_credentials.d/controller_credentials.yml</code></pre>
+</div>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-vault encrypt orgs_vars/${ORGNAME}/env/pro/controller_credentials.d/* orgs_vars/${ORGNAME}/env/dev/controller_credentials.d/*</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_check_the_inventory_file"><a class="anchor" href="#_check_the_inventory_file"></a>4. Check the inventory file</h2>
+<div class="sectionbody">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat inventory</code></pre>
+</div>
+</div>
 <div class="exampleblock">
+<div class="title">Example 1. Sample inventory file</div>
 <div class="content">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">git clone git@gitlab.com:%GITLABGROUP%/%ORGNAME%.git
-cd %ORGNAME%/
-git checkout -b creation_new_objects</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[dev]
+aap22dev.iam.lab
+
+[pro]
+aap22prod.iam.lab</code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_creating_the_vault_password_file"><a class="anchor" href="#_creating_the_vault_password_file"></a>5. Creating the <code>.vault_password</code> file</h2>
+<div class="sectionbody">
+<div class="listingblock console-input">
+<div class="title"><mark>Content to be customized</mark></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">echo "my_vault_pass" &gt; ./.vault_password</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_launch_ansible_navigator_from_cli_to_setup_day_zero_of_casc"><a class="anchor" href="#_launch_ansible_navigator_from_cli_to_setup_day_zero_of_casc"></a>6. Launch ansible-navigator from CLI to setup day-zero of CasC</h2>
+<div class="sectionbody">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-navigator run casc_ctrl_config.yml -i inventory -l dev -e "{orgs: '${ORGNAME}', dir_orgs_vars: orgs_vars, env: dev}" -m stdout --eei quay.io/automationiberia/aap/ee-casc --vault-password-file .vault_password</code></pre>
+</div>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-navigator run casc_ctrl_config.yml -i inventory -l pro -e "{orgs: '${ORGNAME}', dir_orgs_vars: orgs_vars, env: pro}" -m stdout --eei quay.io/automationiberia/aap/ee-casc --vault-password-file .vault_password</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_push_the_changes"><a class="anchor" href="#_push_the_changes"></a>7. Push the changes</h2>
+<div class="sectionbody">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git status -s
+git add -A
+git commit -m "CasC day zero"
+git push origin casc-dev-day0</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Pomote the <code>casc-dev-day0</code> branch to dev (<code>dev</code> branch)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Select the source branch as <code>casc-dev-day0</code> and <code>dev</code> as the destination one]
+![New Merge Request Dev](images/newmrtodev-0.png "New Merge Request Dev")</p>
+</li>
+<li>
+<p>Fill in the merge request information
+![Fill in the merge request information](images/newmrtodev-0-step2.png "Fill in the merge request information")</p>
+</li>
+<li>
+<p>Approve the Merge Request.
+![New Merge Request Pro](images/newmrtodev-0-step3.png "Merge the merge request")</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Promote the <code>dev</code> branch to pro (<code>pro</code> branch)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Select the source branch as <code>dev</code> and <code>pro</code> as the destination one]
+![New Merge Request Pro](images/newmrtopro.png "New Merge Request Pro")</p>
+</li>
+<li>
+<p>Fill in the merge request information
+![Fill in the merge request information](images/newmrtoprostep2.png "Fill in the merge request information")</p>
+<div class="literalblock">
+<div class="content">
+<pre>&gt; :warning: **Be sure to write a title that have sense for the Merge Request**: The default value here is `dev`, that is not usefull at all!</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Approve the Merge Request.
+![New Merge Request Pro](images/newmrtoprostep3.png "Merge the merge request")</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Configure the webhooks for both environments: DEV and PRO.</p>
+<div class="literalblock">
+<div class="content">
+<pre>&gt; **_NOTE:_** You can use the playbook gitlab_webhook.yml or do it manually if you prefer how it is done:</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>AUTOMATICALLY WITH A PLAYBOOK (it is needed to change &lt;user&gt; and &lt;token&gt; in the command. Also it can be used gitlab_api_password instead of gitlab_api_token in case it is used a password.):</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>```
+ansible-navigator run gitlab_webhook.yml -i inventory -l dev -e '{gitlab_action_push: true, gitlab_action_tag: false, gitlab_branch_filter: dev, gitlab_api_user: &lt;user&gt;, gitlab_api_token: &lt;token&gt;}' -m stdout --eei quay.io/automationiberia/aap/ee-casc --vault-password-file .vault_password
+ansible-navigator run gitlab_webhook.yml -i inventory -l pro -e '{gitlab_action_push: false, gitlab_action_tag: true, gitlab_api_user: &lt;user&gt;, gitlab_api_token: &lt;token&gt;}' -m stdout --eei quay.io/automationiberia/aap/ee-casc --vault-password-file .vault_password
+```</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>MANUALLY IN DEV (only if you didn't by the playbook):</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Go to Dev Controller and open NewOrg CasC_AAP_Workflow</p>
+</li>
+<li>
+<p>Copy the content of "Webhook URL" and "Webhook Key"</p>
+</li>
+<li>
+<p>Go to Gitlab &#8594; Settings &#8594; Webhooks</p>
+</li>
+<li>
+<p>Paste the content of "Webhook URL" and "Webhook Key" in the gaps "URL" and "Secret Content"</p>
+</li>
+<li>
+<p>Select Push events and fill the gap with dev</p>
+<div class="literalblock">
+<div class="content">
+<pre>![pusheventdev](images/pusheventdev.png)</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>MANUALLY IN PRO (only if you didn't by the playbook):</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Go to PRO Controller and open NewOrg CasC_AAP_Workflow</p>
+</li>
+<li>
+<p>Copy the content of "Webhook URL" and "Webhook Key"</p>
+</li>
+<li>
+<p>Go to Gitlab &#8594; Settings &#8594; Webhooks</p>
+</li>
+<li>
+<p>Paste the content of "Webhook URL" and "Webhook Key" in the gaps "URL" and "Secret Content"</p>
+</li>
+<li>
+<p>Select Tag events and fill the gap with dev</p>
+<div class="literalblock">
+<div class="content">
+<pre>![pusheventdev](images/tageventpro.png)</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="_gitops_flow"><a class="anchor" href="#_gitops_flow"></a>7.1. GitOps flow</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Clone the given repository:</p>
+<div class="literalblock">
+<div class="content">
+<pre>```
+git clone git@gitlab.iam.lab:automationiberia/aap-cac/NewOrg.git</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>cd NewOrg/
+```</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a new branch from <code>dev</code> to introduce the new items:</p>
+<div class="literalblock">
+<div class="content">
+<pre>```
+git checkout dev
+git checkout -b add_info_job_template
+```</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add a new Playbook and a new Job Template</p>
+<div class="literalblock">
+<div class="content">
+<pre>File: `new_playbook1.yaml`
+```
+cat &gt; new_playbook1.yaml &lt;&lt;EOF
+---
+- name: "Play to show the hostname"
+  hosts: all
+  tasks:
+    - name: "Show the hostname"
+      debug:
+        msg:
+          - "This server is called (from Ansible inventory):     {{ inventory_hostname }}"
+          - "This server is called (from Execution Environment): {{ lookup('pipe', 'cat /etc/hostname') }}"
+          - "Running as user: {{ lookup('pipe', 'id') }}"
+...
+EOF
+```</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>File: `new_playbook2.yaml`
+```
+cat &gt; new_playbook2.yaml &lt;&lt;EOF
+---
+- name: "Play to show the hostname"
+  hosts: all
+  connection: local
+  tasks:
+    - name: "Show the hostname"
+      debug:
+        msg:
+          - "This server is called (from Ansible inventory):     {{ inventory_hostname }}"
+          - "This server is called (from Execution Environment): {{ lookup('pipe', 'cat /etc/hostname') }}"
+          - "Running as user: {{ lookup('pipe', 'id') }}"
+...
+EOF
+```</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>File: `orgs_vars/NewOrg/env/common/controller_job_templates.d/new_job_template.yaml`
+```
+cat &gt; orgs_vars/NewOrg/env/common/controller_job_templates.d/new_job_template.yaml &lt;&lt;EOF
+---
+controller_templates:
+  - name: "{{ orgs }} New Job Template"
+    description: "Template to show how to add a new JT"
+    organization: "{{ orgs }}"
+    project: "{{ orgs }} CasC_Data"
+    inventory: "{{ orgs }} Localhost"
+    playbook: "new_playbook1.yaml"
+    job_type: run
+    fact_caching_enabled: false
+    concurrent_jobs_enabled: true
+    ask_scm_branch_on_launch: true
+    extra_vars:
+      ansible_python_interpreter: /usr/bin/python3
+      ansible_async_dir: /home/runner/.ansible_async/
+    execution_environment: "ee-casc"
+...
+EOF
+```</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Commit the changes to the new branch</p>
+<div class="literalblock">
+<div class="content">
+<pre>```
+git add -A .
+git commit -am "Add new playbook and job template to show server information"
+git push -u origin add_info_job_template
+```</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a Merge Request to <code>dev</code> branch &lt;a name="mrtodev"&gt;&lt;/a&gt;</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Go to Merge Requests and create a new merge request
+![New merge request](images/mrtodev.png "New merge request")</p>
+</li>
+<li>
+<p>Select the source branch <code>add_info_job_template</code> and <code>dev</code> as the destination one
+![New merge request to dev](images/newmrtodev.png "New merge request to dev")</p>
+</li>
+<li>
+<p>Fill in the merge request information
+![Fill in the merge request information](images/newmrtodevstep2.png "Fill in the merge request information")</p>
+</li>
+<li>
+<p>Merge the merge request
+![Merge the merge request](images/newmrtodevstep3.png "Merge the merge request")</p>
+<hr>
+<div class="literalblock">
+<div class="content">
+<pre>The following automated process has ben executed at the Ansible Automation Controller:</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>![Look at the Ansible Automation Controller's jobs](images/devworkflowjobs.png "Look at the Ansible Automation Controller's jobs")</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>The following diagram shows the components of the workflow:</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>![Workflow Diagram](images/workflowdiagram.png "Workflow Diagram")</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Of course, the new Job Template has been created:</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>![New Job Template Dev](images/newjtdev.png "New Job Template Dev")</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Pomote the <code>dev</code> branch to production (<code>pro</code> branch) &lt;a name="mrdevtopro"&gt;&lt;/a&gt;</p>
+<div class="literalblock">
+<div class="content">
+<pre>Similarly to the [step 5](#mrtodev), create a new Merge Request from the `dev` branch to the `pro` branch:</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Select the source branch as <code>dev</code> and <code>pro</code> as the destination one]
+![New Merge Request Pro](images/newmrtopro.png "New Merge Request Pro")</p>
+</li>
+<li>
+<p>Fill in the merge request information
+![Fill in the merge request information](images/newmrtoprostep2.png "Fill in the merge request information")</p>
+<div class="literalblock">
+<div class="content">
+<pre>&gt; :warning: **Be sure to write a title that have sense for the Merge Request**: The default value here is `dev`, that is not usefull at all!</pre>
+</div>
+</div>
+<hr>
+<div class="literalblock">
+<div class="content">
+<pre>When the Merge Request is already merged, the new Job Template is also created in the `pro` environment:</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>![New Job Template Pro](images/newjtpro.png "New Job Template Pro")</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Run the new Job Template at PRO &lt;a name="runjtpro"&gt;&lt;/a&gt;</p>
+<div class="literalblock">
+<div class="content">
+<pre>Run the Job Template:
+![Run the JT](images/launchjtpro.png "Run the JT")</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>and check that it is failing:
+![Job Template PRO failed](images/jtprofailed.png "Job Template PRO failed")</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Rollback the PRO environment to previously working tag</p>
+<div class="literalblock">
+<div class="content">
+<pre>To rollback the status of the controller to a previous working version, it's only needed to run the following Job Templates:</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Run the Job Template <code>casc-twitch-demo CasC_JobTemplates_AAP_Drop_Diff</code> with the previous working version:
+![Run the JT casc-twitch-demo CasC_JobTemplates_AAP_Drop_Diff](images/rollbackddv0.2.png "Run the JT casc-twitch-demo CasC_JobTemplates_AAP_Drop_Diff")</p>
+</li>
+<li>
+<p>Run the Job Template <code>casc-twitch-demo CasC_JobTemplates_AAP_CD_Config_Controller</code> with the previous working version:
+![Run the JT casc-twitch-demo CasC_JobTemplates_AAP_CD_Config_Controller](images/rollbackccv0.2.png "Run the JT casc-twitch-demo CasC_JobTemplates_AAP_CD_Config_Controller")</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Fix your playbook</p>
+<div class="literalblock">
+<div class="content">
+<pre>```
+git checkout dev
+git pull
+git checkout -b fix_playbook
+```</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Modify the Job Template to use the correct playbook:</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>`playbook: "new_playbook2.yaml"`</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Updated file: `orgs_vars/NewOrg/env/common/controller_job_templates.d/new_job_template.yaml`
+```yaml
+---
+controller_templates:
+  - name: "{{ orgs }} New Job Template"
+    description: "Template to show how to add a new JT"
+    organization: "{{ orgs }}"
+    project: "{{ orgs }} CasC_Data"
+    inventory: "{{ orgs }} Localhost"
+    playbook: "new_playbook2.yaml"
+    job_type: run
+    fact_caching_enabled: false
+    concurrent_jobs_enabled: true
+    ask_scm_branch_on_launch: true
+    extra_vars:
+      ansible_python_interpreter: /usr/bin/python3
+      ansible_async_dir: /home/runner/.ansible_async/
+    execution_environment: "ee-casc"
+...
+```</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Commit and push your changes:</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>```
+git commit -am "Fix the connection method"
+git push -u origin fix_playbook
+```</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Create a Merge Request to `dev` branch:</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>![Create New Merge Request from <code>fix_playbook</code> to Dev](images/newmrtodev-fix_playbook.png "Create New Merge Request from <code>fix_playbook</code> to Dev")</p>
+</li>
+<li>
+<p>![New Merge Request from <code>fix_playbook</code> to Dev](images/newmrtodev-fix_playbook-step2.png "New Merge Request from <code>fix_playbook</code> to Dev")</p>
+</li>
+<li>
+<p>![Merge the Request](images/newmrtodev-fix_playbook-step3.png "Merge the Request")</p>
+<div class="literalblock">
+<div class="content">
+<pre>Repeat the steps to create a new Merge Request from `dev` to `pro`, as described at [step 6](#mrdevtopro)</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Run again the new Job Template at PRO &lt;a name="runjtpro"&gt;&lt;/a&gt;</p>
+<div class="literalblock">
+<div class="content">
+<pre>Run again the Job Template:
+![Run the JT](images/launchjtpro.png "Run the JT")</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>and check that it is working fine now:
+![Job Template PRO failed](images/jtprosuccess.png "Job Template PRO failed")</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="023-superadmin-create-new-organization.html">Create New Organization</a></span>
+  <span class="next"><a href="11-regularuser-initial-dir-and-files.html">Populate new organization objects</a></span>
+</nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="3">
   <div class="toc-menu"></div>
