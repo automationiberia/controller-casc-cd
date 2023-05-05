@@ -2,34 +2,22 @@
 
 = Populate new organization objects
 
-== Create %ORGNAME% organization directory structure and initial files
+== Create the organization directory structure and initial files
 
 The following lines will show the organization directory structure creation and how to populate the new objects for this organization.
 
-=== Directories creation
-====
-[.console-input]
-[source,console]
-----
-mkdir -p group_vars/{all,dev,pro}
-mkdir -p orgs_vars/%ORGNAME%/env/{dev,pro}/controller_{instance_groups.d,instance_groups.d/app-example,hosts.d,hosts.d/aap-casc,users.d,users.d/app-example,execution_environments.d,execution_environments.d/app-casc,settings.d,settings.d/jobs,settings.d/user_interface,settings.d/authentication,settings.d/system,inventory_sources.d,credentials.d}
-mkdir -p orgs_vars/%ORGNAME%/env/common/controller_{schedules.d,schedules.d/app-casc,workflow_job_templates.d,workflow_job_templates.d/app-casc,job_templates.d,job_templates.d/app-casc,job_templates.d/app-example,job_templates.d/app-gitlab,projects.d,projects.d/app-casc,projects.d/app-gitlab,teams.d,credential_types.d,credential_types.d/aap-casc,roles.d,roles.d/app-example,inventories.d,inventories.d/app-casc,organizations.d,organizations.d/app-casc,organizations.d/app-example,credentials.d}
-----
-====
-
 === Populate a new project
-====
 [.console-input]
 [source,console]
 ----
-cat > orgs_vars/%ORGNAME%/env/common/controller_projects.d/project_example.yaml <<EOF
+cat > orgs_vars/${ORGNAME}/env/common/controller_projects.d/project_example.yaml <<EOF
 ---
 controller_projects:
-  - name: "%ORGNAME%_project_example"
+  - name: "${ORGNAME}_project_example"
     description: "Project to include some example job_templates"
-    organization: "%ORGNAME%"
+    organization: "${ORGNAME}"
     scm_type: git
-    scm_url: "https://gitlab.com/automationiberia/aap-cac/project_example.git"
+    scm_url: "${GITORG}"
     scm_clean: false
     scm_delete_on_update: false
     scm_update_on_launch: false
@@ -38,50 +26,44 @@ controller_projects:
 ...
 EOF
 ----
-====
 
 === Populate a new job_template
-====
 [.console-input]
 [source,console]
 ----
-cat > orgs_vars/%ORGNAME%/env/common/controller_job_templates.d/job_template_example.yaml <<EOF
+cat > orgs_vars/${ORGNAME}/env/common/controller_job_templates.d/job_template_example.yaml <<EOF
 ---
 controller_templates:
-  - name: "%ORGNAME% New Job Template"
+  - name: "${ORGNAME} New Job Template"
     description: "Template to show how to add a new JT"
-    organization: "%ORGNAME%"
-    project: "%ORGNAME%_project_example"
-    inventory: "%ORGNAME% Localhost"
+    organization: "${ORGNAME}"
+    project: "${ORGNAME}_project_example"
+    inventory: "${ORGNAME} Localhost"
     playbook: "job_template.yaml"
     job_type: run
 ...
-
 EOF
 ----
-====
 
 === Populate a new inventory and host
-====
 [.console-input]
 [source,console]
 ----
-cat > orgs_vars/%ORGNAME%/env/common/controller_inventories.d/inventory_example.yaml <<EOF
+cat > orgs_vars/${ORGNAME}/env/common/controller_inventories.d/inventory_example.yaml <<EOF
 ---
 controller_inventories:
-  - name: "%ORGNAME% Localhost"
+  - name: "${ORGNAME} Localhost"
     description: "Inventory for the Localhost"
-    organization: "%ORGNAME%"
+    organization: "${ORGNAME}"
 ...
 EOF
 
-cat > orgs_vars/%ORGNAME%/env/{dev,pro}/controller_hosts.d/inventory_example.yaml <<EOF
+cat > orgs_vars/${ORGNAME}/env/{dev,pro}/controller_hosts.d/host_example.yaml <<EOF
 ---
 controller_hosts:
   - name: localhost
     description: localhost
-    inventory: "%ORGNAME% Localhost"
+    inventory: "${ORGNAME} Localhost"
 ...
 EOF
 ----
-====

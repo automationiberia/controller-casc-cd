@@ -15,7 +15,9 @@
 // ** xref:02-deploy.adoc#deploy[Test]
 
 * 3. CasC setup part 2 (to be executed by an organization admin user)
-// ** xref:10-regularuser.adoc[Actions to be executed by Admin user of a normal Organization]
-** xref:11-regularuser-initial-dir-and-files.adoc[Populate new organization objects]
-** xref:12-regularuser-deploy-objects.adoc[Push the changes to create the new objects]
-** xref:13-regularuser-manual-change.adoc[Manual changes and revert them with Desired State]
+** Day Zero
+*** xref:10-regularuser.adoc[Clone the newly assigned GitLab Repository]
+*** xref:11-regularuser-initial-dir-and-files.adoc[Populate new organization objects]
+** Day Two
+*** xref:12-regularuser-deploy-objects.adoc[Push the changes to create the new objects]
+*** xref:13-regularuser-manual-change.adoc[Manual changes and revert them with Desired State]
