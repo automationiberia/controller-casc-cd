@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Populate new organization objects :: Automation Controller configuration Continuous Deployment with CasC</title>
+    <link rel="canonical" href="https://automationiberia.github.io/controller-casc-cd/controller-casc-cd/11-regularuser-initial-dir-and-files.html">
+    <link rel="prev" href="023-superadmin-create-new-organization.html">
+    <link rel="next" href="12-regularuser-deploy-objects.html">
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../_/css/site.css">
+<link rel="icon" href="../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://developers.redhat.com" target="_blank"><img
+          src="../_/img/header_logo.png" height="40px" alt="Red Hat Developer Program"></a>
+      <a class="navbar-item" href="https://automationiberia.github.io/controller-casc-cd">Automation Controller configuration Continuous Deployment with CasC</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Books</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">CheatSheets</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">CheatSheet A</a>
+            <a class="navbar-item" href="#">CheatSheet B</a>
+            <a class="navbar-item" href="#">CheatSheet C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Upcoming Events</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Event A</a>
+            <a class="navbar-item" href="#">Event B</a>
+            <a class="navbar-item" href="#">Event C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">More Tutorials</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Tutorial A</a>
+            <a class="navbar-item" href="#">Tutorial B</a>
+            <a class="navbar-item" href="#">Tutorial C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="controller-casc-cd" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">Automation Controller configuration Continuous Deployment with CasC</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html#_quick_introduction_to_cac">1. Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">2. CasC setup part 1 (to be executed by a controller admin user)</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Day Zero</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html">Create SuperAdmin organization directory structure and initial files</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="022-deploy-superadmin-objects.html">Deploy the SuperAdmin objects</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Day Two</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="023-superadmin-create-new-organization.html">Create New Organization</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">3. CasC setup part 2 (to be executed by an organization admin user)</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="11-regularuser-initial-dir-and-files.html">Populate new organization objects</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="12-regularuser-deploy-objects.html">Push the changes to create the new objects</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="13-regularuser-manual-change.html">Manual changes and revert them with Desired State</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Automation Controller configuration Continuous Deployment with CasC</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Automation Controller configuration Continuous Deployment with CasC</span>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Automation Controller configuration Continuous Deployment with CasC</a></li>
+    <li>3. CasC setup part 2 (to be executed by an organization admin user)</li>
+    <li><a href="11-regularuser-initial-dir-and-files.html">Populate new organization objects</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/automationiberia/controller-casc-cd/edit/main/documentation/modules/ROOT/pages/11-regularuser-initial-dir-and-files.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Populate new organization objects</h1>
+<div class="sect1">
+<h2 id="_create_orgname_organization_directory_structure_and_initial_files"><a class="anchor" href="#_create_orgname_organization_directory_structure_and_initial_files"></a>1. Create %ORGNAME% organization directory structure and initial files</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following lines will show the organization directory structure creation and how to populate the new objects for this organization.</p>
+</div>
+<div class="sect2">
+<h3 id="_directories_creation"><a class="anchor" href="#_directories_creation"></a>1.1. Directories creation</h3>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">mkdir -p group_vars/{all,dev,pro}
+mkdir -p orgs_vars/%ORGNAME%/env/{dev,pro}/controller_{instance_groups.d,instance_groups.d/app-example,hosts.d,hosts.d/aap-casc,users.d,users.d/app-example,execution_environments.d,execution_environments.d/app-casc,settings.d,settings.d/jobs,settings.d/user_interface,settings.d/authentication,settings.d/system,inventory_sources.d,credentials.d}
+mkdir -p orgs_vars/%ORGNAME%/env/common/controller_{schedules.d,schedules.d/app-casc,workflow_job_templates.d,workflow_job_templates.d/app-casc,job_templates.d,job_templates.d/app-casc,job_templates.d/app-example,job_templates.d/app-gitlab,projects.d,projects.d/app-casc,projects.d/app-gitlab,teams.d,credential_types.d,credential_types.d/aap-casc,roles.d,roles.d/app-example,inventories.d,inventories.d/app-casc,organizations.d,organizations.d/app-casc,organizations.d/app-example,credentials.d}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_populate_a_new_project"><a class="anchor" href="#_populate_a_new_project"></a>1.2. Populate a new project</h3>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">cat &gt; orgs_vars/%ORGNAME%/env/common/controller_projects.d/project_example.yaml &lt;&lt;EOF
+---
+controller_projects:
+  - name: "%ORGNAME%_project_example"
+    description: "Project to include some example job_templates"
+    organization: "%ORGNAME%"
+    scm_type: git
+    scm_url: "https://gitlab.com/automationiberia/aap-cac/project_example.git"
+    scm_clean: false
+    scm_delete_on_update: false
+    scm_update_on_launch: false
+    scm_update_cache_timeout: 86400
+    allow_override: true
+...
+EOF</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_populate_a_new_job_template"><a class="anchor" href="#_populate_a_new_job_template"></a>1.3. Populate a new job_template</h3>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">cat &gt; orgs_vars/%ORGNAME%/env/common/controller_job_templates.d/job_template_example.yaml &lt;&lt;EOF
+---
+controller_templates:
+  - name: "%ORGNAME% New Job Template"
+    description: "Template to show how to add a new JT"
+    organization: "%ORGNAME%"
+    project: "%ORGNAME%_project_example"
+    inventory: "%ORGNAME% Localhost"
+    playbook: "job_template.yaml"
+    job_type: run
+...
+
+EOF</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_populate_a_new_inventory_and_host"><a class="anchor" href="#_populate_a_new_inventory_and_host"></a>1.4. Populate a new inventory and host</h3>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">cat &gt; orgs_vars/%ORGNAME%/env/common/controller_inventories.d/inventory_example.yaml &lt;&lt;EOF
+---
+controller_inventories:
+  - name: "%ORGNAME% Localhost"
+    description: "Inventory for the Localhost"
+    organization: "%ORGNAME%"
+...
+EOF
+
+cat &gt; orgs_vars/%ORGNAME%/env/{dev,pro}/controller_hosts.d/inventory_example.yaml &lt;&lt;EOF
+---
+controller_hosts:
+  - name: localhost
+    description: localhost
+    inventory: "%ORGNAME% Localhost"
+...
+EOF</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="023-superadmin-create-new-organization.html">Create New Organization</a></span>
+  <span class="next"><a href="12-regularuser-deploy-objects.html">Push the changes to create the new objects</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="3">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <a class="rhd-logo" href="https://developers.redhat.com" target="_blank"></div>
+</footer>
+<script src="../_/js/vendor/clipboard.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

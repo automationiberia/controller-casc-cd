@@ -1,0 +1,2101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Untitled :: Automation Controller configuration Continuous Deployment with CasC</title>
+    <link rel="canonical" href="https://automationiberia.github.io/controller-casc-cd/controller-casc-cd/021-initial-dir-and-files.html">
+    <link rel="prev" href="index.html#_quick_introduction_to_cac">
+    <link rel="next" href="022-deploy-superadmin-objects.html">
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../_/css/site.css">
+<link rel="icon" href="../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://developers.redhat.com" target="_blank"><img
+          src="../_/img/header_logo.png" height="40px" alt="Red Hat Developer Program"></a>
+      <a class="navbar-item" href="https://automationiberia.github.io/controller-casc-cd">Automation Controller configuration Continuous Deployment with CasC</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Books</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">CheatSheets</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">CheatSheet A</a>
+            <a class="navbar-item" href="#">CheatSheet B</a>
+            <a class="navbar-item" href="#">CheatSheet C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Upcoming Events</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Event A</a>
+            <a class="navbar-item" href="#">Event B</a>
+            <a class="navbar-item" href="#">Event C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">More Tutorials</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Tutorial A</a>
+            <a class="navbar-item" href="#">Tutorial B</a>
+            <a class="navbar-item" href="#">Tutorial C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="controller-casc-cd" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">Automation Controller configuration Continuous Deployment with CasC</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html#_quick_introduction_to_cac">1. Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">2. CasC setup part 1 (to be executed by a controller admin user)</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Day Zero</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html">Create SuperAdmin organization directory structure and initial files</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="022-deploy-superadmin-objects.html">Deploy the SuperAdmin objects</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Day Two</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="023-superadmin-create-new-organization.html">Create New Organization</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">3. CasC setup part 2 (to be executed by an organization admin user)</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="11-regularuser-initial-dir-and-files.html">Populate new organization objects</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="12-regularuser-deploy-objects.html">Push the changes to create the new objects</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="13-regularuser-manual-change.html">Manual changes and revert them with Desired State</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Automation Controller configuration Continuous Deployment with CasC</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Automation Controller configuration Continuous Deployment with CasC</span>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Automation Controller configuration Continuous Deployment with CasC</a></li>
+    <li>2. CasC setup part 1 (to be executed by a controller admin user)</li>
+    <li>Day Zero</li>
+    <li><a href="021-initial-dir-and-files.html">Create SuperAdmin organization directory structure and initial files</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/automationiberia/controller-casc-cd/edit/main/documentation/modules/ROOT/pages/021-initial-dir-and-files.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<div class="sect1">
+<h2 id="_pre_requisites"><a class="anchor" href="#_pre_requisites"></a>1. Pre-Requisites</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>An <strong>empty GitLab repository</strong> is required to follow this workshop.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>All the files for the repo will be created from scratch and synchronized during this lab.</p>
+</div>
+<div class="paragraph">
+<p>The creation process for the new repository is not in the scope of the current workshop. For more info see: <a href="https://docs.gitlab.com/ee/user/project/repository/">Create a repository on Gitlab.com</a></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_day_0_create_superadmin_organization_directory_structure_and_initial_files"><a class="anchor" href="#_day_0_create_superadmin_organization_directory_structure_and_initial_files"></a>2. Day-0: Create SuperAdmin organization directory structure and initial files</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following lines will show the organization directory structure creation:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><code>group_vars</code></strong>, which will contain the credentials to reach the Ansible Automation Controller</p>
+</li>
+<li>
+<p><strong><code>orgs_vars</code></strong> directory, which will contain all the organization object files.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>All the steps below are meant to be locally executed from the base directory of the repository.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_housekeeping_optional_steps"><a class="anchor" href="#_housekeeping_optional_steps"></a>2.1. Housekeeping (optional steps)</h3>
+<details>
+<summary class="title">Create the following <code>.gitignore</code> file to avoid accidentally uploading undesired files to the GitLab repository:</summary>
+<div class="content">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">cat &gt; .gitignore &lt;&lt;EOF
+collections/ansible_collections
+users.csv
+users_old.csv
+.vault_password
+*artifact*
+ansible-navigator.log
+.*.swp
+inventory_bastions
+list
+p.yml
+id_rsa*
+venv
+EOF</code></pre>
+</div>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">Create the file <code>.yamllint.yml</code> to run basic syntax checks:</summary>
+<div class="content">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; .yamllint.yml &lt;&lt;EOF
+---
+extends: default
+
+ignore: |
+  changelogs
+  group_vars/*/configure_connection_controller_credentials.yml
+  group_vars/*/vault
+  orgs_vars/*/env/*/controller_credentials.d/
+  orgs_vars/*/env/*/controller_users.d/
+  orgs_vars/*/env/*/controller_settings.d/authentication/controller_settings_ldap.yml
+
+yaml-files:
+  - '*.yaml'
+  - '*.yml'
+
+rules:
+  # 80 chars should be enough, but don't fail if a line is longer
+  line-length: disable
+  comments:
+    require-starting-space: true
+    ignore-shebangs: true
+    min-spaces-from-content: 2
+  commas:
+    max-spaces-before: 0
+    min-spaces-after: 1
+    max-spaces-after: 1
+  colons:
+    max-spaces-before: 0
+    max-spaces-after: -1
+  document-end: {present: true}
+  indentation:
+    level: error
+    indent-sequences: consistent
+  truthy:
+    level: error
+    allowed-values:
+      - 'True'
+      - 'False'
+      - 'true'
+      - 'false'
+      - 'on'
+...
+EOF</code></pre>
+</div>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">Create the file <code>.gitlab-ci.yml</code> to run lintering and create tags+releases when pushes are against the <code>main</code> branch:</summary>
+<div class="content">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; .gitlab-ci.yml &lt;&lt;'EOF'
+---
+stages:
+  - lint
+  - prepare
+  - release
+
+yamllint:
+  stage: lint
+  image: quay.io/automationiberia/aap/ee-casc:latest
+  tags:
+    - casc
+    - controller-group
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH &amp;&amp; $CI_OPEN_MERGE_REQUESTS'
+      when: never
+    - if: '$CI_COMMIT_BRANCH'
+  script:
+    - yamllint -c ./.yamllint.yml .
+
+generate_tag:
+  stage: prepare
+  image: registry.gitlab.com/gitlab-org/release-cli
+  tags:
+    - casc
+    - controller-group
+  rules:
+    - if: $CI_COMMIT_MESSAGE =~ /First Commit/
+      when: never
+    - if: $CI_COMMIT_TAG
+      when: never
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      exists:
+        - VERSION
+      changes:
+        - VERSION
+  script:
+    - echo "TAG=$(cat VERSION)" &gt; tag.env
+  artifacts:
+    reports:
+      dotenv: tag.env
+
+auto-release-master:
+  image: registry.gitlab.com/gitlab-org/release-cli
+  tags:
+    - casc
+    - controller-group
+  needs:
+    - job: generate_tag
+      artifacts: true
+  stage: release
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: never
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      exists:
+        - VERSION
+      changes:
+        - VERSION
+  script:
+    - echo "Release $TAG"
+  release:
+    name: "Release $TAG"
+    description: "Created using the release-cli $EXTRA_DESCRIPTION"
+    tag_name: v$TAG
+    ref: $CI_COMMIT_SHA
+...
+EOF</code></pre>
+</div>
+</div>
+</div>
+</details>
+</div>
+<div class="sect2">
+<h3 id="_create_the_ansible_inventory_file_for_the_environment"><a class="anchor" href="#_create_the_ansible_inventory_file_for_the_environment"></a>2.2. Create the ansible inventory file for the environment</h3>
+<div class="listingblock console-input">
+<div class="title"><mark>Content to be customized</mark></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export CONTROLLER_DEV_HOST=lb-ctrl-dev.lab.example.com
+export CONTROLLER_PRO_HOST=lb-ctrl-pro.lab.example.com</code></pre>
+</div>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; inventory &lt;&lt;EOF
+[dev]
+${CONTROLLER_DEV_HOST}
+
+[pro]
+${CONTROLLER_PRO_HOST}
+EOF</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create_the_automation_directories_structure"><a class="anchor" href="#_create_the_automation_directories_structure"></a>2.3. Create the automation directories structure</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>We will set the superadmin org name to <strong>'superadmin'</strong> for this workshop.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock console-input">
+<div class="title"><mark>Content to be customized</mark></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">export SUPERADMIN_ORG=superadmin</code></pre>
+</div>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">mkdir -p group_vars/{all,dev,pro}</code></pre>
+</div>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">mkdir -p orgs_vars/${SUPERADMIN_ORG}/env/{dev,pro}/controller_{instance_groups.d,instance_groups.d/app-example,hosts.d,hosts.d/aap-casc,users.d,users.d/app-example,execution_environments.d,execution_environments.d/app-casc,settings.d,settings.d/jobs,settings.d/user_interface,settings.d/authentication,settings.d/system,inventory_sources.d,credentials.d}</code></pre>
+</div>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">mkdir -p orgs_vars/${SUPERADMIN_ORG}/env/common/controller_{schedules.d,schedules.d/app-casc,workflow_job_templates.d,workflow_job_templates.d/app-casc,job_templates.d,job_templates.d/app-casc,job_templates.d/app-example,job_templates.d/app-gitlab,projects.d,projects.d/app-casc,projects.d/app-gitlab,teams.d,credential_types.d,credential_types.d/aap-casc,roles.d,roles.d/app-example,inventories.d,inventories.d/app-casc,organizations.d,organizations.d/app-casc,organizations.d/app-example,credentials.d}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configure_ansible_connection_to_the_aap_controllers_common_and_per_environment_variables"><a class="anchor" href="#_configure_ansible_connection_to_the_aap_controllers_common_and_per_environment_variables"></a>2.4. Configure ansible connection to the AAP Controllers (common and per environment variables)</h3>
+<div class="paragraph">
+<p>Initial configuration files must be created. First of all, the connection credentials to the controller are needed. They will be created under the <code>group_vars</code> directory as it will differ from one environment to another, and Ansible provides this method for the implementation<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 1. <mark>Content to be customized</mark></div>
+<div class="content">
+<div class="listingblock console-input">
+<div class="title">Assume all the environments will use the same <code>username</code></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; group_vars/all/configure_connection_controller_credentials.yml &lt;&lt;EOF
+---
+vault_controller_username: 'admin'
+# vault_controller_password: 'password' #Per environment
+vault_controller_validate_certs: false
+...
+EOF</code></pre>
+</div>
+</div>
+<div class="listingblock console-input">
+<div class="title">Set the password and the Controller host for the <code>dev</code> environment</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; group_vars/dev/configure_connection_controller_credentials.yml &lt;&lt;EOF
+---
+vault_controller_password: 'password-dev'
+vault_controller_hostname: "{{ groups['dev'][0] }}"
+...
+EOF</code></pre>
+</div>
+</div>
+<div class="listingblock console-input">
+<div class="title">Set the password and the Controller host for the <code>pro</code> environment</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; group_vars/pro/configure_connection_controller_credentials.yml &lt;&lt;EOF
+---
+vault_controller_password: 'password-pro'
+vault_controller_hostname: "{{ groups['pro'][0] }}"
+...
+EOF</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The previous files should be encrypted as they contain sensitive information and is not recommended to store it in plain text. In our case we will use <code>ansible-vault</code></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock console-input">
+<div class="title">Encrypt the files with sensitive data</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">ansible-vault encrypt \
+  group_vars/dev/configure_connection_controller_credentials.yml \
+  group_vars/pro/configure_connection_controller_credentials.yml</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Write down the encryption password as it will be used later on the workshop</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create_the_cac_playbooks"><a class="anchor" href="#_create_the_cac_playbooks"></a>2.5. Create the CaC playbooks</h3>
+<div class="paragraph">
+<p>Next, we need the playbooks that allow us to implement the CaC.</p>
+</div>
+<div class="paragraph">
+<p>All this playbooks are available on the repository <a href="https://gitlab.com/automationiberia/aap-cac/superadmin-workshop-template.git">SuperAdmin Workshop Template</a></p>
+</div>
+<div class="listingblock console-input">
+<div class="title">Download gitLab repository</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -s https://gitlab.com/automationiberia/aap-cac/superadmin-workshop-template/-/archive/main/superadmin-workshop-template-main.tar.gz | tar xvzf - --strip-components=1 -C .</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_playbooks_reference_informational_only"><a class="anchor" href="#_playbooks_reference_informational_only"></a>2.5.1. Playbooks reference (informational only)</h4>
+<div class="paragraph">
+<p>All the playbooks that have been created in the
+<a href="#_create_the_cac_playbooks">previous step</a> can be found here for further reference:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<details>
+<summary class="title">Playbook to create all the objects (casc_ctrl_config.yml)</summary>
+<div class="content">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; casc_ctrl_config.yml &lt;&lt;EOF
+---
+- hosts: all
+  connection: local
+  gather_facts: false
+  vars:
+    controller_configuration_projects_async_retries: 120
+    controller_configuration_projects_async_delay: 2
+    controller_username: "{{ vault_controller_username | default(lookup('env', 'CONTROLLER_USERNAME')) }}"
+    controller_password: "{{ vault_controller_password | default(lookup('env', 'CONTROLLER_PASSWORD')) }}"
+    controller_hostname: "{{ vault_controller_hostname | default(lookup('env', 'CONTROLLER_HOST')) }}"
+    controller_validate_certs: "{{ vault_controller_validate_certs | default(lookup('env', 'CONTROLLER_VERIFY_SSL')) }}"
+  pre_tasks:
+    - name: "Setup authentication (block)"
+      block:
+        - name: "Get the Authentication Token for the future requests"
+          ansible.builtin.uri:
+            url: "https://{{ controller_hostname }}/api/v2/tokens/"
+            user: "{{ controller_username }}"
+            password: "{{ controller_password }}"
+            method: POST
+            force_basic_auth: true
+            validate_certs: "{{ controller_validate_certs }}"
+            status_code: 201
+          register: authtoken_res
+
+        - name: "Set the oauth token to be used since now"
+          ansible.builtin.set_fact:
+            controller_oauthtoken: "{{ authtoken_res.json.token }}"
+            controller_oauthtoken_url: "{{ authtoken_res.json.url }}"
+      no_log: "{{ controller_configuration_filetree_read_secure_logging | default('false') }}"
+      when: controller_oauthtoken is not defined
+      tags:
+        - always
+
+    - block:
+        - name: Include Tasks to load Galaxy credentials to be added to Organizations
+          ansible.builtin.include_role:
+            name: infra.controller_configuration.filetree_read
+            tasks_from: organizations.yml
+
+        - name: Include Tasks to add Galaxy credentials to Organizations
+          ansible.builtin.include_role:
+            name: infra.controller_configuration.dispatch
+            apply:
+              tags:
+                - organizations
+          vars:
+            controller_configuration_dispatcher_roles:
+              - {role: organizations, var: controller_organizations, tags: organizations}
+      tags:
+        - organizations
+  roles:
+    # - {role: infra.controller_configuration.filetree_read, assign_galaxy_credentials_to_org: false}
+    # - {role: infra.controller_configuration.dispatch, assign_galaxy_credentials_to_org: false}
+    - {role: infra.controller_configuration.filetree_read}
+    - {role: infra.controller_configuration.dispatch}
+
+  post_tasks:
+    - block:
+        - name: Include Tasks to load Galaxy credentials to be added to Organizations
+          ansible.builtin.include_role:
+            name: infra.controller_configuration.filetree_read
+            tasks_from: organizations.yml
+
+        - name: Include Tasks to add Galaxy credentials to Organizations
+          ansible.builtin.include_role:
+            name: infra.controller_configuration.dispatch
+            apply:
+              tags:
+                - organizations
+          vars:
+            controller_configuration_dispatcher_roles:
+              - {role: organizations, var: controller_organizations, tags: organizations}
+      tags:
+        - organizations
+
+    - name: "Delete the Authentication Token used"
+      ansible.builtin.uri:
+        url: "https://{{ controller_hostname }}{{ controller_oauthtoken_url }}"
+        user: "{{ controller_username }}"
+        password: "{{ controller_password }}"
+        method: DELETE
+        force_basic_auth: true
+        validate_certs: "{{ controller_validate_certs }}"
+        status_code: 204
+      when: controller_oauthtoken_url is defined
+...
+# ansible-navigator run casc_ctrl_config.yml -i inventory -l dev -e '{orgs: superadmin, dir_orgs_vars: orgs_vars, env: dev, casc_gitlab_scm_branch: dev}' -m stdout --eei quay.io/automationiberia/aap/ee-casc --vault-password-file .vault_password
+EOF</code></pre>
+</div>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">Playbook for the centralized CaC to create all the objects (casc_ctrl_config_unified.yml)</summary>
+<div class="content">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; casc_ctrl_config_unified.yml &lt;&lt;EOF
+---
+- hosts: all
+  connection: local
+  gather_facts: false
+  vars:
+    controller_configuration_projects_async_retries: 120
+    controller_configuration_projects_async_delay: 2
+    controller_username: "{{ vault_controller_username | default(lookup('env', 'CONTROLLER_USERNAME')) }}"
+    controller_password: "{{ vault_controller_password | default(lookup('env', 'CONTROLLER_PASSWORD')) }}"
+    controller_hostname: "{{ vault_controller_hostname | default(lookup('env', 'CONTROLLER_HOST')) }}"
+    controller_validate_certs: "{{ vault_controller_validate_certs | default(lookup('env', 'CONTROLLER_VERIFY_SSL')) }}"
+  pre_tasks:
+    - debug:
+        msg:
+          - "'{{ lookup('ansible.builtin.env', 'CONTROLLER_HOST') }}'"
+          - "{{ lookup('ansible.builtin.pipe', 'env') }}"
+    - name: "Setup authentication (block)"
+      block:
+        - name: "Get the Authentication Token for the future requests"
+          ansible.builtin.uri:
+            url: "https://{{ controller_hostname }}/api/v2/tokens/"
+            user: "{{ controller_username }}"
+            password: "{{ controller_password }}"
+            method: POST
+            force_basic_auth: true
+            validate_certs: "{{ controller_validate_certs }}"
+            status_code: 201
+          register: authtoken_res
+
+        - name: "Set the oauth token to be used since now"
+          ansible.builtin.set_fact:
+            controller_oauthtoken: "{{ authtoken_res.json.token }}"
+            controller_oauthtoken_url: "{{ authtoken_res.json.url }}"
+      no_log: "{{ controller_configuration_filetree_read_secure_logging | default('false') }}"
+      when: controller_oauthtoken is not defined
+      tags:
+        - always
+    - name: "Clone the required repo"
+      ansible.builtin.git:
+        repo: "{{ project_to_clone | ansible.builtin.regex_replace('http://','http://'+gitlab_api_user+':'+gitlab_api_token+'@') }}"
+        dest: "./checkout"
+        version: "{{ casc_gitlab_scm_branch }}"
+      no_log: true
+      tags:
+        - always
+  roles:
+    - role: infra.controller_configuration.filetree_read
+      vars:
+        filetree_controller_settings: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_settings.d/"
+        filetree_controller_organizations: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_organizations.d/"
+        filetree_controller_labels: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_labels.d/"
+        filetree_controller_user_accounts: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_users.d/"
+        filetree_controller_teams: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_teams.d/"
+        filetree_controller_credential_types: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_credential_types.d/"
+        filetree_controller_credentials:
+          - "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_credentials.d/"
+          - "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_credentials.d/"
+        filetree_controller_credential_input_sources: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_credential_input_sources.d/"
+        filetree_controller_notifications: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_notification_templates.d/"
+        filetree_controller_projects: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_projects.d/"
+        filetree_controller_execution_environments: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_execution_environments.d/"
+        filetree_controller_applications: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_applications.d/"
+        filetree_controller_inventories: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_inventories.d/"
+        filetree_controller_inventory_sources: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_inventory_sources.d/"
+        filetree_controller_instance_groups: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_instance_groups.d/"
+        filetree_controller_hosts: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_hosts.d/"
+        filetree_controller_groups: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_groups.d/"
+        filetree_controller_templates: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_job_templates.d/"
+        filetree_controller_workflow_job_templates: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_workflow_job_templates.d/"
+        filetree_controller_schedules: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_schedules.d/"
+        filetree_controller_roles: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_roles.d/"
+        # assign_galaxy_credentials_to_org: false
+        # filetree_controller_credentials:
+        #   - "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_credentials.d/"
+        #   - "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_credentials.d/"
+    # - {role: infra.controller_configuration.dispatch, assign_galaxy_credentials_to_org: false}
+    - {role: infra.controller_configuration.dispatch}
+
+    # 39     - {role: infra.controller_configuration.filetree_read, assign_galaxy_credentials_to_org: false, assign_default_ee_to_org: false}
+    # 40     - {role: infra.controller_configuration.dispatch, assign_galaxy_credentials_to_org: false, assign_default_ee_to_org: false }
+
+  post_tasks:
+    - block:
+        - name: Include Tasks to load Galaxy credentials to be added to Organizations
+          ansible.builtin.include_role:
+            name: infra.controller_configuration.filetree_read
+            tasks_from: organizations.yml
+          vars:
+            filetree_controller_organizations: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_organizations.d/"
+            filetree_controller_credentials: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_credentials.d/"
+
+        - name: Include Tasks to add Galaxy credentials to Organizations
+          ansible.builtin.include_role:
+            name: infra.controller_configuration.dispatch
+            apply:
+              tags:
+                - organizations
+          vars:
+            controller_configuration_dispatcher_roles:
+              - {role: organizations, var: controller_organizations, tags: organizations}
+      tags:
+        - organizations
+
+    - name: "Delete the Authentication Token used"
+      ansible.builtin.uri:
+        url: "https://{{ controller_hostname }}{{ controller_oauthtoken_url }}"
+        user: "{{ controller_username }}"
+        password: "{{ controller_password }}"
+        method: DELETE
+        force_basic_auth: true
+        validate_certs: "{{ controller_validate_certs }}"
+        status_code: 204
+      when: controller_oauthtoken_url is defined
+...
+# ansible-navigator run casc_ctrl_config.yml -i inventory -l PRE -e '{orgs: SUPERADMIN, dir_orgs_vars: orgs_vars, env: PRE}' -m stdout --eei quay.io/automationiberia/aap/ee-casc:latest --vault-password-file .vault_password --pull-arguments=--tls-verify=false
+# ansible-navigator run casc_ctrl_config.yml -i inventory -l PRO -e '{orgs: SUPERADMIN, dir_orgs_vars: orgs_vars, env: PRO}' -m stdout --eei quay.io/automationiberia/aap/ee-casc:latest --vault-password-file .vault_password --pull-arguments=--tls-verify=false
+#
+# ansible-navigator run casc_ctrl_config.yml -i inventory -l PRE -e '{orgs: SUPERADMIN, dir_orgs_vars: orgs_vars, env: PRE}' -m stdout --eei quay.io/automationiberia/aap/ee-casc --vault-password-file .vault_password
+# ansible-navigator run casc_ctrl_config.yml -i inventory -l PRO -e '{orgs: SUPERADMIN, dir_orgs_vars: orgs_vars, env: PRO}' -m stdout --eei quay.io/automationiberia/aap/ee-casc --vault-password-file .vault_password
+EOF</code></pre>
+</div>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">Playbook to drop all the objects not defined as code (casc_ctrl_drop_diff.yml)</summary>
+<div class="content">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; casc_ctrl_drop_diff.yml &lt;&lt;EOF
+---
+- hosts: all
+  connection: local
+  gather_facts: false
+  vars:
+    controller_configuration_projects_async_retries: 120
+    controller_configuration_projects_async_delay: 2
+    controller_username: "{{ vault_controller_username | default(lookup('env', 'CONTROLLER_USERNAME')) }}"
+    controller_password: "{{ vault_controller_password | default(lookup('env', 'CONTROLLER_PASSWORD')) }}"
+    controller_hostname: "{{ vault_controller_hostname | default(lookup('env', 'CONTROLLER_HOST')) }}"
+    controller_validate_certs: "{{ vault_controller_validate_certs | default(lookup('env', 'CONTROLLER_VERIFY_SSL')) }}"
+  pre_tasks:
+    - name: "Setup authentication (block)"
+      block:
+        - name: "Get the Authentication Token for the future requests"
+          ansible.builtin.uri:
+            url: "https://{{ controller_hostname }}/api/v2/tokens/"
+            user: "{{ controller_username }}"
+            password: "{{ controller_password }}"
+            method: POST
+            force_basic_auth: true
+            validate_certs: "{{ controller_validate_certs }}"
+            status_code: 201
+          register: authtoken_res
+
+        - name: "Set the oauth token to be used since now"
+          ansible.builtin.set_fact:
+            controller_oauthtoken: "{{ authtoken_res.json.token }}"
+            controller_oauthtoken_url: "{{ authtoken_res.json.url }}"
+      no_log: "{{ controller_configuration_object_diff_secure_logging | default('false') }}"
+      when: controller_oauthtoken is not defined
+      tags:
+        - always
+  roles:
+    - role: infra.controller_configuration.filetree_read
+    - role: infra.controller_configuration.object_diff
+      vars:
+        controller_configuration_object_diff_tasks:
+          - {name: workflow_job_templates, var: controller_workflows, tags: workflow_job_templates}
+          - {name: job_templates, var: controller_templates, tags: job_templates}
+          # - {name: teams, var: controller_teams, tags: teams#}
+          # - {name: user_accounts, var: controller_user_accounts, tags: users}
+          - {name: groups, var: controller_groups, tags: groups}
+          - {name: hosts, var: controller_hosts, tags: hosts}
+          - {name: inventory_sources, var: controller_inventory_sources, tags: inventory_sources}
+          - {name: inventories, var: controller_inventories, tags: inventories}
+          - {name: projects, var: controller_projects, tags: projects}
+          - {name: credentials, var: controller_credentials, tags: credentials}
+          # - {name: credential_types, var: controller_credential_types, tags: credential_types}
+          - {name: organizations, var: controller_organizations, tags: organizations}
+    - role: infra.controller_configuration.dispatch
+      vars:
+        controller_configuration_dispatcher_roles:
+          - {role: workflow_job_templates, var: controller_workflows, tags: workflow_job_templates}
+          - {role: job_templates, var: controller_templates, tags: job_templates}
+          # - {role: teams, var: controller_teams, tags: teams}
+          # - {role: users, var: controller_user_accounts, tags: users}
+          - {role: groups, var: controller_groups, tags: inventories}
+          - {role: hosts, var: controller_hosts, tags: hosts}
+          - {role: projects, var: controller_projects, tags: projects}
+          - {role: inventory_sources, var: controller_inventory_sources, tags: inventory_sources}
+          - {role: inventories, var: controller_inventories, tags: inventories}
+          - {role: credentials, var: controller_credentials, tags: credentials}
+          # - {role: credential_types, var: controller_credential_types, tags: credential_types}
+          - {role: organizations, var: controller_organizations, tags: organizations}
+  post_tasks:
+    - name: "Delete the Authentication Token used"
+      ansible.builtin.uri:
+        url: "https://{{ controller_hostname }}{{ controller_oauthtoken_url }}"
+        user: "{{ controller_username }}"
+        password: "{{ controller_password }}"
+        method: DELETE
+        force_basic_auth: true
+        validate_certs: "{{ controller_validate_certs }}"
+        status_code: 204
+      when: controller_oauthtoken_url is defined
+...
+EOF</code></pre>
+</div>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">Playbook for the centralized CaC to delete all the objects not defined as code (casc_ctrl_drop_diff_unified.yml)</summary>
+<div class="content">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; casc_ctrl_drop_diff_unified.yml &lt;&lt;EOF
+---
+- hosts: all
+  connection: local
+  gather_facts: false
+  vars:
+    controller_configuration_projects_async_retries: 120
+    controller_configuration_projects_async_delay: 2
+    controller_username: "{{ vault_controller_username | default(lookup('env', 'CONTROLLER_USERNAME')) }}"
+    controller_password: "{{ vault_controller_password | default(lookup('env', 'CONTROLLER_PASSWORD')) }}"
+    controller_hostname: "{{ vault_controller_hostname | default(lookup('env', 'CONTROLLER_HOST')) }}"
+    controller_validate_certs: "{{ vault_controller_validate_certs | default(lookup('env', 'CONTROLLER_VERIFY_SSL')) }}"
+  pre_tasks:
+    # - debug:
+    #     msg:
+    #       - "'{{ lookup('ansible.builtin.env', 'CONTROLLER_HOST') }}'"
+    #       - "{{ lookup('ansible.builtin.pipe', 'env') }}"
+    - name: "Setup authentication (block)"
+      block:
+        - name: "Get the Authentication Token for the future requests"
+          ansible.builtin.uri:
+            url: "https://{{ controller_hostname }}/api/v2/tokens/"
+            user: "{{ controller_username }}"
+            password: "{{ controller_password }}"
+            method: POST
+            force_basic_auth: true
+            validate_certs: "{{ controller_validate_certs }}"
+            status_code: 201
+          register: authtoken_res
+
+        - name: "Set the oauth token to be used since now"
+          ansible.builtin.set_fact:
+            controller_oauthtoken: "{{ authtoken_res.json.token }}"
+            controller_oauthtoken_url: "{{ authtoken_res.json.url }}"
+      no_log: "{{ controller_configuration_object_diff_secure_logging | default('false') }}"
+      when: controller_oauthtoken is not defined
+      tags:
+        - always
+    - name: "Clone the required repo"
+      ansible.builtin.git:
+        repo: "{{ project_to_clone | ansible.builtin.regex_replace('http://','http://'+gitlab_api_user+':'+gitlab_api_token+'@') }}"
+        dest: "./checkout"
+        version: "{{ casc_gitlab_scm_branch }}"
+      # no_log: true
+      tags:
+        - always
+  roles:
+    - role: infra.controller_configuration.filetree_read
+      vars:
+        filetree_controller_settings: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_settings.d/"
+        filetree_controller_organizations: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_organizations.d/"
+        filetree_controller_labels: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_labels.d/"
+        filetree_controller_user_accounts: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_users.d/"
+        filetree_controller_teams: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_teams.d/"
+        filetree_controller_credential_types: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_credential_types.d/"
+        filetree_controller_credentials: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_credentials.d/"
+        filetree_controller_credential_input_sources: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_credential_input_sources.d/"
+        filetree_controller_notifications: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_notification_templates.d/"
+        filetree_controller_projects: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_projects.d/"
+        filetree_controller_execution_environments: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_execution_environments.d/"
+        filetree_controller_applications: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_applications.d/"
+        filetree_controller_inventories: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_inventories.d/"
+        filetree_controller_inventory_sources: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_inventory_sources.d/"
+        filetree_controller_instance_groups: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_instance_groups.d/"
+        filetree_controller_hosts: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_hosts.d/"
+        filetree_controller_groups: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_groups.d/"
+        filetree_controller_templates: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_job_templates.d/"
+        filetree_controller_workflow_job_templates: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_workflow_job_templates.d/"
+        filetree_controller_schedules: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_schedules.d/"
+        filetree_controller_roles: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_roles.d/"
+
+    - role: infra.controller_configuration.object_diff
+      vars:
+        protect_not_empty_orgs: true
+        controller_configuration_object_diff_tasks:
+          - {name: workflow_job_templates, var: controller_workflows, tags: workflow_job_templates}
+          - {name: job_templates, var: controller_templates, tags: job_templates}
+          - {name: teams, var: controller_teams, tags: teams}
+          # - {name: roles, var: controller_roles, tags: roles}
+          # - {name: user_accounts, var: controller_user_accounts, tags: users}
+          - {name: groups, var: controller_groups, tags: groups}
+          - {name: hosts, var: controller_hosts, tags: hosts}
+          - {name: inventory_sources, var: controller_inventory_sources, tags: inventory_sources}
+          - {name: inventories, var: controller_inventories, tags: inventories}
+          - {name: projects, var: controller_projects, tags: projects}
+          - {name: credentials, var: controller_credentials, tags: credentials}
+          # - {name: credential_types, var: controller_credential_types, tags: credential_types}
+          - {name: organizations, var: controller_organizations, tags: organizations}
+    - role: infra.controller_configuration.dispatch
+      vars:
+        controller_configuration_dispatcher_roles:
+          - {role: workflow_job_templates, var: controller_workflows, tags: workflow_job_templates}
+          - {role: job_templates, var: controller_templates, tags: job_templates}
+          - {role: teams, var: controller_teams, tags: teams}
+          # - {role: roles, var: controller_roles, tags: roles}
+          # - {role: user_accounts, var: controller_user_accounts, tags: users}
+          - {role: groups, var: controller_groups, tags: groups}
+          - {role: hosts, var: controller_hosts, tags: hosts}
+          - {role: inventory_sources, var: controller_inventory_sources, tags: inventory_sources}
+          - {role: inventories, var: controller_inventories, tags: inventories}
+          - {role: projects, var: controller_projects, tags: projects}
+          - {role: credentials, var: controller_credentials, tags: credentials}
+          # - {role: credential_types, var: controller_credential_types, tags: credential_types}
+          - {role: organizations, var: controller_organizations, tags: organizations}
+  post_tasks:
+    - debug:
+        var: controller_templates
+      tags:
+        - always
+    - name: "Delete the Authentication Token used"
+      ansible.builtin.uri:
+        url: "https://{{ controller_hostname }}{{ controller_oauthtoken_url }}"
+        user: "{{ controller_username }}"
+        password: "{{ controller_password }}"
+        method: DELETE
+        force_basic_auth: true
+        validate_certs: "{{ controller_validate_certs }}"
+        status_code: 204
+      when: controller_oauthtoken_url is defined
+...
+EOF</code></pre>
+</div>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">Playbook to treat the incoming webhook calls (casc_ctrl_cd_webhook_trigger.yml)</summary>
+<div class="content">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; casc_ctrl_cd_webhook_trigger.yml &lt;&lt;EOF
+---
+- hosts: all
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: "Get the modified files over the dirs from all the received commits"
+      set_fact:
+        __CONTROLLER_CLUSTER_ID: "{{ lookup('ansible.builtin.env', 'CONTROLLER_CLUSTER_ID') }}"
+        __CONTROLLER_HOST: "{{ lookup('ansible.builtin.env', 'CONTROLLER_HOST') }}"
+        __env: "{{ awx_webhook_payload.ref.split('/')[2] if awx_webhook_payload.ref.split('/')[1] == 'heads' else  awx_webhook_payload.project.default_branch }}"
+        __casc_gitlab_scm_branch: "{{ awx_webhook_payload.ref.split('/')[2] }}"
+        __list_of_dirs: "{{ ((awx_webhook_payload.commits | map(attribute='added') | list) +
+                           (awx_webhook_payload.commits | map(attribute='modified') | list) +
+                           (awx_webhook_payload.commits | map(attribute='removed') | list))
+                       | flatten }}"
+
+    # https://regex101.com/r/0SgpFn/1
+    - set_fact:
+        regexpression: "/([^/]*)/env/(common|{{ __env }})/controller_(.*).d/"
+
+    - name: "Get the Organization and the tags to run the CasC"
+      set_fact:
+        # org_dirs_dict: "{{ (org_dirs_dict | default({})) | combine({input_var[0]: (((org_dirs_dict[input_var[0]] | default([])) + [input_var[1]] + ( ['projects','schedules'] if awx_webhook_payload.ref.split('/')[1] == 'tags' else [''] ) ) | unique | reject('match', '^$') ) }) }}"
+        org_dirs_dict: "{{ (org_dirs_dict | default({})) | combine({input_var[0]: (((org_dirs_dict[input_var[0]] | default([])) + ( ['all'] if awx_webhook_payload.ref.split('/')[1] == 'tags' else [input_var[1]])) | unique | reject('match', '^$'))})}}"
+      vars:
+        input_var: "{{ input_var_item | regex_search(regexpression, '\\1', '\\3') }}"
+      loop: "{{ __list_of_dirs }}"
+      loop_control:
+        loop_var: input_var_item
+      when: input_var | type_debug is match('list')
+
+    - name: Configure Controller Job Launch | Launch launch_jobs Drop Diff (Delete)
+      include_role:
+        name: infra.controller_configuration.job_launch
+      vars:
+        controller_launch_jobs:
+          - name: "{{ __drop_diff_org_tags_item.key }} CasC Ctrl Drop Diff"
+            scm_branch: "{{ __casc_gitlab_scm_branch }}"
+            extra_vars:
+              orgs: "{{ __drop_diff_org_tags_item.key }}"
+              dir_orgs_vars: 'orgs_vars'
+              ansible_python_interpreter: "/usr/bin/python3"
+              env: "{{ __env }}"
+              casc_gitlab_scm_branch: "{{ __casc_gitlab_scm_branch }}"
+              schedule_is_enabled: "{{ __schedule_is_enabled }}"
+            tags: "{{ __drop_diff_org_tags_item.value }}"
+            wait: true
+            verbosity: 0
+      with_dict: "{{ org_dirs_dict }}"
+      loop_control:
+        loop_var: __drop_diff_org_tags_item
+      when: org_dirs_dict is defined
+
+    - name: Configure Controller Job Launch | Launch launch_jobs creation
+      include_role:
+        name: infra.controller_configuration.job_launch
+      vars:
+        controller_launch_jobs:
+          - name: "{{ __config_controller_org_tags_item.key }} CasC Ctrl Config"
+            scm_branch: "{{ __casc_gitlab_scm_branch }}"
+            extra_vars:
+              orgs: "{{ __config_controller_org_tags_item.key }}"
+              dir_orgs_vars: 'orgs_vars'
+              ansible_python_interpreter: "/usr/bin/python3"
+              env: "{{ __env }}"
+              casc_gitlab_scm_branch: "{{ __casc_gitlab_scm_branch }}"
+              schedule_is_enabled: "{{ __schedule_is_enabled }}"
+            tags: "{{ __config_controller_org_tags_item.value }}"
+            wait: true
+            verbosity: 0
+      with_dict: "{{ org_dirs_dict }}"
+      loop_control:
+        loop_var: __config_controller_org_tags_item
+      when: org_dirs_dict is defined
+...
+EOF</code></pre>
+</div>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">Playbook to automatically create new organizations' basic objects in the SuperAdmin organization (new_project.yml)</summary>
+<div class="content">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; new_project.yml &lt;&lt;EOF
+---
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: "Assert that the required input variables are defined"
+      ansible.builtin.assert:
+        that: "{{ current_check.conditions }}"
+        fail_msg: "{{ current_check.fail_msg }}"
+        quiet: true
+      loop_control:
+        loop_var: current_check
+        label: "Check the required variable {{ current_check.conditions[0] }}"
+      loop:
+        - conditions:
+            - organization_name is defined
+            - organization_name | length &gt; 0
+          fail_msg: "the 'organization_name' variable must be defined"
+        - conditions:
+            - organization_desc is defined
+            - organization_desc | length &gt; 0
+          fail_msg: "the 'organization_desc' variable must be defined to give a description to the organization"
+        - conditions:
+            - instance_groups is defined
+            - instance_groups | type_debug is match('list')
+            - instance_groups | length &gt; 0
+          fail_msg: "the 'instance_groups' variable must be defined and can't be empty"
+        - conditions:
+            - admin_user is defined
+            - admin_user | length &gt; 0
+          fail_msg: "the 'admin_user' variable must be defined"
+
+    - name: "Create all the required objects"
+      vars:
+        gitlab_host: "{{ (lookup('env', 'PROJECT_URL_CASC') | default(GITLAB_HOST, true)) | regex_search('([^@]*)@([^:]*):.*', '\\2') | first }}"
+      ansible.builtin.template:
+        src: "{{ current_file.src }}"
+        dest: "{{ current_file.dest }}"
+        mode: '0644'
+      loop_control:
+        loop_var: current_file
+        label: "Creating the file {{ current_file.dest }}"
+      loop:
+        - src: "templates/new_project_controller_organizations.j2"
+          dest: "{{ orgs_vars }}/{{ orgs }}/env/common/controller_organizations.d/{{ organization_name }}.yml"
+        - src: "templates/new_project_controller_projects.j2"
+          dest: "{{ orgs_vars }}/{{ orgs }}/env/common/controller_projects.d/{{ organization_name }}_casc.yml"
+        - src: "templates/new_project_controller_job_templates.j2"
+          dest: "{{ orgs_vars }}/{{ orgs }}/env/common/controller_job_templates.d/{{ organization_name }}_casc.yml"
+        - src: "templates/new_project_controller_credentials.j2"
+          dest: "{{ orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_credentials.d/{{ organization_name }}_casc.yml"
+        - src: "templates/new_project_controller_roles.j2"
+          dest: "{{ orgs_vars }}/{{ orgs }}/env/common/controller_roles.d/{{ organization_name }}.yml"
+    - name: "Show manual steps"
+      debug:
+        msg:
+          - "Remember to:"
+          - "  - Add the user {{ admin_user }} manually at orgs_vars/SUPERADMIN/env/{{ env }}/controller_users.d/controller_user_accounts.yml"
+...
+####
+# Running examples:
+#### Using ansible-playbook
+# ansible-playbook new_project.yml -e '{organization_name: TESTORG, organization_desc: "TESTORG Organization", instance_groups: [MADRID], admin_user: "testorgadminuser", orgs_vars: "orgs_vars", orgs: SUPERADMIN, env: PRE, casc_gitlab_scm_branch: centralize_casc}'
+#### Using ansible-navigator
+# ansible-navigator run new_project.yml -i localhost, -m stdout --eei quay.io/automationiberia/aap/ee-casc:latest -e '{organization_name: TESTORG, organization_desc: "TESTORG Organization", instance_groups: [MADRID], admin_user: "testorgadminuser", orgs_vars: "orgs_vars", orgs: SUPERADMIN, env: PRE, casc_gitlab_scm_branch: centralize_casc}' --vault-password-file .vault_password --pa='--tls-verify=false'
+####
+EOF</code></pre>
+</div>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">Playbook to automatically create new organizations' GitLab repository (gitlab_setup.yml)</summary>
+<div class="content">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; gitlab_setup.yml &lt;&lt;EOF
+---
+- name: GitLab init
+  ansible.builtin.include_role:
+    name: automationiberia.casc_setup.gitlab_setup
+    tasks_from: gitlab_init.yml
+    apply:
+      tags: git-init
+  tags: git-init
+
+- name: Create dir structure
+  ansible.builtin.include_role:
+    name: automationiberia.casc_setup.filetree_create
+    apply:
+      tags: filetree_create
+  tags: filetree_create
+
+- name: GitLab push
+  ansible.builtin.include_role:
+    name: automationiberia.casc_setup.gitlab_setup
+    tasks_from: gitlab_push.yml
+    apply:
+      tags: git-push
+  tags: git-push
+
+- name: GitLab create branches
+  ansible.builtin.include_role:
+    name: automationiberia.casc_setup.gitlab_setup
+    tasks_from:  create_branch.yml
+    apply:
+      tags: git-branches
+  loop: "{{ gitlab_branches }}"
+  loop_control:
+    loop_var: __gitlab_branches_item
+  tags: git-branches
+...
+EOF</code></pre>
+</div>
+</div>
+</div>
+</details>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_define_controller_objects_as_code"><a class="anchor" href="#_define_controller_objects_as_code"></a>2.6. Define Controller Objects as Code</h3>
+<div class="paragraph">
+<p>With these files, the SuperAdmin repo will have all the CaC related playbooks that will create and/or destroy the objects at the Ansible Controller.</p>
+</div>
+<div class="sect3">
+<h4 id="_dev_ansible_automation_platform_credentials_will_let_the_job_templates_to_connect_to_the_controller"><a class="anchor" href="#_dev_ansible_automation_platform_credentials_will_let_the_job_templates_to_connect_to_the_controller"></a>2.6.1. (dev) Ansible Automation Platform Credentials will let the Job Templates to connect to the Controller</h4>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_aap.yml &lt;&lt;EOF
+---
+controller_credentials:
+  - name: "{{ orgs }} {{ env }} AAP Credential"
+    description: "{{ orgs }} {{ env }}  AAP Credential"
+    credential_type: "Red Hat Ansible Automation Platform"
+    organization: "{{ orgs }}"
+    inputs:
+      host: "{{ controller_hostname }}"
+      username: "{{ controller_username }}"
+      password: "{{ controller_password }}"
+      verify_ssl: "{{ controller_validate_certs }}"
+...
+EOF</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Encrypting that file is not needed, as it is getting all the sensible information from the files in <code>group_vars</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_dev_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup"><a class="anchor" href="#_dev_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup"></a>2.6.2. (dev) Source Control Manager and GitLab API Token Credentials will let the Job Templates to connect to the GitLab repository/group</h4>
+<div class="listingblock console-input">
+<div class="title"><mark>Content to be customized</mark></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_scm.yml &lt;&lt;EOF
+---
+controller_credentials:
+  - name: "{{ orgs }} {{ env }} GitLab Credential"
+    description: "Credential to be used by the 'IaC_playbooks' project"
+    credential_type: "Source Control"
+    organization: "{{ orgs }}"
+    inputs:
+      username: "sa-read-deploy-key-gitlab-com-{{ orgs }}"
+      ssh_key_data: |
+        -----BEGIN OPENSSH PRIVATE KEY-----
+        XXXXXXXXX private key content XXXXXXXXX
+        -----END OPENSSH PRIVATE KEY-----
+...
+EOF</code></pre>
+</div>
+</div>
+<div class="listingblock console-input">
+<div class="title"><mark>Content to be customized</mark></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_gitlab_api_token.yml &lt;&lt;EOF
+---
+controller_credentials:
+  - name: "{{ orgs }} {{ env }} GitLab API Token"
+    description: "{{ orgs }} {{ env }} GitLab API Token"
+    credential_type: "GitLab API Token"
+    organization: "{{ orgs }}"
+    inputs:
+      gitlab_token: "glpat-token-gitlab.com"
+      gitlab_email: "dummy.sa.dev@lab.example.com"
+      gitlab_user: "sa-casc-dev"
+...
+EOF</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These files should be encrypted as they contains the private key and a token that will allow read/write access to the GitLab repository/group:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/{controller_credentials_scm.yml,controller_credentials_gitlab_api_token.yml}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_dev_vault_credentials_will_let_the_job_templates_to_decrypt_the_sensitive_information_from_ansible_vaulted_files"><a class="anchor" href="#_dev_vault_credentials_will_let_the_job_templates_to_decrypt_the_sensitive_information_from_ansible_vaulted_files"></a>2.6.3. (dev) Vault Credentials will let the Job Templates to decrypt the sensitive information from <code>ansible-vault</code>ed files</h4>
+<div class="listingblock console-input">
+<div class="title"><mark>Content to be customized</mark></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_vault.yml &lt;&lt;EOF
+---
+controller_credentials:
+  - name: "{{ orgs }} {{ env }} Vault Credential"
+    description: "{{ orgs }} {{ env }} Vault Credential"
+    credential_type: "Vault"
+    organization: "{{ orgs }}"
+    inputs:
+      vault_password: "password-dev"
+...
+EOF</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Encrypt the file in the same way as before:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_vault.yml</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_dev_galaxy_credential_will_let_the_job_templates_to_connect_to_the_private_automation_hub_and_get_the_required_ansible_collections"><a class="anchor" href="#_dev_galaxy_credential_will_let_the_job_templates_to_connect_to_the_private_automation_hub_and_get_the_required_ansible_collections"></a>2.6.4. (dev) Galaxy Credential will let the Job Templates to connect to the Private Automation Hub and get the required Ansible Collections</h4>
+<div class="listingblock console-input">
+<div class="title"><mark>Content to be customized</mark></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export AUTOMATIONHUB_HOST=lb-hub-dev-site.lab.example.com</code></pre>
+</div>
+</div>
+<div class="listingblock console-input">
+<div class="title"><mark>Content to be customized</mark></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_galaxy.yml &lt;&lt;EOF
+---
+controller_credentials:
+# Dev Site
+  - name: "{{ orgs }} {{ env }} Automation Hub Community Repository"
+    description: ""
+    credential_type: "Ansible Galaxy/Automation Hub API Token"
+    organization: "{{ orgs }}"
+    inputs:
+      url: "https://${AUTOMATIONHUB_HOST}/api/galaxy/content/community/"
+      token: "token-hub-dev-site"
+
+  - name: "{{ orgs }} {{ env }} Automation Hub Published Repository"
+    description: ""
+    credential_type: "Ansible Galaxy/Automation Hub API Token"
+    organization: "{{ orgs }}"
+    inputs:
+      url: "https://${AUTOMATIONHUB_HOST}/api/galaxy/content/published/"
+      token: "token-hub-dev-site"
+
+  - name: "{{ orgs }} {{ env }} Automation Hub RH Certified Repository"
+    description: ""
+    credential_type: "Ansible Galaxy/Automation Hub API Token"
+    organization: "{{ orgs }}"
+    inputs:
+      url: "https://${AUTOMATIONHUB_HOST}/api/galaxy/content/rh-certified/"
+      token: "token-hub-dev-site"
+...
+EOF</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Encrypt the file in the same way as before:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_galaxy.yml</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_dev_registry_credential_will_let_the_job_templates_to_connect_to_the_private_automation_hub_and_get_the_required_execution_environments"><a class="anchor" href="#_dev_registry_credential_will_let_the_job_templates_to_connect_to_the_private_automation_hub_and_get_the_required_execution_environments"></a>2.6.5. (dev) Registry Credential will let the Job Templates to connect to the Private Automation Hub and get the required Execution Environments</h4>
+<div class="listingblock console-input">
+<div class="title"><mark>Content to be customized</mark></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_registry.yml &lt;&lt;EOF
+---
+controller_credentials:
+  - name: "{{ orgs }} {{ env }} Automation Private Hub Container Registry"
+    description: "Credential to connect to Container Registry at AtomationHub Private"
+    credential_type: "Container Registry"
+    organization: "{{ orgs }}"
+    inputs:
+      username: "sa-dev-site-download"
+      password: "Password-site"
+      host: "${AUTOMATIONHUB_HOST}"
+      verify_ssl: true
+...
+EOF</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Encrypt the file in the same way as before:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_registry.yml</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_dev_execution_environments_to_be_used_by_the_job_templates"><a class="anchor" href="#_dev_execution_environments_to_be_used_by_the_job_templates"></a>2.6.6. (dev) Execution Environments to be used by the Job Templates</h4>
+<div class="listingblock console-input">
+<div class="title"><mark>Content to be customized</mark></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_execution_environments.d/app-casc/controller_execution_environments_ee-casc.yml &lt;&lt;EOF
+---
+controller_execution_environments:
+  - name: "ee-casc"
+    image: "quay.io/automationiberia/aap/ee-casc:latest"
+    pull: always
+    credential: "{{ orgs }} {{ env }} Automation Private Hub Container Registry"
+...
+EOF</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_dev_hosts_to_be_used_by_the_inventory_for_the_job_templates"><a class="anchor" href="#_dev_hosts_to_be_used_by_the_inventory_for_the_job_templates"></a>2.6.7. (dev) Hosts to be used by the inventory for the Job Templates</h4>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_hosts.d/aap-casc/controller_hosts.yml &lt;&lt;EOF
+---
+controller_hosts:
+  - name:  "${CONTROLLER_DEV_HOST}"
+    description: "Controller host (pointing to LB)"
+    inventory: "{{ orgs }} Controller"
+    variables:
+      ansible_host: "${CONTROLLER_DEV_HOST}"
+...
+EOF</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_dev_users_that_will_be_administrators_of_the_superadmin_organization"><a class="anchor" href="#_dev_users_that_will_be_administrators_of_the_superadmin_organization"></a>2.6.8. (dev) Users that will be administrators of the superadmin organization</h4>
+<div class="listingblock console-input">
+<div class="title"><mark>Content to be customized</mark></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_users.d/controller_user_accounts.yml &lt;&lt;EOF
+---
+controller_user_accounts:
+  - username: "superadmin"
+    password: "superpassword"
+    email: "superadmin@example.com"
+    firstname: "superadmin"
+    lastname: "superadmin"
+    is_auditor: False
+    is_superuser: True
+    update_secrets: False
+...
+EOF</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This file should be encrypted as it contains the password of the superadmin user:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_users.d/controller_user_accounts.yml</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_common_credential_types_that_will_be_needed_for_the_job_templates"><a class="anchor" href="#_common_credential_types_that_will_be_needed_for_the_job_templates"></a>2.6.9. (common) Credential Types that will be needed for the Job Templates</h4>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_credential_types.d/aap-casc/controller_credential_types_gitlab_api.yml &lt;&lt;EOF
+---
+controller_credential_types:
+  - name: "GitLab API Token"
+    kind: "cloud"
+    state: present
+    inputs:
+      fields:
+        - id: "gitlab_token"
+          help_text: "gitlab API token"
+          label: "API Token"
+          type: "string"
+          secret: true
+        - id: "gitlab_user"
+          help_text: "gitlab API user"
+          label: "API User"
+          type: "string"
+        - id: "gitlab_email"
+          help_text: "gitlab API user email"
+          label: "API User email"
+          type: "string"
+        - id: "gitlab_verify"
+          label: "Verify SSL Certificates"
+          type: "boolean"
+          default: false
+      required:
+        - "gitlab_token"
+        - "gitlab_user"
+        - "gitlab_email"
+    injectors:
+      extra_vars:
+        gitlab_api_token: !unsafe '{{ gitlab_token }}'
+        gitlab_api_user: !unsafe '{{ gitlab_user }}'
+        gitlab_api_user_mail: !unsafe '{{ gitlab_email }}'
+        gitlab_validate_certs: !unsafe '{{ gitlab_verify }}'
+...
+EOF</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_common_inventory_to_be_used_for_the_job_templates"><a class="anchor" href="#_common_inventory_to_be_used_for_the_job_templates"></a>2.6.10. (common) Inventory to be used for the Job Templates</h4>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_inventories.d/app-casc/controller_inventories_controller.yml &lt;&lt;EOF
+---
+controller_inventories:
+  - name: "{{ orgs }} Controller"
+    description: "Inventory for the Controller"
+    organization: "{{ orgs }}"
+...
+EOF</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_common_job_template_to_receive_all_the_webhooks_from_gitlab"><a class="anchor" href="#_common_job_template_to_receive_all_the_webhooks_from_gitlab"></a>2.6.11. (common) Job Template to receive all the webhooks from GitLab</h4>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-casc/controller_jt_casc_cd_webhook.yml &lt;&lt;EOF
+---
+controller_templates:
+  - name: "{{ orgs }} CasC Ctrl CD Webhook Trigger"
+    description: "Template to attend Controller CasC webhook"
+    organization: "{{ orgs }}"
+    project: "{{ orgs }} CasC Data"
+    inventory: "{{ orgs }} Controller"
+    playbook: "casc_ctrl_cd_webhook_trigger.yml"
+    job_type: run
+    fact_caching_enabled: false
+    credentials:
+      - "{{ orgs }} {{ env }} AAP Credential"
+    concurrent_jobs_enabled: true
+    ask_scm_branch_on_launch: true
+    extra_vars:
+      ansible_python_interpreter: /usr/bin/python3
+      ansible_async_dir: /home/runner/.ansible_async/
+    execution_environment: "ee-casc"
+...
+EOF</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_common_job_template_to_deploy_all_the_object_defined_as_code"><a class="anchor" href="#_common_job_template_to_deploy_all_the_object_defined_as_code"></a>2.6.12. (common) Job Template to deploy all the object defined as code</h4>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-casc/controller_jt_casc_config.yml &lt;&lt;EOF
+---
+controller_templates:
+  - name: "{{ orgs }} CasC Ctrl Config"
+    description: "Template to deploy Controller objects in Org {{ orgs }}"
+    organization: "{{ orgs }}"
+    project: "{{ orgs }} CasC Data"
+    inventory: "{{ orgs }} Controller"
+    playbook: "casc_ctrl_config.yml"
+    job_type: run
+    fact_caching_enabled: false
+    credentials:
+      - "{{ orgs }} {{ env }} AAP Credential"
+      - "{{ orgs }} {{ env }} Vault Credential"
+    concurrent_jobs_enabled: true
+    ask_scm_branch_on_launch: true
+    ask_tags_on_launch: true
+    ask_verbosity_on_launch: true
+    ask_variables_on_launch: true
+    extra_vars:
+      ansible_python_interpreter: /usr/bin/python3
+      ansible_async_dir: /home/runner/.ansible_async/
+    execution_environment: "ee-casc"
+  - name: "{{ orgs }} CasC Ctrl Config Unified"
+    description: "Template to deploy Controller objects in Org {{ orgs }}"
+    organization: "{{ orgs }}"
+    project: "{{ orgs }} CasC Data"
+    inventory: "{{ orgs }} Controller"
+    playbook: "casc_ctrl_config_unified.yml"
+    job_type: run
+    fact_caching_enabled: false
+    credentials:
+      - "{{ orgs }} {{ env }} AAP Credential"
+      - "{{ orgs }} {{ env }} Vault Credential"
+    concurrent_jobs_enabled: true
+    ask_scm_branch_on_launch: true
+    ask_tags_on_launch: true
+    ask_verbosity_on_launch: true
+    ask_variables_on_launch: true
+    extra_vars:
+      ansible_python_interpreter: /usr/bin/python3
+      ansible_async_dir: /home/runner/.ansible_async/
+    execution_environment: "ee-casc"
+...
+EOF</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_common_job_template_to_remove_all_the_objects_in_the_controller_that_are_not_defined_as_code"><a class="anchor" href="#_common_job_template_to_remove_all_the_objects_in_the_controller_that_are_not_defined_as_code"></a>2.6.13. (common) Job Template to remove all the objects in the Controller that are not defined as code</h4>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-casc/controller_jt_casc_drop_diff.yml &lt;&lt;EOF
+---
+controller_templates:
+  - name: "{{ orgs }} CasC Ctrl Drop Diff"
+    description: "Template to assure no difference between API and repository"
+    organization: "{{ orgs }}"
+    project: "{{ orgs }} CasC Data"
+    inventory: "{{ orgs }} Controller"
+    playbook: "casc_ctrl_drop_diff.yml"
+    job_type: run
+    fact_caching_enabled: false
+    credentials:
+      - "{{ orgs }} {{ env }} AAP Credential"
+      - "{{ orgs }} {{ env }} Vault Credential"
+    concurrent_jobs_enabled: true
+    ask_scm_branch_on_launch: true
+    ask_tags_on_launch: true
+    ask_verbosity_on_launch: true
+    ask_variables_on_launch: true
+    extra_vars:
+      ansible_python_interpreter: /usr/bin/python3
+      ansible_async_dir: /home/runner/.ansible_async/
+      protect_not_empty_orgs: true
+    execution_environment: "ee-casc"
+  - name: "{{ orgs }} CasC Ctrl Drop Diff Unified"
+    description: "Template to assure no difference between API and repository"
+    organization: "{{ orgs }}"
+    project: "{{ orgs }} CasC Data"
+    inventory: "{{ orgs }} Controller"
+    playbook: "casc_ctrl_drop_diff_unified.yml"
+    job_type: run
+    fact_caching_enabled: false
+    credentials:
+      - "{{ orgs }} {{ env }} AAP Credential"
+      - "{{ orgs }} {{ env }} Vault Credential"
+    concurrent_jobs_enabled: true
+    ask_scm_branch_on_launch: true
+    ask_tags_on_launch: true
+    ask_verbosity_on_launch: true
+    ask_variables_on_launch: true
+    extra_vars:
+      ansible_python_interpreter: /usr/bin/python3
+      ansible_async_dir: /home/runner/.ansible_async/
+      protect_not_empty_orgs: true
+    execution_environment: "ee-casc"
+...
+EOF</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_common_job_template_to_create_new_gitlab_repositories_when_creating_additional_organizations"><a class="anchor" href="#_common_job_template_to_create_new_gitlab_repositories_when_creating_additional_organizations"></a>2.6.14. (common) Job Template to create new GitLab repositories when creating additional organizations</h4>
+<div class="listingblock console-input">
+<div class="title"><mark>Content to be customized</mark></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-gitlab/controller_jt_casc_gitlab_project_creation.yml &lt;&lt;EOF
+---
+controller_templates:
+  - name: "{{ orgs }} Gitlab Project Creation"
+    description: "Template to create projet in gitlab"
+    organization: "{{ orgs }}"
+    project: "{{ orgs }} CasC GitLab Webhook"
+    inventory: "{{ orgs }} Controller"
+    playbook: "playbooks/gitlab_setup.yml"
+    job_type: run
+    fact_caching_enabled: false
+    credentials:
+      - "{{ orgs }} {{ env }} GitLab API Token"
+    concurrent_jobs_enabled: true
+    extra_vars:
+      ansible_python_interpreter: /usr/bin/python3
+      ansible_async_dir: /home/runner/.ansible_async/
+      gitlab_branches: !unsafe "{{ gitlab_branches_string.split('\n') }}"
+    execution_environment: "ee-casc"
+    survey_enabled: True
+    survey_spec:
+      name: '{{ orgs }} Survey_Gitlab_Project_Creation'
+      description: 'Survey_Gitlab_Project_Creation'
+      spec:
+        - question_name: automation_hub
+          required: true
+          type: multiplechoice
+          variable: automation_hub
+          min: 0
+          max: 1024
+          choices:
+            - "${AUTOMATIONHUB_HOST}"
+            - "lb-hub-pro.lab.example.com"
+          default: "${AUTOMATIONHUB_HOST}"
+          new_question: true
+
+        - question_name: controller_dev
+          required: true
+          type: multiplechoice
+          variable: controller_dev
+          min: 0
+          max: 1024
+          choices:
+            - "${CONTROLLER_DEV_HOST}"
+          default: "${CONTROLLER_DEV_HOST}"
+          new_question: true
+
+        - question_name: controller_pro
+          required: true
+          type: multiplechoice
+          variable: controller_pro
+          min: 0
+          max: 1024
+          choices:
+            - "${CONTROLLER_PRO_HOST}"
+          default: "${CONTROLLER_PRO_HOST}"
+          new_question: true
+
+        - question_name: gitlab_api_url
+          required: true
+          type: multiplechoice
+          variable: gitlab_api_url
+          min: 0
+          max: 1024
+          choices:
+            - "https://gitlab.com"
+          default: "https://gitlab.com"
+          new_question: true
+
+        - question_name: gitlab_group
+          required: true
+          type: multiplechoice
+          variable: gitlab_group
+          min: 0
+          max: 1024
+          choices:
+            - "automationiberia"
+          default: "automationiberia"
+          new_question: true
+
+        - question_name: gitlab_subgroup
+          required: true
+          type: multiplechoice
+          variable: gitlab_subgroup
+          min: 0
+          max: 1024
+          choices:
+            - "aap-cac"
+          default: "aap-cac"
+          new_question: true
+
+        - question_name: "gitlab_project"
+          required: true
+          type: text
+          variable: "gitlab_project"
+          min: 0
+          max: 80
+          new_question: true
+
+        - question_name: gitlab_visibility
+          required: true
+          type: multiplechoice
+          variable: gitlab_visibility
+          min: 0
+          max: 1024
+          choices:
+            - "internal"
+            - "public"
+          default: "public"
+          new_question: true
+
+        - question_name: gitlab_default_branch
+          required: true
+          type: multiplechoice
+          variable: gitlab_default_branch
+          min: 0
+          max: 1024
+          choices:
+            - "pro"
+          default: "pro"
+          new_question: true
+
+        - question_name: gitlab_http_protocol
+          required: true
+          type: multiplechoice
+          variable: gitlab_http_protocol
+          min: 0
+          max: 1024
+          choices:
+            - "https"
+            - "http"
+          default: "https"
+          new_question: true
+
+        - question_name: gitlab_branches_string
+          required: true
+          type: textarea
+          variable: gitlab_branches_string
+          min: 0
+          max: 1024
+          default: "dev\npro"
+          new_question: true
+...
+EOF</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_common_job_template_to_configure_the_gitlab_webhooks_for_each_organizations_repository_to_apply_the_cac"><a class="anchor" href="#_common_job_template_to_configure_the_gitlab_webhooks_for_each_organizations_repository_to_apply_the_cac"></a>2.6.15. (common) Job Template to configure the GitLab webhooks for each organization&#8217;s repository to apply the CaC</h4>
+<div class="listingblock console-input">
+<div class="title"><mark>Content to be customized</mark></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-gitlab/controller_jt_casc_gitlab_webhook.yml &lt;&lt;EOF
+---
+controller_templates:
+  - name: "{{ orgs }} Gitlab Webhook Creation"
+    description: "Template to create webhook in the gitlab project"
+    organization: "{{ orgs }}"
+    project: "{{ orgs }} CasC GitLab Webhook"
+    inventory: "{{ orgs }} Controller"
+    playbook: "playbooks/gitlab_webhook.yml"
+    job_type: run
+    fact_caching_enabled: false
+    credentials:
+      - "{{ orgs }} {{ env }} AAP Credential"
+      - "{{ orgs }} {{ env }} GitLab API Token"
+    concurrent_jobs_enabled: true
+    extra_vars:
+      ansible_python_interpreter: /usr/bin/python3
+      ansible_async_dir: /home/runner/.ansible_async/
+      gitlab_api_user: ""
+    execution_environment: "ee-casc"
+    survey_enabled: True
+    survey_spec:
+      name: '{{ orgs }} Survey_Gitlab_Webhook_Creation'
+      description: 'Survey_Gitlab_Webhook_Creation'
+      spec:
+        - question_name: gitlab_api_url
+          required: true
+          type: multiplechoice
+          variable: gitlab_api_url
+          min: 0
+          max: 1024
+          choices:
+            - "https://gitlab.com"
+            - "https://github.com"
+          default: "https://gitlab.com"
+          new_question: true
+
+        - question_name: gitlab_group
+          required: true
+          type: multiplechoice
+          variable: gitlab_group
+          min: 0
+          max: 1024
+          choices:
+            - "automationiberia"
+          default: "automationiberia"
+          new_question: true
+
+        - question_name: gitlab_subgroup
+          required: true
+          type: multiplechoice
+          variable: gitlab_subgroup
+          min: 0
+          max: 1024
+          choices:
+            - "aap-cac"
+          default: "aap-cac"
+          new_question: true
+
+        - question_name: Trigger hook on push events?
+          required: true
+          type: multiplechoice
+          variable: gitlab_action_push
+          min: 0
+          max: 30
+          choices: "true\nfalse"
+          default: "{{ 'true' if env != 'pro' else 'false' }}"
+          new_question: true
+
+        - question_name: gitlab_action_tag
+          required: true
+          type: multiplechoice
+          variable: gitlab_action_tag
+          min: 0
+          max: 1024
+          choices: "true\nfalse"
+          default: "{{ 'false' if env != 'pro' else 'true' }}"
+          new_question: true
+
+        - question_name: gitlab_branch_filter
+          required: true
+          type: multiplechoice
+          variable: gitlab_branch_filter
+          choices: "dev\npro"
+          default: "{{ 'dev' if env != 'pro' else 'pro' }}"
+          new_question: true
+
+        - question_name: "Organization / Gitlab Project Name"
+          required: true
+          type: text
+          variable: gitlab_project
+          min: 0
+          max: 40
+          new_question: false
+
+        - question_name: "Is a Workflow?"
+          required: true
+          type: multiplechoice
+          variable: "is_workflow"
+          min: 0
+          max: 30
+          choices: "true\nfalse"
+          default: "{{ 'false' }}"
+          new_question: true
+
+        - question_name: "(Workflow) Job Template Name"
+          required: true
+          type: text
+          variable: "job_template_name"
+          min: 0
+          max: 60
+          new_question: true
+
+...
+EOF</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_common_organization_to_be_created_superadmin"><a class="anchor" href="#_common_organization_to_be_created_superadmin"></a>2.6.16. (common) Organization to be created: <code>superadmin</code></h4>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_organizations.d/app-casc/controller_organization_superadmin.yml &lt;&lt;EOF
+---
+controller_organizations:
+  - name: "{{ orgs }}"
+    description: "Organization for objects that requiere superadmin powers"
+    galaxy_credentials:
+      - "{{ orgs }} {{ env }} Automation Hub Community Repository"
+      - "{{ orgs }} {{ env }} Automation Hub Published Repository"
+      - "{{ orgs }} {{ env }} Automation Hub RH Certified Repository"
+...
+EOF</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_common_project_to_get_the_cac_related_playbooks"><a class="anchor" href="#_common_project_to_get_the_cac_related_playbooks"></a>2.6.17. (common) Project to get the CaC related playbooks</h4>
+<div class="listingblock console-input">
+<div class="title"><mark>Content to be customized</mark></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export PROJECT_URL_CASC='&lt;superadmin_git_url&gt;'</code></pre>
+</div>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_projects.d/app-casc/controller_projects_casc.yml &lt;&lt;EOF
+---
+controller_projects:
+  - name: "{{ orgs }} CasC Data"
+    description: "Project to include the CasC playbooks"
+    organization: "{{ orgs }}"
+    scm_type: git
+    scm_url: "${PROJECT_URL_CASC}"
+    scm_credential: "{{ orgs }} {{ env }} GitLab Credential"
+    scm_branch: "{{ casc_gitlab_scm_branch | default(env) }}"
+    scm_clean: false
+    scm_delete_on_update: false
+    scm_update_on_launch: false
+    scm_update_cache_timeout: 86400
+    allow_override: true
+...
+EOF</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_common_project_to_get_the_gitlab_related_playbooks"><a class="anchor" href="#_common_project_to_get_the_gitlab_related_playbooks"></a>2.6.18. (common) Project to get the GitLab related playbooks</h4>
+<div class="listingblock console-input">
+<div class="title"><mark>Content to be customized</mark></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export PROJECT_URL_CASC_SETUP='&lt;casc_setup_git_url&gt;'</code></pre>
+</div>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_projects.d/app-gitlab/controller_projects_gitlab.yml &lt;&lt;EOF
+---
+controller_projects:
+  - name: "{{ orgs }} CasC GitLab Webhook"
+    description: "Project to include playbooks to configure the GitLab Webhooks for the CasC to be able to run"
+    organization: "{{ orgs }}"
+    scm_type: git
+    scm_url: "${PROJECT_URL_CASC_SETUP}"
+    scm_credential: "{{ orgs }} {{ env }} GitLab Credential"
+    scm_branch: main
+    scm_clean: false
+    scm_delete_on_update: false
+    scm_update_on_launch: false
+    scm_update_cache_timeout: 86400
+    allow_override: true
+...
+EOF</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_common_workflow_job_template_to_manage_the_cac_of_the_organization_superadmin"><a class="anchor" href="#_common_workflow_job_template_to_manage_the_cac_of_the_organization_superadmin"></a>2.6.19. (common) Workflow Job Template to manage the CaC of the organization SuperAdmin</h4>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_workflow_job_templates.d/app-casc/controller_workflow_job_templates_casc.yml &lt;&lt;EOF
+---
+controller_workflows:
+  - name: "{{ orgs }} WF CasC Ctrl"
+    state: present
+    description: "workflow for CasC on AAP"
+    survey_enabled: false
+    ask_variables_on_launch: true
+    allow_simultaneous: true
+    scm_branch: "{{ env }}"
+    webhook_service: "gitlab"
+    organization: "{{ orgs }}"
+    simplified_workflow_nodes:
+      - identifier: "LAUNCH_CI_{{ orgs }}"
+        workflow_job_template: "{{ orgs }} WF CasC Ctrl"
+        unified_job_template: "{{ orgs }} CasC Ctrl CD Webhook Trigger"
+        job_type: run
+        organization: "{{ orgs }}"
+        workflow: "{{ orgs }} WF CasC Ctrl"
+
+      - identifier: "PROJECT_SYNC_{{ orgs }}"
+        workflow_job_template: "{{ orgs }} WF CasC Ctrl"
+        unified_job_template: "{{ orgs }} CasC Data"
+        organization: "{{ orgs }}"
+        workflow: "{{ orgs }} WF CasC Ctrl"
+        success_nodes:
+          - "LAUNCH_CI_{{ orgs }}"
+    notification_templates_started: []
+    notification_templates_success: []
+    notification_templates_error: []
+    notification_templates_approvals: []
+    survey_spec: {}
+...
+EOF</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_commit_and_push_the_initial_version_of_cac"><a class="anchor" href="#_commit_and_push_the_initial_version_of_cac"></a>2.7. Commit and push the initial version of CaC</h3>
+<div class="paragraph">
+<p>Once all the objects are created in the local working directory, all the changes can be uploaded to the GitLab repository:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git init .
+git add .
+git branch -m dev
+git remote add origin ${PROJECT_URL_CASC}
+git commit -m "Initial commit"
+git push -u origin dev</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Take in consideration that in this documentation the branch <code>dev</code> is used, but it can be any other branch if it have the corresponding environment configured as well.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. <a href="https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html" class="bare">https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html</a>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="index.html#_quick_introduction_to_cac">1. Introduction</a></span>
+  <span class="next"><a href="022-deploy-superadmin-objects.html">Deploy the SuperAdmin objects</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="3">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <a class="rhd-logo" href="https://developers.redhat.com" target="_blank"></div>
+</footer>
+<script src="../_/js/vendor/clipboard.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
