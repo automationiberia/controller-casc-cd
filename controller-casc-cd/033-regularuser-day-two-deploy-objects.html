@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Welcome to the Workshop/Demo to configure an Automation Controller using a Continuous Deployment approach :: Automation Controller configuration Continuous Deployment with CasC</title>
-    <link rel="canonical" href="https://automationiberia.github.io/controller-casc-cd/controller-casc-cd/index.html">
-    <link rel="next" href="021-initial-dir-and-files.html#_pre_requisites">
+    <title>Push the changes to create the new objects through Merge Requests :: Automation Controller configuration Continuous Deployment with CasC</title>
+    <link rel="canonical" href="https://automationiberia.github.io/controller-casc-cd/controller-casc-cd/033-regularuser-day-two-deploy-objects.html">
+    <link rel="prev" href="032-regularuser-day-two.html">
+    <link rel="next" href="034-regularuser-day-two-manual-change.html">
     <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../_/css/site.css">
 <link rel="icon" href="../_/img/favicon.ico" type="image/x-icon">
@@ -71,7 +72,7 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="#_quick_introduction_to_cac">1. Introduction</a>
+    <a class="nav-link" href="index.html#_quick_introduction_to_cac">1. Introduction</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -165,7 +166,7 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="032-regularuser-day-two.html">Populate new organization objects</a>
   </li>
-  <li class="nav-item" data-depth="3">
+  <li class="nav-item is-current-page" data-depth="3">
     <a class="nav-link" href="033-regularuser-day-two-deploy-objects.html">Push the changes to create the new objects</a>
   </li>
   <li class="nav-item" data-depth="3">
@@ -202,144 +203,180 @@
 <main class="article">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
-  <a href="index.html" class="home-link is-current"></a>
+  <a href="index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Automation Controller configuration Continuous Deployment with CasC</a></li>
-    <li><a href="#_quick_introduction_to_cac">1. Introduction</a></li>
+    <li>3. CasC setup part 2 (to be executed by a regular organization&#8217;s admin user)</li>
+    <li>DayTwo</li>
+    <li><a href="033-regularuser-day-two-deploy-objects.html">Push the changes to create the new objects</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/automationiberia/controller-casc-cd/edit/main/documentation/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/automationiberia/controller-casc-cd/edit/main/documentation/modules/ROOT/pages/033-regularuser-day-two-deploy-objects.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Welcome to the Workshop/Demo to configure an Automation Controller using a Continuous Deployment approach</h1>
+<h1 class="page">Push the changes to create the new objects through Merge Requests</h1>
 <div class="sect1">
-<h2 id="_quick_introduction_to_cac"><a class="anchor" href="#_quick_introduction_to_cac"></a>Quick introduction to CaC</h2>
+<h2 id="_commit_the_changes_to_the_new_branch"><a class="anchor" href="#_commit_the_changes_to_the_new_branch"></a>1. Commit the changes to the new branch</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p><a href="https://www.redhat.com/architect/ansible-automation-controller-cac-gitops">Manage automation controller Configuration as Code (CaC) with Ansible</a></p>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">git add -A
+git commit -m "Add new objects to the new org"
+git push -u origin creation_new_objects</code></pre>
 </div>
-<div class="paragraph">
-<p><a href="https://www.redhat.com/architect/automation-controller-active-passive-architecture-cac">Manage automation controller active and passive multisite architecture with Ansible</a></p>
 </div>
 </div>
 </div>
-<div class="sect1 tiles browse">
-<h2 id="_browse_modules"><a class="anchor" href="#_browse_modules"></a>Browse modules</h2>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_create_and_accept_a_merge_request_from_creation_new_objects_to_dev"><a class="anchor" href="#_create_and_accept_a_merge_request_from_creation_new_objects_to_dev"></a>2. Create and accept a Merge Request from creation_new_objects to dev</h2>
 <div class="sectionbody">
-<div class="paragraph tile">
-<p>Actions to be executed by Controller Admin</p>
+<div class="sect2">
+<h3 id="_create_merge_request"><a class="anchor" href="#_create_merge_request"></a>2.1. Create Merge Request</h3>
+<div class="paragraph">
+<p>Create a Merge Request in Gitlab from creation_new_objects to dev branch:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="021-initial-dir-and-files.html#_pre_requisites" class="xref page">Pre-Requisites</a></p>
-</li>
-<li>
-<p>DayZero</p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="021-initial-dir-and-files.html#_housekeeping_optional_steps" class="xref page">Housekeeping (optional steps)</a></p>
-</li>
-<li>
-<p><a href="021-initial-dir-and-files.html#_create_the_ansible_inventory_file_for_the_environment" class="xref page">Create the ansible inventory file for the environment</a></p>
-</li>
-<li>
-<p><a href="021-initial-dir-and-files.html#_create_the_automation_directories_structure" class="xref page">Create the automation directories structure</a></p>
-</li>
-<li>
-<p><a href="021-initial-dir-and-files.html#_configure_ansible_connection_to_the_aap_controllers_common_and_per_environment_variables" class="xref page">Configure ansible connection to the AAP Controllers (common and per environment variables)</a></p>
-</li>
-<li>
-<p><a href="021-initial-dir-and-files.html#_create_the_cac_playbooks" class="xref page">Create the CaC playbooks</a></p>
-</li>
-<li>
-<p><a href="021-initial-dir-and-files.html#_define_controller_objects_as_code" class="xref page">Define Controller Objects as Code</a></p>
-</li>
-<li>
-<p><a href="021-initial-dir-and-files.html#_commit_and_push_the_initial_version_of_cac" class="xref page">Commit and push the initial version of CaC</a></p>
-</li>
-<li>
-<p><a href="022-deploy-superadmin-objects.html" class="xref page">Deploy the SuperAdmin objects</a></p>
-</li>
-</ul>
+<div class="imageblock">
+<div class="content">
+<img src="_images/generalmergerequest.png" alt="General Merge Request">
 </div>
-</li>
-<li>
-<p>DayTwo</p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="023-superadmin-create-new-organization.html" class="xref page">Create New Organization</a></p>
-</li>
-</ul>
 </div>
-</li>
-</ul>
+<div class="imageblock">
+<div class="content">
+<img src="_images/mergerequestnewobjecttodev.png" alt="Dev Merge Request">
 </div>
-<div class="paragraph tile">
-<p>Actions to be executed by Regular User</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>DayZero</p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="031-regularuser-day-zero.html" class="xref page">Clone the newly assigned GitLab Repository</a></p>
-</li>
-<li>
-<p><a href="031-regularuser-day-zero.html#_edit_credentials_to_connect_to_the_controller_for_day_zero" class="xref page">Edit credentials to connect to the controller for day zero</a></p>
-</li>
-<li>
-<p><a href="031-regularuser-day-zero.html#_edit_credentials_objects" class="xref page">Edit credentials objects</a></p>
-</li>
-<li>
-<p><a href="031-regularuser-day-zero.html#_check_the_inventory_file" class="xref page">Check the inventory file</a></p>
-</li>
-<li>
-<p><a href="031-regularuser-day-zero.html#_creating_the_vault_password_file" class="xref page">Creating the <code>.vault_password</code> file</a></p>
-</li>
-<li>
-<p><a href="031-regularuser-day-zero.html#_launch_ansible_navigator_from_cli_to_setup_day_zero_of_casc" class="xref page">Launch ansible-navigator from CLI to setup day-zero of CasC</a></p>
-</li>
-<li>
-<p><a href="031-regularuser-day-zero.html#_push_the_changes" class="xref page">Push the changes</a></p>
-</li>
-<li>
-<p><a href="031-regularuser-day-zero.html#_pomote_the_casc_dev_day0_branch_to_dev_dev_branch" class="xref page">Pomote the <code>casc-dev-day0</code> branch to dev (<code>dev</code> branch)</a></p>
-</li>
-<li>
-<p><a href="031-regularuser-day-zero.html#_promote_the_dev_branch_to_pro_pro_branch" class="xref page">Promote the <code>dev</code> branch to pro (<code>pro</code> branch)</a></p>
-</li>
-</ul>
 </div>
-</li>
-<li>
-<p>DayTwo</p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="032-regularuser-day-two.html" class="xref page">Populate new organization objects</a></p>
-</li>
-<li>
-<p><a href="033-regularuser-day-two-deploy-objects.html" class="xref page">Push the changes to create the new objects</a></p>
-</li>
-<li>
-<p><a href="034-regularuser-day-two-manual-change.html" class="xref page">Manual changes and revert them with Desired State</a></p>
-</li>
-</ul>
+<div class="sect2">
+<h3 id="_accept_merge_request"><a class="anchor" href="#_accept_merge_request"></a>2.2. Accept Merge Request</h3>
+<div class="paragraph">
+<p>Approve the Merge Request in Gitlab to merge creation_new_objects into dev branch:</p>
 </div>
-</li>
-</ul>
+<div class="imageblock">
+<div class="content">
+<img src="_images/mergenewobjectstodev.png" alt="Merge Dev Merge Request">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_check_new_objects_in_the_organization_for_the_dev_controller"><a class="anchor" href="#_check_new_objects_in_the_organization_for_the_dev_controller"></a>2.3. Check new objects in the Organization for the dev controller</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The following examples will use the Ansible Automation Controller base URL <code><a href="https://aapcontroller.dev/" class="bare">https://aapcontroller.dev/</a></code>, which should be customized as needed.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_go_to_httpsaapcontroller_devjobs_and_check_that_the_jobs_for_cac_neworg_casc_ctrl_drop_diff_unified_and_neworg_casc_ctrl_config_unified_finished_successfully"><a class="anchor" href="#_go_to_httpsaapcontroller_devjobs_and_check_that_the_jobs_for_cac_neworg_casc_ctrl_drop_diff_unified_and_neworg_casc_ctrl_config_unified_finished_successfully"></a>2.3.1. Go to <code><a href="https://aapcontroller.dev/#/jobs" class="bare">https://aapcontroller.dev/#/jobs</a></code> and check that the jobs for CaC <code>NewOrg CasC Ctrl Drop Diff Unified</code> and <code>NewOrg CasC Ctrl Config Unified</code> finished successfully:</h4>
+<div class="imageblock">
+<div class="content">
+<img src="_images/regular-user-webhook-jobs-1.png" alt="Regular User Webhook Triggered Jobs">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_go_to_httpsaapcontroller_devprojects_and_check_that_neworg_project_example_was_created"><a class="anchor" href="#_go_to_httpsaapcontroller_devprojects_and_check_that_neworg_project_example_was_created"></a>2.3.2. Go to <code><a href="https://aapcontroller.dev/#/projects" class="bare">https://aapcontroller.dev/#/projects</a></code> and check that <code>NewOrg_project_example</code> was created:</h4>
+<div class="imageblock">
+<div class="content">
+<img src="_images/regular-user-webhook-projects-1.png" alt="Regular User Webhook Created Projects">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_go_to_httpsaapcontroller_devtemplates_and_check_that_neworg_new_job_template_was_created"><a class="anchor" href="#_go_to_httpsaapcontroller_devtemplates_and_check_that_neworg_new_job_template_was_created"></a>2.3.3. Go to <code><a href="https://aapcontroller.dev/#/templates" class="bare">https://aapcontroller.dev/#/templates</a></code> and check that <code>NewOrg New Job Template</code> was created:</h4>
+<div class="imageblock">
+<div class="content">
+<img src="_images/regular-user-webhook-templates-1.png" alt="Regular User Webhook Created Job Templates">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_go_to_httpsaapcontroller_devinventories_and_check_that_neworg_localhost_was_created_and_it_has_a_host"><a class="anchor" href="#_go_to_httpsaapcontroller_devinventories_and_check_that_neworg_localhost_was_created_and_it_has_a_host"></a>2.3.4. Go to <code><a href="https://aapcontroller.dev/#/inventories" class="bare">https://aapcontroller.dev/#/inventories</a></code> and check that <code>NewOrg Localhost</code> was created and it has a host:</h4>
+<div class="imageblock">
+<div class="content">
+<img src="_images/regular-user-webhook-inventory-1.png" alt="Regular User Webhook Created Inventory">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/regular-user-webhook-inventory-2.png" alt="Regular User Webhook Created Inventory Host">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_go_to_httpsaapcontroller_devcredentials_and_check_that_neworg_dev_was_created"><a class="anchor" href="#_go_to_httpsaapcontroller_devcredentials_and_check_that_neworg_dev_was_created"></a>2.3.5. Go to <code><a href="https://aapcontroller.dev/#/credentials" class="bare">https://aapcontroller.dev/#/credentials</a></code> and check that <code>NewOrg dev *</code> was created:</h4>
+<div class="imageblock">
+<div class="content">
+<img src="_images/regular-user-webhook-credentials-1.png" alt="Regular User Webhook Created Credentials">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_promote_dev_to_pro_through_a_merge_request"><a class="anchor" href="#_promote_dev_to_pro_through_a_merge_request"></a>3. Promote dev to pro through a Merge Request</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_create_merge_request_2"><a class="anchor" href="#_create_merge_request_2"></a>3.1. Create Merge Request</h3>
+<div class="imageblock">
+<div class="content">
+<img src="_images/generalmergerequest.png" alt="General Merge Request">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/mergerequesttopro.png" alt="Pro Merge Request">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_accept_merge_request_2"><a class="anchor" href="#_accept_merge_request_2"></a>3.2. Accept Merge Request</h3>
+<div class="paragraph">
+<p>Approve the Merge Request in Gitlab to merge dev into pro branch:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/mergenewobjectstopro.png" alt="Merge Pro Merge Request">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_check_new_objects_in_the_organization_for_the_pro_controller"><a class="anchor" href="#_check_new_objects_in_the_organization_for_the_pro_controller"></a>3.3. Check new objects in the Organization for the pro controller</h3>
+<div class="paragraph">
+<p>Go to <mark>ToDo URL jobs</mark>  and check that <mark>To Do job names</mark> were finished well.</p>
+</div>
+<div class="paragraph">
+<p>Go to <mark>ToDo URL projects</mark>  and check that %ORGNAME% New Job Template was created.</p>
+</div>
+<div class="paragraph">
+<p>Go to <mark>ToDo URL job_template</mark>  and check that %ORGNAME%_project_example was created.</p>
+</div>
+<div class="paragraph">
+<p>Go to <mark>ToDo URL inventory</mark>  and check that %ORGNAME% Localhost was created and it has a host <mark>ToDo URL host inventory</mark></p>
+</div>
+<div class="paragraph">
+<p>Go to <mark>ToDo URL credential</mark>  and check that %ORGNAME% Gitlab Credential %ORGNAME%_project_example was created.</p>
+</div>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="next"><a href="021-initial-dir-and-files.html#_pre_requisites">Pre-Requisites</a></span>
+  <span class="prev"><a href="032-regularuser-day-two.html">Populate new organization objects</a></span>
+  <span class="next"><a href="034-regularuser-day-two-manual-change.html">Manual changes and revert them with Desired State</a></span>
 </nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="3">
