@@ -139,60 +139,38 @@ git commit -m "CasC day zero"
 git push origin casc-dev-day0
 ----
 
-8. Pomote the `casc-dev-day0` branch to dev (`dev` branch)
+== Pomote the `casc-dev-day0` branch to dev (`dev` branch)
 
-   * Select the source branch as `casc-dev-day0` and `dev` as the destination one]
-     ![New Merge Request Dev](images/newmrtodev-0.png "New Merge Request Dev")
+* Select the source branch as `casc-dev-day0` and `dev` as the destination one
++
+image::newmrtodev-0.png[New Merge Request Dev]
 
-   * Fill in the merge request information
-     ![Fill in the merge request information](images/newmrtodev-0-step2.png "Fill in the merge request information")
+* Fill in the merge request information
++
+image::newmrtodev-0-step2.png[Fill in the merge request information]
 
-   * Approve the Merge Request.
-     ![New Merge Request Pro](images/newmrtodev-0-step3.png "Merge the merge request")
+* Approve the Merge Request.
++
+image::newmrtodev-0-step3.png[Merge the merge request]
 
-9. Promote the `dev` branch to pro (`pro` branch)
+== Promote the `dev` branch to pro (`pro` branch)
 
-   * Select the source branch as `dev` and `pro` as the destination one]
-     ![New Merge Request Pro](images/newmrtopro.png "New Merge Request Pro")
+* Select the source branch as `dev` and `pro` as the destination one
++
+image::newmrtopro.png[New Merge Request Pro]
 
-   * Fill in the merge request information
-     ![Fill in the merge request information](images/newmrtoprostep2.png "Fill in the merge request information")
+* Fill in the merge request information
++
+image::newmrtoprostep2.png[Fill in the merge request information]
 
-     > :warning: **Be sure to write a title that have sense for the Merge Request**: The default value here is `dev`, that is not usefull at all!
+[WARNING]
+====
+**Be sure to write a title that have sense for the Merge Request**: The default value here is `dev`, that is not usefull at all!
+====
 
-   * Approve the Merge Request.
-     ![New Merge Request Pro](images/newmrtoprostep3.png "Merge the merge request")
-
-10. Configure the webhooks for both environments: DEV and PRO.
-
-    > **_NOTE:_** You can use the playbook gitlab_webhook.yml or do it manually if you prefer how it is done:
-
-    AUTOMATICALLY WITH A PLAYBOOK (it is needed to change <user> and <token> in the command. Also it can be used gitlab_api_password instead of gitlab_api_token in case it is used a password.):
-
-    ```
-    ansible-navigator run gitlab_webhook.yml -i inventory -l dev -e '{gitlab_action_push: true, gitlab_action_tag: false, gitlab_branch_filter: dev, gitlab_api_user: <user>, gitlab_api_token: <token>}' -m stdout --eei quay.io/automationiberia/aap/ee-casc --vault-password-file .vault_password
-    ansible-navigator run gitlab_webhook.yml -i inventory -l pro -e '{gitlab_action_push: false, gitlab_action_tag: true, gitlab_api_user: <user>, gitlab_api_token: <token>}' -m stdout --eei quay.io/automationiberia/aap/ee-casc --vault-password-file .vault_password
-    ```
-
-    MANUALLY IN DEV (only if you didn't by the playbook):
-
-    1. Go to Dev Controller and open NewOrg CasC_AAP_Workflow
-    2. Copy the content of "Webhook URL" and "Webhook Key"
-    3. Go to Gitlab -> Settings -> Webhooks
-    4. Paste the content of "Webhook URL" and "Webhook Key" in the gaps "URL" and "Secret Content"
-    5. Select Push events and fill the gap with dev
-
-    ![pusheventdev](images/pusheventdev.png)
-
-    MANUALLY IN PRO (only if you didn't by the playbook):
-
-    1. Go to PRO Controller and open NewOrg CasC_AAP_Workflow
-    2. Copy the content of "Webhook URL" and "Webhook Key"
-    3. Go to Gitlab -> Settings -> Webhooks
-    4. Paste the content of "Webhook URL" and "Webhook Key" in the gaps "URL" and "Secret Content"
-    5. Select Tag events and fill the gap with dev
-
-    ![pusheventdev](images/tageventpro.png)
+* Approve the Merge Request.
++
+image::newmrtoprostep3.png[Merge the Merge Request]
 
 ### GitOps flow
 

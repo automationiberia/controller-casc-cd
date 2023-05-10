@@ -84,13 +84,22 @@ controller_templates:
           default: "{{ 'dev' if env != 'pro' else 'pro' }}"
           new_question: true
 
+        - question_name: "CasC Organization Name"
+          required: true
+          type: text
+          variable: casc_organization
+          min: 0
+          max: 40
+          default: "{{ orgs }}"
+          new_question: true
+
         - question_name: "Organization / Gitlab Project Name"
           required: true
           type: text
           variable: gitlab_project
           min: 0
           max: 40
-          new_question: false
+          new_question: true
 
         - question_name: "Is a Workflow?"
           required: true

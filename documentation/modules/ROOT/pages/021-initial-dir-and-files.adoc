@@ -3,18 +3,7 @@
 
 include::_attributes.adoc[]
 
-== Pre-Requisites
-
-An *empty GitLab repository* is required to follow this workshop.
-
-[NOTE]
-=======
-All the files for the repo will be created from scratch and synchronized during this lab.
-
-The creation process for the new repository is not in the scope of the current workshop. For more info see: https://docs.gitlab.com/ee/user/project/repository/[Create a repository on Gitlab.com]
-=======
-
-== Day-0: Create SuperAdmin organization directory structure and initial files
+= Day-0: Create SuperAdmin organization directory structure and initial files
 
 The following lines will show the organization directory structure creation:
 
@@ -26,8 +15,18 @@ The following lines will show the organization directory structure creation:
 All the steps below are meant to be locally executed from the base directory of the repository.
 ======
 
+== Pre-Requisites
 
-=== Housekeeping (optional steps)
+An *empty GitLab repository* is required to follow this workshop.
+
+[NOTE]
+=======
+All the files for the repo will be created from scratch and synchronized during this lab.
+
+The creation process for the new repository is not in the scope of the current workshop. For more info see: https://docs.gitlab.com/ee/user/project/repository/[Create a repository on Gitlab.com]
+=======
+
+== Housekeeping (optional steps)
 
 .Create the following `.gitignore` file to avoid accidentally uploading undesired files to the GitLab repository:
 [%collapsible]
@@ -65,7 +64,7 @@ EOF
 ----
 ======
 
-=== Create the ansible inventory file for the environment
+== Create the ansible inventory file for the environment
 
 .#Content to be customized#
 [.console-input]
@@ -83,7 +82,7 @@ include::../examples/inventory.ini[]
 EOF
 ----
 
-=== Create the automation directories structure
+== Create the automation directories structure
 
 [NOTE]
 ======
@@ -117,7 +116,7 @@ mkdir -p orgs_vars/${SUPERADMIN_ORG}/env/common/controller_{schedules.d,schedule
 ----
 ======
 
-=== Configure ansible connection to the AAP Controllers (common and per environment variables)
+== Configure ansible connection to the AAP Controllers (common and per environment variables)
 
 Initial configuration files must be created. First of all, the connection credentials to the controller are needed. They will be created under the `group_vars` directory as it will differ from one environment to another, and Ansible provides this method for the implementationfootnote:[https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html].
 
@@ -170,7 +169,7 @@ ansible-vault encrypt \
 Write down the encryption password as it will be used later on the workshop
 ======
 
-=== Create the CaC playbooks
+== Create the CaC playbooks
 
 Next, we need the playbooks that allow us to implement the CaC.
 
@@ -183,7 +182,7 @@ All this playbooks are available on the repository https://gitlab.com/automation
 curl -s https://gitlab.com/automationiberia/aap-cac/superadmin-workshop-template/-/archive/main/superadmin-workshop-template-main.tar.gz | tar xvzf - --strip-components=1 -C .
 ----
 
-==== Playbooks reference (informational only)
+=== Playbooks reference (informational only)
 
 All the playbooks that have been created in the
 xref:#_create_the_cac_playbooks[previous step] can be found here for further reference:
@@ -274,11 +273,11 @@ EOF
 ======
 =======
 
-=== Define Controller Objects as Code
+== Define Controller Objects as Code
 
 With these files, the SuperAdmin repo will have all the CaC related playbooks that will create and/or destroy the objects at the Ansible Controller.
 
-==== (dev) Ansible Automation Platform Credentials will let the Job Templates to connect to the Controller
+=== (dev) Ansible Automation Platform Credentials will let the Job Templates to connect to the Controller
 [.console-input]
 [source,bash]
 ----
@@ -293,7 +292,7 @@ Encrypting that file is not needed, as it is getting all the sensible informatio
 ======
 
 .#Content to be customized#
-==== (dev) Source Control Manager and GitLab API Token Credentials will let the Job Templates to connect to the GitLab repository/group
+=== (dev) Source Control Manager and GitLab API Token Credentials will let the Job Templates to connect to the GitLab repository/group
 [.console-input]
 [source,bash]
 ----
@@ -319,7 +318,7 @@ These files should be encrypted as they contains the private key and a token tha
 ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/{controller_credentials_scm.yml,controller_credentials_gitlab_api_token.yml}
 ----
 
-==== (dev) Vault Credentials will let the Job Templates to decrypt the sensitive information from ``ansible-vault``ed files
+=== (dev) Vault Credentials will let the Job Templates to decrypt the sensitive information from ``ansible-vault``ed files
 
 .#Content to be customized#
 [.console-input]
@@ -338,7 +337,7 @@ Encrypt the file in the same way as before:
 ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_vault.yml
 ----
 
-==== (dev) Galaxy Credential will let the Job Templates to connect to the Private Automation Hub and get the required Ansible Collections
+=== (dev) Galaxy Credential will let the Job Templates to connect to the Private Automation Hub and get the required Ansible Collections
 
 .#Content to be customized#
 [.console-input]
@@ -364,7 +363,7 @@ Encrypt the file in the same way as before:
 ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_galaxy.yml
 ----
 
-==== (dev) Registry Credential will let the Job Templates to connect to the Private Automation Hub and get the required Execution Environments
+=== (dev) Registry Credential will let the Job Templates to connect to the Private Automation Hub and get the required Execution Environments
 
 .#Content to be customized#
 [.console-input]
@@ -383,7 +382,7 @@ Encrypt the file in the same way as before:
 ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_registry.yml
 ----
 
-==== (dev) Execution Environments to be used by the Job Templates
+=== (dev) Execution Environments to be used by the Job Templates
 
 .#Content to be customized#
 [.console-input]
@@ -394,7 +393,7 @@ include::../examples/orgs_vars/superadmin/env/dev/controller_execution_environme
 EOF
 ----
 
-==== (dev) Hosts to be used by the inventory for the Job Templates
+=== (dev) Hosts to be used by the inventory for the Job Templates
 
 [.console-input]
 [source,bash]
@@ -404,7 +403,7 @@ include::../examples/orgs_vars/superadmin/env/dev/controller_hosts.d/aap-casc/co
 EOF
 ----
 
-==== (dev) Users that will be administrators of the superadmin organization
+=== (dev) Users that will be administrators of the superadmin organization
 
 .#Content to be customized#
 [.console-input]
@@ -423,7 +422,7 @@ This file should be encrypted as it contains the password of the superadmin user
 ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_users.d/controller_user_accounts.yml
 ----
 
-==== (common) Credential Types that will be needed for the Job Templates
+=== (common) Credential Types that will be needed for the Job Templates
 
 [.console-input]
 [source,bash]
@@ -433,7 +432,7 @@ include::../examples/orgs_vars/superadmin/env/common/controller_credential_types
 EOF
 ----
 
-==== (common) Inventory to be used for the Job Templates
+=== (common) Inventory to be used for the Job Templates
 
 [.console-input]
 [source,bash]
@@ -443,7 +442,7 @@ include::../examples/orgs_vars/superadmin/env/common/controller_inventories.d/ap
 EOF
 ----
 
-==== (common) Job Template to receive all the webhooks from GitLab
+=== (common) Job Template to receive all the webhooks from GitLab
 
 [.console-input]
 [source,bash]
@@ -453,7 +452,7 @@ include::../examples/orgs_vars/superadmin/env/common/controller_job_templates.d/
 EOF
 ----
 
-==== (common) Job Template to deploy all the object defined as code
+=== (common) Job Template to deploy all the object defined as code
 
 [.console-input]
 [source,bash]
@@ -463,7 +462,7 @@ include::../examples/orgs_vars/superadmin/env/common/controller_job_templates.d/
 EOF
 ----
 
-==== (common) Job Template to remove all the objects in the Controller that are not defined as code
+=== (common) Job Template to remove all the objects in the Controller that are not defined as code
 
 [.console-input]
 [source,bash]
@@ -473,7 +472,7 @@ include::../examples/orgs_vars/superadmin/env/common/controller_job_templates.d/
 EOF
 ----
 
-==== (common) Job Template to create new GitLab repositories when creating additional organizations
+=== (common) Job Template to create new GitLab repositories when creating additional organizations
 
 .#Content to be customized#
 [.console-input]
@@ -484,7 +483,7 @@ include::../examples/orgs_vars/superadmin/env/common/controller_job_templates.d/
 EOF
 ----
 
-==== (common) Job Template to configure the GitLab webhooks for each organization's repository to apply the CaC
+=== (common) Job Template to configure the GitLab webhooks for each organization's repository to apply the CaC
 
 .#Content to be customized#
 [.console-input]
@@ -495,7 +494,7 @@ include::../examples/orgs_vars/superadmin/env/common/controller_job_templates.d/
 EOF
 ----
 
-==== (common) Organization to be created: `superadmin`
+=== (common) Organization to be created: `superadmin`
 
 [.console-input]
 [source,bash]
@@ -505,7 +504,7 @@ include::../examples/orgs_vars/superadmin/env/common/controller_organizations.d/
 EOF
 ----
 
-==== (common) Project to get the CaC related playbooks
+=== (common) Project to get the CaC related playbooks
 
 .#Content to be customized#
 [.console-input]
@@ -522,7 +521,7 @@ include::../examples/orgs_vars/superadmin/env/common/controller_projects.d/app-c
 EOF
 ----
 
-==== (common) Project to get the GitLab related playbooks
+=== (common) Project to get the GitLab related playbooks
 
 .#Content to be customized#
 [.console-input]
@@ -539,7 +538,7 @@ include::../examples/orgs_vars/superadmin/env/common/controller_projects.d/app-g
 EOF
 ----
 
-==== (common) Workflow Job Template to manage the CaC of the organization SuperAdmin 
+=== (common) Workflow Job Template to manage the CaC of the organization SuperAdmin 
 
 [.console-input]
 [source,bash]
@@ -549,7 +548,7 @@ include::../examples/orgs_vars/superadmin/env/common/controller_workflow_job_tem
 EOF
 ----
 
-=== Commit and push the initial version of CaC
+== Commit and push the initial version of CaC
 
 Once all the objects are created in the local working directory, all the changes can be uploaded to the GitLab repository:
 
