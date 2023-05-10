@@ -1,10 +1,10 @@
-:sectnums:
+include::_attributes.adoc[]
 
-== Day-0: Deploy the SUPERADMIN organization
+= Day-0: Deploy the SUPERADMIN organization
 
 Once all the objects are already configured at the GitLab repository, they can be deployed for the first time into the target Automation Controller.
 
-=== Create the objects in the Controller
+== Create the objects in the Controller
 
 [IMPORTANT]
 ====
@@ -67,15 +67,15 @@ The file `.vault_password` used in the previous command, must exist and contain 
 The file `inventory` must be filled accordingly to the corresponding `group_vars` configuration file to reach the correct Automation Controller instance
 ====
 
-=== Configure the GitLab Webhooks
+== Configure the GitLab Webhooks
 
 Once the objects has been created at the Ansible Automation Controller, there are two options to configure the GitLab Webhook to run the Continuous Integration for the CasC:
 
-==== Manually
+=== Manually
 
 Following steps must be performed to configure the GitLab Webhook to run the Continuous Integration for the CasC in the specified organization:
 
-===== Get the Job Template's webhook configuration:
+==== Get the Job Template's webhook configuration:
 
 .Configure Webhook Get Config
 image::configure_webhook_get_config.png[]
@@ -87,13 +87,13 @@ The Url displayed in the (Workflow) Job Template configuration is using the ID t
 .Configure Webhook Named URL
 image::configure_webhook_named_url.png[]
 ====
-   
-===== Set the webhook information at the GitLab repository:
+  
+==== Set the webhook information at the GitLab repository:
 
 .Configure webhook Set Info
 image::configure_webhook_set_info.png[]
 
-==== Automatically
+=== Automatically
 
 A Job Template and a Project have been created to automatically configure the GitLab Webhook making use of the `GitLab API Token` credential defined and vaulted in the configuration files (take a look at [`orgs_vars/$\{SUPERADMIN_ORG\}/env/dev/controller_credentials.d/controller_credentials_gitlab_api_token.yml`](orgs_vars/superadmin/env/dev/controller_credentials.d/controller_credentials_gitlab_api_token.yml)):
 

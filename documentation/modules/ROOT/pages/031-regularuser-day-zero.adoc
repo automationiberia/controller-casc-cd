@@ -1,4 +1,4 @@
-:sectnums:
+include::_attributes.adoc[]
 
 = Regular User
 
@@ -19,10 +19,10 @@ All the steps could also be done creating/editing the files directly at the GitL
 
 .Export the repository URL #Content to be customized#
 [.console-input]
-[source,console]
+[source,console,subs="attributes"]
 ----
-export ORGNAME=NewOrg
-export GITORG=git@gitlab.iam.lab:automationiberia/aap-cac/${ORGNAME}.git
+export ORGNAME={neworg}
+export GITORG=git@gitlab.iam.lab:automationiberia/aap-cac/$\{ORGNAME\}.git
 ----
 
 .The first step is cloning the repository
@@ -172,6 +172,7 @@ image::newmrtoprostep2.png[Fill in the merge request information]
 +
 image::newmrtoprostep3.png[Merge the Merge Request]
 
+////
 ### GitOps flow
 
 1. Clone the given repository:
@@ -375,3 +376,4 @@ image::newmrtoprostep3.png[Merge the Merge Request]
 
     and check that it is working fine now:
     ![Job Template PRO failed](images/jtprosuccess.png "Job Template PRO failed")
+////

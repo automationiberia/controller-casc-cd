@@ -1,2 +1,8 @@
 :experimental:
 :source-highlighter: highlightjs
+:sectnums:
+ifndef::imagesdir[:imagesdir: ../assets/images/]
+
+// Variables
+:neworg: NewOrg
+:controller_url: https://aapcontroller.dev/

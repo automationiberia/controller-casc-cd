@@ -1,4 +1,4 @@
-:sectnums:
+include::_attributes.adoc[]
 
 = Create objects manually and reconciliate
 
@@ -9,7 +9,7 @@ Go to #ToDo URL # and create a new JT manually
 Go to #ToDo URL # and create a new Inventory manually 
 
 
-== Reconciliate to apply the Deisred State defined as code
+== Reconciliate to apply the Desired State defined as code
 
 Go to #ToDo URL JT# and launch Desired State JT
 

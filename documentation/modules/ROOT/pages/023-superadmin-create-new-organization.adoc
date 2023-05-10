@@ -1,4 +1,4 @@
-:sectnums:
+include::_attributes.adoc[]
 
 == Day-2: Create a new Organization
 
@@ -16,9 +16,9 @@ These new objects can be created manually without any problem, but a playbook is
 To create the new objects, just run the following command:
 
 [.console-input]
-[source,console]
+[source,console,subs="attributes"]
 ----
-ansible-playbook new_project.yml -e "{organization_name: NewOrg, organization_desc: 'NewOrg Organization', instance_groups: [MADRID], admin_user: 'neworgadminuser', orgs_vars: 'orgs_vars', orgs: '${SUPERADMIN_ORG}', env: dev, casc_gitlab_scm_branch: dev}"
+ansible-playbook new_project.yml -e "{organization_name: {neworg}, organization_desc: '{neworg} Organization', instance_groups: [MADRID], admin_user: 'neworgadminuser', orgs_vars: 'orgs_vars', orgs: '$\{SUPERADMIN_ORG\}', env: dev, casc_gitlab_scm_branch: dev}"
 ----
 
 .See the output
@@ -99,12 +99,12 @@ controller_user_accounts:
 As the SUPERADMIN organization already have the Webhook configured, the only action needed to create the new objects is just to push the code to the git repository for the Webhook to trigger the CasC processes:
 
 [.console-input]
-[source,console]
+[source,console,subs="attributes"]
 ----
-git checkout -b NewOrg
+git checkout -b {neworg}
 git add -A .
-git commit -m "New Organization"
-git push -u origin NewOrg
+git commit -m "New Organization {neworg}"
+git push -u origin {neworg}
 ----
 
 .See the output
@@ -157,6 +157,6 @@ The same way the CasC is triggered for the SUPERADMIN organization, for the newl
 
 The configuration is almost the same shown at the previous section: xref:022-deploy-superadmin-objects.adoc#_configure_the_gitlab_webhooks[Configure the GitLab Webhooks], but the organization name and the Job Template that is executed from the webhook, will be different:
 
-.Configure Webhook for the NewOrg Organization
+.Configure Webhook for the {neworg} Organization
 image::configure_webhook_neworg_launch_params.png[]
 

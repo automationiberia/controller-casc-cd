@@ -1,6 +1,3 @@
-:sectnums:
-// :page-toclevels: 3
-
 include::_attributes.adoc[]
 
 = Day-0: Create SuperAdmin organization directory structure and initial files
