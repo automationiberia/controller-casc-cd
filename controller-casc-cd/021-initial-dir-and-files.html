@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: Automation Controller configuration Continuous Deployment with CasC</title>
+    <title>Day-0: Create SuperAdmin organization directory structure and initial files :: Automation Controller configuration Continuous Deployment with CasC</title>
     <link rel="canonical" href="https://automationiberia.github.io/controller-casc-cd/controller-casc-cd/021-initial-dir-and-files.html">
     <link rel="prev" href="index.html#_quick_introduction_to_cac">
     <link rel="next" href="022-deploy-superadmin-objects.html">
@@ -79,11 +79,32 @@
     <span class="nav-text">2. CasC setup part 1 (to be executed by a controller admin user)</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#_pre_requisites">Pre-Requisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Day Zero</span>
+    <span class="nav-text">DayZero</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="3">
-    <a class="nav-link" href="021-initial-dir-and-files.html">Create SuperAdmin organization directory structure and initial files</a>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#_housekeeping_optional_steps">Housekeeping (optional steps)</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#_create_the_ansible_inventory_file_for_the_environment">Create the ansible inventory file for the environment</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#_create_the_automation_directories_structure">Create the automation directories structure</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#_configure_ansible_connection_to_the_aap_controllers_common_and_per_environment_variables">Configure ansible connection to the AAP Controllers (common and per environment variables)</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#_create_the_cac_playbooks">Create the CaC playbooks</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#_define_controller_objects_as_code">Define Controller Objects as Code</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#_commit_and_push_the_initial_version_of_cac">Commit and push the initial version of CaC</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="022-deploy-superadmin-objects.html">Deploy the SuperAdmin objects</a>
@@ -110,7 +131,31 @@
     <span class="nav-text">Day Zero</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="10-regularuser.html">Clone the newly assigned GitLab Repository</a>
+    <a class="nav-link" href="031-regularuser.html">Clone the newly assigned GitLab Repository</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser.html#_edit_credentials_to_connect_to_the_controller_for_day_zero">Edit credentials to connect to the controller for day zero</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser.html#_edit_credentials_objects">Edit credentials objects</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser.html#_check_the_inventory_file">Check the inventory file</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser.html#_creating_the_vault_password_file">Creating the <code>.vault_password</code> file</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser.html#_launch_ansible_navigator_from_cli_to_setup_day_zero_of_casc">Launch ansible-navigator from CLI to setup day-zero of CasC</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser.html#_push_the_changes">Push the changes</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser.html#_pomote_the_casc_dev_day0_branch_to_dev_dev_branch">Pomote the <code>casc-dev-day0</code> branch to dev (<code>dev</code> branch)</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser.html#_promote_the_dev_branch_to_pro_pro_branch">Promote the <code>dev</code> branch to pro (<code>pro</code> branch)</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="11-regularuser-initial-dir-and-files.html">Populate new organization objects</a>
@@ -163,41 +208,15 @@
   <ul>
     <li><a href="index.html">Automation Controller configuration Continuous Deployment with CasC</a></li>
     <li>2. CasC setup part 1 (to be executed by a controller admin user)</li>
-    <li>Day Zero</li>
-    <li><a href="021-initial-dir-and-files.html">Create SuperAdmin organization directory structure and initial files</a></li>
+    <li><a href="#_pre_requisites">Pre-Requisites</a></li>
   </ul>
 </nav>
   <div class="edit-this-page"><a href="https://github.com/automationiberia/controller-casc-cd/edit/main/documentation/modules/ROOT/pages/021-initial-dir-and-files.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<div class="sect1">
-<h2 id="_pre_requisites"><a class="anchor" href="#_pre_requisites"></a>1. Pre-Requisites</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>An <strong>empty GitLab repository</strong> is required to follow this workshop.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>All the files for the repo will be created from scratch and synchronized during this lab.</p>
-</div>
-<div class="paragraph">
-<p>The creation process for the new repository is not in the scope of the current workshop. For more info see: <a href="https://docs.gitlab.com/ee/user/project/repository/">Create a repository on Gitlab.com</a></p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_day_0_create_superadmin_organization_directory_structure_and_initial_files"><a class="anchor" href="#_day_0_create_superadmin_organization_directory_structure_and_initial_files"></a>2. Day-0: Create SuperAdmin organization directory structure and initial files</h2>
+<h1 class="page">Day-0: Create SuperAdmin organization directory structure and initial files</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
 <p>The following lines will show the organization directory structure creation:</p>
@@ -226,8 +245,36 @@
 </tr>
 </table>
 </div>
-<div class="sect2">
-<h3 id="_housekeeping_optional_steps"><a class="anchor" href="#_housekeeping_optional_steps"></a>2.1. Housekeeping (optional steps)</h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_pre_requisites"><a class="anchor" href="#_pre_requisites"></a>1. Pre-Requisites</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>An <strong>empty GitLab repository</strong> is required to follow this workshop.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>All the files for the repo will be created from scratch and synchronized during this lab.</p>
+</div>
+<div class="paragraph">
+<p>The creation process for the new repository is not in the scope of the current workshop. For more info see: <a href="https://docs.gitlab.com/ee/user/project/repository/">Create a repository on Gitlab.com</a></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_housekeeping_optional_steps"><a class="anchor" href="#_housekeeping_optional_steps"></a>2. Housekeeping (optional steps)</h2>
+<div class="sectionbody">
 <details>
 <summary class="title">Create the following <code>.gitignore</code> file to avoid accidentally uploading undesired files to the GitLab repository:</summary>
 <div class="content">
@@ -383,8 +430,10 @@ EOF</code></pre>
 </div>
 </details>
 </div>
-<div class="sect2">
-<h3 id="_create_the_ansible_inventory_file_for_the_environment"><a class="anchor" href="#_create_the_ansible_inventory_file_for_the_environment"></a>2.2. Create the ansible inventory file for the environment</h3>
+</div>
+<div class="sect1">
+<h2 id="_create_the_ansible_inventory_file_for_the_environment"><a class="anchor" href="#_create_the_ansible_inventory_file_for_the_environment"></a>3. Create the ansible inventory file for the environment</h2>
+<div class="sectionbody">
 <div class="listingblock console-input">
 <div class="title"><mark>Content to be customized</mark></div>
 <div class="content">
@@ -404,8 +453,10 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_create_the_automation_directories_structure"><a class="anchor" href="#_create_the_automation_directories_structure"></a>2.3. Create the automation directories structure</h3>
+</div>
+<div class="sect1">
+<h2 id="_create_the_automation_directories_structure"><a class="anchor" href="#_create_the_automation_directories_structure"></a>4. Create the automation directories structure</h2>
+<div class="sectionbody">
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -446,8 +497,10 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_configure_ansible_connection_to_the_aap_controllers_common_and_per_environment_variables"><a class="anchor" href="#_configure_ansible_connection_to_the_aap_controllers_common_and_per_environment_variables"></a>2.4. Configure ansible connection to the AAP Controllers (common and per environment variables)</h3>
+</div>
+<div class="sect1">
+<h2 id="_configure_ansible_connection_to_the_aap_controllers_common_and_per_environment_variables"><a class="anchor" href="#_configure_ansible_connection_to_the_aap_controllers_common_and_per_environment_variables"></a>5. Configure ansible connection to the AAP Controllers (common and per environment variables)</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Initial configuration files must be created. First of all, the connection credentials to the controller are needed. They will be created under the <code>group_vars</code> directory as it will differ from one environment to another, and Ansible provides this method for the implementation<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>.</p>
 </div>
@@ -527,8 +580,10 @@ EOF</code></pre>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_create_the_cac_playbooks"><a class="anchor" href="#_create_the_cac_playbooks"></a>2.5. Create the CaC playbooks</h3>
+</div>
+<div class="sect1">
+<h2 id="_create_the_cac_playbooks"><a class="anchor" href="#_create_the_cac_playbooks"></a>6. Create the CaC playbooks</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Next, we need the playbooks that allow us to implement the CaC.</p>
 </div>
@@ -541,8 +596,8 @@ EOF</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -s https://gitlab.com/automationiberia/aap-cac/superadmin-workshop-template/-/archive/main/superadmin-workshop-template-main.tar.gz | tar xvzf - --strip-components=1 -C .</code></pre>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_playbooks_reference_informational_only"><a class="anchor" href="#_playbooks_reference_informational_only"></a>2.5.1. Playbooks reference (informational only)</h4>
+<div class="sect2">
+<h3 id="_playbooks_reference_informational_only"><a class="anchor" href="#_playbooks_reference_informational_only"></a>6.1. Playbooks reference (informational only)</h3>
 <div class="paragraph">
 <p>All the playbooks that have been created in the
 <a href="#_create_the_cac_playbooks">previous step</a> can be found here for further reference:</p>
@@ -1209,13 +1264,15 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_define_controller_objects_as_code"><a class="anchor" href="#_define_controller_objects_as_code"></a>2.6. Define Controller Objects as Code</h3>
+</div>
+<div class="sect1">
+<h2 id="_define_controller_objects_as_code"><a class="anchor" href="#_define_controller_objects_as_code"></a>7. Define Controller Objects as Code</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>With these files, the SuperAdmin repo will have all the CaC related playbooks that will create and/or destroy the objects at the Ansible Controller.</p>
 </div>
-<div class="sect3">
-<h4 id="_dev_ansible_automation_platform_credentials_will_let_the_job_templates_to_connect_to_the_controller"><a class="anchor" href="#_dev_ansible_automation_platform_credentials_will_let_the_job_templates_to_connect_to_the_controller"></a>2.6.1. (dev) Ansible Automation Platform Credentials will let the Job Templates to connect to the Controller</h4>
+<div class="sect2">
+<h3 id="_dev_ansible_automation_platform_credentials_will_let_the_job_templates_to_connect_to_the_controller"><a class="anchor" href="#_dev_ansible_automation_platform_credentials_will_let_the_job_templates_to_connect_to_the_controller"></a>7.1. (dev) Ansible Automation Platform Credentials will let the Job Templates to connect to the Controller</h3>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_aap.yml &lt;&lt;EOF
@@ -1249,8 +1306,8 @@ EOF</code></pre>
 </table>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_dev_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup"><a class="anchor" href="#_dev_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup"></a>2.6.2. (dev) Source Control Manager and GitLab API Token Credentials will let the Job Templates to connect to the GitLab repository/group</h4>
+<div class="sect2">
+<h3 id="_dev_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup"><a class="anchor" href="#_dev_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup"></a>7.2. (dev) Source Control Manager and GitLab API Token Credentials will let the Job Templates to connect to the GitLab repository/group</h3>
 <div class="listingblock console-input">
 <div class="title"><mark>Content to be customized</mark></div>
 <div class="content">
@@ -1298,8 +1355,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_dev_vault_credentials_will_let_the_job_templates_to_decrypt_the_sensitive_information_from_ansible_vaulted_files"><a class="anchor" href="#_dev_vault_credentials_will_let_the_job_templates_to_decrypt_the_sensitive_information_from_ansible_vaulted_files"></a>2.6.3. (dev) Vault Credentials will let the Job Templates to decrypt the sensitive information from <code>ansible-vault</code>ed files</h4>
+<div class="sect2">
+<h3 id="_dev_vault_credentials_will_let_the_job_templates_to_decrypt_the_sensitive_information_from_ansible_vaulted_files"><a class="anchor" href="#_dev_vault_credentials_will_let_the_job_templates_to_decrypt_the_sensitive_information_from_ansible_vaulted_files"></a>7.3. (dev) Vault Credentials will let the Job Templates to decrypt the sensitive information from <code>ansible-vault</code>ed files</h3>
 <div class="listingblock console-input">
 <div class="title"><mark>Content to be customized</mark></div>
 <div class="content">
@@ -1325,8 +1382,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_dev_galaxy_credential_will_let_the_job_templates_to_connect_to_the_private_automation_hub_and_get_the_required_ansible_collections"><a class="anchor" href="#_dev_galaxy_credential_will_let_the_job_templates_to_connect_to_the_private_automation_hub_and_get_the_required_ansible_collections"></a>2.6.4. (dev) Galaxy Credential will let the Job Templates to connect to the Private Automation Hub and get the required Ansible Collections</h4>
+<div class="sect2">
+<h3 id="_dev_galaxy_credential_will_let_the_job_templates_to_connect_to_the_private_automation_hub_and_get_the_required_ansible_collections"><a class="anchor" href="#_dev_galaxy_credential_will_let_the_job_templates_to_connect_to_the_private_automation_hub_and_get_the_required_ansible_collections"></a>7.4. (dev) Galaxy Credential will let the Job Templates to connect to the Private Automation Hub and get the required Ansible Collections</h3>
 <div class="listingblock console-input">
 <div class="title"><mark>Content to be customized</mark></div>
 <div class="content">
@@ -1376,8 +1433,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_dev_registry_credential_will_let_the_job_templates_to_connect_to_the_private_automation_hub_and_get_the_required_execution_environments"><a class="anchor" href="#_dev_registry_credential_will_let_the_job_templates_to_connect_to_the_private_automation_hub_and_get_the_required_execution_environments"></a>2.6.5. (dev) Registry Credential will let the Job Templates to connect to the Private Automation Hub and get the required Execution Environments</h4>
+<div class="sect2">
+<h3 id="_dev_registry_credential_will_let_the_job_templates_to_connect_to_the_private_automation_hub_and_get_the_required_execution_environments"><a class="anchor" href="#_dev_registry_credential_will_let_the_job_templates_to_connect_to_the_private_automation_hub_and_get_the_required_execution_environments"></a>7.5. (dev) Registry Credential will let the Job Templates to connect to the Private Automation Hub and get the required Execution Environments</h3>
 <div class="listingblock console-input">
 <div class="title"><mark>Content to be customized</mark></div>
 <div class="content">
@@ -1406,8 +1463,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_dev_execution_environments_to_be_used_by_the_job_templates"><a class="anchor" href="#_dev_execution_environments_to_be_used_by_the_job_templates"></a>2.6.6. (dev) Execution Environments to be used by the Job Templates</h4>
+<div class="sect2">
+<h3 id="_dev_execution_environments_to_be_used_by_the_job_templates"><a class="anchor" href="#_dev_execution_environments_to_be_used_by_the_job_templates"></a>7.6. (dev) Execution Environments to be used by the Job Templates</h3>
 <div class="listingblock console-input">
 <div class="title"><mark>Content to be customized</mark></div>
 <div class="content">
@@ -1423,8 +1480,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_dev_hosts_to_be_used_by_the_inventory_for_the_job_templates"><a class="anchor" href="#_dev_hosts_to_be_used_by_the_inventory_for_the_job_templates"></a>2.6.7. (dev) Hosts to be used by the inventory for the Job Templates</h4>
+<div class="sect2">
+<h3 id="_dev_hosts_to_be_used_by_the_inventory_for_the_job_templates"><a class="anchor" href="#_dev_hosts_to_be_used_by_the_inventory_for_the_job_templates"></a>7.7. (dev) Hosts to be used by the inventory for the Job Templates</h3>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_hosts.d/aap-casc/controller_hosts.yml &lt;&lt;EOF
@@ -1440,8 +1497,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_dev_users_that_will_be_administrators_of_the_superadmin_organization"><a class="anchor" href="#_dev_users_that_will_be_administrators_of_the_superadmin_organization"></a>2.6.8. (dev) Users that will be administrators of the superadmin organization</h4>
+<div class="sect2">
+<h3 id="_dev_users_that_will_be_administrators_of_the_superadmin_organization"><a class="anchor" href="#_dev_users_that_will_be_administrators_of_the_superadmin_organization"></a>7.8. (dev) Users that will be administrators of the superadmin organization</h3>
 <div class="listingblock console-input">
 <div class="title"><mark>Content to be customized</mark></div>
 <div class="content">
@@ -1469,8 +1526,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_common_credential_types_that_will_be_needed_for_the_job_templates"><a class="anchor" href="#_common_credential_types_that_will_be_needed_for_the_job_templates"></a>2.6.9. (common) Credential Types that will be needed for the Job Templates</h4>
+<div class="sect2">
+<h3 id="_common_credential_types_that_will_be_needed_for_the_job_templates"><a class="anchor" href="#_common_credential_types_that_will_be_needed_for_the_job_templates"></a>7.9. (common) Credential Types that will be needed for the Job Templates</h3>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_credential_types.d/aap-casc/controller_credential_types_gitlab_api.yml &lt;&lt;EOF
@@ -1513,8 +1570,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_common_inventory_to_be_used_for_the_job_templates"><a class="anchor" href="#_common_inventory_to_be_used_for_the_job_templates"></a>2.6.10. (common) Inventory to be used for the Job Templates</h4>
+<div class="sect2">
+<h3 id="_common_inventory_to_be_used_for_the_job_templates"><a class="anchor" href="#_common_inventory_to_be_used_for_the_job_templates"></a>7.10. (common) Inventory to be used for the Job Templates</h3>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_inventories.d/app-casc/controller_inventories_controller.yml &lt;&lt;EOF
@@ -1528,8 +1585,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_common_job_template_to_receive_all_the_webhooks_from_gitlab"><a class="anchor" href="#_common_job_template_to_receive_all_the_webhooks_from_gitlab"></a>2.6.11. (common) Job Template to receive all the webhooks from GitLab</h4>
+<div class="sect2">
+<h3 id="_common_job_template_to_receive_all_the_webhooks_from_gitlab"><a class="anchor" href="#_common_job_template_to_receive_all_the_webhooks_from_gitlab"></a>7.11. (common) Job Template to receive all the webhooks from GitLab</h3>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-casc/controller_jt_casc_cd_webhook.yml &lt;&lt;EOF
@@ -1545,6 +1602,7 @@ controller_templates:
     fact_caching_enabled: false
     credentials:
       - "{{ orgs }} {{ env }} AAP Credential"
+      - "{{ orgs }} {{ env }} Vault Credential"
     concurrent_jobs_enabled: true
     ask_scm_branch_on_launch: true
     extra_vars:
@@ -1556,8 +1614,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_common_job_template_to_deploy_all_the_object_defined_as_code"><a class="anchor" href="#_common_job_template_to_deploy_all_the_object_defined_as_code"></a>2.6.12. (common) Job Template to deploy all the object defined as code</h4>
+<div class="sect2">
+<h3 id="_common_job_template_to_deploy_all_the_object_defined_as_code"><a class="anchor" href="#_common_job_template_to_deploy_all_the_object_defined_as_code"></a>7.12. (common) Job Template to deploy all the object defined as code</h3>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-casc/controller_jt_casc_config.yml &lt;&lt;EOF
@@ -1608,8 +1666,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_common_job_template_to_remove_all_the_objects_in_the_controller_that_are_not_defined_as_code"><a class="anchor" href="#_common_job_template_to_remove_all_the_objects_in_the_controller_that_are_not_defined_as_code"></a>2.6.13. (common) Job Template to remove all the objects in the Controller that are not defined as code</h4>
+<div class="sect2">
+<h3 id="_common_job_template_to_remove_all_the_objects_in_the_controller_that_are_not_defined_as_code"><a class="anchor" href="#_common_job_template_to_remove_all_the_objects_in_the_controller_that_are_not_defined_as_code"></a>7.13. (common) Job Template to remove all the objects in the Controller that are not defined as code</h3>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-casc/controller_jt_casc_drop_diff.yml &lt;&lt;EOF
@@ -1662,8 +1720,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_common_job_template_to_create_new_gitlab_repositories_when_creating_additional_organizations"><a class="anchor" href="#_common_job_template_to_create_new_gitlab_repositories_when_creating_additional_organizations"></a>2.6.14. (common) Job Template to create new GitLab repositories when creating additional organizations</h4>
+<div class="sect2">
+<h3 id="_common_job_template_to_create_new_gitlab_repositories_when_creating_additional_organizations"><a class="anchor" href="#_common_job_template_to_create_new_gitlab_repositories_when_creating_additional_organizations"></a>7.14. (common) Job Template to create new GitLab repositories when creating additional organizations</h3>
 <div class="listingblock console-input">
 <div class="title"><mark>Content to be customized</mark></div>
 <div class="content">
@@ -1814,8 +1872,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_common_job_template_to_configure_the_gitlab_webhooks_for_each_organizations_repository_to_apply_the_cac"><a class="anchor" href="#_common_job_template_to_configure_the_gitlab_webhooks_for_each_organizations_repository_to_apply_the_cac"></a>2.6.15. (common) Job Template to configure the GitLab webhooks for each organization&#8217;s repository to apply the CaC</h4>
+<div class="sect2">
+<h3 id="_common_job_template_to_configure_the_gitlab_webhooks_for_each_organizations_repository_to_apply_the_cac"><a class="anchor" href="#_common_job_template_to_configure_the_gitlab_webhooks_for_each_organizations_repository_to_apply_the_cac"></a>7.15. (common) Job Template to configure the GitLab webhooks for each organization&#8217;s repository to apply the CaC</h3>
 <div class="listingblock console-input">
 <div class="title"><mark>Content to be customized</mark></div>
 <div class="content">
@@ -1906,13 +1964,22 @@ controller_templates:
           default: "{{ 'dev' if env != 'pro' else 'pro' }}"
           new_question: true
 
+        - question_name: "CasC Organization Name"
+          required: true
+          type: text
+          variable: casc_organization
+          min: 0
+          max: 40
+          default: "{{ orgs }}"
+          new_question: true
+
         - question_name: "Organization / Gitlab Project Name"
           required: true
           type: text
           variable: gitlab_project
           min: 0
           max: 40
-          new_question: false
+          new_question: true
 
         - question_name: "Is a Workflow?"
           required: true
@@ -1937,8 +2004,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_common_organization_to_be_created_superadmin"><a class="anchor" href="#_common_organization_to_be_created_superadmin"></a>2.6.16. (common) Organization to be created: <code>superadmin</code></h4>
+<div class="sect2">
+<h3 id="_common_organization_to_be_created_superadmin"><a class="anchor" href="#_common_organization_to_be_created_superadmin"></a>7.16. (common) Organization to be created: <code>superadmin</code></h3>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_organizations.d/app-casc/controller_organization_superadmin.yml &lt;&lt;EOF
@@ -1955,8 +2022,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_common_project_to_get_the_cac_related_playbooks"><a class="anchor" href="#_common_project_to_get_the_cac_related_playbooks"></a>2.6.17. (common) Project to get the CaC related playbooks</h4>
+<div class="sect2">
+<h3 id="_common_project_to_get_the_cac_related_playbooks"><a class="anchor" href="#_common_project_to_get_the_cac_related_playbooks"></a>7.17. (common) Project to get the CaC related playbooks</h3>
 <div class="listingblock console-input">
 <div class="title"><mark>Content to be customized</mark></div>
 <div class="content">
@@ -1985,8 +2052,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_common_project_to_get_the_gitlab_related_playbooks"><a class="anchor" href="#_common_project_to_get_the_gitlab_related_playbooks"></a>2.6.18. (common) Project to get the GitLab related playbooks</h4>
+<div class="sect2">
+<h3 id="_common_project_to_get_the_gitlab_related_playbooks"><a class="anchor" href="#_common_project_to_get_the_gitlab_related_playbooks"></a>7.18. (common) Project to get the GitLab related playbooks</h3>
 <div class="listingblock console-input">
 <div class="title"><mark>Content to be customized</mark></div>
 <div class="content">
@@ -2015,8 +2082,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_common_workflow_job_template_to_manage_the_cac_of_the_organization_superadmin"><a class="anchor" href="#_common_workflow_job_template_to_manage_the_cac_of_the_organization_superadmin"></a>2.6.19. (common) Workflow Job Template to manage the CaC of the organization SuperAdmin</h4>
+<div class="sect2">
+<h3 id="_common_workflow_job_template_to_manage_the_cac_of_the_organization_superadmin"><a class="anchor" href="#_common_workflow_job_template_to_manage_the_cac_of_the_organization_superadmin"></a>7.19. (common) Workflow Job Template to manage the CaC of the organization SuperAdmin</h3>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_workflow_job_templates.d/app-casc/controller_workflow_job_templates_casc.yml &lt;&lt;EOF
@@ -2057,8 +2124,10 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_commit_and_push_the_initial_version_of_cac"><a class="anchor" href="#_commit_and_push_the_initial_version_of_cac"></a>2.7. Commit and push the initial version of CaC</h3>
+</div>
+<div class="sect1">
+<h2 id="_commit_and_push_the_initial_version_of_cac"><a class="anchor" href="#_commit_and_push_the_initial_version_of_cac"></a>8. Commit and push the initial version of CaC</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Once all the objects are created in the local working directory, all the changes can be uploaded to the GitLab repository:</p>
 </div>
@@ -2085,7 +2154,6 @@ git push -u origin dev</code></pre>
 </td>
 </tr>
 </table>
-</div>
 </div>
 </div>
 </div>
