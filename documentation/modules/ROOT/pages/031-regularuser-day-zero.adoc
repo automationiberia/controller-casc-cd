@@ -34,14 +34,6 @@ cd ${ORGNAME}/
 git checkout -b casc-dev-day0
 ----
 
-
-
-
-
-
-
-
-
 Before using CasC as a GitOps approach, it is needed to launch an initialization from CLI which it is called Day-Zero.
 
 == Edit credentials to connect to the controller for day zero.
@@ -115,6 +107,11 @@ echo "my_vault_pass" > ./.vault_password
 ----
 
 == Launch ansible-navigator from CLI to setup day-zero of CasC
+
+[IMPORTANT]
+====
+If the Automation Hub where the used Execution Environment image is using a self-signed certificate, the extra argument `--pull-arguments=--tls-verify=false` will be needed to be appended to the following two commands.
+====
 
 [.console-input]
 [source,bash]

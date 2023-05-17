@@ -103,15 +103,15 @@ mkdir -p group_vars/{all,dev,pro}
 [.console-input]
 [source,console]
 ----
-mkdir -p orgs_vars/${SUPERADMIN_ORG}/env/{dev,pro}/controller_{instance_groups.d,hosts.d/aap-casc,users.d,execution_environments.d/app-casc,settings.d/jobs,settings.d/user_interface,settings.d/authentication,settings.d/system,inventory_sources.d,credentials.d}
-touch orgs_vars/${SUPERADMIN_ORG}/env/{dev,pro}/controller_{instance_groups.d,hosts.d/aap-casc,users.d,execution_environments.d/app-casc,settings.d/jobs,settings.d/user_interface,settings.d/authentication,settings.d/system,inventory_sources.d,credentials.d}/.gitkeep
+mkdir -p orgs_vars/${SUPERADMIN_ORG}/env/{dev,pro}/controller_{instance_groups.d,hosts.d/app-casc,users.d,execution_environments.d/app-casc,settings.d/jobs,settings.d/user_interface,settings.d/authentication,settings.d/system,inventory_sources.d,credentials.d}
+touch orgs_vars/${SUPERADMIN_ORG}/env/{dev,pro}/controller_{instance_groups.d,hosts.d/app-casc,users.d,execution_environments.d/app-casc,settings.d/jobs,settings.d/user_interface,settings.d/authentication,settings.d/system,inventory_sources.d,credentials.d}/.gitkeep
 ----
 
 [.console-input]
 [source,console]
 ----
-mkdir -p orgs_vars/${SUPERADMIN_ORG}/env/common/controller_{schedules.d/app-casc,workflow_job_templates.d/app-casc,job_templates.d/app-casc,job_templates.d/app-gitlab,projects.d/app-casc,projects.d/app-gitlab,teams.d,credential_types.d/aap-casc,roles.d,inventories.d/app-casc,organizations.d/app-casc,credentials.d}
-touch orgs_vars/${SUPERADMIN_ORG}/env/common/controller_{schedules.d/app-casc,workflow_job_templates.d/app-casc,job_templates.d/app-casc,job_templates.d/app-gitlab,projects.d/app-casc,projects.d/app-gitlab,teams.d,credential_types.d/aap-casc,roles.d,inventories.d/app-casc,organizations.d/app-casc,credentials.d}/.gitkeep
+mkdir -p orgs_vars/${SUPERADMIN_ORG}/env/common/controller_{schedules.d/app-casc,workflow_job_templates.d/app-casc,job_templates.d/app-casc,job_templates.d/app-gitlab,projects.d/app-casc,projects.d/app-gitlab,teams.d,credential_types.d/app-casc,roles.d,inventories.d/app-casc,organizations.d/app-casc,credentials.d,groups.d/app-casc}
+touch orgs_vars/${SUPERADMIN_ORG}/env/common/controller_{schedules.d/app-casc,workflow_job_templates.d/app-casc,job_templates.d/app-casc,job_templates.d/app-gitlab,projects.d/app-casc,projects.d/app-gitlab,teams.d,credential_types.d/app-casc,roles.d,inventories.d/app-casc,organizations.d/app-casc,credentials.d,groups.d/app-casc}/.gitkeep
 ----
 ======
 
@@ -397,8 +397,19 @@ EOF
 [.console-input]
 [source,bash]
 ----
-cat > orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_hosts.d/aap-casc/controller_hosts.yml <<EOF
-include::../examples/orgs_vars/superadmin/env/dev/controller_hosts.d/aap-casc/controller_hosts.yml[]
+cat > orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_hosts.d/app-casc/controller_hosts.yml <<EOF
+include::../examples/orgs_vars/superadmin/env/dev/controller_hosts.d/app-casc/controller_hosts.yml[]
+EOF
+----
+
+=== (dev) Instance Groups
+
+.#Content to be customized#
+[.console-input]
+[source,bash]
+----
+cat > orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_instance_groups.d/controller_instance_groups.yml <<EOF
+include::../examples/orgs_vars/superadmin/env/dev/controller_instance_groups.d/controller_instance_groups.yml[]
 EOF
 ----
 
@@ -426,8 +437,8 @@ ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_users.d/con
 [.console-input]
 [source,bash]
 ----
-cat > orgs_vars/${SUPERADMIN_ORG}/env/common/controller_credential_types.d/aap-casc/controller_credential_types_gitlab_api.yml <<EOF
-include::../examples/orgs_vars/superadmin/env/common/controller_credential_types.d/aap-casc/controller_credential_types_gitlab_api.yml[]
+cat > orgs_vars/${SUPERADMIN_ORG}/env/common/controller_credential_types.d/app-casc/controller_credential_types_gitlab_api.yml <<EOF
+include::../examples/orgs_vars/superadmin/env/common/controller_credential_types.d/app-casc/controller_credential_types_gitlab_api.yml[]
 EOF
 ----
 
@@ -438,6 +449,16 @@ EOF
 ----
 cat > orgs_vars/${SUPERADMIN_ORG}/env/common/controller_inventories.d/app-casc/controller_inventories_controller.yml <<EOF
 include::../examples/orgs_vars/superadmin/env/common/controller_inventories.d/app-casc/controller_inventories_controller.yml[]
+EOF
+----
+
+=== (common) Groups to be used for the Job Templates
+
+[.console-input]
+[source,bash]
+----
+cat > orgs_vars/${SUPERADMIN_ORG}/env/common/controller_groups.d/app-casc/controller_groups.yml <<EOF
+include::../examples/orgs_vars/superadmin/env/common/controller_groups.d/app-casc/controller_groups.yml[]
 EOF
 ----
 
@@ -493,6 +514,16 @@ include::../examples/orgs_vars/superadmin/env/common/controller_job_templates.d/
 EOF
 ----
 
+=== (common) Job Template to create a new regular organization
+
+[.console-input]
+[source,bash]
+----
+cat > orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/controller_job_templates.yml <<EOF
+include::../examples/orgs_vars/superadmin/env/common/controller_job_templates.d/controller_job_templates.yml[]
+EOF
+----
+
 === (common) Organization to be created: `superadmin`
 
 [.console-input]
@@ -544,6 +575,17 @@ EOF
 ----
 cat > orgs_vars/${SUPERADMIN_ORG}/env/common/controller_workflow_job_templates.d/app-casc/controller_workflow_job_templates_casc.yml <<EOF
 include::../examples/orgs_vars/superadmin/env/common/controller_workflow_job_templates.d/app-casc/controller_workflow_job_templates_casc.yml[]
+EOF
+----
+
+=== (common) Workflow Job Template to create all the components of a new regular organization 
+
+.#Content to be customized#
+[.console-input]
+[source,bash]
+----
+cat > orgs_vars/${SUPERADMIN_ORG}/env/common/controller_workflow_job_templates.d/controller_workflow_job_templates.yml <<EOF
+include::../examples/orgs_vars/superadmin/env/common/controller_workflow_job_templates.d/controller_workflow_job_templates.yml[]
 EOF
 ----
 

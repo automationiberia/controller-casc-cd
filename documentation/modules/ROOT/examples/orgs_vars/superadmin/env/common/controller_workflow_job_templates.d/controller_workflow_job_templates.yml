@@ -31,9 +31,9 @@ controller_workflows:
         organization: "{{ orgs }}"
         workflow: "{{ orgs }} WF New Project"
         extra_data:
-          automation_hub: "ah22.iam.lab"
-          controller_dev: "aap22dev.iam.lab"
-          controller_pro: "aap22pro.iam.lab"
+          automation_hub: "${AUTOMATIONHUB_HOST}"
+          controller_dev: "${CONTROLLER_DEV_HOST}"
+          controller_pro: "${CONTROLLER_PRO_HOST}"
           gitlab_api_url: "https://gitlab.iam.lab"
           gitlab_group: "automationiberia"
           gitlab_subgroup: "aap-cac"
@@ -97,9 +97,8 @@ controller_workflows:
           min: 0
           max: 1024
           choices:
-            - "ah22.iam.lab"
-            - "lb-hub-pro.lab.example.com"
-          default: "ah22.iam.lab"
+            - "${AUTOMATIONHUB_HOST}"
+          default: "${AUTOMATIONHUB_HOST}"
           new_question: true
 
         - question_name: Ansible Controller Host (Dev)
@@ -109,8 +108,8 @@ controller_workflows:
           min: 0
           max: 1024
           choices:
-            - "aap22dev.iam.lab"
-          default: "aap22dev.iam.lab"
+            - "${CONTROLLER_DEV_HOST}"
+          default: "${CONTROLLER_DEV_HOST}"
           new_question: true
 
         - question_name: Ansible Controller Host (Pro)
@@ -120,8 +119,8 @@ controller_workflows:
           min: 0
           max: 1024
           choices:
-            - "aap22prod.iam.lab"
-          default: "aap22prod.iam.lab"
+            - "${CONTROLLER_PRO_HOST}"
+          default: "${CONTROLLER_PRO_HOST}"
           new_question: true
 
         - question_name: GitLab API URL

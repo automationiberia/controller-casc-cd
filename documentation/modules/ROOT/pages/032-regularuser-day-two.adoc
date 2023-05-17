@@ -13,11 +13,12 @@ The following lines will show the organization directory structure creation and 
 cat > orgs_vars/${ORGNAME}/env/common/controller_projects.d/project_example.yaml <<EOF
 ---
 controller_projects:
-  - name: "${ORGNAME}_project_example"
+  - name: "{{ orgs }} {{ env }} Project Example"
     description: "Project to include some example job_templates"
-    organization: "${ORGNAME}"
+    organization: "{{ orgs }}"
     scm_type: git
     scm_url: "${GITORG}"
+    scm_credential: "{{ orgs }} {{ env }} GitLab Credential"
     scm_clean: false
     scm_delete_on_update: false
     scm_update_on_launch: false
@@ -34,11 +35,11 @@ EOF
 cat > orgs_vars/${ORGNAME}/env/common/controller_job_templates.d/job_template_example.yaml <<EOF
 ---
 controller_templates:
-  - name: "${ORGNAME} New Job Template"
+  - name: "{{ orgs }} {{ env }} New Job Template"
     description: "Template to show how to add a new JT"
-    organization: "${ORGNAME}"
-    project: "${ORGNAME}_project_example"
-    inventory: "${ORGNAME} Localhost"
+    organization: "{{ orgs }}"
+    project: "{{ orgs }} {{ env }} Project Example"
+    inventory: "{{ orgs }} {{ env }} Localhost"
     playbook: "job_template.yaml"
     job_type: run
 ...
@@ -52,9 +53,9 @@ EOF
 cat > orgs_vars/${ORGNAME}/env/common/controller_inventories.d/inventory_example.yaml <<EOF
 ---
 controller_inventories:
-  - name: "${ORGNAME} Localhost"
+  - name: "{{ orgs }} {{ env }} Localhost"
     description: "Inventory for the Localhost"
-    organization: "${ORGNAME}"
+    organization: "{{ orgs }}"
 ...
 EOF
 
@@ -63,7 +64,7 @@ cat > orgs_vars/${ORGNAME}/env/{dev,pro}/controller_hosts.d/host_example.yaml <<
 controller_hosts:
   - name: localhost
     description: localhost
-    inventory: "${ORGNAME} Localhost"
+    inventory: "{{ orgs }} {{ env }} Localhost"
 ...
 EOF
 ----

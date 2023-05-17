@@ -33,11 +33,6 @@ Run the configuration playbook to create the defined objects in the target AAP C
 ansible-navigator run casc_ctrl_config.yml -i inventory -l dev -e "{orgs: ${SUPERADMIN_ORG}, dir_orgs_vars: orgs_vars, env: dev}" -m stdout --eei ${AUTOMATIONHUB_HOST}/ee-casc:latest --vault-password-file .vault_password --pull-arguments=--tls-verify=false
 ----
 
-[IMPORTANT]
-====
-The execution above will fail because there are missing credentials to be assigned to the new organization. To workaround that, run the same command adding the flag `--tags credentials` and, when finished, run the original command again.
-====
-
 [TIP]
 ====
 The following requirements must be taken in consideration:

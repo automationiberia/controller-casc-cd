@@ -21,7 +21,7 @@ controller_templates:
     survey_enabled: True
     survey_spec:
       name: '{{ orgs }} Survey New Organization Objects'
-      description: 'Survey New Organizatino Objects'
+      description: 'Survey New Organization Objects'
       spec:
         - question_name: Organization name
           required: true
