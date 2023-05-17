@@ -1,6 +1,6 @@
 ---
 controller_workflows:
-  - name: "{{ orgs }} WF New Project"
+  - name: "{{ orgs }} {{ env }} WF New Project"
     state: present
     description: "Workflow to create a new project"
     ask_variables_on_launch: false
@@ -9,27 +9,27 @@ controller_workflows:
     organization: "{{ orgs }}"
     simplified_workflow_nodes:
       - identifier: "Create Webhooks"
-        workflow_job_template: "{{ orgs }} WF New Project"
-        unified_job_template: "{{ orgs }} Gitlab Webhook Creation"
+        workflow_job_template: "{{ orgs }} {{ env }} WF New Project"
+        unified_job_template: "{{ orgs }} {{ env }} Gitlab Webhook Creation"
         job_type: run
         organization: "{{ orgs }}"
-        workflow: "{{ orgs }} WF New Project"
+        workflow: "{{ orgs }} {{ env }} WF New Project"
 
       - identifier: "Create SuperAdmin Objects"
-        workflow_job_template: "{{ orgs }} WF New Project"
-        unified_job_template: "{{ orgs }} New Organization Objects"
+        workflow_job_template: "{{ orgs }} {{ env }} WF New Project"
+        unified_job_template: "{{ orgs }} {{ env }} New Organization Objects"
         job_type: run
         organization: "{{ orgs }}"
-        workflow: "{{ orgs }} WF New Project"
+        workflow: "{{ orgs }} {{ env }} WF New Project"
         success_nodes:
           - "Create Webhooks"
 
       - identifier: "Create GitLab Repo"
-        workflow_job_template: "{{ orgs }} WF New Project"
-        unified_job_template: "{{ orgs }} Gitlab Project Creation"
+        workflow_job_template: "{{ orgs }} {{ env }} WF New Project"
+        unified_job_template: "{{ orgs }} {{ env }} Gitlab Project Creation"
         job_type: run
         organization: "{{ orgs }}"
-        workflow: "{{ orgs }} WF New Project"
+        workflow: "{{ orgs }} {{ env }} WF New Project"
         extra_data:
           automation_hub: "${AUTOMATIONHUB_HOST}"
           controller_dev: "${CONTROLLER_DEV_HOST}"
@@ -54,8 +54,8 @@ controller_workflows:
       env: "{{ env }}"
     survey_enabled: True
     survey_spec:
-      name: '{{ orgs }} Survey_Gitlab_Project_Creation'
-      description: 'Survey_Gitlab_Project_Creation'
+      name: '{{ orgs }} {{ env }} Survey Gitlab Project Creation'
+      description: 'Survey Gitlab Project Creation'
       spec:
         - question_name: Name for the new Organization
           question_description: Must be the same name of GitLab project to be created

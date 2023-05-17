@@ -1,10 +1,10 @@
 ---
 controller_templates:
-  - name: "{{ orgs }} Gitlab Project Creation"
+  - name: "{{ orgs }} {{ env }} Gitlab Project Creation"
     description: "Template to create projet in gitlab"
     organization: "{{ orgs }}"
-    project: "{{ orgs }} CasC GitLab Webhook"
-    inventory: "{{ orgs }} Controller"
+    project: "{{ orgs }} {{ env }} CasC GitLab Webhook"
+    inventory: "{{ orgs }} {{ env }} Controller"
     playbook: "playbooks/gitlab_setup.yml"
     job_type: run
     fact_caching_enabled: false
@@ -18,7 +18,7 @@ controller_templates:
     execution_environment: "ee-casc"
     survey_enabled: True
     survey_spec:
-      name: '{{ orgs }} Survey_Gitlab_Project_Creation'
+      name: '{{ orgs }} {{ env }} Survey_Gitlab_Project_Creation'
       description: 'Survey_Gitlab_Project_Creation'
       spec:
         - question_name: automation_hub

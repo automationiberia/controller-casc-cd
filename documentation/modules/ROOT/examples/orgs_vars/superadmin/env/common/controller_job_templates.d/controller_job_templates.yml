@@ -1,10 +1,10 @@
 ---
 controller_templates:
-  - name: "{{ orgs }} New Organization Objects"
+  - name: "{{ orgs }} {{ env }} New Organization Objects"
     description: "Template to create new organization objects in Org {{ orgs }}"
     organization: "{{ orgs }}"
-    project: "{{ orgs }} CasC Data"
-    inventory: "{{ orgs }} Controller"
+    project: "{{ orgs }} {{ env }} CasC Data"
+    inventory: "{{ orgs }} {{ env }} Controller"
     playbook: "new_project.yml"
     job_type: run
     fact_caching_enabled: false
@@ -20,7 +20,7 @@ controller_templates:
     execution_environment: "ee-casc"
     survey_enabled: True
     survey_spec:
-      name: '{{ orgs }} Survey New Organization Objects'
+      name: '{{ orgs }} {{ env }} Survey New Organization Objects'
       description: 'Survey New Organization Objects'
       spec:
         - question_name: Organization name

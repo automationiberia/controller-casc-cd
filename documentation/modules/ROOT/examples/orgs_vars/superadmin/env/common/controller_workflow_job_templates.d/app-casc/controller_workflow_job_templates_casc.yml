@@ -1,6 +1,6 @@
 ---
 controller_workflows:
-  - name: "{{ orgs }} WF CasC Ctrl"
+  - name: "{{ orgs }} {{ env }} WF CasC Ctrl"
     state: present
     description: "workflow for CasC on AAP"
     survey_enabled: false
@@ -11,17 +11,17 @@ controller_workflows:
     organization: "{{ orgs }}"
     simplified_workflow_nodes:
       - identifier: "LAUNCH_CI_{{ orgs }}"
-        workflow_job_template: "{{ orgs }} WF CasC Ctrl"
-        unified_job_template: "{{ orgs }} CasC Ctrl CD Webhook Trigger"
+        workflow_job_template: "{{ orgs }} {{ env }} WF CasC Ctrl"
+        unified_job_template: "{{ orgs }} {{ env }} CasC Ctrl CD Webhook Trigger"
         job_type: run
         organization: "{{ orgs }}"
-        workflow: "{{ orgs }} WF CasC Ctrl"
+        workflow: "{{ orgs }} {{ env }} WF CasC Ctrl"
 
       - identifier: "PROJECT_SYNC_{{ orgs }}"
-        workflow_job_template: "{{ orgs }} WF CasC Ctrl"
-        unified_job_template: "{{ orgs }} CasC Data"
+        workflow_job_template: "{{ orgs }} {{ env }} WF CasC Ctrl"
+        unified_job_template: "{{ orgs }} {{ env }} CasC Data"
         organization: "{{ orgs }}"
-        workflow: "{{ orgs }} WF CasC Ctrl"
+        workflow: "{{ orgs }} {{ env }} WF CasC Ctrl"
         success_nodes:
           - "LAUNCH_CI_{{ orgs }}"
     notification_templates_started: []

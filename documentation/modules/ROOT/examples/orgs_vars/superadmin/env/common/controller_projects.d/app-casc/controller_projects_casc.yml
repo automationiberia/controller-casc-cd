@@ -1,6 +1,6 @@
 ---
 controller_projects:
-  - name: "{{ orgs }} CasC Data"
+  - name: "{{ orgs }} {{ env }} CasC Data"
     description: "Project to include the CasC playbooks"
     organization: "{{ orgs }}"
     scm_type: git

@@ -1,10 +1,10 @@
 ---
 controller_templates:
-  - name: "{{ orgs }} CasC Ctrl Drop Diff"
+  - name: "{{ orgs }} {{ env }} CasC Ctrl Drop Diff"
     description: "Template to assure no difference between API and repository"
     organization: "{{ orgs }}"
-    project: "{{ orgs }} CasC Data"
-    inventory: "{{ orgs }} Controller"
+    project: "{{ orgs }} {{ env }} CasC Data"
+    inventory: "{{ orgs }} {{ env }} Controller"
     playbook: "casc_ctrl_drop_diff.yml"
     job_type: run
     fact_caching_enabled: false
@@ -21,11 +21,11 @@ controller_templates:
       ansible_async_dir: /home/runner/.ansible_async/
       protect_not_empty_orgs: true
     execution_environment: "ee-casc"
-  - name: "{{ orgs }} CasC Ctrl Drop Diff Unified"
+  - name: "{{ orgs }} {{ env }} CasC Ctrl Drop Diff Unified"
     description: "Template to assure no difference between API and repository"
     organization: "{{ orgs }}"
-    project: "{{ orgs }} CasC Data"
-    inventory: "{{ orgs }} Controller"
+    project: "{{ orgs }} {{ env }} CasC Data"
+    inventory: "{{ orgs }} {{ env }} Controller"
     playbook: "casc_ctrl_drop_diff_unified.yml"
     job_type: run
     fact_caching_enabled: false
