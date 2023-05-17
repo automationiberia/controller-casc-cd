@@ -1690,11 +1690,11 @@ EOF</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-casc/controller_jt_casc_cd_webhook.yml &lt;&lt;EOF
 ---
 controller_templates:
-  - name: "{{ orgs }} CasC Ctrl CD Webhook Trigger"
+  - name: "{{ orgs }} {{ env }} CasC Ctrl CD Webhook Trigger"
     description: "Template to attend Controller CasC webhook"
     organization: "{{ orgs }}"
-    project: "{{ orgs }} CasC Data"
-    inventory: "{{ orgs }} Controller"
+    project: "{{ orgs }} {{ env }} CasC Data"
+    inventory: "{{ orgs }} {{ env }} Controller"
     playbook: "casc_ctrl_cd_webhook_trigger.yml"
     job_type: run
     fact_caching_enabled: false
@@ -1719,11 +1719,11 @@ EOF</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-casc/controller_jt_casc_config.yml &lt;&lt;EOF
 ---
 controller_templates:
-  - name: "{{ orgs }} CasC Ctrl Config"
+  - name: "{{ orgs }} {{ env }} CasC Ctrl Config"
     description: "Template to deploy Controller objects in Org {{ orgs }}"
     organization: "{{ orgs }}"
-    project: "{{ orgs }} CasC Data"
-    inventory: "{{ orgs }} Controller"
+    project: "{{ orgs }} {{ env }} CasC Data"
+    inventory: "{{ orgs }} {{ env }} Controller"
     playbook: "casc_ctrl_config.yml"
     job_type: run
     fact_caching_enabled: false
@@ -1739,11 +1739,11 @@ controller_templates:
       ansible_python_interpreter: /usr/bin/python3
       ansible_async_dir: /home/runner/.ansible_async/
     execution_environment: "ee-casc"
-  - name: "{{ orgs }} CasC Ctrl Config Unified"
+  - name: "{{ orgs }} {{ env }} CasC Ctrl Config Unified"
     description: "Template to deploy Controller objects in Org {{ orgs }}"
     organization: "{{ orgs }}"
-    project: "{{ orgs }} CasC Data"
-    inventory: "{{ orgs }} Controller"
+    project: "{{ orgs }} {{ env }} CasC Data"
+    inventory: "{{ orgs }} {{ env }} Controller"
     playbook: "casc_ctrl_config_unified.yml"
     job_type: run
     fact_caching_enabled: false
@@ -1771,11 +1771,11 @@ EOF</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-casc/controller_jt_casc_drop_diff.yml &lt;&lt;EOF
 ---
 controller_templates:
-  - name: "{{ orgs }} CasC Ctrl Drop Diff"
+  - name: "{{ orgs }} {{ env }} CasC Ctrl Drop Diff"
     description: "Template to assure no difference between API and repository"
     organization: "{{ orgs }}"
-    project: "{{ orgs }} CasC Data"
-    inventory: "{{ orgs }} Controller"
+    project: "{{ orgs }} {{ env }} CasC Data"
+    inventory: "{{ orgs }} {{ env }} Controller"
     playbook: "casc_ctrl_drop_diff.yml"
     job_type: run
     fact_caching_enabled: false
@@ -1792,11 +1792,11 @@ controller_templates:
       ansible_async_dir: /home/runner/.ansible_async/
       protect_not_empty_orgs: true
     execution_environment: "ee-casc"
-  - name: "{{ orgs }} CasC Ctrl Drop Diff Unified"
+  - name: "{{ orgs }} {{ env }} CasC Ctrl Drop Diff Unified"
     description: "Template to assure no difference between API and repository"
     organization: "{{ orgs }}"
-    project: "{{ orgs }} CasC Data"
-    inventory: "{{ orgs }} Controller"
+    project: "{{ orgs }} {{ env }} CasC Data"
+    inventory: "{{ orgs }} {{ env }} Controller"
     playbook: "casc_ctrl_drop_diff_unified.yml"
     job_type: run
     fact_caching_enabled: false
@@ -1826,11 +1826,11 @@ EOF</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-gitlab/controller_jt_casc_gitlab_project_creation.yml &lt;&lt;EOF
 ---
 controller_templates:
-  - name: "{{ orgs }} Gitlab Project Creation"
+  - name: "{{ orgs }} {{ env }} Gitlab Project Creation"
     description: "Template to create projet in gitlab"
     organization: "{{ orgs }}"
-    project: "{{ orgs }} CasC GitLab Webhook"
-    inventory: "{{ orgs }} Controller"
+    project: "{{ orgs }} {{ env }} CasC GitLab Webhook"
+    inventory: "{{ orgs }} {{ env }} Controller"
     playbook: "playbooks/gitlab_setup.yml"
     job_type: run
     fact_caching_enabled: false
@@ -1844,7 +1844,7 @@ controller_templates:
     execution_environment: "ee-casc"
     survey_enabled: True
     survey_spec:
-      name: '{{ orgs }} Survey_Gitlab_Project_Creation'
+      name: '{{ orgs }} {{ env }} Survey_Gitlab_Project_Creation'
       description: 'Survey_Gitlab_Project_Creation'
       spec:
         - question_name: automation_hub
@@ -1977,11 +1977,11 @@ EOF</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-gitlab/controller_jt_casc_gitlab_webhook.yml &lt;&lt;EOF
 ---
 controller_templates:
-  - name: "{{ orgs }} Gitlab Webhook Creation"
+  - name: "{{ orgs }} {{ env }} Gitlab Webhook Creation"
     description: "Template to create webhook in the gitlab project"
     organization: "{{ orgs }}"
-    project: "{{ orgs }} CasC GitLab Webhook"
-    inventory: "{{ orgs }} Controller"
+    project: "{{ orgs }} {{ env }} CasC GitLab Webhook"
+    inventory: "{{ orgs }} {{ env }} Controller"
     playbook: "playbooks/gitlab_webhook.yml"
     job_type: run
     fact_caching_enabled: false
@@ -1996,7 +1996,7 @@ controller_templates:
     execution_environment: "ee-casc"
     survey_enabled: True
     survey_spec:
-      name: '{{ orgs }} Survey_Gitlab_Webhook_Creation'
+      name: '{{ orgs }} {{ env }} Survey_Gitlab_Webhook_Creation'
       description: 'Survey_Gitlab_Webhook_Creation'
       spec:
         - question_name: gitlab_api_url
@@ -2108,11 +2108,11 @@ EOF</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/controller_job_templates.yml &lt;&lt;EOF
 ---
 controller_templates:
-  - name: "{{ orgs }} New Organization Objects"
+  - name: "{{ orgs }} {{ env }} New Organization Objects"
     description: "Template to create new organization objects in Org {{ orgs }}"
     organization: "{{ orgs }}"
-    project: "{{ orgs }} CasC Data"
-    inventory: "{{ orgs }} Controller"
+    project: "{{ orgs }} {{ env }} CasC Data"
+    inventory: "{{ orgs }} {{ env }} Controller"
     playbook: "new_project.yml"
     job_type: run
     fact_caching_enabled: false
@@ -2128,7 +2128,7 @@ controller_templates:
     execution_environment: "ee-casc"
     survey_enabled: True
     survey_spec:
-      name: '{{ orgs }} Survey New Organization Objects'
+      name: '{{ orgs }} {{ env }} Survey New Organization Objects'
       description: 'Survey New Organization Objects'
       spec:
         - question_name: Organization name
@@ -2203,7 +2203,7 @@ EOF</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_projects.d/app-casc/controller_projects_casc.yml &lt;&lt;EOF
 ---
 controller_projects:
-  - name: "{{ orgs }} CasC Data"
+  - name: "{{ orgs }} {{ env }} CasC Data"
     description: "Project to include the CasC playbooks"
     organization: "{{ orgs }}"
     scm_type: git
@@ -2233,7 +2233,7 @@ EOF</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_projects.d/app-gitlab/controller_projects_gitlab.yml &lt;&lt;EOF
 ---
 controller_projects:
-  - name: "{{ orgs }} CasC GitLab Webhook"
+  - name: "{{ orgs }} {{ env }} CasC GitLab Webhook"
     description: "Project to include playbooks to configure the GitLab Webhooks for the CasC to be able to run"
     organization: "{{ orgs }}"
     scm_type: git
@@ -2257,7 +2257,7 @@ EOF</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_workflow_job_templates.d/app-casc/controller_workflow_job_templates_casc.yml &lt;&lt;EOF
 ---
 controller_workflows:
-  - name: "{{ orgs }} WF CasC Ctrl"
+  - name: "{{ orgs }} {{ env }} WF CasC Ctrl"
     state: present
     description: "workflow for CasC on AAP"
     survey_enabled: false
@@ -2268,17 +2268,17 @@ controller_workflows:
     organization: "{{ orgs }}"
     simplified_workflow_nodes:
       - identifier: "LAUNCH_CI_{{ orgs }}"
-        workflow_job_template: "{{ orgs }} WF CasC Ctrl"
-        unified_job_template: "{{ orgs }} CasC Ctrl CD Webhook Trigger"
+        workflow_job_template: "{{ orgs }} {{ env }} WF CasC Ctrl"
+        unified_job_template: "{{ orgs }} {{ env }} CasC Ctrl CD Webhook Trigger"
         job_type: run
         organization: "{{ orgs }}"
-        workflow: "{{ orgs }} WF CasC Ctrl"
+        workflow: "{{ orgs }} {{ env }} WF CasC Ctrl"
 
       - identifier: "PROJECT_SYNC_{{ orgs }}"
-        workflow_job_template: "{{ orgs }} WF CasC Ctrl"
-        unified_job_template: "{{ orgs }} CasC Data"
+        workflow_job_template: "{{ orgs }} {{ env }} WF CasC Ctrl"
+        unified_job_template: "{{ orgs }} {{ env }} CasC Data"
         organization: "{{ orgs }}"
-        workflow: "{{ orgs }} WF CasC Ctrl"
+        workflow: "{{ orgs }} {{ env }} WF CasC Ctrl"
         success_nodes:
           - "LAUNCH_CI_{{ orgs }}"
     notification_templates_started: []
@@ -2299,7 +2299,7 @@ EOF</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_workflow_job_templates.d/controller_workflow_job_templates.yml &lt;&lt;EOF
 ---
 controller_workflows:
-  - name: "{{ orgs }} WF New Project"
+  - name: "{{ orgs }} {{ env }} WF New Project"
     state: present
     description: "Workflow to create a new project"
     ask_variables_on_launch: false
@@ -2308,27 +2308,27 @@ controller_workflows:
     organization: "{{ orgs }}"
     simplified_workflow_nodes:
       - identifier: "Create Webhooks"
-        workflow_job_template: "{{ orgs }} WF New Project"
-        unified_job_template: "{{ orgs }} Gitlab Webhook Creation"
+        workflow_job_template: "{{ orgs }} {{ env }} WF New Project"
+        unified_job_template: "{{ orgs }} {{ env }} Gitlab Webhook Creation"
         job_type: run
         organization: "{{ orgs }}"
-        workflow: "{{ orgs }} WF New Project"
+        workflow: "{{ orgs }} {{ env }} WF New Project"
 
       - identifier: "Create SuperAdmin Objects"
-        workflow_job_template: "{{ orgs }} WF New Project"
-        unified_job_template: "{{ orgs }} New Organization Objects"
+        workflow_job_template: "{{ orgs }} {{ env }} WF New Project"
+        unified_job_template: "{{ orgs }} {{ env }} New Organization Objects"
         job_type: run
         organization: "{{ orgs }}"
-        workflow: "{{ orgs }} WF New Project"
+        workflow: "{{ orgs }} {{ env }} WF New Project"
         success_nodes:
           - "Create Webhooks"
 
       - identifier: "Create GitLab Repo"
-        workflow_job_template: "{{ orgs }} WF New Project"
-        unified_job_template: "{{ orgs }} Gitlab Project Creation"
+        workflow_job_template: "{{ orgs }} {{ env }} WF New Project"
+        unified_job_template: "{{ orgs }} {{ env }} Gitlab Project Creation"
         job_type: run
         organization: "{{ orgs }}"
-        workflow: "{{ orgs }} WF New Project"
+        workflow: "{{ orgs }} {{ env }} WF New Project"
         extra_data:
           automation_hub: "${AUTOMATIONHUB_HOST}"
           controller_dev: "${CONTROLLER_DEV_HOST}"
@@ -2353,8 +2353,8 @@ controller_workflows:
       env: "{{ env }}"
     survey_enabled: True
     survey_spec:
-      name: '{{ orgs }} Survey_Gitlab_Project_Creation'
-      description: 'Survey_Gitlab_Project_Creation'
+      name: '{{ orgs }} {{ env }} Survey Gitlab Project Creation'
+      description: 'Survey Gitlab Project Creation'
       spec:
         - question_name: Name for the new Organization
           question_description: Must be the same name of GitLab project to be created
