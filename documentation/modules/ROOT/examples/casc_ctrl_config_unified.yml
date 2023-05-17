@@ -10,10 +10,6 @@
     controller_hostname: "{{ vault_controller_hostname | default(lookup('env', 'CONTROLLER_HOST')) }}"
     controller_validate_certs: "{{ vault_controller_validate_certs | default(lookup('env', 'CONTROLLER_VERIFY_SSL')) }}"
   pre_tasks:
-    - debug:
-        msg:
-          - "'{{ lookup('ansible.builtin.env', 'CONTROLLER_HOST') }}'"
-          - "{{ lookup('ansible.builtin.pipe', 'env') }}"
     - name: "Setup authentication (block)"
       block:
         - name: "Get the Authentication Token for the future requests"
@@ -36,8 +32,10 @@
       tags:
         - always
     - name: "Clone the required repo"
+      environment:
+        - GIT_SSL_NO_VERIFY: "{{ git_ssl_no_verify | default(true) }}"
       ansible.builtin.git:
-        repo: "{{ project_to_clone | ansible.builtin.regex_replace('http://','http://'+gitlab_api_user+':'+gitlab_api_token+'@') }}"
+        repo: "{{ project_to_clone | ansible.builtin.regex_replace('(https?://)','\\1'+gitlab_api_user+':'+gitlab_api_token+'@') }}"
         dest: "./checkout"
         version: "{{ casc_gitlab_scm_branch }}"
       no_log: true
@@ -112,8 +110,8 @@
         status_code: 204
       when: controller_oauthtoken_url is defined
 ...
-# ansible-navigator run casc_ctrl_config.yml -i inventory -l PRE -e '{orgs: SUPERADMIN, dir_orgs_vars: orgs_vars, env: PRE}' -m stdout --eei quay.io/automationiberia/aap/ee-casc:latest --vault-password-file .vault_password --pull-arguments=--tls-verify=false
-# ansible-navigator run casc_ctrl_config.yml -i inventory -l PRO -e '{orgs: SUPERADMIN, dir_orgs_vars: orgs_vars, env: PRO}' -m stdout --eei quay.io/automationiberia/aap/ee-casc:latest --vault-password-file .vault_password --pull-arguments=--tls-verify=false
+# ansible-navigator run casc_ctrl_config.yml -i inventory -l dev -e '{orgs: superadmin, dir_orgs_vars: orgs_vars, env: dev}' -m stdout --eei quay.io/automationiberia/aap/ee-casc:latest --vault-password-file .vault_password --pull-arguments=--tls-verify=false
+# ansible-navigator run casc_ctrl_config.yml -i inventory -l pro -e '{orgs: superadmin, dir_orgs_vars: orgs_vars, env: pro}' -m stdout --eei quay.io/automationiberia/aap/ee-casc:latest --vault-password-file .vault_password --pull-arguments=--tls-verify=false
 #
-# ansible-navigator run casc_ctrl_config.yml -i inventory -l PRE -e '{orgs: SUPERADMIN, dir_orgs_vars: orgs_vars, env: PRE}' -m stdout --eei quay.io/automationiberia/aap/ee-casc --vault-password-file .vault_password
-# ansible-navigator run casc_ctrl_config.yml -i inventory -l PRO -e '{orgs: SUPERADMIN, dir_orgs_vars: orgs_vars, env: PRO}' -m stdout --eei quay.io/automationiberia/aap/ee-casc --vault-password-file .vault_password
+# ansible-navigator run casc_ctrl_config.yml -i inventory -l dev -e '{orgs: superadmin, dir_orgs_vars: orgs_vars, env: dev}' -m stdout --eei quay.io/automationiberia/aap/ee-casc --vault-password-file .vault_password
+# ansible-navigator run casc_ctrl_config.yml -i inventory -l pro -e '{orgs: superadmin, dir_orgs_vars: orgs_vars, env: pro}' -m stdout --eei quay.io/automationiberia/aap/ee-casc --vault-password-file .vault_password
