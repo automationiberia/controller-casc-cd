@@ -1659,7 +1659,7 @@ EOF</code></pre>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_inventories.d/app-casc/controller_inventories_controller.yml &lt;&lt;EOF
 ---
 controller_inventories:
-  - name: "{{ orgs }} Controller"
+  - name: "{{ orgs }} {{ env }} Controller"
     description: "Inventory for the Controller"
     organization: "{{ orgs }}"
 ...
@@ -1675,7 +1675,7 @@ EOF</code></pre>
 ---
 controller_groups:
   - name: "{{ env }}"
-    inventory: "{{ orgs }} Controller"
+    inventory: "{{ orgs }} {{ env }} Controller"
     hosts:
       - "${CONTROLLER_DEV_HOST}"
 ...
