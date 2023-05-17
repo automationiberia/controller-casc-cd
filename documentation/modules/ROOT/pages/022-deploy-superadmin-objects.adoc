@@ -17,7 +17,7 @@ In order to be able to run the playbooks from the command line using `ansible-na
 echo "vault-password" > .vault_password
 ----
 
-That file may already be ignored in the contents of the `.gitignore`, so it can't be uploaded to the GitLab repository. See the xref:021-initial-dir-and-files.adoc#_recommended_basic_files[Recommended basic files]
+That file may already be ignored in the contents of the `.gitignore`, so it can't be uploaded to the GitLab repository. See the xref:021-initial-dir-and-files.adoc#_housekeeping_optional_steps[Housekeeping Optional Steps]
 ====
 
 [IMPORTANT]
