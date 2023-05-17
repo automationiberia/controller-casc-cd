@@ -3,6 +3,9 @@
 // :!sectids:
 
 == Quick introduction to CaC
+
+Below, there are two articles left here for further reference, that introduces the Configuration as Code applied to Ansible Automation Platform, as it will be introduced in the next sections for the Ansible Automation Controller.
+
 https://www.redhat.com/architect/ansible-automation-controller-cac-gitops[Manage automation controller Configuration as Code (CaC) with Ansible]
 
 https://www.redhat.com/architect/automation-controller-active-passive-architecture-cac[Manage automation controller active and passive multisite architecture with Ansible]

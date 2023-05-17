@@ -29,9 +29,9 @@ controller_templates:
           min: 0
           max: 1024
           choices:
-            - "https://gitlab.com"
+            - "https://gitlab.iam.lab"
             - "https://github.com"
-          default: "https://gitlab.com"
+          default: "https://gitlab.iam.lab"
           new_question: true
 
         - question_name: gitlab_group

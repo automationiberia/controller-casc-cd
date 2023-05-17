@@ -28,9 +28,9 @@ controller_templates:
           min: 0
           max: 1024
           choices:
-            - "${AUTOMATIONHUB_HOST}"
+            - "ah22.iam.lab"
             - "lb-hub-pro.lab.example.com"
-          default: "${AUTOMATIONHUB_HOST}"
+          default: "ah22.iam.lab"
           new_question: true
 
         - question_name: controller_dev
@@ -40,8 +40,8 @@ controller_templates:
           min: 0
           max: 1024
           choices:
-            - "${CONTROLLER_DEV_HOST}"
-          default: "${CONTROLLER_DEV_HOST}"
+            - aap22dev.iam.lab
+          default: "aap22dev.iam.lab"
           new_question: true
 
         - question_name: controller_pro
@@ -51,8 +51,8 @@ controller_templates:
           min: 0
           max: 1024
           choices:
-            - "${CONTROLLER_PRO_HOST}"
-          default: "${CONTROLLER_PRO_HOST}"
+            - aap22pro.iam.lab
+          default: "aap22pro.iam.lab"
           new_question: true
 
         - question_name: gitlab_api_url
@@ -62,8 +62,8 @@ controller_templates:
           min: 0
           max: 1024
           choices:
-            - "https://gitlab.com"
-          default: "https://gitlab.com"
+            - "https://gitlab.iam.lab"
+          default: "https://gitlab.iam.lab"
           new_question: true
 
         - question_name: gitlab_group
