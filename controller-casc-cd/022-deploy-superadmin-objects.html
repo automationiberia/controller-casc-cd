@@ -272,20 +272,6 @@
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-navigator run casc_ctrl_config.yml -i inventory -l dev -e "{orgs: ${SUPERADMIN_ORG}, dir_orgs_vars: orgs_vars, env: dev}" -m stdout --eei ${AUTOMATIONHUB_HOST}/ee-casc:latest --vault-password-file .vault_password --pull-arguments=--tls-verify=false</code></pre>
 </div>
 </div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The execution above will fail because there are missing credentials to be assigned to the new organization. To workaround that, run the same command adding the flag <code>--tags credentials</code> and, when finished, run the original command again.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
 <div class="admonitionblock tip">
 <table>
 <tr>

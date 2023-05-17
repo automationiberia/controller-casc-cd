@@ -220,8 +220,71 @@
 <h2 id="_day_2_create_a_new_organization"><a class="anchor" href="#_day_2_create_a_new_organization"></a>1. Day-2: Create a new Organization</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p>There are two ways to create a new Organization, which will be described below in the following sections:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#_automatically">Automatically</a>: A Job Template to create all the required components for a new regular organization is provided.</p>
+</li>
+<li>
+<p><a href="#_manually">Manually</a>: All the required components for a new regular organization are created step-by-step.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
 <p>As an overview, when creating a new Organization, some objects must be populated at the superadmin organization, such as the organization itself, the corresponding CasC Job Templates, the user to be the future organization admin and the roles to give that user the admin privileges to the organization. A new Git Repository is needed for the new Organization as well.</p>
 </div>
+<div class="sect2">
+<h3 id="_automatically"><a class="anchor" href="#_automatically"></a>1.1. Automatically</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Locate the Job Template called <code>superadmin WF New Project</code> and Launch it.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/new-project-workflow-1.png" alt="new project workflow 1">
+</div>
+</div>
+</li>
+<li>
+<p>Fill in all the required information and Start the Job:</p>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The fields <code>Name for the new Organization</code> and <code>GitLab Project</code> must have the same value.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/new-project-workflow-2.1.png" alt="new project workflow 2.1">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/new-project-workflow-2.2.png" alt="new project workflow 2.2">
+</div>
+</div>
+</li>
+<li>
+<p>Let&#8217;s de execution to finish:</p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/new-project-workflow-3.png" alt="new project workflow 3"></span></p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_manually"><a class="anchor" href="#_manually"></a>1.2. Manually</h3>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -236,8 +299,8 @@
 </tr>
 </table>
 </div>
-<div class="sect2">
-<h3 id="_run_the_playbook_to_create_the_new_organization_objects"><a class="anchor" href="#_run_the_playbook_to_create_the_new_organization_objects"></a>1.1. Run the playbook to create the new organization objects</h3>
+<div class="sect3">
+<h4 id="_run_the_playbook_to_create_the_new_organization_objects"><a class="anchor" href="#_run_the_playbook_to_create_the_new_organization_objects"></a>1.2.1. Run the playbook to create the new organization objects</h4>
 <div class="paragraph">
 <p>These new objects can be created manually without any problem, but a playbook is provided to make this easier. It must be executed from the command line (PR are welcome), and is creating all the files with the new objects for us, except the one for the organization&#8217;s admin user.</p>
 </div>
@@ -286,8 +349,8 @@ localhost                  : ok=3    changed=1    unreachable=0    failed=0    s
 </div>
 </details>
 </div>
-<div class="sect2">
-<h3 id="_add_the_admin_user_for_the_new_organization"><a class="anchor" href="#_add_the_admin_user_for_the_new_organization"></a>1.2. Add the admin user for the new organization</h3>
+<div class="sect3">
+<h4 id="_add_the_admin_user_for_the_new_organization"><a class="anchor" href="#_add_the_admin_user_for_the_new_organization"></a>1.2.2. Add the admin user for the new organization</h4>
 <div class="paragraph">
 <p>In order to add the new Organization&#8217;s admin user, it must be done manually as the file should be ansible-vaulted, so the following steps are needed:</p>
 </div>
@@ -328,8 +391,8 @@ controller_user_accounts:
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_push_the_changes_to_create_the_new_objects"><a class="anchor" href="#_push_the_changes_to_create_the_new_objects"></a>1.3. Push the changes to create the new objects</h3>
+<div class="sect3">
+<h4 id="_push_the_changes_to_create_the_new_objects"><a class="anchor" href="#_push_the_changes_to_create_the_new_objects"></a>1.2.3. Push the changes to create the new objects</h4>
 <div class="paragraph">
 <p>As the SUPERADMIN organization already have the Webhook configured, the only action needed to create the new objects is just to push the code to the git repository for the Webhook to trigger the CasC processes:</p>
 </div>
@@ -373,8 +436,8 @@ To ssh://gitlab.server.domain:2222/group/sub-group/casc/super-admin.git
 <p>Now, the branch can be merged into dev to trigger the CasC mechanism and get all the new objects created at the Automation Controller.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_run_the_job_template_to_create_a_new_git_project_for_the_newly_created_organization"><a class="anchor" href="#_run_the_job_template_to_create_a_new_git_project_for_the_newly_created_organization"></a>1.4. Run the Job Template to create a new Git Project for the newly created organization</h3>
+<div class="sect3">
+<h4 id="_run_the_job_template_to_create_a_new_git_project_for_the_newly_created_organization"><a class="anchor" href="#_run_the_job_template_to_create_a_new_git_project_for_the_newly_created_organization"></a>1.2.4. Run the Job Template to create a new Git Project for the newly created organization</h4>
 <div class="paragraph">
 <p>Another thing that should be created is a git repository where to define all the new organization&#8217;s related objects. That git repo can be created manually, but a Job Template for the SUPERADMIN organization is provided to make things easier. That Job template is creating (thanks to the <code>casc-setup</code> collection into the assigned Execuction Environment) all the basic objects and a <code>README.md</code> that contains a step by step process to start working with the repo and the CasC, so it&#8217;s very recommended to use that Job Template:</p>
 </div>
@@ -397,8 +460,8 @@ To ssh://gitlab.server.domain:2222/group/sub-group/casc/super-admin.git
 <div class="title">Figure 3. Gitlab Project Creation README Snap</div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_run_the_job_template_to_create_the_casc_webhook_for_the_newly_created_organization"><a class="anchor" href="#_run_the_job_template_to_create_the_casc_webhook_for_the_newly_created_organization"></a>1.5. Run the Job Template to create the CasC Webhook for the newly created organization</h3>
+<div class="sect3">
+<h4 id="_run_the_job_template_to_create_the_casc_webhook_for_the_newly_created_organization"><a class="anchor" href="#_run_the_job_template_to_create_the_casc_webhook_for_the_newly_created_organization"></a>1.2.5. Run the Job Template to create the CasC Webhook for the newly created organization</h4>
 <div class="paragraph">
 <p>The same way the CasC is triggered for the SUPERADMIN organization, for the newly created one a webhook must be created as well. That one is slightly different on how the playbook treats the input information, but is running the same overall process to launch the CasC processes.</p>
 </div>
@@ -410,6 +473,7 @@ To ssh://gitlab.server.domain:2222/group/sub-group/casc/super-admin.git
 <img src="_images/configure_webhook_neworg_launch_params.png" alt="configure webhook neworg launch params">
 </div>
 <div class="title">Figure 4. Configure Webhook for the NewOrg Organization</div>
+</div>
 </div>
 </div>
 </div>

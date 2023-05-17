@@ -348,6 +348,20 @@ aap22prod.iam.lab</code></pre>
 <div class="sect1">
 <h2 id="_launch_ansible_navigator_from_cli_to_setup_day_zero_of_casc"><a class="anchor" href="#_launch_ansible_navigator_from_cli_to_setup_day_zero_of_casc"></a>6. Launch ansible-navigator from CLI to setup day-zero of CasC</h2>
 <div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If the Automation Hub where the used Execution Environment image is using a self-signed certificate, the extra argument <code>--pull-arguments=--tls-verify=false</code> will be needed to be appended to the following two commands.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-navigator run casc_ctrl_config.yml -i inventory -l dev -e "{orgs: '${ORGNAME}', dir_orgs_vars: orgs_vars, env: dev}" -m stdout --eei quay.io/automationiberia/aap/ee-casc --vault-password-file .vault_password</code></pre>
