@@ -108,6 +108,10 @@ echo "my_vault_pass" > ./.vault_password
 
 == Launch ansible-navigator from CLI to setup day-zero of CasC
 
+.This step is optional, and is useful when developing new changes, to apply them without pushing them to the GitLab repository and trigger the CaC workflow.
+[%collapsible]
+=====
+
 [IMPORTANT]
 ====
 If the Automation Hub where the used Execution Environment image is using a self-signed certificate, the extra argument `--pull-arguments=--tls-verify=false` will be needed to be appended to the following two commands.
@@ -124,6 +128,7 @@ ansible-navigator run casc_ctrl_config.yml -i inventory -l dev -e "{orgs: '${ORG
 ----
 ansible-navigator run casc_ctrl_config.yml -i inventory -l pro -e "{orgs: '${ORGNAME}', dir_orgs_vars: orgs_vars, env: pro}" -m stdout --eei quay.io/automationiberia/aap/ee-casc --vault-password-file .vault_password
 ----
+=====
 
 == Push the changes
 
