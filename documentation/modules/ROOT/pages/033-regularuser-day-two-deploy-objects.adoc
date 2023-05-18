@@ -6,6 +6,9 @@ include::_attributes.adoc[]
 ====
 [.console-input]
 [source,console]
+git checkout dev
+git pull
+git checkout -b creation_new_objects
 git add -A
 git commit -m "Add new objects to the new org"
 git push -u origin creation_new_objects
