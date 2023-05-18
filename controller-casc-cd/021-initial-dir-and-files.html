@@ -2155,7 +2155,8 @@ controller_templates:
           variable: instance_groups
           min: 0
           max: 1024
-          choices: "{{ (controller_instance_groups | default([])) | map(attribute='name') }}"
+          choices:
+            - MADRID
           default: ""
           new_question: true
 
