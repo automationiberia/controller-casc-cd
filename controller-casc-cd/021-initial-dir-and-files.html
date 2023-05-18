@@ -1554,7 +1554,7 @@ EOF</code></pre>
 controller_hosts:
   - name:  "${CONTROLLER_DEV_HOST}"
     description: "Controller host (pointing to LB)"
-    inventory: "{{ orgs }} Controller"
+    inventory: "{{ orgs }} {{ env }} Controller"
     variables:
       ansible_host: "${CONTROLLER_DEV_HOST}"
 ...
