@@ -14,11 +14,11 @@ git commit -m "Add new objects to the new org"
 git push -u origin creation_new_objects
 ====
 
-== Create and accept a Merge Request from creation_new_objects to dev
+== Create and accept a Merge Request from creation_new_objects to `dev`
 
 === Create Merge Request
 
-Create a Merge Request in Gitlab from creation_new_objects to dev branch:
+Create a Merge Request in Gitlab from creation_new_objects to `dev` branch:
 
 image::generalmergerequest.png[General Merge Request]
 
@@ -30,7 +30,7 @@ Approve the Merge Request in Gitlab to merge creation_new_objects into dev branc
 
 image::mergenewobjectstodev.png[Merge Dev Merge Request]
 
-=== Check new objects in the Organization for the dev controller
+=== Check new objects in the Organization for the `dev` controller
 
 [NOTE]
 ====
@@ -58,7 +58,7 @@ image::regular-user-webhook-inventory-2.png[Regular User Webhook Created Invento
 
 image::regular-user-webhook-credentials-1.png[Regular User Webhook Created Credentials]
 
-== Promote dev to pro through a Merge Request
+== Promote `dev` to `pro` through a Merge Request
 
 === Create Merge Request
 image::generalmergerequest.png[General Merge Request]
@@ -70,7 +70,7 @@ Approve the Merge Request in Gitlab to merge dev into pro branch:
 
 image::mergenewobjectstopro.png[Merge Pro Merge Request]
 
-=== Check new objects in the Organization for the pro controller
+=== Check new objects in the Organization for the `pro` controller
 
 Go to #ToDo URL jobs#  and check that #To Do job names# were finished well.
 
