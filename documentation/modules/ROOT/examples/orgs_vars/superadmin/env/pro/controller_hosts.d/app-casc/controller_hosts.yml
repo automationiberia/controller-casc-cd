@@ -1,7 +1,7 @@
 ---
 controller_hosts:
   - name:  "lb-ctlr-pro"
-    description: "Controller host (pointing to LB)"
+    description: "Controller host"
     inventory: "{{ orgs }} Controller"
     variables:
       ansible_host: "lb-controller-pro.lab.example.com"

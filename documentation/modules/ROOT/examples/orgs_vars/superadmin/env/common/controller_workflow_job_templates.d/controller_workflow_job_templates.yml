@@ -34,9 +34,9 @@ controller_workflows:
           automation_hub: "${AUTOMATIONHUB_HOST}"
           controller_dev: "${CONTROLLER_DEV_HOST}"
           controller_pro: "${CONTROLLER_PRO_HOST}"
-          gitlab_api_url: "https://gitlab.iam.lab"
-          gitlab_group: "automationiberia"
-          gitlab_subgroup: "aap-cac"
+          gitlab_api_url: "https://gitlab.com"
+          gitlab_group: "<<CHANGE_ME>>"
+          gitlab_subgroup: "<<CHANGE_ME>>"
           gitlab_project: "dummy"
           gitlab_visibility: "internal"
           gitlab_default_branch: "pro"
@@ -130,8 +130,8 @@ controller_workflows:
           min: 0
           max: 1024
           choices:
-            - "https://gitlab.iam.lab"
-          default: "https://gitlab.iam.lab"
+            - "https://gitlab.com"
+          default: "https://gitlab.com"
           new_question: true
 
         - question_name: GitLab group name
@@ -141,8 +141,8 @@ controller_workflows:
           min: 0
           max: 1024
           choices:
-            - "automationiberia"
-          default: "automationiberia"
+            - "<<CHANGE_ME>>"
+          default: "<<CHANGE_ME>>"
           new_question: true
 
         - question_name: GitLab subgroup name
@@ -152,8 +152,8 @@ controller_workflows:
           min: 0
           max: 1024
           choices:
-            - "aap-cac"
-          default: "aap-cac"
+            - "<<CHANGE_ME>>"
+          default: "<<CHANGE_ME>>"
           new_question: true
 
         - question_name: GitLab Project
