@@ -146,7 +146,7 @@ controller_workflows:
           new_question: true
 
         - question_name: GitLab subgroup name
-          required: true
+          required: false
           type: multiplechoice
           variable: gitlab_subgroup
           min: 0
