@@ -37,7 +37,7 @@ image::mergenewobjectstodev.png[Merge Dev Merge Request]
 The following examples will use the Ansible Automation Controller base URL `{controller_url}`, which should be customized as needed.
 ====
 
-==== Go to `{controller_url}#/jobs` and check that the jobs for CaC `{neworg} CasC Ctrl Drop Diff Unified` and `{neworg} CasC Ctrl Config Unified` finished successfully:
+==== Go to `{controller_url}#/jobs` and check that the jobs for CaC `{neworg} CasC Ctrl Drop Diff` and `{neworg} CasC Ctrl Config` finished successfully:
 
 image::regular-user-webhook-jobs-1.png[Regular User Webhook Triggered Jobs]
 
@@ -78,6 +78,6 @@ Go to #ToDo URL projects#  and check that %ORGNAME% New Job Template was created
 
 Go to #ToDo URL job_template#  and check that %ORGNAME%_project_example was created.
 
-Go to #ToDo URL inventory#  and check that %ORGNAME% Localhost was created and it has a host #ToDo URL host inventory# 
+Go to #ToDo URL inventory#  and check that %ORGNAME% Localhost was created and it has a host #ToDo URL host inventory#
 
 Go to #ToDo URL credential#  and check that %ORGNAME% Gitlab Credential %ORGNAME%_project_example was created.

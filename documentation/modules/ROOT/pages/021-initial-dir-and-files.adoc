@@ -172,7 +172,7 @@ Write down the encryption password as it will be used later on the workshop
 
 Next, we need the playbooks that allow us to implement the CaC.
 
-All this playbooks are available on the repository https://gitlab.com/automationiberia/aap-cac/superadmin-workshop-template.git[SuperAdmin Workshop Template] 
+All this playbooks are available on the repository https://gitlab.com/automationiberia/aap-cac/superadmin-workshop-template.git[SuperAdmin Workshop Template]
 
 .Download gitLab repository
 [.console-input]
@@ -199,14 +199,14 @@ EOF
 ----
 ======
 
-.Playbook for the centralized CaC to create all the objects (casc_ctrl_config_unified.yml)
+.Playbook for the centralized CaC to create all the objects (casc_ctrl_config.yml)
 [%collapsible]
 ======
 [.console-input]
 [source,bash]
 ----
-cat > casc_ctrl_config_unified.yml <<EOF
-include::../examples/casc_ctrl_config_unified.yml[]
+cat > casc_ctrl_config.yml <<EOF
+include::../examples/casc_ctrl_config.yml[]
 EOF
 ----
 ======
@@ -223,14 +223,14 @@ EOF
 ----
 ======
 
-.Playbook for the centralized CaC to delete all the objects not defined as code (casc_ctrl_drop_diff_unified.yml)
+.Playbook for the centralized CaC to delete all the objects not defined as code (casc_ctrl_drop_diff.yml)
 [%collapsible]
 ======
 [.console-input]
 [source,bash]
 ----
-cat > casc_ctrl_drop_diff_unified.yml <<EOF
-include::../examples/casc_ctrl_drop_diff_unified.yml[]
+cat > casc_ctrl_drop_diff.yml <<EOF
+include::../examples/casc_ctrl_drop_diff.yml[]
 EOF
 ----
 ======
@@ -568,17 +568,7 @@ include::../examples/orgs_vars/superadmin/env/common/controller_projects.d/app-g
 EOF
 ----
 
-=== (common) Workflow Job Template to manage the CaC of the organization SuperAdmin 
-
-[.console-input]
-[source,bash]
-----
-cat > orgs_vars/${SUPERADMIN_ORG}/env/common/controller_workflow_job_templates.d/app-casc/controller_workflow_job_templates_casc.yml <<EOF
-include::../examples/orgs_vars/superadmin/env/common/controller_workflow_job_templates.d/app-casc/controller_workflow_job_templates_casc.yml[]
-EOF
-----
-
-=== (common) Workflow Job Template to create all the components of a new regular organization 
+=== (common) Workflow Job Template to create all the components of a new regular organization
 
 .#Content to be customized#
 [.console-input]
