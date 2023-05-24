@@ -79,12 +79,12 @@
     <span class="nav-text">2. CasC setup part 1 (to be executed by a controller admin user)</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="021-initial-dir-and-files.html#_pre_requisites">Pre-Requisites</a>
-  </li>
-  <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">DayZero</span>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_pre_requisites">Pre-Requisites</a>
+  </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="021-initial-dir-and-files.html#_housekeeping_optional_steps">Housekeeping (optional steps)</a>
   </li>
@@ -238,7 +238,7 @@
 <p>In order to be able to run the playbooks from the command line using <code>ansible-navigator</code>, the file <code>.vault_password</code> is needed and must contain the vault password to decrypt the vaulted files:</p>
 </div>
 <div class="listingblock console-input">
-<div class="title"><mark>Content to be customized</mark></div>
+<div class="title"><mark>Content has to be customized</mark></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">echo "vault-password" &gt; .vault_password</code></pre>
 </div>
@@ -258,7 +258,10 @@
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Another important thing to remember is to add the public key part of the private key configured at <code>orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_scm.yml</code> to the GitLab and GitHub repositories used by the configured projects. See the <a href="021-initial-dir-and-files.html#_dev_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup" class="xref page">(dev) Source Control Manager and GitLab API Token Credentials will let the Job Templates to connect to the GitLab repository/group</a></p>
+<p>Another important thing to remember is to add the public key part of
+the private key configured at
+<code>orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_scm.yml</code>
+to the GitLab repositories used by the configured projects. See the <a href="021-initial-dir-and-files.html#_dev_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup" class="xref page">(dev) Source Control Manager and GitLab API Token Credentials will let the Job Templates to connect to the GitLab repository/group</a></p>
 </div>
 </td>
 </tr>
