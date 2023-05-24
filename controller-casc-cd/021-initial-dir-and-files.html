@@ -679,11 +679,11 @@ EOF</code></pre>
 </div>
 </details>
 <details>
-<summary class="title">Playbook for the centralized CaC to create all the objects (casc_ctrl_config_unified.yml)</summary>
+<summary class="title">Playbook for the centralized CaC to create all the objects (casc_ctrl_config.yml)</summary>
 <div class="content">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; casc_ctrl_config_unified.yml &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; casc_ctrl_config.yml &lt;&lt;EOF
 ---
 - hosts: all
   connection: local
@@ -717,74 +717,14 @@ EOF</code></pre>
       when: controller_oauthtoken is not defined
       tags:
         - always
-    - name: "Clone the required repo"
-      environment:
-        - GIT_SSL_NO_VERIFY: "{{ git_ssl_no_verify | default(true) }}"
-      ansible.builtin.git:
-        repo: "{{ project_to_clone | ansible.builtin.regex_replace('(https?://)','\\1'+gitlab_api_user+':'+gitlab_api_token+'@') }}"
-        dest: "./checkout"
-        version: "{{ casc_gitlab_scm_branch }}"
-      no_log: true
-      tags:
-        - always
+
   roles:
-    - role: infra.controller_configuration.filetree_read
-      vars:
-        filetree_controller_settings: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_settings.d/"
-        filetree_controller_organizations: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_organizations.d/"
-        filetree_controller_labels: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_labels.d/"
-        filetree_controller_user_accounts: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_users.d/"
-        filetree_controller_teams: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_teams.d/"
-        filetree_controller_credential_types: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_credential_types.d/"
-        filetree_controller_credentials:
-          - "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_credentials.d/"
-          - "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_credentials.d/"
-        filetree_controller_credential_input_sources: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_credential_input_sources.d/"
-        filetree_controller_notifications: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_notification_templates.d/"
-        filetree_controller_projects: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_projects.d/"
-        filetree_controller_execution_environments: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_execution_environments.d/"
-        filetree_controller_applications: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_applications.d/"
-        filetree_controller_inventories: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_inventories.d/"
-        filetree_controller_inventory_sources: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_inventory_sources.d/"
-        filetree_controller_instance_groups: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_instance_groups.d/"
-        filetree_controller_hosts: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_hosts.d/"
-        filetree_controller_groups: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_groups.d/"
-        filetree_controller_templates: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_job_templates.d/"
-        filetree_controller_workflow_job_templates: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_workflow_job_templates.d/"
-        filetree_controller_schedules: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_schedules.d/"
-        filetree_controller_roles: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_roles.d/"
-        # assign_galaxy_credentials_to_org: false
-        # filetree_controller_credentials:
-        #   - "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_credentials.d/"
-        #   - "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_credentials.d/"
+    # - {role: infra.controller_configuration.filetree_read, assign_galaxy_credentials_to_org: false}
     # - {role: infra.controller_configuration.dispatch, assign_galaxy_credentials_to_org: false}
+    - {role: infra.controller_configuration.filetree_read}
     - {role: infra.controller_configuration.dispatch}
 
-    # 39     - {role: infra.controller_configuration.filetree_read, assign_galaxy_credentials_to_org: false, assign_default_ee_to_org: false}
-    # 40     - {role: infra.controller_configuration.dispatch, assign_galaxy_credentials_to_org: false, assign_default_ee_to_org: false }
-
   post_tasks:
-    - block:
-        - name: Include Tasks to load Galaxy credentials to be added to Organizations
-          ansible.builtin.include_role:
-            name: infra.controller_configuration.filetree_read
-            tasks_from: organizations.yml
-          vars:
-            filetree_controller_organizations: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_organizations.d/"
-            filetree_controller_credentials: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_credentials.d/"
-
-        - name: Include Tasks to add Galaxy credentials to Organizations
-          ansible.builtin.include_role:
-            name: infra.controller_configuration.dispatch
-            apply:
-              tags:
-                - organizations
-          vars:
-            controller_configuration_dispatcher_roles:
-              - {role: organizations, var: controller_organizations, tags: organizations}
-      tags:
-        - organizations
-
     - name: "Delete the Authentication Token used"
       ansible.builtin.uri:
         url: "https://{{ controller_hostname }}{{ controller_oauthtoken_url }}"
@@ -796,11 +736,7 @@ EOF</code></pre>
         status_code: 204
       when: controller_oauthtoken_url is defined
 ...
-# ansible-navigator run casc_ctrl_config.yml -i inventory -l dev -e '{orgs: superadmin, dir_orgs_vars: orgs_vars, env: dev}' -m stdout --eei quay.io/automationiberia/aap/ee-casc:latest --vault-password-file .vault_password --pull-arguments=--tls-verify=false
-# ansible-navigator run casc_ctrl_config.yml -i inventory -l pro -e '{orgs: superadmin, dir_orgs_vars: orgs_vars, env: pro}' -m stdout --eei quay.io/automationiberia/aap/ee-casc:latest --vault-password-file .vault_password --pull-arguments=--tls-verify=false
-#
-# ansible-navigator run casc_ctrl_config.yml -i inventory -l dev -e '{orgs: superadmin, dir_orgs_vars: orgs_vars, env: dev}' -m stdout --eei quay.io/automationiberia/aap/ee-casc --vault-password-file .vault_password
-# ansible-navigator run casc_ctrl_config.yml -i inventory -l pro -e '{orgs: superadmin, dir_orgs_vars: orgs_vars, env: pro}' -m stdout --eei quay.io/automationiberia/aap/ee-casc --vault-password-file .vault_password
+# ansible-navigator run casc_ctrl_config.yml -i inventory -l dev -e '{orgs: superadmin, dir_orgs_vars: orgs_vars, env: dev, casc_gitlab_scm_branch: dev}' -m stdout --eei quay.io/automationiberia/aap/ee-casc --vault-password-file .vault_password
 EOF</code></pre>
 </div>
 </div>
@@ -845,108 +781,28 @@ EOF</code></pre>
       when: controller_oauthtoken is not defined
       tags:
         - always
-  roles:
-    - role: infra.controller_configuration.filetree_read
-    - role: infra.controller_configuration.object_diff
-      vars:
-        controller_configuration_object_diff_tasks:
-          - {name: workflow_job_templates, var: controller_workflows, tags: workflow_job_templates}
-          - {name: job_templates, var: controller_templates, tags: job_templates}
-          # - {name: teams, var: controller_teams, tags: teams#}
-          # - {name: user_accounts, var: controller_user_accounts, tags: users}
-          - {name: groups, var: controller_groups, tags: groups}
-          - {name: hosts, var: controller_hosts, tags: hosts}
-          - {name: inventory_sources, var: controller_inventory_sources, tags: inventory_sources}
-          - {name: inventories, var: controller_inventories, tags: inventories}
-          - {name: projects, var: controller_projects, tags: projects}
-          - {name: credentials, var: controller_credentials, tags: credentials}
-          # - {name: credential_types, var: controller_credential_types, tags: credential_types}
-          - {name: organizations, var: controller_organizations, tags: organizations}
-    - role: infra.controller_configuration.dispatch
-      vars:
-        controller_configuration_dispatcher_roles:
-          - {role: workflow_job_templates, var: controller_workflows, tags: workflow_job_templates}
-          - {role: job_templates, var: controller_templates, tags: job_templates}
-          # - {role: teams, var: controller_teams, tags: teams}
-          # - {role: users, var: controller_user_accounts, tags: users}
-          - {role: groups, var: controller_groups, tags: inventories}
-          - {role: hosts, var: controller_hosts, tags: hosts}
-          - {role: projects, var: controller_projects, tags: projects}
-          - {role: inventory_sources, var: controller_inventory_sources, tags: inventory_sources}
-          - {role: inventories, var: controller_inventories, tags: inventories}
-          - {role: credentials, var: controller_credentials, tags: credentials}
-          # - {role: credential_types, var: controller_credential_types, tags: credential_types}
-          - {role: organizations, var: controller_organizations, tags: organizations}
-  post_tasks:
-    - name: "Delete the Authentication Token used"
-      ansible.builtin.uri:
-        url: "https://{{ controller_hostname }}{{ controller_oauthtoken_url }}"
-        user: "{{ controller_username }}"
-        password: "{{ controller_password }}"
-        method: DELETE
-        force_basic_auth: true
-        validate_certs: "{{ controller_validate_certs }}"
-        status_code: 204
-      when: controller_oauthtoken_url is defined
-...
-EOF</code></pre>
-</div>
-</div>
-</div>
-</details>
-<details>
-<summary class="title">Playbook for the centralized CaC to delete all the objects not defined as code (casc_ctrl_drop_diff_unified.yml)</summary>
-<div class="content">
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; casc_ctrl_drop_diff_unified.yml &lt;&lt;EOF
----
-- hosts: all
-  connection: local
-  gather_facts: false
-  vars:
-    controller_configuration_projects_async_retries: 120
-    controller_configuration_projects_async_delay: 2
-    controller_username: "{{ vault_controller_username | default(lookup('env', 'CONTROLLER_USERNAME')) }}"
-    controller_password: "{{ vault_controller_password | default(lookup('env', 'CONTROLLER_PASSWORD')) }}"
-    controller_hostname: "{{ vault_controller_hostname | default(lookup('env', 'CONTROLLER_HOST')) }}"
-    controller_validate_certs: "{{ vault_controller_validate_certs | default(lookup('env', 'CONTROLLER_VERIFY_SSL')) }}"
-  pre_tasks:
-    # - debug:
-    #     msg:
-    #       - "'{{ lookup('ansible.builtin.env', 'CONTROLLER_HOST') }}'"
-    #       - "{{ lookup('ansible.builtin.pipe', 'env') }}"
-    - name: "Setup authentication (block)"
-      block:
-        - name: "Get the Authentication Token for the future requests"
-          ansible.builtin.uri:
-            url: "https://{{ controller_hostname }}/api/v2/tokens/"
-            user: "{{ controller_username }}"
-            password: "{{ controller_password }}"
-            method: POST
-            force_basic_auth: true
-            validate_certs: "{{ controller_validate_certs }}"
-            status_code: 201
-          register: authtoken_res
 
-        - name: "Set the oauth token to be used since now"
-          ansible.builtin.set_fact:
-            controller_oauthtoken: "{{ authtoken_res.json.token }}"
-            controller_oauthtoken_url: "{{ authtoken_res.json.url }}"
-      no_log: "{{ controller_configuration_object_diff_secure_logging | default('false') }}"
-      when: controller_oauthtoken is not defined
+    - name: "Create a symlink to the current directory (contains the current project) when project_to_clone is not provided"
+      ansible.builtin.file:
+        src: "."
+        dest: "./checkout"
+        state: link
+      when: project_to_clone is not defined
       tags:
         - always
-    - name: "Clone the required repo"
+
+    - name: "Clone the required repo when project_to_clone is provided"
       environment:
         - GIT_SSL_NO_VERIFY: "{{ git_ssl_no_verify | default(true) }}"
       ansible.builtin.git:
         repo: "{{ project_to_clone | ansible.builtin.regex_replace('(https?://)','\\1'+gitlab_api_user+':'+gitlab_api_token+'@') }}"
         dest: "./checkout"
         version: "{{ casc_gitlab_scm_branch }}"
-      # no_log: true
+      no_log: "{{ controller_configuration_object_diff_secure_logging | default('false') }}"
+      when: project_to_clone is defined
       tags:
         - always
+
   roles:
     - role: infra.controller_configuration.filetree_read
       vars:
@@ -999,17 +855,159 @@ EOF</code></pre>
           # - {role: user_accounts, var: controller_user_accounts, tags: users}
           - {role: groups, var: controller_groups, tags: groups}
           - {role: hosts, var: controller_hosts, tags: hosts}
+          - {role: projects, var: controller_projects, tags: projects}
           - {role: inventory_sources, var: controller_inventory_sources, tags: inventory_sources}
           - {role: inventories, var: controller_inventories, tags: inventories}
-          - {role: projects, var: controller_projects, tags: projects}
           - {role: credentials, var: controller_credentials, tags: credentials}
           # - {role: credential_types, var: controller_credential_types, tags: credential_types}
           - {role: organizations, var: controller_organizations, tags: organizations}
   post_tasks:
-    - debug:
-        var: controller_templates
+    - name: "Cleanup the checkout directory/link"
+      ansible.builtin.file:
+        dest: "./checkout"
+        state: absent
+
+    - name: "Delete the Authentication Token used"
+      ansible.builtin.uri:
+        url: "https://{{ controller_hostname }}{{ controller_oauthtoken_url }}"
+        user: "{{ controller_username }}"
+        password: "{{ controller_password }}"
+        method: DELETE
+        force_basic_auth: true
+        validate_certs: "{{ controller_validate_certs }}"
+        status_code: 204
+      when: controller_oauthtoken_url is defined
+...
+EOF</code></pre>
+</div>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">Playbook for the centralized CaC to delete all the objects not defined as code (casc_ctrl_drop_diff.yml)</summary>
+<div class="content">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; casc_ctrl_drop_diff.yml &lt;&lt;EOF
+---
+- hosts: all
+  connection: local
+  gather_facts: false
+  vars:
+    controller_configuration_projects_async_retries: 120
+    controller_configuration_projects_async_delay: 2
+    controller_username: "{{ vault_controller_username | default(lookup('env', 'CONTROLLER_USERNAME')) }}"
+    controller_password: "{{ vault_controller_password | default(lookup('env', 'CONTROLLER_PASSWORD')) }}"
+    controller_hostname: "{{ vault_controller_hostname | default(lookup('env', 'CONTROLLER_HOST')) }}"
+    controller_validate_certs: "{{ vault_controller_validate_certs | default(lookup('env', 'CONTROLLER_VERIFY_SSL')) }}"
+  pre_tasks:
+    - name: "Setup authentication (block)"
+      block:
+        - name: "Get the Authentication Token for the future requests"
+          ansible.builtin.uri:
+            url: "https://{{ controller_hostname }}/api/v2/tokens/"
+            user: "{{ controller_username }}"
+            password: "{{ controller_password }}"
+            method: POST
+            force_basic_auth: true
+            validate_certs: "{{ controller_validate_certs }}"
+            status_code: 201
+          register: authtoken_res
+
+        - name: "Set the oauth token to be used since now"
+          ansible.builtin.set_fact:
+            controller_oauthtoken: "{{ authtoken_res.json.token }}"
+            controller_oauthtoken_url: "{{ authtoken_res.json.url }}"
+      no_log: "{{ controller_configuration_object_diff_secure_logging | default('false') }}"
+      when: controller_oauthtoken is not defined
       tags:
         - always
+
+    - name: "Create a symlink to the current directory (contains the current project) when project_to_clone is not provided"
+      ansible.builtin.file:
+        src: "."
+        dest: "./checkout"
+        state: link
+      when: project_to_clone is not defined
+      tags:
+        - always
+
+    - name: "Clone the required repo when project_to_clone is provided"
+      environment:
+        - GIT_SSL_NO_VERIFY: "{{ git_ssl_no_verify | default(true) }}"
+      ansible.builtin.git:
+        repo: "{{ project_to_clone | ansible.builtin.regex_replace('(https?://)','\\1'+gitlab_api_user+':'+gitlab_api_token+'@') }}"
+        dest: "./checkout"
+        version: "{{ casc_gitlab_scm_branch }}"
+      no_log: "{{ controller_configuration_object_diff_secure_logging | default('false') }}"
+      when: project_to_clone is defined
+      tags:
+        - always
+
+  roles:
+    - role: infra.controller_configuration.filetree_read
+      vars:
+        filetree_controller_settings: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_settings.d/"
+        filetree_controller_organizations: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_organizations.d/"
+        filetree_controller_labels: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_labels.d/"
+        filetree_controller_user_accounts: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_users.d/"
+        filetree_controller_teams: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_teams.d/"
+        filetree_controller_credential_types: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_credential_types.d/"
+        filetree_controller_credentials: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_credentials.d/"
+        filetree_controller_credential_input_sources: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_credential_input_sources.d/"
+        filetree_controller_notifications: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_notification_templates.d/"
+        filetree_controller_projects: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_projects.d/"
+        filetree_controller_execution_environments: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_execution_environments.d/"
+        filetree_controller_applications: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_applications.d/"
+        filetree_controller_inventories: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_inventories.d/"
+        filetree_controller_inventory_sources: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_inventory_sources.d/"
+        filetree_controller_instance_groups: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_instance_groups.d/"
+        filetree_controller_hosts: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/{{ env }}/controller_hosts.d/"
+        filetree_controller_groups: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_groups.d/"
+        filetree_controller_templates: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_job_templates.d/"
+        filetree_controller_workflow_job_templates: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_workflow_job_templates.d/"
+        filetree_controller_schedules: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_schedules.d/"
+        filetree_controller_roles: "./checkout/{{ dir_orgs_vars }}/{{ orgs }}/env/common/controller_roles.d/"
+
+    - role: infra.controller_configuration.object_diff
+      vars:
+        protect_not_empty_orgs: true
+        controller_configuration_object_diff_tasks:
+          - {name: workflow_job_templates, var: controller_workflows, tags: workflow_job_templates}
+          - {name: job_templates, var: controller_templates, tags: job_templates}
+          - {name: teams, var: controller_teams, tags: teams}
+          # - {name: roles, var: controller_roles, tags: roles}
+          # - {name: user_accounts, var: controller_user_accounts, tags: users}
+          - {name: groups, var: controller_groups, tags: groups}
+          - {name: hosts, var: controller_hosts, tags: hosts}
+          - {name: inventory_sources, var: controller_inventory_sources, tags: inventory_sources}
+          - {name: inventories, var: controller_inventories, tags: inventories}
+          - {name: projects, var: controller_projects, tags: projects}
+          - {name: credentials, var: controller_credentials, tags: credentials}
+          # - {name: credential_types, var: controller_credential_types, tags: credential_types}
+          - {name: organizations, var: controller_organizations, tags: organizations}
+    - role: infra.controller_configuration.dispatch
+      vars:
+        controller_configuration_dispatcher_roles:
+          - {role: workflow_job_templates, var: controller_workflows, tags: workflow_job_templates}
+          - {role: job_templates, var: controller_templates, tags: job_templates}
+          - {role: teams, var: controller_teams, tags: teams}
+          # - {role: roles, var: controller_roles, tags: roles}
+          # - {role: user_accounts, var: controller_user_accounts, tags: users}
+          - {role: groups, var: controller_groups, tags: groups}
+          - {role: hosts, var: controller_hosts, tags: hosts}
+          - {role: projects, var: controller_projects, tags: projects}
+          - {role: inventory_sources, var: controller_inventory_sources, tags: inventory_sources}
+          - {role: inventories, var: controller_inventories, tags: inventories}
+          - {role: credentials, var: controller_credentials, tags: credentials}
+          # - {role: credential_types, var: controller_credential_types, tags: credential_types}
+          - {role: organizations, var: controller_organizations, tags: organizations}
+  post_tasks:
+    - name: "Cleanup the checkout directory/link"
+      ansible.builtin.file:
+        dest: "./checkout"
+        state: absent
+
     - name: "Delete the Authentication Token used"
       ansible.builtin.uri:
         url: "https://{{ controller_hostname }}{{ controller_oauthtoken_url }}"
@@ -1068,15 +1066,17 @@ EOF</code></pre>
         name: infra.controller_configuration.job_launch
       vars:
         controller_launch_jobs:
-          - name: "{{ __drop_diff_org_tags_item.key }} CasC Ctrl Drop Diff"
-            scm_branch: "{{ __casc_gitlab_scm_branch }}"
+          - name: "{{ __drop_diff_org_tags_item.key }} {{ __env }} CasC Ctrl Drop Diff"
+            # scm_branch: "centralize_casc"
             extra_vars:
               orgs: "{{ __drop_diff_org_tags_item.key }}"
               dir_orgs_vars: 'orgs_vars'
               ansible_python_interpreter: "/usr/bin/python3"
               env: "{{ __env }}"
               casc_gitlab_scm_branch: "{{ __casc_gitlab_scm_branch }}"
-              schedule_is_enabled: "{{ __schedule_is_enabled | default(false) }}"
+              project_to_clone: "{{ awx_webhook_payload.project.git_http_url }}"
+              # controller_location: "{{ __controller_location | default(omit,true) }}"
+              # schedule_is_enabled: "{{ __schedule_is_enabled }}"
             tags: "{{ __drop_diff_org_tags_item.value }}"
             wait: true
             verbosity: 0
@@ -1090,15 +1090,17 @@ EOF</code></pre>
         name: infra.controller_configuration.job_launch
       vars:
         controller_launch_jobs:
-          - name: "{{ __config_controller_org_tags_item.key }} CasC Ctrl Config"
-            scm_branch: "{{ __casc_gitlab_scm_branch }}"
+          - name: "{{ __config_controller_org_tags_item.key }} {{ __env }} CasC Ctrl Config"
+            # scm_branch: "{{ __casc_gitlab_scm_branch }}"
             extra_vars:
               orgs: "{{ __config_controller_org_tags_item.key }}"
               dir_orgs_vars: 'orgs_vars'
               ansible_python_interpreter: "/usr/bin/python3"
               env: "{{ __env }}"
               casc_gitlab_scm_branch: "{{ __casc_gitlab_scm_branch }}"
-              schedule_is_enabled: "{{ __schedule_is_enabled | default(false) }}"
+              project_to_clone: "{{ awx_webhook_payload.project.git_http_url }}"
+              # controller_location: "{{ __controller_location | default(omit,true) }}"
+              # schedule_is_enabled: "{{ __schedule_is_enabled }}"
             tags: "{{ __config_controller_org_tags_item.value }}"
             wait: true
             verbosity: 0
@@ -1172,6 +1174,11 @@ EOF</code></pre>
             - organization_desc | length &gt; 0
           fail_msg: "the 'organization_desc' variable must be defined to give a description to the organization {{ ('. Current value is: ' + organization_desc) if organization_desc is defined }}"
         - conditions:
+            - instance_groups is defined
+            - (instance_groups | type_debug is match('list')) or (instance_groups | type_debug in ['AnsibleUnicode','AnsibleUnsafeText'])
+            - instance_groups | length &gt; 0
+          fail_msg: "the 'instance_groups' variable must be defined and can't be empty. Can be either a list or comma separated string {{ ('. Current value is: ' + instance_groups + ' - ' + instance_groups|type_debug) if instance_groups is defined }}"
+        - conditions:
             - admin_user is defined
             - admin_user | length &gt; 0
           fail_msg: "the 'admin_user' variable must be defined {{ ('. Current value is: ' + admin_user) if admin_user is defined }}"
@@ -1242,40 +1249,29 @@ EOF</code></pre>
         controller_hostname: "{{ lookup('env', 'CONTROLLER_HOST') }}"
         controller_oauthtoken: "{{ lookup('env', 'CONTROLLER_OAUTH_TOKEN') }}"
         controller_validate_certs: "{{ lookup('env', 'CONTROLLER_VERIFY_SSL') }}"
-      ansible.builtin.set_fact:
-        casc_jt_lookvar: "{{ query(controller_api_plugin, 'api/v2/job_templates/',
-                                   host=controller_hostname, oauth_token=controller_oauthtoken, verify_ssl=controller_validate_certs,
-                                   return_all=true, max_objects=query_controller_api_max_objects,
-                                   query_params={ 'name': organization_name + ' CasC Ctrl CD Webhook Trigger' }
-                                  )
-                          }}"
-      register: jt_casc_res
-      retries: 18
+        jt_name: "{{ organization_name }} {{ env }} CasC Ctrl CD Webhook Trigger"
+        query_res: "{{ query(controller_api_plugin, 'api/v2/job_templates/',
+                             host=controller_hostname, oauth_token=controller_oauthtoken, verify_ssl=controller_validate_certs,
+                             return_all=true, max_objects=query_controller_api_max_objects,
+                             query_params={'name': jt_name}
+                            )
+                    }}"
+      retries: 60
       delay: 10
-      until: jt_casc_res.ansible_facts.casc_jt_lookvar | length &gt; 0
-      loop_control:
-        label: "Looking for the Job Template '{{ organization_name }} CasC Ctrl CD Webhook Trigger'..."
+      until: query_res | length &gt; 0
 
     - name: "Create output artifacts"
       set_stats:
         data:
-          job_template_name: "{{ organization_name }} CasC Ctrl CD Webhook Trigger"
+          job_template_name: "{{ organization_name }} {{ env }} CasC Ctrl CD Webhook Trigger"
 
-    # - name: "Show manual steps"
-    #   debug:
-    #     msg:
-    #       - "{{ jt_casc_res }}"
-    #       - "Remember to:"
-    #       - "  - TODO: crear token en el proyecto git nuevo para usar en las credentials. Se define on-the-fly para creación inicial. Se crea en el repo nuevo con ese contenido"
-    #       - "{{ lookup('pipe', 'pwd') }}"
-    #       - "{{ lookup('pipe', 'ls -lart') }}"
 ...
 ####
 # Running examples:
 #### Using ansible-playbook
-# ansible-playbook new_project.yml -e '{organization_name: TESTORG, organization_desc: "TESTORG Organization", admin_user: "testorgadminuser", orgs_vars: "orgs_vars", orgs: SUPERADMIN, env: dev, casc_gitlab_scm_branch: centralize_casc}'
+# ansible-playbook new_project.yml -e '{organization_name: TESTORG, organization_desc: "TESTORG Organization", admin_user: "testorgadminuser", orgs_vars: "orgs_vars", orgs: SUPERADMIN, env: dev, awx_project_scm_branch: centralize_casc}'
 #### Using ansible-navigator
-# ansible-navigator run new_project.yml -i localhost, -m stdout --eei quay.io/automationiberia/aap/ee-casc:latest -e '{organization_name: TESTORG, organization_desc: "TESTORG Organization", admin_user: "testorgadminuser", orgs_vars: "orgs_vars", orgs: SUPERADMIN, env: dev, casc_gitlab_scm_branch: centralize_casc}' --vault-password-file .vault_password --pa='--tls-verify=false'
+# ansible-navigator run new_project.yml -i localhost, -m stdout --eei quay.io/automationiberia/aap/ee-casc:latest -e '{organization_name: TESTORG, organization_desc: "TESTORG Organization", admin_user: "testorgadminuser", orgs_vars: "orgs_vars", orgs: SUPERADMIN, env: dev, awx_project_scm_branch: centralize_casc}' --vault-password-file .vault_password --pa='--tls-verify=false'
 ####
 EOF</code></pre>
 </div>
@@ -1724,12 +1720,12 @@ controller_templates:
       ansible_python_interpreter: /usr/bin/python3
       ansible_async_dir: /home/runner/.ansible_async/
     execution_environment: "ee-casc"
-  - name: "{{ orgs }} {{ env }} CasC Ctrl Config Unified"
+  - name: "{{ orgs }} {{ env }} CasC Ctrl Config"
     description: "Template to deploy Controller objects in Org {{ orgs }}"
     organization: "{{ orgs }}"
     project: "{{ orgs }} {{ env }} CasC Data"
     inventory: "{{ orgs }} {{ env }} Controller"
-    playbook: "casc_ctrl_config_unified.yml"
+    playbook: "casc_ctrl_config.yml"
     job_type: run
     fact_caching_enabled: false
     credentials:
@@ -1777,12 +1773,12 @@ controller_templates:
       ansible_async_dir: /home/runner/.ansible_async/
       protect_not_empty_orgs: true
     execution_environment: "ee-casc"
-  - name: "{{ orgs }} {{ env }} CasC Ctrl Drop Diff Unified"
+  - name: "{{ orgs }} {{ env }} CasC Ctrl Drop Diff"
     description: "Template to assure no difference between API and repository"
     organization: "{{ orgs }}"
     project: "{{ orgs }} {{ env }} CasC Data"
     inventory: "{{ orgs }} {{ env }} Controller"
-    playbook: "casc_ctrl_drop_diff_unified.yml"
+    playbook: "casc_ctrl_drop_diff.yml"
     job_type: run
     fact_caching_enabled: false
     credentials:
@@ -2224,48 +2220,7 @@ EOF</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_common_workflow_job_template_to_manage_the_cac_of_the_organization_superadmin"><a class="anchor" href="#_common_workflow_job_template_to_manage_the_cac_of_the_organization_superadmin"></a>7.21. (common) Workflow Job Template to manage the CaC of the organization SuperAdmin</h3>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_workflow_job_templates.d/app-casc/controller_workflow_job_templates_casc.yml &lt;&lt;EOF
----
-controller_workflows:
-  - name: "{{ orgs }} {{ env }} WF CasC Ctrl"
-    state: present
-    description: "workflow for CasC on AAP"
-    survey_enabled: false
-    ask_variables_on_launch: true
-    allow_simultaneous: true
-    scm_branch: "{{ env }}"
-    webhook_service: "gitlab"
-    organization: "{{ orgs }}"
-    simplified_workflow_nodes:
-      - identifier: "LAUNCH_CI_{{ orgs }}"
-        workflow_job_template: "{{ orgs }} {{ env }} WF CasC Ctrl"
-        unified_job_template: "{{ orgs }} {{ env }} CasC Ctrl CD Webhook Trigger"
-        job_type: run
-        organization: "{{ orgs }}"
-        workflow: "{{ orgs }} {{ env }} WF CasC Ctrl"
-
-      - identifier: "PROJECT_SYNC_{{ orgs }}"
-        workflow_job_template: "{{ orgs }} {{ env }} WF CasC Ctrl"
-        unified_job_template: "{{ orgs }} {{ env }} CasC Data"
-        organization: "{{ orgs }}"
-        workflow: "{{ orgs }} {{ env }} WF CasC Ctrl"
-        success_nodes:
-          - "LAUNCH_CI_{{ orgs }}"
-    notification_templates_started: []
-    notification_templates_success: []
-    notification_templates_error: []
-    notification_templates_approvals: []
-    survey_spec: {}
-...
-EOF</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_common_workflow_job_template_to_create_all_the_components_of_a_new_regular_organization"><a class="anchor" href="#_common_workflow_job_template_to_create_all_the_components_of_a_new_regular_organization"></a>7.22. (common) Workflow Job Template to create all the components of a new regular organization</h3>
+<h3 id="_common_workflow_job_template_to_create_all_the_components_of_a_new_regular_organization"><a class="anchor" href="#_common_workflow_job_template_to_create_all_the_components_of_a_new_regular_organization"></a>7.21. (common) Workflow Job Template to create all the components of a new regular organization</h3>
 <div class="listingblock console-input">
 <div class="title"><mark>Content with <a href="#CHANGE_ME">[CHANGE_ME]</a> has to be customized</mark></div>
 <div class="content">
