@@ -63,12 +63,12 @@ EOF
 
 == Create the ansible inventory file for the environment
 
-.#Content to be customized#
+.#Content with <<CHANGE_ME>> has to be customized#
 [.console-input]
 [source,bash]
 ----
-export CONTROLLER_DEV_HOST=lb-ctrl-dev.lab.example.com
-export CONTROLLER_PRO_HOST=lb-ctrl-pro.lab.example.com
+export CONTROLLER_DEV_HOST=<<CHANGE_ME>>
+export CONTROLLER_PRO_HOST=<<CHANGE_ME>>
 ----
 
 [.console-input]
@@ -87,7 +87,6 @@ We will set the superadmin org name to *'superadmin'* for this workshop.
 ======
 
 ======
-.#Content to be customized#
 [.console-input]
 [source,console]
 ----
@@ -119,7 +118,6 @@ touch orgs_vars/${SUPERADMIN_ORG}/env/common/controller_{schedules.d/app-casc,wo
 
 Initial configuration files must be created. First of all, the connection credentials to the controller are needed. They will be created under the `group_vars` directory as it will differ from one environment to another, and Ansible provides this method for the implementationfootnote:[https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html].
 
-.#Content to be customized#
 ======
 .Assume all the environments will use the same `username`
 [.console-input]
@@ -130,6 +128,11 @@ include::../examples/group_vars/all/configure_connection_controller_credentials.
 EOF
 ----
 
+[.console-input]
+[source,console]
+----
+export ADMIN_DEV_PASSWORD=redhat00
+----
 .Set the password and the Controller host for the `dev` environment
 [.console-input]
 [source,bash]
@@ -139,6 +142,11 @@ include::../examples/group_vars/dev/configure_connection_controller_credentials.
 EOF
 ----
 
+[.console-input]
+[source,console]
+----
+export ADMIN_PRO_PASSWORD=redhat00
+----
 .Set the password and the Controller host for the `pro` environment
 [.console-input]
 [source,bash]
@@ -290,7 +298,7 @@ EOF
 Encrypting that file is not needed, as it is getting all the sensible information from the files in `group_vars`.
 ======
 
-.#Content to be customized#
+.#Content with <<CHANGE_ME>> has to be customized#
 === (dev) Source Control Manager and GitLab API Token Credentials will let the Job Templates to connect to the GitLab repository/group
 [.console-input]
 [source,bash]
@@ -300,7 +308,7 @@ include::../examples/orgs_vars/superadmin/env/dev/controller_credentials.d/contr
 EOF
 ----
 
-.#Content to be customized#
+.#Content with <<CHANGE_ME>> has to be customized#
 [.console-input]
 [source,bash]
 ----
@@ -319,7 +327,7 @@ ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials
 
 === (dev) Vault Credentials will let the Job Templates to decrypt the sensitive information from ``ansible-vault``ed files
 
-.#Content to be customized#
+.#Content with <<CHANGE_ME>> has to be customized#
 [.console-input]
 [source,bash]
 ----
@@ -338,14 +346,14 @@ ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials
 
 === (dev) Galaxy Credential will let the Job Templates to connect to the Private Automation Hub and get the required Ansible Collections
 
-.#Content to be customized#
+.#Content with <<CHANGE_ME>> has to be customized#
 [.console-input]
 [source,bash]
 ----
-export AUTOMATIONHUB_HOST=lb-hub-dev-site.lab.example.com
+export AUTOMATIONHUB_HOST=<<CHANGE_ME>>
 ----
 
-.#Content to be customized#
+.#Content with <<CHANGE_ME>> has to be customized#
 [.console-input]
 [source,bash]
 ----
@@ -364,7 +372,7 @@ ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials
 
 === (dev) Registry Credential will let the Job Templates to connect to the Private Automation Hub and get the required Execution Environments
 
-.#Content to be customized#
+.#Content with <<CHANGE_ME>> has to be customized#
 [.console-input]
 [source,bash]
 ----
@@ -383,7 +391,6 @@ ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials
 
 === (dev) Execution Environments to be used by the Job Templates
 
-.#Content to be customized#
 [.console-input]
 [source,bash]
 ----
@@ -402,20 +409,9 @@ include::../examples/orgs_vars/superadmin/env/dev/controller_hosts.d/app-casc/co
 EOF
 ----
 
-=== (dev) Instance Groups
-
-.#Content to be customized#
-[.console-input]
-[source,bash]
-----
-cat > orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_instance_groups.d/controller_instance_groups.yml <<EOF
-include::../examples/orgs_vars/superadmin/env/dev/controller_instance_groups.d/controller_instance_groups.yml[]
-EOF
-----
-
 === (dev) Users that will be administrators of the superadmin organization
 
-.#Content to be customized#
+.#Content with <<CHANGE_ME>> has to be customized#
 [.console-input]
 [source,bash]
 ----
@@ -494,7 +490,7 @@ EOF
 
 === (common) Job Template to create new GitLab repositories when creating additional organizations
 
-.#Content to be customized#
+.#Content with <<CHANGE_ME>> has to be customized#
 [.console-input]
 [source,bash]
 ----
@@ -505,7 +501,7 @@ EOF
 
 === (common) Job Template to configure the GitLab webhooks for each organization's repository to apply the CaC
 
-.#Content to be customized#
+.#Content with <<CHANGE_ME>> has to be customized#
 [.console-input]
 [source,bash]
 ----
@@ -536,11 +532,11 @@ EOF
 
 === (common) Project to get the CaC related playbooks
 
-.#Content to be customized#
+.#Content with <<CHANGE_ME>> has to be customized#
 [.console-input]
 [source,bash]
 ----
-export PROJECT_URL_CASC='<superadmin_git_url>'
+export PROJECT_URL_CASC='<<CHANGE_ME>>'
 ----
 
 [.console-input]
@@ -553,11 +549,10 @@ EOF
 
 === (common) Project to get the GitLab related playbooks
 
-.#Content to be customized#
 [.console-input]
 [source,bash]
 ----
-export PROJECT_URL_CASC_SETUP='<casc_setup_git_url>'
+export PROJECT_URL_CASC_SETUP='https://github.com/automationiberia/casc_setup.git'
 ----
 
 [.console-input]
@@ -570,7 +565,7 @@ EOF
 
 === (common) Workflow Job Template to create all the components of a new regular organization
 
-.#Content to be customized#
+.#Content with <<CHANGE_ME>> has to be customized#
 [.console-input]
 [source,bash]
 ----

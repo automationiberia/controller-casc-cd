@@ -16,8 +16,8 @@ https://www.redhat.com/architect/automation-controller-active-passive-architectu
 [.tile]
 Actions to be executed by Controller Admin
 
-* xref:021-initial-dir-and-files.adoc#_pre_requisites[Pre-Requisites]
 * DayZero
+** xref:021-initial-dir-and-files.adoc#_pre_requisites[Pre-Requisites]
 ** xref:021-initial-dir-and-files.adoc#_housekeeping_optional_steps[Housekeeping (optional steps)]
 ** xref:021-initial-dir-and-files.adoc#_create_the_ansible_inventory_file_for_the_environment[Create the ansible inventory file for the environment]
 ** xref:021-initial-dir-and-files.adoc#_create_the_automation_directories_structure[Create the automation directories structure]

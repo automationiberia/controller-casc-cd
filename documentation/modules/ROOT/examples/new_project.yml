@@ -123,9 +123,6 @@
           )
 
     - name: "Wait for the CasC Job Template to be created"
-      debug:
-        msg:
-          - "Waiting for '{{ jt_name }}' to be created..."
       vars:
         controller_hostname: "{{ lookup('env', 'CONTROLLER_HOST') }}"
         controller_oauthtoken: "{{ lookup('env', 'CONTROLLER_OAUTH_TOKEN') }}"
@@ -150,7 +147,7 @@
 ####
 # Running examples:
 #### Using ansible-playbook
-# ansible-playbook new_project.yml -e '{organization_name: TESTORG, organization_desc: "TESTORG Organization", instance_groups: [MADRID], admin_user: "testorgadminuser", orgs_vars: "orgs_vars", orgs: SUPERADMIN, env: PRE, awx_project_scm_branch: centralize_casc}'
+# ansible-playbook new_project.yml -e '{organization_name: TESTORG, organization_desc: "TESTORG Organization", admin_user: "testorgadminuser", orgs_vars: "orgs_vars", orgs: SUPERADMIN, env: dev, awx_project_scm_branch: centralize_casc}'
 #### Using ansible-navigator
-# ansible-navigator run new_project.yml -i localhost, -m stdout --eei quay.io/automationiberia/aap/ee-casc:latest -e '{organization_name: TESTORG, organization_desc: "TESTORG Organization", instance_groups: [MADRID], admin_user: "testorgadminuser", orgs_vars: "orgs_vars", orgs: SUPERADMIN, env: dev, awx_project_scm_branch: centralize_casc}' --vault-password-file .vault_password --pa='--tls-verify=false'
+# ansible-navigator run new_project.yml -i localhost, -m stdout --eei quay.io/automationiberia/aap/ee-casc:latest -e '{organization_name: TESTORG, organization_desc: "TESTORG Organization", admin_user: "testorgadminuser", orgs_vars: "orgs_vars", orgs: SUPERADMIN, env: dev, awx_project_scm_branch: centralize_casc}' --vault-password-file .vault_password --pa='--tls-verify=false'
 ####
