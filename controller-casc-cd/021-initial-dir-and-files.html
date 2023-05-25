@@ -1890,7 +1890,7 @@ controller_templates:
           variable: gitlab_subgroup
           min: 0
           max: 1024
-          default: ""
+          default: "&lt;CHANGE_ME&gt;"
           new_question: true
 
         - question_name: "gitlab_project"
@@ -2371,12 +2371,10 @@ controller_workflows:
 
         - question_name: GitLab subgroup name
           required: false
-          type: multiplechoice
+          type: text
           variable: gitlab_subgroup
           min: 0
           max: 1024
-          choices:
-            - "&lt;CHANGE_ME&gt;"
           default: "&lt;CHANGE_ME&gt;"
           new_question: true
 
