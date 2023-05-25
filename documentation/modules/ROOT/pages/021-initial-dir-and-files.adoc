@@ -129,10 +129,11 @@ include::../examples/group_vars/all/configure_connection_controller_credentials.
 EOF
 ----
 
+.#Content with `<CHANGE_ME>` has to be customized#
 [.console-input]
 [source,console]
 ----
-export ADMIN_DEV_PASSWORD=redhat00
+export ADMIN_DEV_PASSWORD=<CHANGE_ME>
 ----
 .Set the password and the Controller host for the `dev` environment
 [.console-input]
