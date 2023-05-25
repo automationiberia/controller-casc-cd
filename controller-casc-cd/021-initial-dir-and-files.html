@@ -1886,13 +1886,11 @@ controller_templates:
 
         - question_name: gitlab_subgroup
           required: false
-          type: multiplechoice
+          type: text
           variable: gitlab_subgroup
           min: 0
           max: 1024
-          choices:
-            - "&lt;CHANGE_ME&gt;"
-          default: "&lt;CHANGE_ME&gt;"
+          default: ""
           new_question: true
 
         - question_name: "gitlab_project"
