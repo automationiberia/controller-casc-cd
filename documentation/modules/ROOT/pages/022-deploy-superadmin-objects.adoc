@@ -33,7 +33,7 @@ Run the configuration playbook to create the defined objects in the target AAP C
 [.console-input]
 [source,bash]
 ----
-ansible-navigator run casc_ctrl_config.yml -i inventory -l dev -e "{orgs: ${SUPERADMIN_ORG}, dir_orgs_vars: orgs_vars, env: dev}" -m stdout --eei ${AUTOMATIONHUB_HOST}/ee-casc:latest --vault-password-file .vault_password --pull-arguments=--tls-verify=false
+ansible-navigator run casc_ctrl_config.yml -i inventory -l dev -e "{orgs: ${SUPERADMIN_ORG}, dir_orgs_vars: orgs_vars, env: dev}" -m stdout --eei quay.io/automationiberia/aap/ee-casc:latest --vault-password-file .vault_password --pull-arguments=--tls-verify=false
 ----
 
 [TIP]

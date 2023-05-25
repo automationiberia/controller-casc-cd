@@ -75,7 +75,7 @@ controller_workflows:
           new_question: true
 
         - question_name: Instance groups to assign the new organization to
-          required: true
+          required: false
           type: text
           variable: "instance_groups"
           min: 0
