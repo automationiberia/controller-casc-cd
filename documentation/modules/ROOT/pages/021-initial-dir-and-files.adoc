@@ -87,10 +87,11 @@ We will set the superadmin org name to *'superadmin'* for this workshop.
 ======
 
 ======
+.#Content with `<CHANGE_ME>` has to be customized#
 [.console-input]
 [source,console]
 ----
-export SUPERADMIN_ORG=superadmin
+export SUPERADMIN_ORG=<CHANGE_ME>
 ----
 
 [.console-input]
