@@ -147,12 +147,10 @@ controller_workflows:
 
         - question_name: GitLab subgroup name
           required: false
-          type: multiplechoice
+          type: text
           variable: gitlab_subgroup
           min: 0
           max: 1024
-          choices:
-            - "<CHANGE_ME>"
           default: "<CHANGE_ME>"
           new_question: true
 

@@ -82,7 +82,7 @@ controller_templates:
           variable: gitlab_subgroup
           min: 0
           max: 1024
-          default: ""
+          default: "<CHANGE_ME>"
           new_question: true
 
         - question_name: "gitlab_project"
