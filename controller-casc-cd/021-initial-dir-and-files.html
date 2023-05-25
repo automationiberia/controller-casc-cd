@@ -1078,7 +1078,6 @@ EOF</code></pre>
       vars:
         controller_launch_jobs:
           - name: "{{ __drop_diff_org_tags_item.key }} {{ __env }} CasC Ctrl Drop Diff"
-            # scm_branch: "centralize_casc"
             extra_vars:
               orgs: "{{ __drop_diff_org_tags_item.key }}"
               dir_orgs_vars: 'orgs_vars'
@@ -1086,8 +1085,6 @@ EOF</code></pre>
               env: "{{ __env }}"
               casc_gitlab_scm_branch: "{{ __casc_gitlab_scm_branch }}"
               project_to_clone: "{{ awx_webhook_payload.project.git_http_url }}"
-              # controller_location: "{{ __controller_location | default(omit,true) }}"
-              # schedule_is_enabled: "{{ __schedule_is_enabled }}"
             tags: "{{ __drop_diff_org_tags_item.value }}"
             wait: true
             verbosity: 0
@@ -1102,7 +1099,6 @@ EOF</code></pre>
       vars:
         controller_launch_jobs:
           - name: "{{ __config_controller_org_tags_item.key }} {{ __env }} CasC Ctrl Config"
-            # scm_branch: "{{ __casc_gitlab_scm_branch }}"
             extra_vars:
               orgs: "{{ __config_controller_org_tags_item.key }}"
               dir_orgs_vars: 'orgs_vars'
@@ -1110,8 +1106,6 @@ EOF</code></pre>
               env: "{{ __env }}"
               casc_gitlab_scm_branch: "{{ __casc_gitlab_scm_branch }}"
               project_to_clone: "{{ awx_webhook_payload.project.git_http_url }}"
-              # controller_location: "{{ __controller_location | default(omit,true) }}"
-              # schedule_is_enabled: "{{ __schedule_is_enabled }}"
             tags: "{{ __config_controller_org_tags_item.value }}"
             wait: true
             verbosity: 0
@@ -1184,11 +1178,6 @@ EOF</code></pre>
             - organization_desc is defined
             - organization_desc | length &gt; 0
           fail_msg: "the 'organization_desc' variable must be defined to give a description to the organization {{ ('. Current value is: ' + organization_desc) if organization_desc is defined }}"
-        - conditions:
-            - instance_groups is defined
-            - (instance_groups | type_debug is match('list')) or (instance_groups | type_debug in ['AnsibleUnicode','AnsibleUnsafeText'])
-            - instance_groups | length &gt; 0
-          fail_msg: "the 'instance_groups' variable must be defined and can't be empty. Can be either a list or comma separated string {{ ('. Current value is: ' + instance_groups + ' - ' + instance_groups|type_debug) if instance_groups is defined }}"
         - conditions:
             - admin_user is defined
             - admin_user | length &gt; 0
