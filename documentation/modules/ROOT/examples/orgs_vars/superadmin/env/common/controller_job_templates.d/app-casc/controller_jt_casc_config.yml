@@ -11,6 +11,7 @@ controller_templates:
     credentials:
       - "{{ orgs }} {{ env }} AAP Credential"
       - "{{ orgs }} {{ env }} Vault Credential"
+      - "{{ orgs }} {{ env }} GitLab API Token"
     concurrent_jobs_enabled: true
     ask_scm_branch_on_launch: true
     ask_tags_on_launch: true
