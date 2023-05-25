@@ -272,7 +272,7 @@ to the GitLab repositories used by the configured projects. See the <a href="021
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-navigator run casc_ctrl_config.yml -i inventory -l dev -e "{orgs: ${SUPERADMIN_ORG}, dir_orgs_vars: orgs_vars, env: dev}" -m stdout --eei ${AUTOMATIONHUB_HOST}/ee-casc:latest --vault-password-file .vault_password --pull-arguments=--tls-verify=false</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-navigator run casc_ctrl_config.yml -i inventory -l dev -e "{orgs: ${SUPERADMIN_ORG}, dir_orgs_vars: orgs_vars, env: dev}" -m stdout --eei quay.io/automationiberia/aap/ee-casc:latest --vault-password-file .vault_password --pull-arguments=--tls-verify=false</code></pre>
 </div>
 </div>
 <div class="admonitionblock tip">

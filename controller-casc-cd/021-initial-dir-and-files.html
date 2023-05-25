@@ -1034,15 +1034,16 @@ EOF</code></pre>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; casc_ctrl_cd_webhook_trigger.yml &lt;&lt;EOF
 ---
-- hosts: all
+- name: "Treat the incomming Webhook events"
+  hosts: all
   connection: local
   gather_facts: false
   tasks:
     - name: "Get the modified files over the dirs from all the received commits"
-      set_fact:
+      ansible.builtin.set_fact:
         __CONTROLLER_CLUSTER_ID: "{{ lookup('ansible.builtin.env', 'CONTROLLER_CLUSTER_ID') }}"
         __CONTROLLER_HOST: "{{ lookup('ansible.builtin.env', 'CONTROLLER_HOST') }}"
-        __env: "{{ awx_webhook_payload.ref.split('/')[2] if awx_webhook_payload.ref.split('/')[1] == 'heads' else  awx_webhook_payload.project.default_branch }}"
+        __env: "{{ awx_webhook_payload.ref.split('/')[2] if awx_webhook_payload.ref.split('/')[1] == 'heads' else awx_webhook_payload.project.default_branch }}"
         __casc_gitlab_scm_branch: "{{ awx_webhook_payload.ref.split('/')[2] }}"
         __list_of_dirs: "{{ ((awx_webhook_payload.commits | map(attribute='added') | list) +
                            (awx_webhook_payload.commits | map(attribute='modified') | list) +
@@ -1050,13 +1051,20 @@ EOF</code></pre>
                        | flatten }}"
 
     # https://regex101.com/r/0SgpFn/1
-    - set_fact:
+    - name: "Construct the regexpression needed by the next step"
+      ansible.builtin.set_fact:
         regexpression: "/([^/]*)/env/(common|{{ __env }})/controller_(.*).d/"
 
     - name: "Get the Organization and the tags to run the CasC"
-      set_fact:
-        # org_dirs_dict: "{{ (org_dirs_dict | default({})) | combine({input_var[0]: (((org_dirs_dict[input_var[0]] | default([])) + [input_var[1]] + ( ['projects','schedules'] if awx_webhook_payload.ref.split('/')[1] == 'tags' else [''] ) ) | unique | reject('match', '^$') ) }) }}"
-        org_dirs_dict: "{{ (org_dirs_dict | default({})) | combine({input_var[0]: (((org_dirs_dict[input_var[0]] | default([])) + ( ['all'] if awx_webhook_payload.ref.split('/')[1] == 'tags' else [input_var[1]])) | unique | reject('match', '^$'))})}}"
+      ansible.builtin.set_fact:
+        org_dirs_dict: |
+          (org_dirs_dict | default({})) | combine({
+            input_var[0]: ((
+              (org_dirs_dict[input_var[0]] | default([])) +
+              ( ['all'] if awx_webhook_payload.ref.split('/')[1] == 'tags' else [input_var[1]])
+            ) | unique | reject('match', '^$'))
+            }
+          )
       vars:
         input_var: "{{ input_var_item | regex_search(regexpression, '\\1', '\\3') }}"
       loop: "{{ __list_of_dirs }}"
@@ -1065,7 +1073,7 @@ EOF</code></pre>
       when: input_var | type_debug is match('list')
 
     - name: Configure Controller Job Launch | Launch launch_jobs Drop Diff (Delete)
-      include_role:
+      ansible.builtin.include_role:
         name: infra.controller_configuration.job_launch
       vars:
         controller_launch_jobs:
@@ -1089,7 +1097,7 @@ EOF</code></pre>
       when: org_dirs_dict is defined
 
     - name: Configure Controller Job Launch | Launch launch_jobs creation
-      include_role:
+      ansible.builtin.include_role:
         name: infra.controller_configuration.job_launch
       vars:
         controller_launch_jobs:
@@ -1556,6 +1564,7 @@ controller_hosts:
   - name:  "${CONTROLLER_DEV_HOST}"
     description: "Controller host"
     inventory: "{{ orgs }} {{ env }} Controller"
+    enabled: true
     variables:
       ansible_host: "${CONTROLLER_DEV_HOST}"
 ...
@@ -2006,13 +2015,11 @@ controller_templates:
           new_question: true
 
         - question_name: gitlab_subgroup
-          required: true
-          type: multiplechoice
+          required: false
+          type: text
           variable: gitlab_subgroup
           min: 0
           max: 1024
-          choices:
-            - "&lt;CHANGE_ME&gt;"
           default: "&lt;CHANGE_ME&gt;"
           new_question: true
 
@@ -2305,7 +2312,7 @@ controller_workflows:
           new_question: true
 
         - question_name: Instance groups to assign the new organization to
-          required: true
+          required: false
           type: text
           variable: "instance_groups"
           min: 0
