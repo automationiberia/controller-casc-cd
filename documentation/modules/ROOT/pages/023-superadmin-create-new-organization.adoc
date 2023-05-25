@@ -80,7 +80,7 @@ ok: [localhost] => {
 }
 
 PLAY RECAP ***********************************************************************************************************************************************************************************************************************************
-localhost                  : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+localhost                  : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ----
 =====
 
@@ -153,10 +153,10 @@ Delta compression using up to 12 threads
 Compressing objects: 100% (3/3), done.
 Writing objects: 100% (3/3), 1.00 KiB | 1.00 MiB/s, done.
 Total 3 (delta 2), reused 0 (delta 0), pack-reused 0
-remote: 
+remote:
 remote: To create a merge request for centralize_casc, visit:
 remote:   https://gitlab.server.domain/group/sub-group/casc/super-admin/-/merge_requests/new?merge_request%5Bsource_branch%5D=centralize_casc
-remote: 
+remote:
 To ssh://gitlab.server.domain:2222/group/sub-group/casc/super-admin.git
    ad54fd5..e5fd56e  centralize_casc -> centralize_casc
 ----
