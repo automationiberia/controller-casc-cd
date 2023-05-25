@@ -309,7 +309,7 @@
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">ansible-playbook new_project.yml -e "{organization_name: NewOrg, organization_desc: 'NewOrg Organization', instance_groups: [MADRID], admin_user: 'neworgadminuser', orgs_vars: 'orgs_vars', orgs: '${SUPERADMIN_ORG}', env: dev, casc_gitlab_scm_branch: dev}"</code></pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">ansible-playbook new_project.yml -e "{organization_name: &lt;CHANGE_ME&gt;, organization_desc: '&lt;CHANGE_ME&gt; Organization', instance_groups: [MADRID], admin_user: 'neworgadminuser', orgs_vars: 'orgs_vars', orgs: '${SUPERADMIN_ORG}', env: dev, casc_gitlab_scm_branch: dev}"</code></pre>
 </div>
 </div>
 <details>
@@ -398,10 +398,10 @@ controller_user_accounts:
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">git checkout -b NewOrg
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">git checkout -b &lt;CHANGE_ME&gt;
 git add -A .
-git commit -m "New Organization NewOrg"
-git push -u origin NewOrg</code></pre>
+git commit -m "New Organization &lt;CHANGE_ME&gt;"
+git push -u origin &lt;CHANGE_ME&gt;</code></pre>
 </div>
 </div>
 <details>
@@ -472,7 +472,7 @@ To ssh://gitlab.server.domain:2222/group/sub-group/casc/super-admin.git
 <div class="content">
 <img src="_images/configure_webhook_neworg_launch_params.png" alt="configure webhook neworg launch params">
 </div>
-<div class="title">Figure 4. Configure Webhook for the NewOrg Organization</div>
+<div class="title">Figure 4. Configure Webhook for the &lt;CHANGE_ME&gt; Organization</div>
 </div>
 </div>
 </div>

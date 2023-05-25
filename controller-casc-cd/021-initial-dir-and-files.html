@@ -436,10 +436,10 @@ EOF</code></pre>
 <h2 id="_create_the_ansible_inventory_file_for_the_environment"><a class="anchor" href="#_create_the_ansible_inventory_file_for_the_environment"></a>3. Create the ansible inventory file for the environment</h2>
 <div class="sectionbody">
 <div class="listingblock console-input">
-<div class="title"><mark>Content with <a href="#CHANGE_ME">[CHANGE_ME]</a> has to be customized</mark></div>
+<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export CONTROLLER_DEV_HOST=&lt;&lt;CHANGE_ME&gt;&gt;
-export CONTROLLER_PRO_HOST=&lt;&lt;CHANGE_ME&gt;&gt;</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export CONTROLLER_DEV_HOST=&lt;CHANGE_ME&gt;
+export CONTROLLER_PRO_HOST=&lt;CHANGE_ME&gt;</code></pre>
 </div>
 </div>
 <div class="listingblock console-input">
@@ -1373,7 +1373,7 @@ EOF</code></pre>
 <div class="sect2">
 <h3 id="_dev_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup"><a class="anchor" href="#_dev_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup"></a>7.2. (dev) Source Control Manager and GitLab API Token Credentials will let the Job Templates to connect to the GitLab repository/group</h3>
 <div class="listingblock console-input">
-<div class="title"><mark>Content with <a href="#CHANGE_ME">[CHANGE_ME]</a> has to be customized</mark></div>
+<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_scm.yml &lt;&lt;EOF
 ---
@@ -1383,17 +1383,17 @@ controller_credentials:
     credential_type: "Source Control"
     organization: "{{ orgs }}"
     inputs:
-      username: "&lt;&lt;CHANGE_ME&gt;&gt;"
+      username: "&lt;CHANGE_ME&gt;"
       ssh_key_data: |
         -----BEGIN OPENSSH PRIVATE KEY-----
-        XXXXXXXXX &lt;&lt;CHANGE_ME&gt;&gt; XXXXXXXXX
+        XXXXXXXXX &lt;CHANGE_ME&gt; XXXXXXXXX
         -----END OPENSSH PRIVATE KEY-----
 ...
 EOF</code></pre>
 </div>
 </div>
 <div class="listingblock console-input">
-<div class="title"><mark>Content with <a href="#CHANGE_ME">[CHANGE_ME]</a> has to be customized</mark></div>
+<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_gitlab_api_token.yml &lt;&lt;EOF
 ---
@@ -1403,9 +1403,9 @@ controller_credentials:
     credential_type: "GitLab API Token"
     organization: "{{ orgs }}"
     inputs:
-      gitlab_token: "&lt;&lt;CHANGE_ME&gt;&gt;"
-      gitlab_email: "&lt;&lt;CHANGE_ME&gt;&gt;"
-      gitlab_user: "&lt;&lt;CHANGE_ME&gt;&gt;"
+      gitlab_token: "&lt;CHANGE_ME&gt;"
+      gitlab_email: "&lt;CHANGE_ME&gt;"
+      gitlab_user: "&lt;CHANGE_ME&gt;"
 ...
 EOF</code></pre>
 </div>
@@ -1422,7 +1422,7 @@ EOF</code></pre>
 <div class="sect2">
 <h3 id="_dev_vault_credentials_will_let_the_job_templates_to_decrypt_the_sensitive_information_from_ansible_vaulted_files"><a class="anchor" href="#_dev_vault_credentials_will_let_the_job_templates_to_decrypt_the_sensitive_information_from_ansible_vaulted_files"></a>7.3. (dev) Vault Credentials will let the Job Templates to decrypt the sensitive information from <code>ansible-vault</code>ed files</h3>
 <div class="listingblock console-input">
-<div class="title"><mark>Content with <a href="#CHANGE_ME">[CHANGE_ME]</a> has to be customized</mark></div>
+<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_vault.yml &lt;&lt;EOF
 ---
@@ -1432,7 +1432,7 @@ controller_credentials:
     credential_type: "Vault"
     organization: "{{ orgs }}"
     inputs:
-      vault_password: "&lt;&lt;CHANGE_ME&gt;&gt;"
+      vault_password: "&lt;CHANGE_ME&gt;"
 ...
 EOF</code></pre>
 </div>
@@ -1449,13 +1449,13 @@ EOF</code></pre>
 <div class="sect2">
 <h3 id="_dev_galaxy_credential_will_let_the_job_templates_to_connect_to_the_private_automation_hub_and_get_the_required_ansible_collections"><a class="anchor" href="#_dev_galaxy_credential_will_let_the_job_templates_to_connect_to_the_private_automation_hub_and_get_the_required_ansible_collections"></a>7.4. (dev) Galaxy Credential will let the Job Templates to connect to the Private Automation Hub and get the required Ansible Collections</h3>
 <div class="listingblock console-input">
-<div class="title"><mark>Content with <a href="#CHANGE_ME">[CHANGE_ME]</a> has to be customized</mark></div>
+<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export AUTOMATIONHUB_HOST=&lt;&lt;CHANGE_ME&gt;&gt;</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export AUTOMATIONHUB_HOST=&lt;CHANGE_ME&gt;</code></pre>
 </div>
 </div>
 <div class="listingblock console-input">
-<div class="title"><mark>Content with <a href="#CHANGE_ME">[CHANGE_ME]</a> has to be customized</mark></div>
+<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_galaxy.yml &lt;&lt;EOF
 ---
@@ -1467,7 +1467,7 @@ controller_credentials:
     organization: "{{ orgs }}"
     inputs:
       url: "https://${AUTOMATIONHUB_HOST}/api/galaxy/content/community/"
-      token: "&lt;&lt;CHANGE_ME&gt;&gt;"
+      token: "&lt;CHANGE_ME&gt;"
 
   - name: "{{ orgs }} {{ env }} Automation Hub Published Repository"
     description: ""
@@ -1475,7 +1475,7 @@ controller_credentials:
     organization: "{{ orgs }}"
     inputs:
       url: "https://${AUTOMATIONHUB_HOST}/api/galaxy/content/published/"
-      token: "&lt;&lt;CHANGE_ME&gt;&gt;"
+      token: "&lt;CHANGE_ME&gt;"
 
   - name: "{{ orgs }} {{ env }} Automation Hub RH Certified Repository"
     description: ""
@@ -1483,7 +1483,7 @@ controller_credentials:
     organization: "{{ orgs }}"
     inputs:
       url: "https://${AUTOMATIONHUB_HOST}/api/galaxy/content/rh-certified/"
-      token: "&lt;&lt;CHANGE_ME&gt;&gt;"
+      token: "&lt;CHANGE_ME&gt;"
 ...
 EOF</code></pre>
 </div>
@@ -1500,7 +1500,7 @@ EOF</code></pre>
 <div class="sect2">
 <h3 id="_dev_registry_credential_will_let_the_job_templates_to_connect_to_the_private_automation_hub_and_get_the_required_execution_environments"><a class="anchor" href="#_dev_registry_credential_will_let_the_job_templates_to_connect_to_the_private_automation_hub_and_get_the_required_execution_environments"></a>7.5. (dev) Registry Credential will let the Job Templates to connect to the Private Automation Hub and get the required Execution Environments</h3>
 <div class="listingblock console-input">
-<div class="title"><mark>Content with <a href="#CHANGE_ME">[CHANGE_ME]</a> has to be customized</mark></div>
+<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_registry.yml &lt;&lt;EOF
 ---
@@ -1510,8 +1510,8 @@ controller_credentials:
     credential_type: "Container Registry"
     organization: "{{ orgs }}"
     inputs:
-      username: "&lt;&lt;CHANGE_ME&gt;&gt;"
-      password: "&lt;&lt;CHANGE_ME&gt;&gt;"
+      username: "&lt;CHANGE_ME&gt;"
+      password: "&lt;CHANGE_ME&gt;"
       host: "${AUTOMATIONHUB_HOST}"
       verify_ssl: false
 ...
@@ -1563,16 +1563,16 @@ EOF</code></pre>
 <div class="sect2">
 <h3 id="_dev_users_that_will_be_administrators_of_the_superadmin_organization"><a class="anchor" href="#_dev_users_that_will_be_administrators_of_the_superadmin_organization"></a>7.8. (dev) Users that will be administrators of the superadmin organization</h3>
 <div class="listingblock console-input">
-<div class="title"><mark>Content with <a href="#CHANGE_ME">[CHANGE_ME]</a> has to be customized</mark></div>
+<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_users.d/controller_user_accounts.yml &lt;&lt;EOF
 ---
 controller_user_accounts:
-  - username: "&lt;&lt;CHANGE_ME&gt;&gt;"
-    password: "&lt;&lt;CHANGE_ME&gt;&gt;"
-    email: "&lt;&lt;CHANGE_ME&gt;&gt;"
-    firstname: "&lt;&lt;CHANGE_ME&gt;&gt;"
-    lastname: "&lt;&lt;CHANGE_ME&gt;&gt;"
+  - username: "&lt;CHANGE_ME&gt;"
+    password: "&lt;CHANGE_ME&gt;"
+    email: "&lt;CHANGE_ME&gt;"
+    firstname: "&lt;CHANGE_ME&gt;"
+    lastname: "&lt;CHANGE_ME&gt;"
     is_auditor: False
     is_superuser: True
     update_secrets: False
@@ -1802,7 +1802,7 @@ EOF</code></pre>
 <div class="sect2">
 <h3 id="_common_job_template_to_create_new_gitlab_repositories_when_creating_additional_organizations"><a class="anchor" href="#_common_job_template_to_create_new_gitlab_repositories_when_creating_additional_organizations"></a>7.15. (common) Job Template to create new GitLab repositories when creating additional organizations</h3>
 <div class="listingblock console-input">
-<div class="title"><mark>Content with <a href="#CHANGE_ME">[CHANGE_ME]</a> has to be customized</mark></div>
+<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-gitlab/controller_jt_casc_gitlab_project_creation.yml &lt;&lt;EOF
 ---
@@ -1879,8 +1879,8 @@ controller_templates:
           min: 0
           max: 1024
           choices:
-            - "&lt;&lt;CHANGE_ME&gt;&gt;"
-          default: "&lt;&lt;CHANGE_ME&gt;&gt;"
+            - "&lt;CHANGE_ME&gt;"
+          default: "&lt;CHANGE_ME&gt;"
           new_question: true
 
         - question_name: gitlab_subgroup
@@ -1890,8 +1890,8 @@ controller_templates:
           min: 0
           max: 1024
           choices:
-            - "&lt;&lt;CHANGE_ME&gt;&gt;"
-          default: "&lt;&lt;CHANGE_ME&gt;&gt;"
+            - "&lt;CHANGE_ME&gt;"
+          default: "&lt;CHANGE_ME&gt;"
           new_question: true
 
         - question_name: "gitlab_project"
@@ -1953,7 +1953,7 @@ EOF</code></pre>
 <div class="sect2">
 <h3 id="_common_job_template_to_configure_the_gitlab_webhooks_for_each_organizations_repository_to_apply_the_cac"><a class="anchor" href="#_common_job_template_to_configure_the_gitlab_webhooks_for_each_organizations_repository_to_apply_the_cac"></a>7.16. (common) Job Template to configure the GitLab webhooks for each organization&#8217;s repository to apply the CaC</h3>
 <div class="listingblock console-input">
-<div class="title"><mark>Content with <a href="#CHANGE_ME">[CHANGE_ME]</a> has to be customized</mark></div>
+<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-gitlab/controller_jt_casc_gitlab_webhook.yml &lt;&lt;EOF
 ---
@@ -1998,8 +1998,8 @@ controller_templates:
           min: 0
           max: 1024
           choices:
-            - "&lt;&lt;CHANGE_ME&gt;&gt;"
-          default: "&lt;&lt;CHANGE_ME&gt;&gt;"
+            - "&lt;CHANGE_ME&gt;"
+          default: "&lt;CHANGE_ME&gt;"
           new_question: true
 
         - question_name: gitlab_subgroup
@@ -2009,8 +2009,8 @@ controller_templates:
           min: 0
           max: 1024
           choices:
-            - "&lt;&lt;CHANGE_ME&gt;&gt;"
-          default: "&lt;&lt;CHANGE_ME&gt;&gt;"
+            - "&lt;CHANGE_ME&gt;"
+          default: "&lt;CHANGE_ME&gt;"
           new_question: true
 
         - question_name: Trigger hook on push events?
@@ -2163,9 +2163,9 @@ EOF</code></pre>
 <div class="sect2">
 <h3 id="_common_project_to_get_the_cac_related_playbooks"><a class="anchor" href="#_common_project_to_get_the_cac_related_playbooks"></a>7.19. (common) Project to get the CaC related playbooks</h3>
 <div class="listingblock console-input">
-<div class="title"><mark>Content with <a href="#CHANGE_ME">[CHANGE_ME]</a> has to be customized</mark></div>
+<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export PROJECT_URL_CASC='&lt;&lt;CHANGE_ME&gt;&gt;'</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export PROJECT_URL_CASC='&lt;CHANGE_ME&gt;'</code></pre>
 </div>
 </div>
 <div class="listingblock console-input">
@@ -2222,7 +2222,7 @@ EOF</code></pre>
 <div class="sect2">
 <h3 id="_common_workflow_job_template_to_create_all_the_components_of_a_new_regular_organization"><a class="anchor" href="#_common_workflow_job_template_to_create_all_the_components_of_a_new_regular_organization"></a>7.21. (common) Workflow Job Template to create all the components of a new regular organization</h3>
 <div class="listingblock console-input">
-<div class="title"><mark>Content with <a href="#CHANGE_ME">[CHANGE_ME]</a> has to be customized</mark></div>
+<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_workflow_job_templates.d/controller_workflow_job_templates.yml &lt;&lt;EOF
 ---
@@ -2262,8 +2262,8 @@ controller_workflows:
           controller_dev: "${CONTROLLER_DEV_HOST}"
           controller_pro: "${CONTROLLER_PRO_HOST}"
           gitlab_api_url: "https://gitlab.com"
-          gitlab_group: "&lt;&lt;CHANGE_ME&gt;&gt;"
-          gitlab_subgroup: "&lt;&lt;CHANGE_ME&gt;&gt;"
+          gitlab_group: "&lt;CHANGE_ME&gt;"
+          gitlab_subgroup: "&lt;CHANGE_ME&gt;"
           gitlab_project: "dummy"
           gitlab_visibility: "internal"
           gitlab_default_branch: "pro"
@@ -2368,8 +2368,8 @@ controller_workflows:
           min: 0
           max: 1024
           choices:
-            - "&lt;&lt;CHANGE_ME&gt;&gt;"
-          default: "&lt;&lt;CHANGE_ME&gt;&gt;"
+            - "&lt;CHANGE_ME&gt;"
+          default: "&lt;CHANGE_ME&gt;"
           new_question: true
 
         - question_name: GitLab subgroup name
@@ -2379,8 +2379,8 @@ controller_workflows:
           min: 0
           max: 1024
           choices:
-            - "&lt;&lt;CHANGE_ME&gt;&gt;"
-          default: "&lt;&lt;CHANGE_ME&gt;&gt;"
+            - "&lt;CHANGE_ME&gt;"
+          default: "&lt;CHANGE_ME&gt;"
           new_question: true
 
         - question_name: GitLab Project
