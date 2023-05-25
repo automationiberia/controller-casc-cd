@@ -1185,7 +1185,7 @@ EOF</code></pre>
 
     - name: "Set the GitLab URL for the CasC project"
       set_fact:
-        gitlab_casc_repo: "{{ gitlab_api_url }}/{{ gitlab_group }}/{{ gitlab_subgroup }}/{{ orgs }}.git"
+        gitlab_casc_repo: "{{ gitlab_api_url }}/{{ (gitlab_group + '/') if (gitlab_group is defined and gitlab_group is not regex('^\\s*$')) }}{{ (gitlab_subgroup + '/') if (gitlab_subgroup is defined and gitlab_subgroup is not regex('^\\s*$')) }}{{ orgs }}.git"
 
     - name: "Clone the required repo"
       environment:
@@ -1874,13 +1874,11 @@ controller_templates:
           new_question: true
 
         - question_name: gitlab_group
-          required: true
-          type: multiplechoice
+          required: false
+          type: text
           variable: gitlab_group
           min: 0
           max: 1024
-          choices:
-            - "&lt;CHANGE_ME&gt;"
           default: "&lt;CHANGE_ME&gt;"
           new_question: true
 
@@ -1991,13 +1989,11 @@ controller_templates:
           new_question: true
 
         - question_name: gitlab_group
-          required: true
-          type: multiplechoice
+          required: false
+          type: text
           variable: gitlab_group
           min: 0
           max: 1024
-          choices:
-            - "&lt;CHANGE_ME&gt;"
           default: "&lt;CHANGE_ME&gt;"
           new_question: true
 
@@ -2359,13 +2355,11 @@ controller_workflows:
           new_question: true
 
         - question_name: GitLab group name
-          required: true
-          type: multiplechoice
+          required: false
+          type: text
           variable: gitlab_group
           min: 0
           max: 1024
-          choices:
-            - "&lt;CHANGE_ME&gt;"
           default: "&lt;CHANGE_ME&gt;"
           new_question: true
 
