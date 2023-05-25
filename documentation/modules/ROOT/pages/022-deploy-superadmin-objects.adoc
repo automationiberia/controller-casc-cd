@@ -10,11 +10,11 @@ Once all the objects are already configured at the GitLab repository, they can b
 ====
 In order to be able to run the playbooks from the command line using `ansible-navigator`, the file `.vault_password` is needed and must contain the vault password to decrypt the vaulted files:
 
-.#Content has to be customized#
+.#Content with `<CHANGE_ME>` has to be customized#
 [.console-input]
 [source,bash]
 ----
-echo "vault-password" > .vault_password
+echo "<CHANGE_ME>" > .vault_password
 ----
 
 That file may already be ignored in the contents of the `.gitignore`, so it can't be uploaded to the GitLab repository. See the xref:021-initial-dir-and-files.adoc#_housekeeping_optional_steps[Housekeeping Optional Steps]

@@ -72,8 +72,8 @@ controller_templates:
           min: 0
           max: 1024
           choices:
-            - "<<CHANGE_ME>>"
-          default: "<<CHANGE_ME>>"
+            - "<CHANGE_ME>"
+          default: "<CHANGE_ME>"
           new_question: true
 
         - question_name: gitlab_subgroup
@@ -83,8 +83,8 @@ controller_templates:
           min: 0
           max: 1024
           choices:
-            - "<<CHANGE_ME>>"
-          default: "<<CHANGE_ME>>"
+            - "<CHANGE_ME>"
+          default: "<CHANGE_ME>"
           new_question: true
 
         - question_name: "gitlab_project"

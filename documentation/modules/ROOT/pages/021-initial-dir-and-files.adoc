@@ -63,12 +63,12 @@ EOF
 
 == Create the ansible inventory file for the environment
 
-.#Content with <<CHANGE_ME>> has to be customized#
+.#Content with `<CHANGE_ME>` has to be customized#
 [.console-input]
 [source,bash]
 ----
-export CONTROLLER_DEV_HOST=<<CHANGE_ME>>
-export CONTROLLER_PRO_HOST=<<CHANGE_ME>>
+export CONTROLLER_DEV_HOST=<CHANGE_ME>
+export CONTROLLER_PRO_HOST=<CHANGE_ME>
 ----
 
 [.console-input]
@@ -298,7 +298,7 @@ EOF
 Encrypting that file is not needed, as it is getting all the sensible information from the files in `group_vars`.
 ======
 
-.#Content with <<CHANGE_ME>> has to be customized#
+.#Content with `<CHANGE_ME>` has to be customized#
 === (dev) Source Control Manager and GitLab API Token Credentials will let the Job Templates to connect to the GitLab repository/group
 [.console-input]
 [source,bash]
@@ -308,7 +308,7 @@ include::../examples/orgs_vars/superadmin/env/dev/controller_credentials.d/contr
 EOF
 ----
 
-.#Content with <<CHANGE_ME>> has to be customized#
+.#Content with `<CHANGE_ME>` has to be customized#
 [.console-input]
 [source,bash]
 ----
@@ -327,7 +327,7 @@ ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials
 
 === (dev) Vault Credentials will let the Job Templates to decrypt the sensitive information from ``ansible-vault``ed files
 
-.#Content with <<CHANGE_ME>> has to be customized#
+.#Content with `<CHANGE_ME>` has to be customized#
 [.console-input]
 [source,bash]
 ----
@@ -346,14 +346,14 @@ ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials
 
 === (dev) Galaxy Credential will let the Job Templates to connect to the Private Automation Hub and get the required Ansible Collections
 
-.#Content with <<CHANGE_ME>> has to be customized#
+.#Content with `<CHANGE_ME>` has to be customized#
 [.console-input]
 [source,bash]
 ----
-export AUTOMATIONHUB_HOST=<<CHANGE_ME>>
+export AUTOMATIONHUB_HOST=<CHANGE_ME>
 ----
 
-.#Content with <<CHANGE_ME>> has to be customized#
+.#Content with `<CHANGE_ME>` has to be customized#
 [.console-input]
 [source,bash]
 ----
@@ -372,7 +372,7 @@ ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials
 
 === (dev) Registry Credential will let the Job Templates to connect to the Private Automation Hub and get the required Execution Environments
 
-.#Content with <<CHANGE_ME>> has to be customized#
+.#Content with `<CHANGE_ME>` has to be customized#
 [.console-input]
 [source,bash]
 ----
@@ -411,7 +411,7 @@ EOF
 
 === (dev) Users that will be administrators of the superadmin organization
 
-.#Content with <<CHANGE_ME>> has to be customized#
+.#Content with `<CHANGE_ME>` has to be customized#
 [.console-input]
 [source,bash]
 ----
@@ -490,7 +490,7 @@ EOF
 
 === (common) Job Template to create new GitLab repositories when creating additional organizations
 
-.#Content with <<CHANGE_ME>> has to be customized#
+.#Content with `<CHANGE_ME>` has to be customized#
 [.console-input]
 [source,bash]
 ----
@@ -501,7 +501,7 @@ EOF
 
 === (common) Job Template to configure the GitLab webhooks for each organization's repository to apply the CaC
 
-.#Content with <<CHANGE_ME>> has to be customized#
+.#Content with `<CHANGE_ME>` has to be customized#
 [.console-input]
 [source,bash]
 ----
@@ -532,11 +532,11 @@ EOF
 
 === (common) Project to get the CaC related playbooks
 
-.#Content with <<CHANGE_ME>> has to be customized#
+.#Content with `<CHANGE_ME>` has to be customized#
 [.console-input]
 [source,bash]
 ----
-export PROJECT_URL_CASC='<<CHANGE_ME>>'
+export PROJECT_URL_CASC='<CHANGE_ME>'
 ----
 
 [.console-input]
@@ -565,7 +565,7 @@ EOF
 
 === (common) Workflow Job Template to create all the components of a new regular organization
 
-.#Content with <<CHANGE_ME>> has to be customized#
+.#Content with `<CHANGE_ME>` has to be customized#
 [.console-input]
 [source,bash]
 ----
