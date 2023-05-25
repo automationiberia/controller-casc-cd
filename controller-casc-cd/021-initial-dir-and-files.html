@@ -1684,6 +1684,7 @@ controller_templates:
       - "{{ orgs }} {{ env }} AAP Credential"
       - "{{ orgs }} {{ env }} Vault Credential"
     concurrent_jobs_enabled: true
+    webhook_service: "gitlab"
     ask_scm_branch_on_launch: true
     extra_vars:
       ansible_python_interpreter: /usr/bin/python3
