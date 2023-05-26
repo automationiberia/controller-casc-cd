@@ -15,7 +15,6 @@ controller_templates:
     extra_vars:
       ansible_python_interpreter: /usr/bin/python3
       ansible_async_dir: /home/runner/.ansible_async/
-      gitlab_api_user: ""
     execution_environment: "ee-casc"
     survey_enabled: True
     survey_spec:
