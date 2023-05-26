@@ -46,25 +46,25 @@ controller_templates:
 EOF
 ----
 
-=== Populate a new inventory and host
-[.console-input]
-[source,console]
-----
-cat > orgs_vars/${ORGNAME}/env/common/controller_inventories.d/inventory_example.yaml <<EOF
----
-controller_inventories:
-  - name: "{{ orgs }} {{ env }} Localhost"
-    description: "Inventory for the Localhost"
-    organization: "{{ orgs }}"
-...
-EOF
-
-cat > orgs_vars/${ORGNAME}/env/{dev,pro}/controller_hosts.d/host_example.yaml <<EOF
----
-controller_hosts:
-  - name: localhost
-    description: localhost
-    inventory: "{{ orgs }} {{ env }} Localhost"
-...
-EOF
-----
+// === Populate a new inventory and host
+// [.console-input]
+// [source,console]
+// ----
+// cat > orgs_vars/${ORGNAME}/env/common/controller_inventories.d/inventory_example.yaml <<EOF
+// ---
+// controller_inventories:
+//   - name: "{{ orgs }} {{ env }} Localhost"
+//     description: "Inventory for the Localhost"
+//     organization: "{{ orgs }}"
+// ...
+// EOF
+// 
+// cat > orgs_vars/${ORGNAME}/env/{dev,pro}/controller_hosts.d/host_example.yaml <<EOF
+// ---
+// controller_hosts:
+//   - name: localhost
+//     description: localhost
+//     inventory: "{{ orgs }} {{ env }} Localhost"
+// ...
+// EOF
+// ----
