@@ -4,7 +4,7 @@
 
 == Quick introduction to CaC
 
-Below, there are two articles left here for further reference, that introduces the Configuration as Code applied to Ansible Automation Platform, as it will be introduced in the next sections for the Ansible Automation Controller.
+The following two articles further introduce the concepts of Configuration as Code (CaC) applied to Ansible Automation Platform that will be used during this workshop.
 
 https://www.redhat.com/architect/ansible-automation-controller-cac-gitops[Manage automation controller Configuration as Code (CaC) with Ansible]
 
@@ -14,7 +14,7 @@ https://www.redhat.com/architect/automation-controller-active-passive-architectu
 == Browse modules
 
 [.tile]
-Actions to be executed by Controller Admin
+*Actions to be executed by Controller Admin*
 
 * DayZero
 ** xref:021-initial-dir-and-files.adoc#_pre_requisites[Pre-Requisites]
@@ -30,7 +30,7 @@ Actions to be executed by Controller Admin
 ** xref:023-superadmin-create-new-organization.adoc[Create New Organization]
 
 [.tile]
-Actions to be executed by Regular User
+*Actions to be executed by Regular User*
 
 * DayZero
 ** xref:031-regularuser-day-zero.adoc[Clone the newly assigned GitLab Repository]
