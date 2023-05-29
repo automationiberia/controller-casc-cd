@@ -1,6 +1,6 @@
 include::_attributes.adoc[]
 
-== Day-2: Create a new Organization
+= Day-2: Create a new Organization
 
 There are two ways to create a new Organization, which will be described below in the following sections:
 
