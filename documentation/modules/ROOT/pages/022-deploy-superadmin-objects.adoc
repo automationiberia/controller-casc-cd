@@ -90,7 +90,7 @@ Manually::
 +
 Following steps must be performed to configure the GitLab Webhook to run the Continuous Integration for the CasC in the specified organization:
 +
-* Get the Job Template's webhook configuration:
+1. Get the Job Template's webhook configuration:
 +
 .Configure Webhook Get Config
 image::configure_webhook_get_config.png[]
@@ -103,7 +103,7 @@ The Url displayed in the (Workflow) Job Template configuration is using the ID t
 image::configure_webhook_named_url.png[]
 ====
 +
-* Set the webhook information at the GitLab repository:
+2. Set the webhook information at the GitLab repository:
 +
 .Configure webhook Set Info
 image::configure_webhook_set_info.png[]
