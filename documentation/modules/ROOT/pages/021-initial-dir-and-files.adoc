@@ -154,7 +154,7 @@ EOF
 [.console-input]
 [source,bash]
 ----
-read -s -p ">>> Enter admin password for DEV environment? " ADMIN_DEV_PASSWORD
+read -e -s -p ">>> Enter admin password for DEV environment? " ADMIN_DEV_PASSWORD
 cat > group_vars/dev/configure_connection_controller_credentials.yml <<EOF
 include::../examples/group_vars/dev/configure_connection_controller_credentials.yml[]
 EOF
@@ -164,7 +164,7 @@ EOF
 [.console-input]
 [source,bash]
 ----
-read -s -p ">>> Enter admin password for PRO environment? " ADMIN_PRO_PASSWORD
+read -e -s -p ">>> Enter admin password for PRO environment? " ADMIN_PRO_PASSWORD
 cat > group_vars/pro/configure_connection_controller_credentials.yml <<EOF
 include::../examples/group_vars/pro/configure_connection_controller_credentials.yml[]
 EOF
