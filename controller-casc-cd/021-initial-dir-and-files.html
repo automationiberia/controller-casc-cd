@@ -249,7 +249,7 @@
 <h2 id="_pre_requisites"><a class="anchor" href="#_pre_requisites"></a>1. Pre-Requisites</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>An <strong>empty GitLab repository</strong> is required to follow this workshop.</p>
+<p>An <strong>empty GitLab repository</strong> is required to follow this workshop (you are supposed to provide this on your own gitlab account). Additionally, set-up on your gitlab account a new token with <code>api</code> scope and configure a ssh key pair to access your account if you haven&#8217;t already done it.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -263,6 +263,12 @@
 </div>
 <div class="paragraph">
 <p>The creation process for the new repository is not in the scope of the current workshop. For more info see: <a href="https://docs.gitlab.com/ee/user/project/repository/">Create a repository on Gitlab.com</a></p>
+</div>
+<div class="paragraph">
+<p>To configure SSH access to your GitLab account see: <a href="https://docs.gitlab.com/ee/user/ssh.html">Use SSH to communicate with GitLab</a></p>
+</div>
+<div class="paragraph">
+<p>For the personal access token creation: <a href="https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-personal-access-token">Create a personal access token on GitLab</a></p>
 </div>
 </td>
 </tr>
@@ -450,6 +456,19 @@ ${CONTROLLER_PRO_HOST}
 EOF</code></pre>
 </div>
 </div>
+<details>
+<summary class="title">Create a SSH key pair for GitLab:</summary>
+<div class="content">
+<div class="paragraph">
+<p>Alternatively to using your own existing SSH key&#8230;&#8203;</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ssh-key gen -f id_rsa_gitlab</code></pre>
+</div>
+</div>
+</div>
+</details>
 </div>
 </div>
 <div class="sect1">
@@ -504,6 +523,20 @@ touch orgs_vars/${SUPERADMIN_ORG}/env/common/controller_{schedules.d/app-casc,wo
 <div class="paragraph">
 <p>Initial configuration files must be created. First of all, the connection credentials to the controller are needed. They will be created under the <code>group_vars</code> directory as it will differ from one environment to another, and Ansible provides this method for the implementation<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>.</p>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The following files should be encrypted as they contain sensitive information and is not recommended to store it in plain text. In our case we will use <code>ansible-vault</code></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock console-input">
@@ -518,15 +551,10 @@ EOF</code></pre>
 </div>
 </div>
 <div class="listingblock console-input">
-<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">export ADMIN_DEV_PASSWORD=&lt;CHANGE_ME&gt;</code></pre>
-</div>
-</div>
-<div class="listingblock console-input">
 <div class="title">Set the password and the Controller host for the <code>dev</code> environment</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; group_vars/dev/configure_connection_controller_credentials.yml &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">read -e -s -p "&gt;&gt;&gt; Enter admin password for DEV environment? " ADMIN_DEV_PASSWORD
+cat &gt; group_vars/dev/configure_connection_controller_credentials.yml &lt;&lt;EOF
 ---
 vault_controller_password: '${ADMIN_DEV_PASSWORD}'
 vault_controller_hostname: "{{ groups['dev'][0] }}"
@@ -535,37 +563,16 @@ EOF</code></pre>
 </div>
 </div>
 <div class="listingblock console-input">
-<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">export ADMIN_PRO_PASSWORD=&lt;CHANGE_ME&gt;</code></pre>
-</div>
-</div>
-<div class="listingblock console-input">
 <div class="title">Set the password and the Controller host for the <code>pro</code> environment</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; group_vars/pro/configure_connection_controller_credentials.yml &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">read -e -s -p "&gt;&gt;&gt; Enter admin password for PRO environment? " ADMIN_PRO_PASSWORD
+cat &gt; group_vars/pro/configure_connection_controller_credentials.yml &lt;&lt;EOF
 ---
 vault_controller_password: '${ADMIN_PRO_PASSWORD}'
 vault_controller_hostname: "{{ groups['pro'][0] }}"
 ...
 EOF</code></pre>
 </div>
-</div>
-</div>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The previous files should be encrypted as they contain sensitive information and is not recommended to store it in plain text. In our case we will use <code>ansible-vault</code></p>
-</div>
-</td>
-</tr>
-</table>
 </div>
 <div class="listingblock console-input">
 <div class="title">Encrypt the files with sensitive data</div>
@@ -575,15 +582,20 @@ EOF</code></pre>
   group_vars/pro/configure_connection_controller_credentials.yml</code></pre>
 </div>
 </div>
-<div class="admonitionblock note">
+</div>
+</div>
+<div class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Write down the encryption password as it will be used later on the workshop</p>
+<p>Write down the encryption password (always in a secure place :) ) as you will be using it more to encrypt and decrypt later on the workshop.</p>
+</div>
+<div class="paragraph">
+<p>You can also use the file <code>.vault-password</code> excluded from git together with the option <code>--vault-password-file</code> at your discretion</p>
 </div>
 </td>
 </tr>
@@ -595,7 +607,7 @@ EOF</code></pre>
 <h2 id="_create_the_cac_playbooks"><a class="anchor" href="#_create_the_cac_playbooks"></a>6. Create the CaC playbooks</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Next, we need the playbooks that allow us to implement the CaC.</p>
+<p>Next, we need some playbooks that allow us to implement the CaC.</p>
 </div>
 <div class="paragraph">
 <p>All this playbooks are available on the repository <a href="https://gitlab.com/automationiberia/aap-cac/superadmin-workshop-template.git">SuperAdmin Workshop Template</a></p>
@@ -651,8 +663,35 @@ EOF</code></pre>
 </div>
 <div class="sect2">
 <h3 id="_dev_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup"><a class="anchor" href="#_dev_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup"></a>7.2. (dev) Source Control Manager and GitLab API Token Credentials will let the Job Templates to connect to the GitLab repository/group</h3>
+<div class="paragraph">
+<p>Two distinct accesses to GitLab are required for the automation:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The CaC automation will also configure the SCM credentials to the repository from Ansible Controller.</p>
+</li>
+<li>
+<p>The CaC automation needs to configure also access to the GitLab API.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>See prerequisites on how to create the ssh access and personal token at the beginning of this page.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="listingblock console-input">
-<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
+<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized with the private ssh key attached to your gitlab account (see prerequisites)</mark></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_scm.yml &lt;&lt;EOF
 ---
@@ -672,7 +711,7 @@ EOF</code></pre>
 </div>
 </div>
 <div class="listingblock console-input">
-<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
+<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized with the access token attached to your gitlab account (see prerequisites)</mark></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_gitlab_api_token.yml &lt;&lt;EOF
 ---
@@ -689,8 +728,19 @@ controller_credentials:
 EOF</code></pre>
 </div>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>These files should be encrypted as they contains the private key and a token that will allow read/write access to the GitLab repository/group:</p>
+<p>These files should be encrypted as they contains the private key and a token that will allow read/write access to the GitLab repository/group.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="listingblock console-input">
 <div class="content">
