@@ -228,7 +228,7 @@ Encrypting that file is not needed, as it is getting all the sensible informatio
 
 Two distinct accesses to GitLab are required for the automation:
 
-* The CaC automation will also configure the SCM credentials to the repository from Ansible Controller.<
+* The CaC automation will also configure the SCM credentials to the repository from Ansible Controller.
 * The CaC automation needs to configure also access to the GitLab API.
 
 [NOTE]
@@ -236,7 +236,7 @@ Two distinct accesses to GitLab are required for the automation:
 See prerequisites on how to create the ssh access and personal token at the beginning of this page.
 ======
 
-.#Content with `<CHANGE_ME>` has to be customized#
+.#Content with `<CHANGE_ME>` has to be customized with the private ssh key attached to your gitlab account (see prerequisites)#
 [.console-input]
 [source,bash]
 ----
@@ -245,7 +245,7 @@ include::../examples/orgs_vars/superadmin/env/dev/controller_credentials.d/contr
 EOF
 ----
 
-.#Content with `<CHANGE_ME>` has to be customized#
+.#Content with `<CHANGE_ME>` has to be customized with the access token attached to your gitlab account (see prerequisites)#
 [.console-input]
 [source,bash]
 ----
