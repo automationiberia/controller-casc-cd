@@ -27,7 +27,7 @@ The fields `Name for the new Organization` and `GitLab Project` must have the sa
 image::new-project-workflow-2.1.png[]
 image::new-project-workflow-2.2.png[]
 
-3. Let's de execution to finish:
+3. Let's the execution to finish:
 +
 image:new-project-workflow-3.png[]
 
