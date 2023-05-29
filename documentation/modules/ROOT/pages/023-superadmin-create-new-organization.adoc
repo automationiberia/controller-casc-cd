@@ -4,13 +4,15 @@ include::_attributes.adoc[]
 
 There are two ways to create a new Organization, which will be described below in the following sections:
 
-* xref:#_automatically[Automatically]: A Job Template to create all the required components for a new regular organization is provided.
-* xref:#_manually[Manually]: All the required components for a new regular organization are created step-by-step.
+* xref:#tabset1_automatically[Automatically]: A Job Template to create all the required components for a new regular organization is provided.
+* xref:#tabset1_manually[Manually]: All the required components for a new regular organization are created step-by-step.
 
 As an overview, when creating a new Organization, some objects must be populated at the superadmin organization, such as the organization itself, the corresponding CasC Job Templates, the user to be the future organization admin and the roles to give that user the admin privileges to the organization. A new Git Repository is needed for the new Organization as well.
 
-=== Automatically
-
+[tabs]
+======
+Automatically::
++
 1. Locate the Job Template called `superadmin WF New Project` and Launch it.
 +
 image::new-project-workflow-1.png[]
@@ -29,25 +31,25 @@ image::new-project-workflow-2.2.png[]
 +
 image:new-project-workflow-3.png[]
 
-=== Manually
-
+Manually::
++
 [IMPORTANT]
 ====
 To create the new objects, a new git branch is needed, as the branches used to deploy the CasC to the different environments are protected, doesn't accept direct pushes and only accept merges through Pull Requests.
 ====
-
-==== Run the playbook to create the new organization objects
-
++
+1. Run the playbook to create the new organization objects
++
 These new objects can be created manually without any problem, but a playbook is provided to make this easier. It must be executed from the command line (PR are welcome), and is creating all the files with the new objects for us, except the one for the organization's admin user.
-
++
 To create the new objects, just run the following command:
-
++
 [.console-input]
 [source,console,subs="attributes"]
 ----
 ansible-playbook new_project.yml -e "{organization_name: {neworg}, organization_desc: '{neworg} Organization', instance_groups: [MADRID], admin_user: 'neworgadminuser', orgs_vars: 'orgs_vars', orgs: '$\{SUPERADMIN_ORG\}', env: dev, casc_gitlab_scm_branch: dev}"
 ----
-
++
 .See the output
 [%collapsible]
 =====
@@ -83,12 +85,12 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ----
 =====
-
-==== Add the admin user for the new organization
-
++
+2. Add the admin user for the new organization
++
 In order to add the new Organization's admin user, it must be done manually as the file should be ansible-vaulted, so the following steps are needed:
-
-* Add a new entry at the `controller_user_accounts.yml` file (it can also be a new one) into the desired environment (dev in the example):
++
+3. Add a new entry at the `controller_user_accounts.yml` file (it can also be a new one) into the desired environment (dev in the example):
 +
 [.console-input]
 [source,console]
@@ -120,11 +122,11 @@ controller_user_accounts:
     update_secrets: False
 ...
 ----
-
-==== Push the changes to create the new objects
-
++
+4. Push the changes to create the new objects
++
 As the SUPERADMIN organization already have the Webhook configured, the only action needed to create the new objects is just to push the code to the git repository for the Webhook to trigger the CasC processes:
-
++
 [.console-input]
 [source,console,subs="attributes"]
 ----
@@ -133,7 +135,7 @@ git add -A .
 git commit -m "New Organization {neworg}"
 git push -u origin {neworg}
 ----
-
++
 .See the output
 [%collapsible]
 =====
@@ -161,29 +163,28 @@ To ssh://gitlab.server.domain:2222/group/sub-group/casc/super-admin.git
    ad54fd5..e5fd56e  centralize_casc -> centralize_casc
 ----
 =====
-
++
 Now, the branch can be merged into dev to trigger the CasC mechanism and get all the new objects created at the Automation Controller.
-
-==== Run the Job Template to create a new Git Project for the newly created organization
-
++
+5. Run the Job Template to create a new Git Project for the newly created organization
++
 Another thing that should be created is a git repository where to define all the new organization's related objects. That git repo can be created manually, but a Job Template for the SUPERADMIN organization is provided to make things easier. That Job template is creating (thanks to the `casc-setup` collection into the assigned Execuction Environment) all the basic objects and a `README.md` that contains a step by step process to start working with the repo and the CasC, so it's very recommended to use that Job Template:
-
++
 .Gitlab Project Creation Job Template
 image::gitlab_project_creation_jt.png[]
-
++
 .Gitlab Project Creation Launch
 image::gitlab_project_creation_launch.png[]
-
++
 .Gitlab Project Creation README Snap
 image::gitlab_project_creation_readme_snap.png[]
-
-
-==== Run the Job Template to create the CasC Webhook for the newly created organization
-
++
+6. Run the Job Template to create the CasC Webhook for the newly created organization
++
 The same way the CasC is triggered for the SUPERADMIN organization, for the newly created one a webhook must be created as well. That one is slightly different on how the playbook treats the input information, but is running the same overall process to launch the CasC processes.
-
++
 The configuration is almost the same shown at the previous section: xref:022-deploy-superadmin-objects.adoc#_configure_the_gitlab_webhooks[Configure the GitLab Webhooks], but the organization name and the Job Template that is executed from the webhook, will be different:
-
++
 .Configure Webhook for the {neworg} Organization
 image::configure_webhook_neworg_launch_params.png[]
-
+======
