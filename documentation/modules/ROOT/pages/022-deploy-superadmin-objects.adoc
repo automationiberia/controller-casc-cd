@@ -91,6 +91,30 @@ image::configure_webhook_named_url.png[]
 .Configure webhook Set Info
 image::configure_webhook_set_info.png[]
 
+[tabs]
+=====
+Automatically:: Contents of tab A.
+
+Manually::
++
+Contents of tab B.
+
+Tab C::
++
+--
+Contents of tab C.
+
+Contains more than one block.
+[NOTE]
+====
+Nota important
+====
+--
+=====
+
+
+testing...
+
 === Automatically
 
 A Job Template and a Project have been created to automatically configure the GitLab Webhook making use of the `GitLab API Token` credential defined and vaulted in the configuration files (take a look at [`orgs_vars/$\{SUPERADMIN_ORG\}/env/dev/controller_credentials.d/controller_credentials_gitlab_api_token.yml`](orgs_vars/superadmin/env/dev/controller_credentials.d/controller_credentials_gitlab_api_token.yml)):
