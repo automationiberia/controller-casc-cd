@@ -14,13 +14,17 @@ All the steps below are meant to be locally executed from the base directory of 
 
 == Pre-Requisites
 
-An *empty GitLab repository* is required to follow this workshop.
+An *empty GitLab repository* is required to follow this workshop (you are supposed to provide this on your own gitlab account). Additionally, set-up on your gitlab account a new token with `api` scope and configure a ssh key pair to access your account if you haven't already done it.
 
 [NOTE]
 =======
 All the files for the repo will be created from scratch and synchronized during this lab.
 
 The creation process for the new repository is not in the scope of the current workshop. For more info see: https://docs.gitlab.com/ee/user/project/repository/[Create a repository on Gitlab.com]
+
+To configure SSH access to your GitLab account see: https://docs.gitlab.com/ee/user/ssh.html[Use SSH to communicate with GitLab]
+
+For the personal access token creation: https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-personal-access-token[Create a personal access token on GitLab]
 =======
 
 == Housekeeping (optional steps)
@@ -79,6 +83,18 @@ include::../examples/inventory.ini[]
 EOF
 ----
 
+.Create a SSH key pair for GitLab:
+[%collapsible]
+======
+Alternatively to using your own existing SSH key...
+
+[.console-input]
+[source,bash]
+----
+ssh-key gen -f id_rsa_gitlab
+----
+======
+
 == Create the automation directories structure
 
 [NOTE]
@@ -119,6 +135,11 @@ touch orgs_vars/${SUPERADMIN_ORG}/env/common/controller_{schedules.d/app-casc,wo
 
 Initial configuration files must be created. First of all, the connection credentials to the controller are needed. They will be created under the `group_vars` directory as it will differ from one environment to another, and Ansible provides this method for the implementationfootnote:[https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html].
 
+[IMPORTANT]
+======
+The following files should be encrypted as they contain sensitive information and is not recommended to store it in plain text. In our case we will use `ansible-vault`
+======
+
 ======
 .Assume all the environments will use the same `username`
 [.console-input]
@@ -133,7 +154,9 @@ EOF
 [.console-input]
 [source,console]
 ----
-export ADMIN_DEV_PASSWORD=<CHANGE_ME>
+export HISTCONTROL=ignoreboth
+ export ADMIN_DEV_PASSWORD=<CHANGE_ME>
+ export ADMIN_PRO_PASSWORD=<CHANGE_ME>
 ----
 .Set the password and the Controller host for the `dev` environment
 [.console-input]
@@ -144,12 +167,6 @@ include::../examples/group_vars/dev/configure_connection_controller_credentials.
 EOF
 ----
 
-.#Content with `<CHANGE_ME>` has to be customized#
-[.console-input]
-[source,console]
-----
-export ADMIN_PRO_PASSWORD=<CHANGE_ME>
-----
 .Set the password and the Controller host for the `pro` environment
 [.console-input]
 [source,bash]
@@ -158,12 +175,6 @@ cat > group_vars/pro/configure_connection_controller_credentials.yml <<EOF
 include::../examples/group_vars/pro/configure_connection_controller_credentials.yml[]
 EOF
 ----
-======
-
-[IMPORTANT]
-======
-The previous files should be encrypted as they contain sensitive information and is not recommended to store it in plain text. In our case we will use `ansible-vault`
-======
 
 .Encrypt the files with sensitive data
 [.console-input]
@@ -173,15 +184,18 @@ ansible-vault encrypt \
   group_vars/dev/configure_connection_controller_credentials.yml \
   group_vars/pro/configure_connection_controller_credentials.yml
 ----
-
-[NOTE]
 ======
-Write down the encryption password as it will be used later on the workshop
+
+[TIP]
+======
+Write down the encryption password (always in a secure place :) ) as you will be using it more to encrypt and decrypt later on the workshop.
+
+You can also use the file `.vault-password` excluded from git together with the option `--vault-password-file` at your discretion
 ======
 
 == Create the CaC playbooks
 
-Next, we need the playbooks that allow us to implement the CaC.
+Next, we need some playbooks that allow us to implement the CaC.
 
 All this playbooks are available on the repository https://gitlab.com/automationiberia/aap-cac/superadmin-workshop-template.git[SuperAdmin Workshop Template]
 
@@ -210,8 +224,19 @@ EOF
 Encrypting that file is not needed, as it is getting all the sensible information from the files in `group_vars`.
 ======
 
-.#Content with `<CHANGE_ME>` has to be customized#
 === (dev) Source Control Manager and GitLab API Token Credentials will let the Job Templates to connect to the GitLab repository/group
+
+Two distinct accesses to GitLab are required for the automation:
+
+* The CaC automation will also configure the SCM credentials to the repository from Ansible Controller.<
+* The CaC automation needs to configure also access to the GitLab API.
+
+[NOTE]
+======
+See prerequisites on how to create the ssh access and personal token at the beginning of this page.
+======
+
+.#Content with `<CHANGE_ME>` has to be customized#
 [.console-input]
 [source,bash]
 ----
@@ -229,7 +254,10 @@ include::../examples/orgs_vars/superadmin/env/dev/controller_credentials.d/contr
 EOF
 ----
 
-These files should be encrypted as they contains the private key and a token that will allow read/write access to the GitLab repository/group:
+[IMPORTANT]
+======
+These files should be encrypted as they contains the private key and a token that will allow read/write access to the GitLab repository/group.
+======
 
 [.console-input]
 [source,bash]
