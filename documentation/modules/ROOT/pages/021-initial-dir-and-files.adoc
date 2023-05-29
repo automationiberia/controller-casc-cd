@@ -150,18 +150,11 @@ include::../examples/group_vars/all/configure_connection_controller_credentials.
 EOF
 ----
 
-.#Content with `<CHANGE_ME>` has to be customized#
-[.console-input]
-[source,console]
-----
-export HISTCONTROL=ignoreboth
- export ADMIN_DEV_PASSWORD=<CHANGE_ME>
- export ADMIN_PRO_PASSWORD=<CHANGE_ME>
-----
 .Set the password and the Controller host for the `dev` environment
 [.console-input]
 [source,bash]
 ----
+read -s -p ">>> Enter admin password for DEV environment? " ADMIN_DEV_PASSWORD
 cat > group_vars/dev/configure_connection_controller_credentials.yml <<EOF
 include::../examples/group_vars/dev/configure_connection_controller_credentials.yml[]
 EOF
@@ -171,6 +164,7 @@ EOF
 [.console-input]
 [source,bash]
 ----
+read -s -p ">>> Enter admin password for PRO environment? " ADMIN_PRO_PASSWORD
 cat > group_vars/pro/configure_connection_controller_credentials.yml <<EOF
 include::../examples/group_vars/pro/configure_connection_controller_credentials.yml[]
 EOF
