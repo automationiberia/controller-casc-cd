@@ -69,15 +69,32 @@ The file `inventory` must be filled accordingly to the corresponding `group_vars
 
 Once the objects has been created at the Ansible Automation Controller, there are two options to configure the GitLab Webhook to run the Continuous Integration for the CasC:
 
-=== Manually
+[tabs]
+=====
+Automatically::
++
+A Job Template and a Project have been created to automatically configure the GitLab Webhook making use of the `GitLab API Token` credential defined and vaulted in the configuration files (take a look at [`orgs_vars/$\{SUPERADMIN_ORG\}/env/dev/controller_credentials.d/controller_credentials_gitlab_api_token.yml`](orgs_vars/superadmin/env/dev/controller_credentials.d/controller_credentials_gitlab_api_token.yml)):
++
+.Configure Webhook Launch
+image::configure_webhook_launch.png[]
++
+.Configure Webhook Params
+image::configure_webhook_launch_params.png[]
++
+After running the Job, the webhook will already be configured at the git repository for the specified organization, which will point to the selected Job Template in the selected Automation Controller.
++
+.Configure Webhook Result
+image::configure_webhook_result.png[]
 
+Manually::
++
 Following steps must be performed to configure the GitLab Webhook to run the Continuous Integration for the CasC in the specified organization:
-
-==== Get the Job Template's webhook configuration:
-
++
+* Get the Job Template's webhook configuration:
++
 .Configure Webhook Get Config
 image::configure_webhook_get_config.png[]
-
++
 [IMPORTANT]
 ====
 The Url displayed in the (Workflow) Job Template configuration is using the ID to identify the (Workflow) Job Template, but it's not recommended to use this identifier, as it can change if the configuration is replied at different AAP instances. Instead, the `named_url` from the API may be used.
@@ -85,50 +102,12 @@ The Url displayed in the (Workflow) Job Template configuration is using the ID t
 .Configure Webhook Named URL
 image::configure_webhook_named_url.png[]
 ====
-
-==== Set the webhook information at the GitLab repository:
-
++
+* Set the webhook information at the GitLab repository:
++
 .Configure webhook Set Info
 image::configure_webhook_set_info.png[]
-
-[tabs]
 =====
-Automatically:: Contents of tab A.
-
-Manually::
-+
-Contents of tab B.
-
-Tab C::
-+
---
-Contents of tab C.
-
-Contains more than one block.
-[NOTE]
-====
-Nota important
-====
---
-=====
-
-
-testing...
-
-=== Automatically
-
-A Job Template and a Project have been created to automatically configure the GitLab Webhook making use of the `GitLab API Token` credential defined and vaulted in the configuration files (take a look at [`orgs_vars/$\{SUPERADMIN_ORG\}/env/dev/controller_credentials.d/controller_credentials_gitlab_api_token.yml`](orgs_vars/superadmin/env/dev/controller_credentials.d/controller_credentials_gitlab_api_token.yml)):
-
-.Configure Webhook Launch
-image::configure_webhook_launch.png[]
-
-.Configure Webhook Params
-image::configure_webhook_launch_params.png[]
-
-After running the Job, the webhook will already be configured at the git repository for the specified organization, which will point to the selected Job Template in the selected Automation Controller.
-
-.Configure Webhook Result
-image::configure_webhook_result.png[]
 
 == All done
 
