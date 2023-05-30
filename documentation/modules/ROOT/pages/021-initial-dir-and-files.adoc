@@ -86,7 +86,7 @@ EOF
 .Create a SSH key pair for GitLab:
 [%collapsible]
 ======
-Alternatively to using your own existing SSH key...
+[[ssh-key-generation]]Alternatively to using your own existing SSH key...
 
 [.console-input]
 [source,bash]
@@ -523,6 +523,11 @@ git commit -m "Initial commit"
 git config core.sshCommand "ssh -i $PWD/id_rsa_gitlab"
 git push -u origin dev
 ----
+
+[NOTE]
+====
+The previous commands are configuring the local Git repository to connect to the Gitlab server using the SSH private Key file generated at <<ssh-key-generation, Create a SSH key pair for GitLab>>
+====
 
 [TIP]
 ======
