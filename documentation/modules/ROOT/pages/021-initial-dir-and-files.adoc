@@ -520,6 +520,7 @@ git add .
 git branch -m dev
 git remote add origin ${PROJECT_URL_CASC}
 git commit -m "Initial commit"
+git config core.sshCommand "ssh -i $PWD/id_rsa_gitlab"
 git push -u origin dev
 ----
 
