@@ -91,7 +91,7 @@ Alternatively to using your own existing SSH key...
 [.console-input]
 [source,bash]
 ----
-ssh-key gen -f id_rsa_gitlab
+ssh-keygen -f id_rsa_gitlab
 ----
 ======
 
