@@ -1,7 +1,7 @@
 collections/ansible_collections
 users.csv
 users_old.csv
-.vault_password
+.vault*
 *artifact*
 ansible-navigator.log
 .*.swp

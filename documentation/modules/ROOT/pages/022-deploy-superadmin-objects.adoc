@@ -10,11 +10,18 @@ Once all the objects are already configured at the GitLab repository, they can b
 ====
 In order to be able to run the playbooks from the command line using `ansible-navigator`, the file `.vault_password` is needed and must contain the vault password to decrypt the vaulted files:
 
-.#Content with `<CHANGE_ME>` has to be customized#
 [.console-input]
 [source,bash]
 ----
-echo "<CHANGE_ME>" > .vault_password
+read -e -s -p "Enter Vault password for DEV environment: " VAULT_PASSWORD_DEV
+echo "${VAULT_PASSWORD_DEV}" > .vault_password_dev
+----
+
+[.console-input]
+[source,bash]
+----
+read -e -s -p "Enter Vault password for PRO environment: " VAULT_PASSWORD_PRO
+echo "${VAULT_PASSWORD_PRO}" > .vault_password_pro
 ----
 
 That file may already be ignored in the contents of the `.gitignore`, so it can't be uploaded to the GitLab repository. See the xref:021-initial-dir-and-files.adoc#_housekeeping_optional_steps[Housekeeping Optional Steps]
@@ -28,12 +35,18 @@ the private key configured at
 to the GitLab repositories used by the configured projects. See the xref:021-initial-dir-and-files.adoc#_dev_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup[(dev) Source Control Manager and GitLab API Token Credentials will let the Job Templates to connect to the GitLab repository/group]
 ====
 
-Run the configuration playbook to create the defined objects in the target AAP Controller, running the following command:
+Run the configuration playbook to create the defined objects in the target AAP Controllers, for both DEV and PRO environments, running the following commands:
 
 [.console-input]
 [source,bash]
 ----
-ansible-navigator run casc_ctrl_config.yml -i inventory -l dev -e "{orgs: ${SUPERADMIN_ORG}, dir_orgs_vars: orgs_vars, env: dev}" -m stdout --eei quay.io/automationiberia/aap/ee-casc:latest --vault-password-file .vault_password --pull-arguments=--tls-verify=false
+ansible-navigator run casc_ctrl_config.yml -i inventory -l dev -e "{orgs: ${SUPERADMIN_ORG}, dir_orgs_vars: orgs_vars, env: dev}" -m stdout --eei quay.io/automationiberia/aap/ee-casc:latest --vault-password-file .vault_password_dev --pull-arguments=--tls-verify=false
+----
+
+[.console-input]
+[source,bash]
+----
+ansible-navigator run casc_ctrl_config.yml -i inventory -l pro -e "{orgs: ${SUPERADMIN_ORG}, dir_orgs_vars: orgs_vars, env: pro}" -m stdout --eei quay.io/automationiberia/aap/ee-casc:latest --vault-password-file .vault_password_pro --pull-arguments=--tls-verify=false
 ----
 
 [TIP]

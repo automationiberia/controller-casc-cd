@@ -1,7 +1,6 @@
 ---
 controller_execution_environments:
   - name: "ee-casc"
-    image: lb-hub-pro.lab.example.com/ee-casc:v2.0
-    pull: always
-    credential: "{{ orgs }} {{ env }} Automation Private Hub Container Registry"
+    image: "quay.io/automationiberia/aap/ee-casc:latest"
+    pull: missing
 ...

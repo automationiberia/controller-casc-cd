@@ -33,6 +33,7 @@ controller_workflows:
         extra_data:
           controller_dev: "${CONTROLLER_DEV_HOST}"
           controller_pro: "${CONTROLLER_PRO_HOST}"
+          # automation_hub: "${AUTOMATIONHUB_HOST}"
           gitlab_api_url: "https://gitlab.com"
           gitlab_group: "<CHANGE_ME>"
           gitlab_subgroup: "<CHANGE_ME>"
@@ -88,6 +89,17 @@ controller_workflows:
           min: 0
           max: 80
           new_question: true
+
+        # - question_name: Private Automation Hub Host
+        #   required: true
+        #   type: multiplechoice
+        #   variable: automation_hub
+        #   min: 0
+        #   max: 1024
+        #   choices:
+        #     - "${AUTOMATIONHUB_HOST}"
+        #   default: "${AUTOMATIONHUB_HOST}"
+        #   new_question: true
 
         - question_name: Ansible Controller Host (Dev)
           required: true

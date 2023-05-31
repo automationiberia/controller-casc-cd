@@ -21,6 +21,17 @@ controller_templates:
       name: '{{ orgs }} {{ env }} Survey_Gitlab_Project_Creation'
       description: 'Survey_Gitlab_Project_Creation'
       spec:
+        # - question_name: automation_hub
+        #   required: true
+        #   type: multiplechoice
+        #   variable: automation_hub
+        #   min: 0
+        #   max: 1024
+        #   choices:
+        #     - "${AUTOMATIONHUB_HOST}"
+        #   default: "${AUTOMATIONHUB_HOST}"
+        #   new_question: true
+
         - question_name: controller_dev
           required: true
           type: multiplechoice
