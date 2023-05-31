@@ -170,19 +170,12 @@ include::../examples/group_vars/pro/configure_connection_controller_credentials.
 EOF
 ----
 
-.Encrypt the files with sensitive data (dev)
+.Encrypt the files with sensitive data
 [.console-input]
 [source,console]
 ----
 ansible-vault encrypt \
-  group_vars/dev/configure_connection_controller_credentials.yml
-----
-
-.Encrypt the files with sensitive data (pro)
-[.console-input]
-[source,console]
-----
-ansible-vault encrypt \
+  group_vars/dev/configure_connection_controller_credentials.yml \
   group_vars/pro/configure_connection_controller_credentials.yml
 ----
 ======
