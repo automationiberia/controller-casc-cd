@@ -8,7 +8,7 @@ Once all the objects are already configured at the GitLab repository, they can b
 
 [IMPORTANT]
 ====
-In order to be able to run the playbooks from the command line using `ansible-navigator`, the file `.vault_password` is needed and must contain the vault password to decrypt the vaulted files:
+In order to be able to run the playbooks from the command line using `ansible-navigator`, the files `.vault_password*` are needed and must contain the different vault passwords to decrypt the vaulted files:
 
 [.console-input]
 [source,bash]
@@ -40,13 +40,13 @@ Run the configuration playbook to create the defined objects in the target AAP C
 [.console-input]
 [source,bash]
 ----
-ansible-navigator run casc_ctrl_config.yml -i inventory -l dev -e "{orgs: ${SUPERADMIN_ORG}, dir_orgs_vars: orgs_vars, env: dev}" -m stdout --eei quay.io/automationiberia/aap/ee-casc:latest --vault-password-file .vault_password_dev --pull-arguments=--tls-verify=false
+ansible-navigator run casc_ctrl_config.yml -i inventory -l dev -e "{orgs: ${SUPERADMIN_ORG}, dir_orgs_vars: orgs_vars, env: dev}" -m stdout --eei quay.io/automationiberia/aap/ee-casc:latest --vault-id dev@.vault_password_dev --vault-id pro@.vault_password_pro --pull-arguments=--tls-verify=false
 ----
 
 [.console-input]
 [source,bash]
 ----
-ansible-navigator run casc_ctrl_config.yml -i inventory -l pro -e "{orgs: ${SUPERADMIN_ORG}, dir_orgs_vars: orgs_vars, env: pro}" -m stdout --eei quay.io/automationiberia/aap/ee-casc:latest --vault-password-file .vault_password_pro --pull-arguments=--tls-verify=false
+ansible-navigator run casc_ctrl_config.yml -i inventory -l pro -e "{orgs: ${SUPERADMIN_ORG}, dir_orgs_vars: orgs_vars, env: pro}" -m stdout --eei quay.io/automationiberia/aap/ee-casc:latest --vault-id dev@.vault_password_dev --vault-id pro@.vault_password_pro --pull-arguments=--tls-verify=false
 ----
 
 [TIP]
@@ -70,7 +70,7 @@ include::../examples/collections/requirements.yaml[]
 
 [TIP]
 ====
-The file `.vault_password` used in the previous command, must exist and contain the vault password needed to access the vaulted variables
+The files `.vault_password*` used in the previous command, must exist and contain the different vault passwords needed to access the vaulted variables
 ====
 
 [TIP]

@@ -174,7 +174,7 @@ EOF
 [.console-input]
 [source,console]
 ----
-ansible-vault encrypt \
+ansible-vault encrypt --vault-id dev \
   group_vars/dev/configure_connection_controller_credentials.yml
 ----
 
@@ -182,7 +182,7 @@ ansible-vault encrypt \
 [.console-input]
 [source,console]
 ----
-ansible-vault encrypt \
+ansible-vault encrypt --vault-id pro \
   group_vars/pro/configure_connection_controller_credentials.yml
 ----
 ======
@@ -269,7 +269,7 @@ These files should be encrypted as they contains the private key and a token tha
 [.console-input]
 [source,bash]
 ----
-ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/{controller_credentials_scm.yml,controller_credentials_gitlab_api_token.yml}
+ansible-vault encrypt --vault-id dev orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/{controller_credentials_scm.yml,controller_credentials_gitlab_api_token.yml}
 ----
 
 ==== Vault Credentials will let the Job Templates to decrypt the sensitive information from ``ansible-vault``ed files
@@ -288,7 +288,7 @@ Encrypt the file in the same way as before:
 [.console-input]
 [source,bash]
 ----
-ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_vault.yml
+ansible-vault encrypt --vault-id dev orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_vault.yml
 ----
 
 ////
@@ -315,7 +315,7 @@ Encrypt the file in the same way as before:
 [.console-input]
 [source,bash]
 ----
-ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_galaxy.yml
+ansible-vault encrypt --vault-id dev orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_galaxy.yml
 ----
 
 ==== Registry Credential will let the Job Templates to connect to the Private Automation Hub and get the required Execution Environments
@@ -334,7 +334,7 @@ Encrypt the file in the same way as before:
 [.console-input]
 [source,bash]
 ----
-ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_registry.yml
+ansible-vault encrypt --vault-id dev orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_registry.yml
 ----
 ////
 ==== Execution Environments to be used by the Job Templates
@@ -373,7 +373,7 @@ This file should be encrypted as it contains the password of the superadmin user
 [.console-input]
 [source,bash]
 ----
-ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_users.d/controller_user_accounts.yml
+ansible-vault encrypt --vault-id dev orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_users.d/controller_user_accounts.yml
 ----
 
 === PRO environment
@@ -429,7 +429,7 @@ These files should be encrypted as they contains the private key and a token tha
 [.console-input]
 [source,bash]
 ----
-ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/{controller_credentials_scm.yml,controller_credentials_gitlab_api_token.yml}
+ansible-vault encrypt --vault-id pro orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/{controller_credentials_scm.yml,controller_credentials_gitlab_api_token.yml}
 ----
 
 ==== Vault Credentials will let the Job Templates to decrypt the sensitive information from ``ansible-vault``ed files
@@ -448,7 +448,7 @@ Encrypt the file in the same way as before:
 [.console-input]
 [source,bash]
 ----
-ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/controller_credentials_vault.yml
+ansible-vault encrypt --vault-id pro orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/controller_credentials_vault.yml
 ----
 
 ////
@@ -475,7 +475,7 @@ Encrypt the file in the same way as before:
 [.console-input]
 [source,bash]
 ----
-ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/controller_credentials_galaxy.yml
+ansible-vault encrypt --vault-id pro orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/controller_credentials_galaxy.yml
 ----
 
 ==== Registry Credential will let the Job Templates to connect to the Private Automation Hub and get the required Execution Environments
@@ -494,7 +494,7 @@ Encrypt the file in the same way as before:
 [.console-input]
 [source,bash]
 ----
-ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/controller_credentials_registry.yml
+ansible-vault encrypt --vault-id pro orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/controller_credentials_registry.yml
 ----
 ////
 ==== Execution Environments to be used by the Job Templates
@@ -533,7 +533,7 @@ This file should be encrypted as it contains the password of the superadmin user
 [.console-input]
 [source,bash]
 ----
-ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_users.d/controller_user_accounts.yml
+ansible-vault encrypt --vault-id pro orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_users.d/controller_user_accounts.yml
 ----
 
 === Common to dev and pro environments
