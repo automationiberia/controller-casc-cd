@@ -53,7 +53,7 @@ vi group_vars/pro/configure_connection_controller_credentials.yml
 [.console-input]
 [source,bash]
 ----
-ansible-vault encrypt --vault-id dev group_vars/dev/configure_connection_controller_credentials.yml group_vars/pro/configure_connection_controller_credentials.yml
+ansible-vault encrypt group_vars/dev/configure_connection_controller_credentials.yml group_vars/pro/configure_connection_controller_credentials.yml
 ----
 
 == Edit credentials objects
@@ -73,7 +73,7 @@ vi orgs_vars/${ORGNAME}/env/pro/controller_credentials.d/controller_credentials.
 [.console-input]
 [source,bash]
 ----
-ansible-vault encrypt --vault-id pro orgs_vars/${ORGNAME}/env/pro/controller_credentials.d/* orgs_vars/${ORGNAME}/env/dev/controller_credentials.d/*
+ansible-vault encrypt orgs_vars/${ORGNAME}/env/pro/controller_credentials.d/* orgs_vars/${ORGNAME}/env/dev/controller_credentials.d/*
 ----
 
 == Check the inventory file
@@ -103,16 +103,8 @@ aap22prod.iam.lab
 [.console-input]
 [source,bash]
 ----
-read -e -s -p "Enter Vault password for DEV environment: " VAULT_PASSWORD_DEV
-echo "${VAULT_PASSWORD_DEV}" > .vault_password_dev
-----
-
-.#Content with `<CHANGE_ME>` has to be customized#
-[.console-input]
-[source,bash]
-----
-read -e -s -p "Enter Vault password for PRO environment: " VAULT_PASSWORD_PRO
-echo "${VAULT_PASSWORD_PRO}" > .vault_password_pro
+read -e -s -p "Enter Vault password: " VAULT_PASSWORD
+echo "${VAULT_PASSWORD}" > .vault_password
 ----
 
 == Launch ansible-navigator from CLI to setup day-zero of CasC
@@ -127,13 +119,13 @@ If the Automation Hub where the used Execution Environment image is using a self
 [.console-input]
 [source,bash]
 ----
-ansible-navigator run casc_ctrl_config.yml -i inventory -l dev -e "{orgs: '${ORGNAME}', dir_orgs_vars: orgs_vars, env: dev}" -m stdout --eei quay.io/automationiberia/aap/ee-casc --vault-id dev@.vault_password_dev --vault-id pro@.vault_password_pro
+ansible-navigator run casc_ctrl_config.yml -i inventory -l dev -e "{orgs: '${ORGNAME}', dir_orgs_vars: orgs_vars, env: dev}" -m stdout --eei quay.io/automationiberia/aap/ee-casc --vault-password-file .vault_password
 ----
 
 [.console-input]
 [source,bash]
 ----
-ansible-navigator run casc_ctrl_config.yml -i inventory -l pro -e "{orgs: '${ORGNAME}', dir_orgs_vars: orgs_vars, env: pro}" -m stdout --eei quay.io/automationiberia/aap/ee-casc --vault-id dev@.vault_password_dev --vault-id pro@.vault_password_pro
+ansible-navigator run casc_ctrl_config.yml -i inventory -l pro -e "{orgs: '${ORGNAME}', dir_orgs_vars: orgs_vars, env: pro}" -m stdout --eei quay.io/automationiberia/aap/ee-casc --vault-password-file .vault_password
 ----
 
 == Push the changes
