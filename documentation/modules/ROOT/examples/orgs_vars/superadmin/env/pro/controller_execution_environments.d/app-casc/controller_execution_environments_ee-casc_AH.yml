@@ -3,4 +3,5 @@ controller_execution_environments:
   - name: "ee-casc"
     image: "quay.io/automationiberia/aap/ee-casc:latest"
     pull: missing
+    # credential: "{{ orgs }} {{ env }} Automation Private Hub Container Registry"
 ...

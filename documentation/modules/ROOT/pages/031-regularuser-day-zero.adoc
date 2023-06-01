@@ -17,6 +17,18 @@ All the steps described here are also available in the `README.md` file at the n
 All the steps could also be done creating/editing the files directly at the GitLab repository using the Web UI, but this approach is not recommended as a general option. Instead of this, use a local copy of the repository to work there.
 ====
 
+.Create a SSH key pair for GitLab:
+[%collapsible]
+======
+[[ssh-key-generation]]Alternatively to using your own existing SSH key...
+
+[.console-input]
+[source,bash]
+----
+ssh-keygen -f id_rsa_gitlab
+----
+======
+
 .Export the repository URL #Content with `<CHANGE_ME>` has to be customized#
 [.console-input]
 [source,console,subs="attributes"]
@@ -103,7 +115,8 @@ aap22prod.iam.lab
 [.console-input]
 [source,bash]
 ----
-echo "<CHANGE_ME>" > ./.vault_password
+read -e -s -p "Enter Vault password: " VAULT_PASSWORD
+echo "${VAULT_PASSWORD}" > .vault_password
 ----
 
 == Launch ansible-navigator from CLI to setup day-zero of CasC

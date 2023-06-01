@@ -2,6 +2,5 @@
 controller_groups:
   - name: "{{ env }}"
     inventory: "{{ orgs }} {{ env }} Controller"
-    hosts:
-      - "${CONTROLLER_DEV_HOST}"
+    hosts: "{{ groups[env] }}"
 ...
