@@ -288,7 +288,7 @@
 collections/ansible_collections
 users.csv
 users_old.csv
-.vault_password
+.vault*
 *artifact*
 ansible-navigator.log
 .*.swp
@@ -626,8 +626,24 @@ EOF</code></pre>
 <div class="paragraph">
 <p>With these files, the SuperAdmin repo will have all the CaC related playbooks that will create and/or destroy the objects at the Ansible Controller.</p>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>As a security recommendation, the vault password used to encrypt the credentials created below, should not be the same for <code>dev</code> and <code>pro</code> environments.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="sect2">
-<h3 id="_dev_ansible_automation_platform_credentials_will_let_the_job_templates_to_connect_to_the_controller"><a class="anchor" href="#_dev_ansible_automation_platform_credentials_will_let_the_job_templates_to_connect_to_the_controller"></a>7.1. (dev) Ansible Automation Platform Credentials will let the Job Templates to connect to the Controller</h3>
+<h3 id="_dev_environment"><a class="anchor" href="#_dev_environment"></a>7.1. Dev environment</h3>
+<div class="sect3">
+<h4 id="_ansible_automation_platform_credentials_will_let_the_job_templates_to_connect_to_the_controller"><a class="anchor" href="#_ansible_automation_platform_credentials_will_let_the_job_templates_to_connect_to_the_controller"></a>7.1.1. Ansible Automation Platform Credentials will let the Job Templates to connect to the Controller</h4>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_aap.yml &lt;&lt;EOF
@@ -661,8 +677,8 @@ EOF</code></pre>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_dev_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup"><a class="anchor" href="#_dev_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup"></a>7.2. (dev) Source Control Manager and GitLab API Token Credentials will let the Job Templates to connect to the GitLab repository/group</h3>
+<div class="sect3">
+<h4 id="_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup"><a class="anchor" href="#_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup"></a>7.1.2. Source Control Manager and GitLab API Token Credentials will let the Job Templates to connect to the GitLab repository/group</h4>
 <div class="paragraph">
 <p>Two distinct accesses to GitLab are required for the automation:</p>
 </div>
@@ -748,8 +764,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_dev_vault_credentials_will_let_the_job_templates_to_decrypt_the_sensitive_information_from_ansible_vaulted_files"><a class="anchor" href="#_dev_vault_credentials_will_let_the_job_templates_to_decrypt_the_sensitive_information_from_ansible_vaulted_files"></a>7.3. (dev) Vault Credentials will let the Job Templates to decrypt the sensitive information from <code>ansible-vault</code>ed files</h3>
+<div class="sect3">
+<h4 id="_vault_credentials_will_let_the_job_templates_to_decrypt_the_sensitive_information_from_ansible_vaulted_files"><a class="anchor" href="#_vault_credentials_will_let_the_job_templates_to_decrypt_the_sensitive_information_from_ansible_vaulted_files"></a>7.1.3. Vault Credentials will let the Job Templates to decrypt the sensitive information from <code>ansible-vault</code>ed files</h4>
 <div class="listingblock console-input">
 <div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
 <div class="content">
@@ -775,89 +791,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_dev_galaxy_credential_will_let_the_job_templates_to_connect_to_the_private_automation_hub_and_get_the_required_ansible_collections"><a class="anchor" href="#_dev_galaxy_credential_will_let_the_job_templates_to_connect_to_the_private_automation_hub_and_get_the_required_ansible_collections"></a>7.4. (dev) Galaxy Credential will let the Job Templates to connect to the Private Automation Hub and get the required Ansible Collections</h3>
-<div class="listingblock console-input">
-<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export AUTOMATIONHUB_HOST=&lt;CHANGE_ME&gt;</code></pre>
-</div>
-</div>
-<div class="listingblock console-input">
-<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_galaxy.yml &lt;&lt;EOF
----
-controller_credentials:
-# Dev Site
-  - name: "{{ orgs }} {{ env }} Automation Hub Community Repository"
-    description: ""
-    credential_type: "Ansible Galaxy/Automation Hub API Token"
-    organization: "{{ orgs }}"
-    inputs:
-      url: "https://${AUTOMATIONHUB_HOST}/api/galaxy/content/community/"
-      token: "&lt;CHANGE_ME&gt;"
-
-  - name: "{{ orgs }} {{ env }} Automation Hub Published Repository"
-    description: ""
-    credential_type: "Ansible Galaxy/Automation Hub API Token"
-    organization: "{{ orgs }}"
-    inputs:
-      url: "https://${AUTOMATIONHUB_HOST}/api/galaxy/content/published/"
-      token: "&lt;CHANGE_ME&gt;"
-
-  - name: "{{ orgs }} {{ env }} Automation Hub RH Certified Repository"
-    description: ""
-    credential_type: "Ansible Galaxy/Automation Hub API Token"
-    organization: "{{ orgs }}"
-    inputs:
-      url: "https://${AUTOMATIONHUB_HOST}/api/galaxy/content/rh-certified/"
-      token: "&lt;CHANGE_ME&gt;"
-...
-EOF</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Encrypt the file in the same way as before:</p>
-</div>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_galaxy.yml</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_dev_registry_credential_will_let_the_job_templates_to_connect_to_the_private_automation_hub_and_get_the_required_execution_environments"><a class="anchor" href="#_dev_registry_credential_will_let_the_job_templates_to_connect_to_the_private_automation_hub_and_get_the_required_execution_environments"></a>7.5. (dev) Registry Credential will let the Job Templates to connect to the Private Automation Hub and get the required Execution Environments</h3>
-<div class="listingblock console-input">
-<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_registry.yml &lt;&lt;EOF
----
-controller_credentials:
-  - name: "{{ orgs }} {{ env }} Automation Private Hub Container Registry"
-    description: "Credential to connect to Container Registry at AtomationHub Private"
-    credential_type: "Container Registry"
-    organization: "{{ orgs }}"
-    inputs:
-      username: "&lt;CHANGE_ME&gt;"
-      password: "&lt;CHANGE_ME&gt;"
-      host: "${AUTOMATIONHUB_HOST}"
-      verify_ssl: false
-...
-EOF</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Encrypt the file in the same way as before:</p>
-</div>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_registry.yml</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_dev_execution_environments_to_be_used_by_the_job_templates"><a class="anchor" href="#_dev_execution_environments_to_be_used_by_the_job_templates"></a>7.6. (dev) Execution Environments to be used by the Job Templates</h3>
+<div class="sect3">
+<h4 id="_execution_environments_to_be_used_by_the_job_templates"><a class="anchor" href="#_execution_environments_to_be_used_by_the_job_templates"></a>7.1.4. Execution Environments to be used by the Job Templates</h4>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_execution_environments.d/app-casc/controller_execution_environments_ee-casc.yml &lt;&lt;EOF
@@ -866,14 +801,13 @@ controller_execution_environments:
   - name: "ee-casc"
     image: "quay.io/automationiberia/aap/ee-casc:latest"
     pull: missing
-    credential: "{{ orgs }} {{ env }} Automation Private Hub Container Registry"
 ...
 EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_dev_hosts_to_be_used_by_the_inventory_for_the_job_templates"><a class="anchor" href="#_dev_hosts_to_be_used_by_the_inventory_for_the_job_templates"></a>7.7. (dev) Hosts to be used by the inventory for the Job Templates</h3>
+<div class="sect3">
+<h4 id="_hosts_to_be_used_by_the_inventory_for_the_job_templates"><a class="anchor" href="#_hosts_to_be_used_by_the_inventory_for_the_job_templates"></a>7.1.5. Hosts to be used by the inventory for the Job Templates</h4>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_hosts.d/app-casc/controller_hosts.yml &lt;&lt;EOF
@@ -890,8 +824,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_dev_users_that_will_be_administrators_of_the_superadmin_organization"><a class="anchor" href="#_dev_users_that_will_be_administrators_of_the_superadmin_organization"></a>7.8. (dev) Users that will be administrators of the superadmin organization</h3>
+<div class="sect3">
+<h4 id="_users_that_will_be_administrators_of_the_superadmin_organization"><a class="anchor" href="#_users_that_will_be_administrators_of_the_superadmin_organization"></a>7.1.6. Users that will be administrators of the superadmin organization</h4>
 <div class="listingblock console-input">
 <div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
 <div class="content">
@@ -919,8 +853,225 @@ EOF</code></pre>
 </div>
 </div>
 </div>
+</div>
 <div class="sect2">
-<h3 id="_common_credential_types_that_will_be_needed_for_the_job_templates"><a class="anchor" href="#_common_credential_types_that_will_be_needed_for_the_job_templates"></a>7.9. (common) Credential Types that will be needed for the Job Templates</h3>
+<h3 id="_pro_environment"><a class="anchor" href="#_pro_environment"></a>7.2. PRO environment</h3>
+<div class="sect3">
+<h4 id="_ansible_automation_platform_credentials_will_let_the_job_templates_to_connect_to_the_controller_2"><a class="anchor" href="#_ansible_automation_platform_credentials_will_let_the_job_templates_to_connect_to_the_controller_2"></a>7.2.1. Ansible Automation Platform Credentials will let the Job Templates to connect to the Controller</h4>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/controller_credentials_aap.yml &lt;&lt;EOF
+---
+controller_credentials:
+  - name: "{{ orgs }} {{ env }} AAP Credential"
+    description: "{{ orgs }} {{ env }}  AAP Credential"
+    credential_type: "Red Hat Ansible Automation Platform"
+    organization: "{{ orgs }}"
+    inputs:
+      host: "{{ controller_hostname }}"
+      username: "{{ controller_username }}"
+      password: "{{ controller_password }}"
+      verify_ssl: "{{ controller_validate_certs }}"
+...
+EOF</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Encrypting that file is not needed, as it is getting all the sensible information from the files in <code>group_vars</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup_2"><a class="anchor" href="#_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup_2"></a>7.2.2. Source Control Manager and GitLab API Token Credentials will let the Job Templates to connect to the GitLab repository/group</h4>
+<div class="paragraph">
+<p>Two distinct accesses to GitLab are required for the automation:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The CaC automation will also configure the SCM credentials to the repository from Ansible Controller.</p>
+</li>
+<li>
+<p>The CaC automation needs to configure also access to the GitLab API.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>See prerequisites on how to create the ssh access and personal token at the beginning of this page.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock console-input">
+<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized with the private ssh key attached to your gitlab account (see prerequisites)</mark></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/controller_credentials_scm.yml &lt;&lt;EOF
+---
+controller_credentials:
+  - name: "{{ orgs }} {{ env }} GitLab Credential"
+    description: "Credential to be used by the 'IaC_playbooks' project"
+    credential_type: "Source Control"
+    organization: "{{ orgs }}"
+    inputs:
+      username: "&lt;CHANGE_ME&gt;"
+      ssh_key_data: |
+        -----BEGIN OPENSSH PRIVATE KEY-----
+        XXXXXXXXX &lt;CHANGE_ME&gt; XXXXXXXXX
+        -----END OPENSSH PRIVATE KEY-----
+...
+EOF</code></pre>
+</div>
+</div>
+<div class="listingblock console-input">
+<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized with the access token attached to your gitlab account (see prerequisites)</mark></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/controller_credentials_gitlab_api_token.yml &lt;&lt;EOF
+---
+controller_credentials:
+  - name: "{{ orgs }} {{ env }} GitLab API Token"
+    description: "{{ orgs }} {{ env }} GitLab API Token"
+    credential_type: "GitLab API Token"
+    organization: "{{ orgs }}"
+    inputs:
+      gitlab_token: "&lt;CHANGE_ME&gt;"
+      gitlab_email: "&lt;CHANGE_ME&gt;"
+      gitlab_user: "&lt;CHANGE_ME&gt;"
+...
+EOF</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>These files should be encrypted as they contains the private key and a token that will allow read/write access to the GitLab repository/group.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/{controller_credentials_scm.yml,controller_credentials_gitlab_api_token.yml}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_vault_credentials_will_let_the_job_templates_to_decrypt_the_sensitive_information_from_ansible_vaulted_files_2"><a class="anchor" href="#_vault_credentials_will_let_the_job_templates_to_decrypt_the_sensitive_information_from_ansible_vaulted_files_2"></a>7.2.3. Vault Credentials will let the Job Templates to decrypt the sensitive information from <code>ansible-vault</code>ed files</h4>
+<div class="listingblock console-input">
+<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/controller_credentials_vault.yml &lt;&lt;EOF
+---
+controller_credentials:
+  - name: "{{ orgs }} {{ env }} Vault Credential"
+    description: "{{ orgs }} {{ env }} Vault Credential"
+    credential_type: "Vault"
+    organization: "{{ orgs }}"
+    inputs:
+      vault_password: "&lt;CHANGE_ME&gt;"
+...
+EOF</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Encrypt the file in the same way as before:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/controller_credentials_vault.yml</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_execution_environments_to_be_used_by_the_job_templates_2"><a class="anchor" href="#_execution_environments_to_be_used_by_the_job_templates_2"></a>7.2.4. Execution Environments to be used by the Job Templates</h4>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_execution_environments.d/app-casc/controller_execution_environments_ee-casc.yml &lt;&lt;EOF
+---
+controller_execution_environments:
+  - name: "ee-casc"
+    image: "quay.io/automationiberia/aap/ee-casc:latest"
+    pull: missing
+...
+EOF</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_hosts_to_be_used_by_the_inventory_for_the_job_templates_2"><a class="anchor" href="#_hosts_to_be_used_by_the_inventory_for_the_job_templates_2"></a>7.2.5. Hosts to be used by the inventory for the Job Templates</h4>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_hosts.d/app-casc/controller_hosts.yml &lt;&lt;EOF
+---
+controller_hosts:
+  - name:  "${CONTROLLER_PRO_HOST}"
+    description: "Controller host"
+    inventory: "{{ orgs }} {{ env }} Controller"
+    enabled: true
+    variables:
+      ansible_host: "${CONTROLLER_PRO_HOST}"
+...
+EOF</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_users_that_will_be_administrators_of_the_superadmin_organization_2"><a class="anchor" href="#_users_that_will_be_administrators_of_the_superadmin_organization_2"></a>7.2.6. Users that will be administrators of the superadmin organization</h4>
+<div class="listingblock console-input">
+<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_users.d/controller_user_accounts.yml &lt;&lt;EOF
+---
+controller_user_accounts:
+  - username: "&lt;CHANGE_ME&gt;"
+    password: "&lt;CHANGE_ME&gt;"
+    email: "&lt;CHANGE_ME&gt;"
+    firstname: "&lt;CHANGE_ME&gt;"
+    lastname: "&lt;CHANGE_ME&gt;"
+    is_auditor: False
+    is_superuser: True
+    update_secrets: False
+...
+EOF</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This file should be encrypted as it contains the password of the superadmin user:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_users.d/controller_user_accounts.yml</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_common_to_dev_and_pro_environments"><a class="anchor" href="#_common_to_dev_and_pro_environments"></a>7.3. Common to dev and pro environments</h3>
+<div class="sect3">
+<h4 id="_credential_types_that_will_be_needed_for_the_job_templates"><a class="anchor" href="#_credential_types_that_will_be_needed_for_the_job_templates"></a>7.3.1. Credential Types that will be needed for the Job Templates</h4>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_credential_types.d/app-casc/controller_credential_types_gitlab_api.yml &lt;&lt;EOF
@@ -963,8 +1114,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_common_inventory_to_be_used_for_the_job_templates"><a class="anchor" href="#_common_inventory_to_be_used_for_the_job_templates"></a>7.10. (common) Inventory to be used for the Job Templates</h3>
+<div class="sect3">
+<h4 id="_inventory_to_be_used_for_the_job_templates"><a class="anchor" href="#_inventory_to_be_used_for_the_job_templates"></a>7.3.2. Inventory to be used for the Job Templates</h4>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_inventories.d/app-casc/controller_inventories_controller.yml &lt;&lt;EOF
@@ -978,8 +1129,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_common_groups_to_be_used_for_the_job_templates"><a class="anchor" href="#_common_groups_to_be_used_for_the_job_templates"></a>7.11. (common) Groups to be used for the Job Templates</h3>
+<div class="sect3">
+<h4 id="_groups_to_be_used_for_the_job_templates"><a class="anchor" href="#_groups_to_be_used_for_the_job_templates"></a>7.3.3. Groups to be used for the Job Templates</h4>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_groups.d/app-casc/controller_groups.yml &lt;&lt;EOF
@@ -987,15 +1138,14 @@ EOF</code></pre>
 controller_groups:
   - name: "{{ env }}"
     inventory: "{{ orgs }} {{ env }} Controller"
-    hosts:
-      - "${CONTROLLER_DEV_HOST}"
+    hosts: "{{ groups[env] }}"
 ...
 EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_common_job_template_to_receive_all_the_webhooks_from_gitlab"><a class="anchor" href="#_common_job_template_to_receive_all_the_webhooks_from_gitlab"></a>7.12. (common) Job Template to receive all the webhooks from GitLab</h3>
+<div class="sect3">
+<h4 id="_job_template_to_receive_all_the_webhooks_from_gitlab"><a class="anchor" href="#_job_template_to_receive_all_the_webhooks_from_gitlab"></a>7.3.4. Job Template to receive all the webhooks from GitLab</h4>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-casc/controller_jt_casc_cd_webhook.yml &lt;&lt;EOF
@@ -1024,8 +1174,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_common_job_template_to_deploy_all_the_object_defined_as_code"><a class="anchor" href="#_common_job_template_to_deploy_all_the_object_defined_as_code"></a>7.13. (common) Job Template to deploy all the object defined as code</h3>
+<div class="sect3">
+<h4 id="_job_template_to_deploy_all_the_object_defined_as_code"><a class="anchor" href="#_job_template_to_deploy_all_the_object_defined_as_code"></a>7.3.5. Job Template to deploy all the object defined as code</h4>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-casc/controller_jt_casc_config.yml &lt;&lt;EOF
@@ -1057,8 +1207,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_common_job_template_to_remove_all_the_objects_in_the_controller_that_are_not_defined_as_code"><a class="anchor" href="#_common_job_template_to_remove_all_the_objects_in_the_controller_that_are_not_defined_as_code"></a>7.14. (common) Job Template to remove all the objects in the Controller that are not defined as code</h3>
+<div class="sect3">
+<h4 id="_job_template_to_remove_all_the_objects_in_the_controller_that_are_not_defined_as_code"><a class="anchor" href="#_job_template_to_remove_all_the_objects_in_the_controller_that_are_not_defined_as_code"></a>7.3.6. Job Template to remove all the objects in the Controller that are not defined as code</h4>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-casc/controller_jt_casc_drop_diff.yml &lt;&lt;EOF
@@ -1091,8 +1241,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_common_job_template_to_create_new_gitlab_repositories_when_creating_additional_organizations"><a class="anchor" href="#_common_job_template_to_create_new_gitlab_repositories_when_creating_additional_organizations"></a>7.15. (common) Job Template to create new GitLab repositories when creating additional organizations</h3>
+<div class="sect3">
+<h4 id="_job_template_to_create_new_gitlab_repositories_when_creating_additional_organizations"><a class="anchor" href="#_job_template_to_create_new_gitlab_repositories_when_creating_additional_organizations"></a>7.3.7. Job Template to create new GitLab repositories when creating additional organizations</h4>
 <div class="listingblock console-input">
 <div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
 <div class="content">
@@ -1120,17 +1270,6 @@ controller_templates:
       name: '{{ orgs }} {{ env }} Survey_Gitlab_Project_Creation'
       description: 'Survey_Gitlab_Project_Creation'
       spec:
-        - question_name: automation_hub
-          required: true
-          type: multiplechoice
-          variable: automation_hub
-          min: 0
-          max: 1024
-          choices:
-            - "${AUTOMATIONHUB_HOST}"
-          default: "${AUTOMATIONHUB_HOST}"
-          new_question: true
-
         - question_name: controller_dev
           required: true
           type: multiplechoice
@@ -1238,8 +1377,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_common_job_template_to_configure_the_gitlab_webhooks_for_each_organizations_repository_to_apply_the_cac"><a class="anchor" href="#_common_job_template_to_configure_the_gitlab_webhooks_for_each_organizations_repository_to_apply_the_cac"></a>7.16. (common) Job Template to configure the GitLab webhooks for each organization&#8217;s repository to apply the CaC</h3>
+<div class="sect3">
+<h4 id="_job_template_to_configure_the_gitlab_webhooks_for_each_organizations_repository_to_apply_the_cac"><a class="anchor" href="#_job_template_to_configure_the_gitlab_webhooks_for_each_organizations_repository_to_apply_the_cac"></a>7.3.8. Job Template to configure the GitLab webhooks for each organization&#8217;s repository to apply the CaC</h4>
 <div class="listingblock console-input">
 <div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
 <div class="content">
@@ -1364,8 +1503,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_common_job_template_to_create_a_new_regular_organization"><a class="anchor" href="#_common_job_template_to_create_a_new_regular_organization"></a>7.17. (common) Job Template to create a new regular organization</h3>
+<div class="sect3">
+<h4 id="_job_template_to_create_a_new_regular_organization"><a class="anchor" href="#_job_template_to_create_a_new_regular_organization"></a>7.3.9. Job Template to create a new regular organization</h4>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/controller_job_templates.yml &lt;&lt;EOF
@@ -1425,8 +1564,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_common_organization_to_be_created_superadmin"><a class="anchor" href="#_common_organization_to_be_created_superadmin"></a>7.18. (common) Organization to be created: <code>superadmin</code></h3>
+<div class="sect3">
+<h4 id="_organization_to_be_created_superadmin"><a class="anchor" href="#_organization_to_be_created_superadmin"></a>7.3.10. Organization to be created: <code>superadmin</code></h4>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_organizations.d/app-casc/controller_organization_superadmin.yml &lt;&lt;EOF
@@ -1434,17 +1573,13 @@ EOF</code></pre>
 controller_organizations:
   - name: "{{ orgs }}"
     description: "Organization for objects that requiere superadmin powers"
-    galaxy_credentials:
-      - "{{ orgs }} {{ env }} Automation Hub Community Repository"
-      - "{{ orgs }} {{ env }} Automation Hub Published Repository"
-      - "{{ orgs }} {{ env }} Automation Hub RH Certified Repository"
 ...
 EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_common_project_to_get_the_cac_related_playbooks"><a class="anchor" href="#_common_project_to_get_the_cac_related_playbooks"></a>7.19. (common) Project to get the CaC related playbooks</h3>
+<div class="sect3">
+<h4 id="_project_to_get_the_cac_related_playbooks"><a class="anchor" href="#_project_to_get_the_cac_related_playbooks"></a>7.3.11. Project to get the CaC related playbooks</h4>
 <div class="listingblock console-input">
 <div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
 <div class="content">
@@ -1473,8 +1608,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_common_project_to_get_the_gitlab_related_playbooks"><a class="anchor" href="#_common_project_to_get_the_gitlab_related_playbooks"></a>7.20. (common) Project to get the GitLab related playbooks</h3>
+<div class="sect3">
+<h4 id="_project_to_get_the_gitlab_related_playbooks"><a class="anchor" href="#_project_to_get_the_gitlab_related_playbooks"></a>7.3.12. Project to get the GitLab related playbooks</h4>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export PROJECT_URL_CASC_SETUP='https://github.com/automationiberia/casc_setup.git'</code></pre>
@@ -1502,8 +1637,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_common_workflow_job_template_to_create_all_the_components_of_a_new_regular_organization"><a class="anchor" href="#_common_workflow_job_template_to_create_all_the_components_of_a_new_regular_organization"></a>7.21. (common) Workflow Job Template to create all the components of a new regular organization</h3>
+<div class="sect3">
+<h4 id="_workflow_job_template_to_create_all_the_components_of_a_new_regular_organization"><a class="anchor" href="#_workflow_job_template_to_create_all_the_components_of_a_new_regular_organization"></a>7.3.13. Workflow Job Template to create all the components of a new regular organization</h4>
 <div class="listingblock console-input">
 <div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
 <div class="content">
@@ -1541,7 +1676,6 @@ controller_workflows:
         organization: "{{ orgs }}"
         workflow: "{{ orgs }} {{ env }} WF New Project"
         extra_data:
-          automation_hub: "${AUTOMATIONHUB_HOST}"
           controller_dev: "${CONTROLLER_DEV_HOST}"
           controller_pro: "${CONTROLLER_PRO_HOST}"
           gitlab_api_url: "https://gitlab.com"
@@ -1598,17 +1732,6 @@ controller_workflows:
           variable: "admin_user"
           min: 0
           max: 80
-          new_question: true
-
-        - question_name: Private Automation Hub Host
-          required: true
-          type: multiplechoice
-          variable: automation_hub
-          min: 0
-          max: 1024
-          choices:
-            - "${AUTOMATIONHUB_HOST}"
-          default: "${AUTOMATIONHUB_HOST}"
           new_question: true
 
         - question_name: Ansible Controller Host (Dev)
@@ -1671,7 +1794,7 @@ controller_workflows:
           max: 80
           new_question: true
 
-        - question_name: GitLab project's visibility
+        - question_name: GitLab project visibility
           required: true
           type: multiplechoice
           variable: gitlab_visibility
@@ -1721,6 +1844,7 @@ EOF</code></pre>
 </div>
 </div>
 </div>
+</div>
 <div class="sect1">
 <h2 id="_commit_and_push_the_initial_version_of_cac"><a class="anchor" href="#_commit_and_push_the_initial_version_of_cac"></a>8. Commit and push the initial version of CaC</h2>
 <div class="sectionbody">
@@ -1735,7 +1859,9 @@ git branch -m dev
 git remote add origin ${PROJECT_URL_CASC}
 git commit -m "Initial commit"
 git config core.sshCommand "ssh -i $PWD/id_rsa_gitlab"
-git push -u origin dev</code></pre>
+git push -u origin dev
+git checkout -b pro
+git push -u origin pro</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -1760,7 +1886,7 @@ git push -u origin dev</code></pre>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Take in consideration that in this documentation the branch <code>dev</code> is used, but it can be any other branch if it have the corresponding environment configured as well.</p>
+<p>Take in consideration that in this documentation the branches <code>dev</code> and <code>pro</code> are used, but they can be any other branches if it have the corresponding environment configured as well inside <code>{{ orgs_vars }}</code> directory.</p>
 </div>
 </td>
 </tr>
