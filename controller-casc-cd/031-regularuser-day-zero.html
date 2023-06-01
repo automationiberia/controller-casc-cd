@@ -247,19 +247,6 @@
 </tr>
 </table>
 </div>
-<details>
-<summary class="title">Create a SSH key pair for GitLab:</summary>
-<div class="content">
-<div class="paragraph">
-<p><a id="ssh-key-generation"></a>Alternatively to using your own existing SSH key&#8230;&#8203;</p>
-</div>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ssh-keygen -f id_rsa_gitlab</code></pre>
-</div>
-</div>
-</div>
-</details>
 <div class="listingblock console-input">
 <div class="title">Export the repository URL <mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
 <div class="content">
@@ -275,6 +262,19 @@ cd ${ORGNAME}/
 git checkout -b casc-dev-day0</code></pre>
 </div>
 </div>
+<details>
+<summary class="title">Create a SSH key pair for GitLab:</summary>
+<div class="content">
+<div class="paragraph">
+<p><a id="ssh-key-generation"></a>You can create your own SSH key for that project with the following command:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ssh-keygen -f id_rsa_gitlab</code></pre>
+</div>
+</div>
+</div>
+</details>
 <div class="paragraph">
 <p>Before using CasC as a GitOps approach, it is needed to launch an initialization from CLI which it is called Day-Zero.</p>
 </div>
