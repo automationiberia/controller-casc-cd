@@ -282,8 +282,55 @@
 </li>
 <li>
 <p>Let&#8217;s the execution to finish:</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/new-project-workflow-3.png" alt="new project workflow 3">
+</div>
+</div>
+</li>
+<li>
+<p>Promote the new organization to PRO</p>
 <div class="paragraph">
-<p><span class="image"><img src="_images/new-project-workflow-3.png" alt="new project workflow 3"></span></p>
+<p>4.1 Create a Merge Request to promote the <code>dev</code> branch  to the <code>pro</code> branch:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/regular-user-new-mr-to-pro-1.png" alt="regular user new mr to pro 1">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/regular-user-new-mr-to-pro-2.png" alt="regular user new mr to pro 2">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/regular-user-new-mr-to-pro-3.png" alt="regular user new mr to pro 3">
+</div>
+</div>
+<div class="paragraph">
+<p>4.2 Create a Tag at the <code>pro</code> branch to deploy the new Organization:</p>
+</div>
+<div class="paragraph">
+<p>In some cases, the GitLab.com pipelines only work if GitLab.com account used have registered the information of a valid Credit Card.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/gitlab-pipeline-failing-notice.png" alt="gitlab pipeline failing notice">
+</div>
+</div>
+<div class="paragraph">
+<p>If it&#8217;s not the case, the pipeline that is automatically creating the Tab just after merging the Merge Request, will not work and the tag will not be generated automatically, so it&#8217;s needed to generate it manually:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/regular-user-new-tag-1.png" alt="regular user new tag 1">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/regular-user-new-tag-2.png" alt="regular user new tag 2">
+</div>
 </div>
 </li>
 </ol>
