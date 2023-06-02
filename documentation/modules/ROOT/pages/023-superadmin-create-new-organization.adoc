@@ -29,7 +29,26 @@ image::new-project-workflow-2.2.png[]
 
 3. Let's the execution to finish:
 +
-image:new-project-workflow-3.png[]
+image::new-project-workflow-3.png[]
++
+4. Promote the new organization to PRO
++
+4.1 Create a Merge Request to promote the `dev` branch  to the `pro` branch:
++
+image::regular-user-new-mr-to-pro-1.png[]
+image::regular-user-new-mr-to-pro-2.png[]
+image::regular-user-new-mr-to-pro-3.png[]
++
+4.2 Create a Tag at the `pro` branch to deploy the new Organization:
++
+In some cases, the GitLab.com pipelines only work if GitLab.com account used have registered the information of a valid Credit Card.
++
+image::gitlab-pipeline-failing-notice.png[]
++
+If it's not the case, the pipeline that is automatically creating the Tab just after merging the Merge Request, will not work and the tag will not be generated automatically, so it's needed to generate it manually:
++
+image::regular-user-new-tag-1.png[]
+image::regular-user-new-tag-2.png[]
 
 Manually::
 +
