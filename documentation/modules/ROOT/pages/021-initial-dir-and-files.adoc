@@ -19,11 +19,13 @@ An *empty GitLab repository* is required to follow this workshop, which is not p
 [NOTE]
 =======
 
-The creation process for the new repository is not in the scope of the current workshop. For more info see: https://docs.gitlab.com/ee/user/project/repository/[Create a repository on Gitlab.com]
+Take a look at Gitlab official documentation for repository access and configuration due are not under workshop scope. 
 
-To configure SSH access to your GitLab account see: https://docs.gitlab.com/ee/user/ssh.html[Use SSH to communicate with GitLab]
+- https://docs.gitlab.com/ee/user/project/repository/[Create a repository on Gitlab.com]
 
-For the personal access token creation: https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-personal-access-token[Create a personal access token on GitLab]
+- https://docs.gitlab.com/ee/user/ssh.html[Use SSH to communicate with GitLab]
+
+- https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-personal-access-token[Create a personal access token on GitLab]
 =======
 
 == Housekeeping (optional steps)
