@@ -2,23 +2,22 @@ include::_attributes.adoc[]
 
 = Day-0: Create SuperAdmin organization directory structure and initial files
 
-The following lines will show the organization directory structure creation:
+The organization directory should follow below structure:
 
-* *`group_vars`*, which will contain the credentials to reach the Ansible Automation Controller
-* *`orgs_vars`* directory, which will contain all the organization object files.
+* *`group_vars`*: Ansible directory that leverage to initially create and use the credentials to reach the Ansible Automation Controller.
+* *`orgs_vars`*: Directory structure that contains YAML files created to have data models  all the organization object files.
 
 [IMPORTANT]
 ======
-All the steps below are meant to be locally executed from the base directory of the repository.
+Steps below are meant to be locally executed from the base directory of the repository.
 ======
 
 == Pre-Requisites
 
-An *empty GitLab repository* is required to follow this workshop (you are supposed to provide this on your own gitlab account). Additionally, set-up on your gitlab account a new token with `api` scope and configure a ssh key pair to access your account if you haven't already done it.
+An *empty GitLab repository* is required to follow this workshop, which is not provided. Additionally, set-up on your gitlab account a new token with `api` scope and configure a ssh key pair to access your account.
 
 [NOTE]
 =======
-All the files for the repo will be created from scratch and synchronized during this lab.
 
 The creation process for the new repository is not in the scope of the current workshop. For more info see: https://docs.gitlab.com/ee/user/project/repository/[Create a repository on Gitlab.com]
 
