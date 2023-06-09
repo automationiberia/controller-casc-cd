@@ -14,7 +14,11 @@ All the steps below are meant to be locally executed from the base directory of 
 
 == Pre-Requisites
 
-An *empty GitLab repository* is required to follow this workshop (you are supposed to provide this on your own gitlab account). Additionally, set-up on your gitlab account a new token with `api` scope and configure a ssh key pair to access your account if you haven't already done it.
+The only prerequisite to run this lab is an *existing personal GitLab account* where you must:
+
+* Create an *empty GitLab repository* for this workshop
+* Create a new account token with *`api` scope*.
+* Configure a ssh key pair to access your account if you don't already have it.
 
 [NOTE]
 =======
@@ -23,6 +27,18 @@ All the files for the repo will be created from scratch and synchronized during 
 The creation process for the new repository is not in the scope of the current workshop. For more info see: https://docs.gitlab.com/ee/user/project/repository/[Create a repository on Gitlab.com]
 
 To configure SSH access to your GitLab account see: https://docs.gitlab.com/ee/user/ssh.html[Use SSH to communicate with GitLab]
+
+.Example to create a SSH key pair for GitLab:
+[%collapsible]
+======
+[[ssh-key-generation]]Alternatively to using your own existing SSH key...
+
+[.console-input]
+[source,bash]
+----
+ssh-keygen -f id_rsa_gitlab
+----
+======
 
 For the personal access token creation: https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-personal-access-token[Create a personal access token on GitLab]
 =======
@@ -82,18 +98,6 @@ cat > inventory <<EOF
 include::../examples/inventory.ini[]
 EOF
 ----
-
-.Create a SSH key pair for GitLab:
-[%collapsible]
-======
-[[ssh-key-generation]]Alternatively to using your own existing SSH key...
-
-[.console-input]
-[source,bash]
-----
-ssh-keygen -f id_rsa_gitlab
-----
-======
 
 == Create the automation directories structure
 
