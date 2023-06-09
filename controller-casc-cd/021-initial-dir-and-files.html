@@ -249,7 +249,20 @@
 <h2 id="_pre_requisites"><a class="anchor" href="#_pre_requisites"></a>1. Pre-Requisites</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>An <strong>empty GitLab repository</strong> is required to follow this workshop (you are supposed to provide this on your own gitlab account). Additionally, set-up on your gitlab account a new token with <code>api</code> scope and configure a ssh key pair to access your account if you haven&#8217;t already done it.</p>
+<p>The only prerequisite to run this lab is an <strong>existing personal GitLab account</strong> where you must:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Create an <strong>empty GitLab repository</strong> for this workshop</p>
+</li>
+<li>
+<p>Create a new account token with <strong><code>api</code> scope</strong>.</p>
+</li>
+<li>
+<p>Configure a ssh key pair to access your account if you don&#8217;t already have it.</p>
+</li>
+</ul>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -267,6 +280,19 @@
 <div class="paragraph">
 <p>To configure SSH access to your GitLab account see: <a href="https://docs.gitlab.com/ee/user/ssh.html">Use SSH to communicate with GitLab</a></p>
 </div>
+<details>
+<summary class="title">Example to create a SSH key pair for GitLab:</summary>
+<div class="content">
+<div class="paragraph">
+<p><a id="ssh-key-generation"></a>Alternatively to using your own existing SSH key&#8230;&#8203;</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ssh-keygen -f id_rsa_gitlab</code></pre>
+</div>
+</div>
+</div>
+</details>
 <div class="paragraph">
 <p>For the personal access token creation: <a href="https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-personal-access-token">Create a personal access token on GitLab</a></p>
 </div>
@@ -456,19 +482,6 @@ ${CONTROLLER_PRO_HOST}
 EOF</code></pre>
 </div>
 </div>
-<details>
-<summary class="title">Create a SSH key pair for GitLab:</summary>
-<div class="content">
-<div class="paragraph">
-<p><a id="ssh-key-generation"></a>Alternatively to using your own existing SSH key&#8230;&#8203;</p>
-</div>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ssh-keygen -f id_rsa_gitlab</code></pre>
-</div>
-</div>
-</div>
-</details>
 </div>
 </div>
 <div class="sect1">
