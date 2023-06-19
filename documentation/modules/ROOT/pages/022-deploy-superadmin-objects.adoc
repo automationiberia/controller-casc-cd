@@ -97,6 +97,14 @@ image::configure_webhook_launch_params_dev.1.png[]
 .Configure Webhook Params
 image::configure_webhook_launch_params_dev.2.png[]
 +
+[NOTE]
+====
+The parameter `(Workflow) Job Template Name` is something similar to:
+```
+<ORGNAME> dev CasC Ctrl CD Webhook Trigger
+```
+====
++
 After running the Job, the webhook will already be configured at the git repository for the specified organization, which will point to the selected Job Template in the selected Automation Controller.
 +
 .Configure Webhook Result
@@ -146,6 +154,14 @@ image::configure_webhook_launch_params_pro.1.png[]
 +
 .Configure Webhook Params
 image::configure_webhook_launch_params_pro.2.png[]
++
+[NOTE]
+====
+The parameter `(Workflow) Job Template Name` is something similar to:
+```
+<ORGNAME> pro CasC Ctrl CD Webhook Trigger
+```
+====
 +
 After running the Job, the webhook will already be configured at the git repository for the specified organization, which will point to the selected Job Template in the selected Automation Controller.
 +
