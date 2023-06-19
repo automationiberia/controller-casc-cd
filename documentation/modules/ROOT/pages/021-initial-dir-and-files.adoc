@@ -17,6 +17,8 @@ All the steps below are meant to be locally executed from the base directory of 
 The only prerequisite to run this lab is an *existing personal GitLab account* where you must:
 
 * Create an *empty GitLab repository* for this workshop
++
+IMPORTANT: The default branch for that GitLab Repository MUST be the branch `pro`
 * Create a new account token with *`api` scope*.
 * Configure a ssh key pair to access your account if you don't already have it.
 
