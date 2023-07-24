@@ -402,6 +402,7 @@ EOF</code></pre>
 ---
 stages:
   - lint
+  - check
   - prepare
   - release
 
@@ -418,6 +419,22 @@ yamllint:
     - if: '$CI_COMMIT_BRANCH'
   script:
     - yamllint -c ./.yamllint.yml .
+
+check_names:
+  stage: check
+  # variables:
+  #   CI_DEBUG_TRACE: "true"
+  image: xcum2idas010.pre.npro.onpremise.es.bs/ee-casc:latest
+  tags:
+    - casc
+    - controller-group
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH &amp;&amp; $CI_OPEN_MERGE_REQUESTS'
+      when: never
+    - if: '$CI_COMMIT_BRANCH'
+  script:
+    - ansible-playbook check_playbook.yml
 
 generate_tag:
   stage: prepare
