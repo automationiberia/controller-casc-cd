@@ -34,8 +34,8 @@ controller_workflows:
           controller_dev: "${CONTROLLER_DEV_HOST}"
           controller_pro: "${CONTROLLER_PRO_HOST}"
           gitlab_api_url: "https://gitlab.com"
-          gitlab_group: "<CHANGE_ME>"
-          gitlab_subgroup: "<CHANGE_ME>"
+          gitlab_group: ""
+          gitlab_subgroup: ""
           gitlab_project: "dummy"
           gitlab_visibility: "internal"
           gitlab_default_branch: "pro"
@@ -128,7 +128,7 @@ controller_workflows:
           variable: gitlab_group
           min: 0
           max: 1024
-          default: "<CHANGE_ME>"
+          default: ""
           new_question: true
 
         - question_name: GitLab subgroup name
@@ -137,7 +137,7 @@ controller_workflows:
           variable: gitlab_subgroup
           min: 0
           max: 1024
-          default: "<CHANGE_ME>"
+          default: ""
           new_question: true
 
         - question_name: GitLab Project
