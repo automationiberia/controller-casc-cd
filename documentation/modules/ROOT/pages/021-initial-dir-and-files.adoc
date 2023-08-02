@@ -19,7 +19,9 @@ The only prerequisite to run this lab is an *existing personal GitLab account* w
 * Create an *empty GitLab repository* for this workshop
 +
 IMPORTANT: The default branch for that GitLab Repository MUST be the branch `pro`
-* Create a new account token with *`api` scope*.
+* Go to the URL https://gitlab.com/-/profile/personal_access_tokens and create a new personal access token with *`api` scope*:
++
+image::configure_gitlab_personal_access_token.png[]
 * Configure a ssh key pair to access your account if you don't already have it.
 
 [NOTE]
