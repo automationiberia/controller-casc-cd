@@ -21,8 +21,8 @@ All the steps could also be done creating/editing the files directly at the GitL
 [.console-input]
 [source,console,subs="attributes"]
 ----
-export ORGNAME={neworg}
-export GITORG={gitorg}
+read -e -s -p ">>> Organization Name: " ORGNAME
+read -e -s -p ">>> Git Organization URL (SSH)" GITORG
 ----
 
 .The first step is cloning the repository

@@ -57,6 +57,11 @@ Manually::
 To create the new objects, a new git branch is needed, as the branches used to deploy the CasC to the different environments are protected, doesn't accept direct pushes and only accept merges through Pull Requests.
 ====
 +
+[IMPORTANT]
+====
+Make sure that the required environment variables are properly set. See the xref:021-initial-dir-and-files.adoc#_export_all_the_variables_to_be_used_in_the_next_steps[Export all the variables to be used in the next steps]
+====
++
 1. Run the playbook to create the new organization objects
 +
 These new objects can be created manually without any problem, but a playbook is provided to make this easier. It must be executed from the command line (PR are welcome), and is creating all the files with the new objects for us, except the one for the organization's admin user.
@@ -66,7 +71,7 @@ To create the new objects, just run the following command:
 [.console-input]
 [source,console,subs="attributes"]
 ----
-ansible-playbook new_project.yml -e "{organization_name: {neworg}, organization_desc: '{neworg} Organization', instance_groups: [MADRID], admin_user: 'neworgadminuser', orgs_vars: 'orgs_vars', orgs: '$\{SUPERADMIN_ORG\}', env: dev, casc_gitlab_scm_branch: dev}"
+ansible-playbook new_project.yml -e "{organization_name: {neworg}, organization_desc: '{neworg} Organization', instance_groups: [MADRID], admin_user: 'neworgadminuser', orgs_vars: 'orgs_vars', orgs: '$\{SUPERADMIN_ORG\}', env: dev, casc_gitlab_scm_branch: dev} -e@gitlab.credentials.yaml"
 ----
 +
 .See the output

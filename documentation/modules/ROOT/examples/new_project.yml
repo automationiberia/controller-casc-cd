@@ -99,7 +99,7 @@
       ansible.builtin.shell: |
         git config --global user.name "CasC_New_Org"
         git config --global user.email "cascneworg@example.com"
-        git add -A && git commit -m "CasC New Organization Job ID {{ tower_job_id }}: {{ organization_name }} Automated Commit by Ansible  "
+        git add -A && git commit -m "CasC New Organization Job ID {{ tower_job_id | default('MANUAL') }}: {{ organization_name }} Automated Commit by Ansible  "
         git push -o merge_request.create -o merge_request.target="{{ env }}" -o merge_request.title="New Org {{ organization_name }}" -o merge_request.merge_when_pipeline_succeeds
       args:
         chdir: "./checkout"

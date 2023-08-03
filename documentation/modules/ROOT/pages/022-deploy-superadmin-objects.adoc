@@ -17,7 +17,7 @@ read -e -s -p "Enter Vault password: " VAULT_PASSWORD
 echo "${VAULT_PASSWORD}" > .vault_password
 ----
 
-That file may already be ignored in the contents of the `.gitignore`, so it can't be uploaded to the GitLab repository. See the xref:021-initial-dir-and-files.adoc#_housekeeping_optional_steps[Housekeeping Optional Steps]
+That file may already be ignored in the contents of the `.gitignore`, so it can't be uploaded to the GitLab repository. See the xref:021-initial-dir-and-files.adoc#_housekeeping[Housekeeping] section for more information.
 ====
 
 [IMPORTANT]
@@ -25,7 +25,13 @@ That file may already be ignored in the contents of the `.gitignore`, so it can'
 Another important thing to remember is to add the public key part of
 the private key configured at
 `orgs_vars/$\{SUPERADMIN_ORG\}/env/dev/controller_credentials.d/controller_credentials_scm.yml`
-to the GitLab repositories used by the configured projects. See the xref:021-initial-dir-and-files.adoc#_dev_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup[(dev) Source Control Manager and GitLab API Token Credentials will let the Job Templates to connect to the GitLab repository/group]
+to the GitLab repositories used by the configured projects. See the xref:021-initial-dir-and-files.adoc#_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup[(dev) Source Control Manager and GitLab API Token Credentials will let the Job Templates to connect to the GitLab repository/group]
+021-initial-dir-and-files.adoc#_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup
+====
+
+[IMPORTANT]
+====
+Make sure that the required environment variables are properly set. See the xref:021-initial-dir-and-files.adoc#_export_all_the_variables_to_be_used_in_the_next_steps[Export all the variables to be used in the next steps]
 ====
 
 Run the configuration playbook to create the defined objects in the target AAP Controllers, for both DEV and PRO environments, running the following commands:

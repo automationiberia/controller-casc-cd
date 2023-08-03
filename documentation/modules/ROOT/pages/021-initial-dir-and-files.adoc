@@ -9,49 +9,53 @@ The following lines will show the organization directory structure creation:
 
 [IMPORTANT]
 ======
-All the steps below are meant to be locally executed from the base directory of the repository.
+All the steps below are meant to be locally executed from the base directory of the cloned repository.
 ======
 
 == Pre-Requisites
 
 The only prerequisite to run this lab is an *existing personal GitLab account* where you must:
 
-* Create an *empty GitLab repository* for this workshop
+* Create an *empty GitLab repository* for this workshop.
 +
-IMPORTANT: The default branch for that GitLab Repository MUST be the branch `pro`
-* Go to the URL https://gitlab.com/-/profile/personal_access_tokens and create a new personal access token with *`api` scope*:
+IMPORTANT: The name of the repository must be the same as the name of the organization that is being created in the next steps of the lab (see the variable xref:021-initial-dir-and-files.adoc#_export_all_the_variables_to_be_used_in_the_next_steps[`SUPERADMIN_ORG`]).
 +
-image::configure_gitlab_personal_access_token.png[]
-* Configure a ssh key pair to access your account if you don't already have it.
+[IMPORTANT]
+====
+The default branch for that GitLab Repository MUST be the branch `pro`
 
+image::configure_gitlab_default_branch.png[]
+====
++
 [NOTE]
 =======
 All the files for the repo will be created from scratch and synchronized during this lab.
 
 The creation process for the new repository is not in the scope of the current workshop. For more info see: https://docs.gitlab.com/ee/user/project/repository/[Create a repository on Gitlab.com]
+=======
 
-To configure SSH access to your GitLab account see: https://docs.gitlab.com/ee/user/ssh.html[Use SSH to communicate with GitLab]
-
-.Example to create a SSH key pair for GitLab:
-[%collapsible]
-======
-[[ssh-key-generation]]Alternatively to using your own existing SSH key...
-
+* Go to the URL https://gitlab.com/-/profile/personal_access_tokens and create a new personal access token with *`api` scope*:
++
+image::configure_gitlab_personal_access_token.png[]
++
+NOTE: For more information related to the personal access token creation, take a look at https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-personal-access-token[Create a personal access token on GitLab]
+* Configure a ssh key pair to access your empty project with write access:
++
 [.console-input]
 [source,bash]
 ----
 ssh-keygen -f id_rsa_gitlab
 ----
-======
++
+NOTE: Any key type can be used. The possible values are `dsa`, `ecdsa`, `ecdsa-sk`, `ed25519`, `ed25519-sk`, or `rsa`.
++
+image::configure_gitlab_ssh_key.png[]
++
+NOTE: For more information related to configure the SSH access to your GitLab account see: https://docs.gitlab.com/ee/user/ssh.html[Use SSH to communicate with GitLab]
 
-For the personal access token creation: https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-personal-access-token[Create a personal access token on GitLab]
-=======
-
-== Housekeeping (optional steps)
+== Housekeeping
 
 .Create the following `.gitignore` file to avoid accidentally uploading undesired files to the GitLab repository:
-[%collapsible]
-======
 [.console-input]
 [source,console]
 ----
@@ -59,11 +63,8 @@ cat > .gitignore <<EOF
 include::../examples/dot.gitignore[]
 EOF
 ----
-======
 
 .Create the file `.yamllint.yml` to run basic syntax checks:
-[%collapsible]
-======
 [.console-input]
 [source,bash]
 ----
@@ -71,11 +72,8 @@ cat > .yamllint.yml <<EOF
 include::../examples/dot.yamllint.yml[]
 EOF
 ----
-======
 
 .Create the file `.gitlab-ci.yml` to run lintering and create tags+releases when pushes are against the `main` branch:
-[%collapsible]
-======
 [.console-input]
 [source,bash]
 ----
@@ -83,17 +81,25 @@ cat > .gitlab-ci.yml <<'EOF'
 include::../examples/dot.gitlab-ci.yml[]
 EOF
 ----
-======
 
-== Create the ansible inventory file for the environment
+== Export all the variables to be used in the next steps
 
 .#Content with `<CHANGE_ME>` has to be customized#
 [.console-input]
-[source,bash]
+[source,console]
 ----
+export PROJECT_URL_CASC_SETUP='https://github.com/automationiberia/casc_setup.git'
+# Controller hostname/IP (DEV):
 export CONTROLLER_DEV_HOST=<CHANGE_ME>
+# Controller host name/IP(PRO):
 export CONTROLLER_PRO_HOST=<CHANGE_ME>
+# Superadmin organization name:
+export SUPERADMIN_ORG=<CHANGE_ME>
+# Project URL for CasC (SSH format):
+export PROJECT_URL_CASC='<CHANGE_ME>'
 ----
+
+== Create the ansible inventory file for the environment
 
 [.console-input]
 [source,bash]
@@ -111,13 +117,6 @@ We will set the superadmin org name to *'superadmin'* for this workshop.
 ======
 
 ======
-.#Content with `<CHANGE_ME>` has to be customized#
-[.console-input]
-[source,console]
-----
-export SUPERADMIN_ORG=<CHANGE_ME>
-----
-
 [.console-input]
 [source,console]
 ----
@@ -299,13 +298,6 @@ ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials
 [.console-input]
 [source,bash]
 ----
-export AUTOMATIONHUB_HOST=<CHANGE_ME>
-----
-
-.#Content with `<CHANGE_ME>` has to be customized#
-[.console-input]
-[source,bash]
-----
 cat > orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_galaxy.yml <<EOF
 include::../examples/orgs_vars/superadmin/env/dev/controller_credentials.d/controller_credentials_galaxy.yml[]
 EOF
@@ -454,13 +446,6 @@ ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials
 
 ////
 ==== Galaxy Credential will let the Job Templates to connect to the Private Automation Hub and get the required Ansible Collections
-
-.#Content with `<CHANGE_ME>` has to be customized#
-[.console-input]
-[source,bash]
-----
-export AUTOMATIONHUB_HOST=<CHANGE_ME>
-----
 
 .#Content with `<CHANGE_ME>` has to be customized#
 [.console-input]
@@ -642,13 +627,6 @@ EOF
 
 ==== Project to get the CaC related playbooks
 
-.#Content with `<CHANGE_ME>` has to be customized#
-[.console-input]
-[source,bash]
-----
-export PROJECT_URL_CASC='<CHANGE_ME>'
-----
-
 [.console-input]
 [source,bash]
 ----
@@ -658,12 +636,6 @@ EOF
 ----
 
 ==== Project to get the GitLab related playbooks
-
-[.console-input]
-[source,bash]
-----
-export PROJECT_URL_CASC_SETUP='https://github.com/automationiberia/casc_setup.git'
-----
 
 [.console-input]
 [source,bash]
