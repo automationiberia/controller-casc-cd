@@ -351,6 +351,20 @@
 </tr>
 </table>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Make sure that the required environment variables are properly set. See the <a href="021-initial-dir-and-files.html#_export_all_the_variables_to_be_used_in_the_next_steps" class="xref page">Export all the variables to be used in the next steps</a></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -363,7 +377,7 @@
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">ansible-playbook new_project.yml -e "{organization_name: &lt;CHANGE_ME&gt;, organization_desc: '&lt;CHANGE_ME&gt; Organization', instance_groups: [MADRID], admin_user: 'neworgadminuser', orgs_vars: 'orgs_vars', orgs: '${SUPERADMIN_ORG}', env: dev, casc_gitlab_scm_branch: dev}"</code></pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">ansible-playbook new_project.yml -e "{organization_name: &lt;CHANGE_ME&gt;, organization_desc: '&lt;CHANGE_ME&gt; Organization', instance_groups: [MADRID], admin_user: 'neworgadminuser', orgs_vars: 'orgs_vars', orgs: '${SUPERADMIN_ORG}', env: dev, casc_gitlab_scm_branch: dev} -e@gitlab.credentials.yaml"</code></pre>
 </div>
 </div>
 <details>

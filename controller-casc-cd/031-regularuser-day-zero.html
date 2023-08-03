@@ -250,8 +250,8 @@
 <div class="listingblock console-input">
 <div class="title">Export the repository URL <mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">export ORGNAME=&lt;CHANGE_ME&gt;
-export GITORG=git@gitlab.com:&lt;CHANGE_ME&gt;/${ORGNAME}.git</code></pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">read -e -s -p ">>> Organization Name: " ORGNAME
+read -e -s -p ">>> Git Organization URL (SSH)" GITORG</code></pre>
 </div>
 </div>
 <div class="listingblock console-input">

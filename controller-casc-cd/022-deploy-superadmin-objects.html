@@ -241,7 +241,7 @@ echo "${VAULT_PASSWORD}" &gt; .vault_password</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>That file may already be ignored in the contents of the <code>.gitignore</code>, so it can&#8217;t be uploaded to the GitLab repository. See the <a href="021-initial-dir-and-files.html#_housekeeping_optional_steps" class="xref page">Housekeeping Optional Steps</a></p>
+<p>That file may already be ignored in the contents of the <code>.gitignore</code>, so it can&#8217;t be uploaded to the GitLab repository. See the <a href="021-initial-dir-and-files.html#_housekeeping" class="xref page">Housekeeping</a> section for more information.</p>
 </div>
 </td>
 </tr>
@@ -258,7 +258,22 @@ echo "${VAULT_PASSWORD}" &gt; .vault_password</code></pre>
 <p>Another important thing to remember is to add the public key part of
 the private key configured at
 <code>orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_scm.yml</code>
-to the GitLab repositories used by the configured projects. See the <a href="021-initial-dir-and-files.html#_dev_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup" class="xref page">(dev) Source Control Manager and GitLab API Token Credentials will let the Job Templates to connect to the GitLab repository/group</a></p>
+to the GitLab repositories used by the configured projects. See the <a href="021-initial-dir-and-files.html#_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup" class="xref page">(dev) Source Control Manager and GitLab API Token Credentials will let the Job Templates to connect to the GitLab repository/group</a>
+021-initial-dir-and-files.adoc#_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Make sure that the required environment variables are properly set. See the <a href="021-initial-dir-and-files.html#_export_all_the_variables_to_be_used_in_the_next_steps" class="xref page">Export all the variables to be used in the next steps</a></p>
 </div>
 </td>
 </tr>
