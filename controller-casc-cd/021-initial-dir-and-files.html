@@ -86,7 +86,10 @@
     <a class="nav-link" href="#_pre_requisites">Pre-Requisites</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#_housekeeping_optional_steps">Housekeeping (optional steps)</a>
+    <a class="nav-link" href="#_housekeeping">Housekeeping</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#_export_all_the_variables_to_be_used_in_the_next_steps">Export all the variables to be used in the next steps</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="#_create_the_ansible_inventory_file_for_the_environment">Create the ansible inventory file for the environment</a>
@@ -267,7 +270,7 @@ The name of the repository must be the same as the name of the organization that
 </tr>
 </table>
 </div>
-<div class="admonitionblock important">
+<div id="gitlab-default-branch" class="admonitionblock important">
 <table>
 <tr>
 <td class="icon">
@@ -275,7 +278,7 @@ The name of the repository must be the same as the name of the organization that
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The default branch for that GitLab Repository MUST be the branch <code>pro</code></p>
+<p>The default branch for that GitLab Repository MUST be the branch <code>pro</code>. This will be configured in the <a href="#_commit_and_push_the_initial_version_of_cac">next steps of the lab</a>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -297,7 +300,7 @@ The name of the repository must be the same as the name of the organization that
 <p>All the files for the repo will be created from scratch and synchronized during this lab.</p>
 </div>
 <div class="paragraph">
-<p>The creation process for the new repository is not in the scope of the current workshop. For more info see: <a href="https://docs.gitlab.com/ee/user/project/repository/">Create a repository on Gitlab.com</a></p>
+<p>The creation process for the new repository is not in the scope of the current workshop. For more info see: <a href="https://docs.gitlab.com/ee/user/project/repository/" target="_blank" rel="noopener">Create a repository on Gitlab.com</a></p>
 </div>
 </td>
 </tr>
@@ -305,7 +308,7 @@ The name of the repository must be the same as the name of the organization that
 </div>
 </li>
 <li>
-<p>Go to the URL <a href="https://gitlab.com/-/profile/personal_access_tokens" class="bare">https://gitlab.com/-/profile/personal_access_tokens</a> and create a new personal access token with <strong><code>api</code> scope</strong>:</p>
+<p>Go to the URL <a href="https://gitlab.com/-/profile/personal_access_tokens" class="bare" target="_blank" rel="noopener">https://gitlab.com/-/profile/personal_access_tokens</a> and create a new personal access token with <strong><code>api</code> scope</strong>:</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/configure_gitlab_personal_access_token.png" alt="configure gitlab personal access token">
@@ -318,14 +321,26 @@ The name of the repository must be the same as the name of the organization that
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-For more information related to the personal access token creation, take a look at <a href="https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-personal-access-token">Create a personal access token on GitLab</a>
+For more information related to the personal access token creation, take a look at <a href="https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-personal-access-token" target="_blank" rel="noopener">Create a personal access token on GitLab</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Grab the generated personal access token to be used later.
 </td>
 </tr>
 </table>
 </div>
 </li>
 <li>
-<p>Configure a ssh key pair to access your empty project with write access:</p>
+<p><a id="GITLAB_SSH_PUBLIC_KEY"></a>Configure a ssh key pair to access your empty project with write access:</p>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ssh-keygen -f id_rsa_gitlab</code></pre>
@@ -355,7 +370,7 @@ Any key type can be used. The possible values are <code>dsa</code>, <code>ecdsa<
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-For more information related to configure the SSH access to your GitLab account see: <a href="https://docs.gitlab.com/ee/user/ssh.html">Use SSH to communicate with GitLab</a>
+For more information related to configure the SSH access to your GitLab account see: <a href="https://docs.gitlab.com/ee/user/ssh.html" target="_blank" rel="noopener">Use SSH to communicate with GitLab</a>
 </td>
 </tr>
 </table>
@@ -536,15 +551,75 @@ EOF</code></pre>
 <div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">export PROJECT_URL_CASC_SETUP='https://github.com/automationiberia/casc_setup.git'
-# Controller hostname/IP (DEV):
-export CONTROLLER_DEV_HOST=&lt;CHANGE_ME&gt;
-# Controller host name/IP(PRO):
-export CONTROLLER_PRO_HOST=&lt;CHANGE_ME&gt;
-# Superadmin organization name:
-export SUPERADMIN_ORG=&lt;CHANGE_ME&gt;
-# Project URL for CasC (SSH format):
-export PROJECT_URL_CASC='&lt;CHANGE_ME&gt;'</code></pre>
+export CONTROLLER_DEV_HOST='&lt;CHANGE_ME&gt;'
+export CONTROLLER_PRO_HOST='&lt;CHANGE_ME&gt;'
+export SUPERADMIN_ORG='&lt;CHANGE_ME&gt;'
+export PROJECT_URL_CASC='&lt;CHANGE_ME&gt;'
+export SSH_PRIVATE_KEY_FILE='&lt;CHANGE_ME&gt;'
+export GITLAB_USERNAME='&lt;CHANGE_ME&gt;'
+export GITLAB_API_TOKEN='&lt;CHANGE_ME&gt;'
+export GITLAB_EMAIL='&lt;CHANGE_ME&gt;'
+export VAULT_PASSWORD='&lt;CHANGE_ME&gt;'
+export AAP_USER_NAME='&lt;CHANGE_ME&gt;'
+export AAP_USER_PASSWORD='&lt;CHANGE_ME&gt;'
+export AAP_USER_EMAIL='&lt;CHANGE_ME&gt;'
+export AAP_USER_FIRSTNAME='&lt;CHANGE_ME&gt;'
+export AAP_USER_LASTNAME='&lt;CHANGE_ME&gt;'
+export ADMIN_DEV_PASSWORD='&lt;CHANGE_ME&gt;'
+export ADMIN_PRO_PASSWORD='&lt;CHANGE_ME&gt;'</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Where:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>CONTROLLER_DEV_HOST: the hostname or IP address for the Automation Controller server (dev instance)</p>
+</li>
+<li>
+<p>CONTROLLER_PRO_HOST: the hostname or IP address for the Automation Controller server (pro instance)</p>
+</li>
+<li>
+<p>SUPERADMIN_ORG: Superadmin organization name</p>
+</li>
+<li>
+<p>PROJECT_URL_CASC: Project URL for CasC (SSH format)</p>
+</li>
+<li>
+<p>GITLAB_USERNAME: GitLab user name</p>
+</li>
+<li>
+<p>SSH_PRIVATE_KEY_FILE: the private SSH key file that corresponds to the public SSH key attached to your gitlab account (<a href="#GITLAB_SSH_PUBLIC_KEY">see prerequisites</a>).</p>
+</li>
+<li>
+<p>GITLAB_API_TOKEN: The Personal access token to let the New Organization Creation process to work as expected (must be able to create new projects into GitLab).</p>
+</li>
+<li>
+<p>GITLAB_EMAIL: GitLab user email address</p>
+</li>
+<li>
+<p>GITLAB_API_USER: GitLab user name</p>
+</li>
+<li>
+<p>VAULT_PASSWORD: Ansible Vault password</p>
+</li>
+<li>
+<p>AAP_USER_NAME: AAP User name</p>
+</li>
+<li>
+<p>AAP_USER_PASSWORD: AAP User password</p>
+</li>
+<li>
+<p>AAP_USER_EMAIL: APP User email address</p>
+</li>
+<li>
+<p>AAP_USER_FIRSTNAME: APP User first name</p>
+</li>
+<li>
+<p>AAP_USER_LASTNAME: APP User last name</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -640,8 +715,7 @@ EOF</code></pre>
 <div class="listingblock console-input">
 <div class="title">Set the password and the Controller host for the <code>dev</code> environment</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">read -e -s -p "&gt;&gt;&gt; Enter admin password for DEV environment? " ADMIN_DEV_PASSWORD
-cat &gt; group_vars/dev/configure_connection_controller_credentials.yml &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; group_vars/dev/configure_connection_controller_credentials.yml &lt;&lt;EOF
 ---
 vault_controller_password: '${ADMIN_DEV_PASSWORD}'
 vault_controller_hostname: "{{ groups['dev'][0] }}"
@@ -652,8 +726,7 @@ EOF</code></pre>
 <div class="listingblock console-input">
 <div class="title">Set the password and the Controller host for the <code>pro</code> environment</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">read -e -s -p "&gt;&gt;&gt; Enter admin password for PRO environment? " ADMIN_PRO_PASSWORD
-cat &gt; group_vars/pro/configure_connection_controller_credentials.yml &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; group_vars/pro/configure_connection_controller_credentials.yml &lt;&lt;EOF
 ---
 vault_controller_password: '${ADMIN_PRO_PASSWORD}'
 vault_controller_hostname: "{{ groups['pro'][0] }}"
@@ -697,7 +770,7 @@ EOF</code></pre>
 <p>Next, we need some playbooks that allow us to implement the CaC.</p>
 </div>
 <div class="paragraph">
-<p>All this playbooks are available on the repository <a href="https://gitlab.com/automationiberia/aap-cac/superadmin-workshop-template.git">SuperAdmin Workshop Template</a></p>
+<p>All this playbooks are available on the repository <a href="https://gitlab.com/automationiberia/aap-cac/superadmin-workshop-template.git" target="_blank" rel="noopener">SuperAdmin Workshop Template</a></p>
 </div>
 <div class="listingblock console-input">
 <div class="title">Download gitLab repository</div>
@@ -794,7 +867,7 @@ EOF</code></pre>
 </table>
 </div>
 <div class="listingblock console-input">
-<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized with the private ssh key attached to your gitlab account (see prerequisites)</mark></div>
+<div class="title"><mark>Ensure to have exported all the environment variables as described <a href="#_export_all_the_variables_to_be_used_in_the_next_steps">here</a></mark></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_scm.yml &lt;&lt;EOF
 ---
@@ -804,17 +877,15 @@ controller_credentials:
     credential_type: "Source Control"
     organization: "{{ orgs }}"
     inputs:
-      username: "&lt;CHANGE_ME&gt;"
+      username: "${GITLAB_USERNAME}"
       ssh_key_data: |
-        -----BEGIN OPENSSH PRIVATE KEY-----
-        XXXXXXXXX &lt;CHANGE_ME&gt; XXXXXXXXX
-        -----END OPENSSH PRIVATE KEY-----
+$(cat ${SSH_PRIVATE_KEY_FILE} | while read line; do echo "        ${line}"; done)
 ...
 EOF</code></pre>
 </div>
 </div>
 <div class="listingblock console-input">
-<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized with the access token attached to your gitlab account (see prerequisites)</mark></div>
+<div class="title"><mark>Ensure to have exported all the environment variables as described <a href="#_export_all_the_variables_to_be_used_in_the_next_steps">here</a></mark></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_gitlab_api_token.yml &lt;&lt;EOF
 ---
@@ -824,9 +895,9 @@ controller_credentials:
     credential_type: "GitLab API Token"
     organization: "{{ orgs }}"
     inputs:
-      gitlab_token: "&lt;CHANGE_ME&gt;"
-      gitlab_email: "&lt;CHANGE_ME&gt;"
-      gitlab_user: "&lt;CHANGE_ME&gt;"
+      gitlab_token: "${GITLAB_API_TOKEN}"
+      gitlab_email: "${GITLAB_EMAIL}"
+      gitlab_user: "${GITLAB_USERNAME}"
 ...
 EOF</code></pre>
 </div>
@@ -854,7 +925,7 @@ EOF</code></pre>
 <div class="sect3">
 <h4 id="_vault_credentials_will_let_the_job_templates_to_decrypt_the_sensitive_information_from_ansible_vaulted_files"><a class="anchor" href="#_vault_credentials_will_let_the_job_templates_to_decrypt_the_sensitive_information_from_ansible_vaulted_files"></a>8.1.3. Vault Credentials will let the Job Templates to decrypt the sensitive information from <code>ansible-vault</code>ed files</h4>
 <div class="listingblock console-input">
-<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
+<div class="title"><mark>Ensure to have exported all the environment variables as described <a href="#_export_all_the_variables_to_be_used_in_the_next_steps">here</a></mark></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_vault.yml &lt;&lt;EOF
 ---
@@ -864,7 +935,7 @@ controller_credentials:
     credential_type: "Vault"
     organization: "{{ orgs }}"
     inputs:
-      vault_password: "&lt;CHANGE_ME&gt;"
+      vault_password: "${VAULT_PASSWORD}"
 ...
 EOF</code></pre>
 </div>
@@ -914,16 +985,16 @@ EOF</code></pre>
 <div class="sect3">
 <h4 id="_users_that_will_be_administrators_of_the_superadmin_organization"><a class="anchor" href="#_users_that_will_be_administrators_of_the_superadmin_organization"></a>8.1.6. Users that will be administrators of the superadmin organization</h4>
 <div class="listingblock console-input">
-<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
+<div class="title"><mark>Ensure to have exported all the environment variables as described <a href="#_export_all_the_variables_to_be_used_in_the_next_steps">here</a></mark></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_users.d/controller_user_accounts.yml &lt;&lt;EOF
 ---
 controller_user_accounts:
-  - username: "&lt;CHANGE_ME&gt;"
-    password: "&lt;CHANGE_ME&gt;"
-    email: "&lt;CHANGE_ME&gt;"
-    firstname: "&lt;CHANGE_ME&gt;"
-    lastname: "&lt;CHANGE_ME&gt;"
+  - username: "${AAP_USER_NAME}"
+    password: "${AAP_USER_PASSWORD}"
+    email: "${AAP_USER_EMAIL}"
+    firstname: "${AAP_USER_FIRSTNAME}"
+    lastname: "${AAP_USER_LASTNAME}"
     is_auditor: False
     is_superuser: True
     update_secrets: False
@@ -1008,7 +1079,7 @@ EOF</code></pre>
 </table>
 </div>
 <div class="listingblock console-input">
-<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized with the private ssh key attached to your gitlab account (see prerequisites)</mark></div>
+<div class="title"><mark>Ensure to have exported all the environment variables as described <a href="#_export_all_the_variables_to_be_used_in_the_next_steps">here</a></mark></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/controller_credentials_scm.yml &lt;&lt;EOF
 ---
@@ -1018,17 +1089,15 @@ controller_credentials:
     credential_type: "Source Control"
     organization: "{{ orgs }}"
     inputs:
-      username: "&lt;CHANGE_ME&gt;"
+      username: "${GITLAB_USERNAME}"
       ssh_key_data: |
-        -----BEGIN OPENSSH PRIVATE KEY-----
-        XXXXXXXXX &lt;CHANGE_ME&gt; XXXXXXXXX
-        -----END OPENSSH PRIVATE KEY-----
+$(cat ${SSH_PRIVATE_KEY_FILE} | while read line; do echo "        ${line}"; done)
 ...
 EOF</code></pre>
 </div>
 </div>
 <div class="listingblock console-input">
-<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized with the access token attached to your gitlab account (see prerequisites)</mark></div>
+<div class="title"><mark>Ensure to have exported all the environment variables as described <a href="#_export_all_the_variables_to_be_used_in_the_next_steps">here</a></mark></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/controller_credentials_gitlab_api_token.yml &lt;&lt;EOF
 ---
@@ -1038,9 +1107,9 @@ controller_credentials:
     credential_type: "GitLab API Token"
     organization: "{{ orgs }}"
     inputs:
-      gitlab_token: "&lt;CHANGE_ME&gt;"
-      gitlab_email: "&lt;CHANGE_ME&gt;"
-      gitlab_user: "&lt;CHANGE_ME&gt;"
+      gitlab_token: "${GITLAB_API_TOKEN}"
+      gitlab_email: "${GITLAB_EMAIL}"
+      gitlab_user: "${GITLAB_USERNAME}"
 ...
 EOF</code></pre>
 </div>
@@ -1068,7 +1137,7 @@ EOF</code></pre>
 <div class="sect3">
 <h4 id="_vault_credentials_will_let_the_job_templates_to_decrypt_the_sensitive_information_from_ansible_vaulted_files_2"><a class="anchor" href="#_vault_credentials_will_let_the_job_templates_to_decrypt_the_sensitive_information_from_ansible_vaulted_files_2"></a>8.2.3. Vault Credentials will let the Job Templates to decrypt the sensitive information from <code>ansible-vault</code>ed files</h4>
 <div class="listingblock console-input">
-<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
+<div class="title"><mark>Ensure to have exported all the environment variables as described <a href="#_export_all_the_variables_to_be_used_in_the_next_steps">here</a></mark></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/controller_credentials_vault.yml &lt;&lt;EOF
 ---
@@ -1078,7 +1147,7 @@ controller_credentials:
     credential_type: "Vault"
     organization: "{{ orgs }}"
     inputs:
-      vault_password: "&lt;CHANGE_ME&gt;"
+      vault_password: "${VAULT_PASSWORD}"
 ...
 EOF</code></pre>
 </div>
@@ -1128,16 +1197,16 @@ EOF</code></pre>
 <div class="sect3">
 <h4 id="_users_that_will_be_administrators_of_the_superadmin_organization_2"><a class="anchor" href="#_users_that_will_be_administrators_of_the_superadmin_organization_2"></a>8.2.6. Users that will be administrators of the superadmin organization</h4>
 <div class="listingblock console-input">
-<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
+<div class="title"><mark>Ensure to have exported all the environment variables as described <a href="#_export_all_the_variables_to_be_used_in_the_next_steps">here</a></mark></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_users.d/controller_user_accounts.yml &lt;&lt;EOF
 ---
 controller_user_accounts:
-  - username: "&lt;CHANGE_ME&gt;"
-    password: "&lt;CHANGE_ME&gt;"
-    email: "&lt;CHANGE_ME&gt;"
-    firstname: "&lt;CHANGE_ME&gt;"
-    lastname: "&lt;CHANGE_ME&gt;"
+  - username: "${AAP_USER_NAME}"
+    password: "${AAP_USER_PASSWORD}"
+    email: "${AAP_USER_EMAIL}"
+    firstname: "${AAP_USER_FIRSTNAME}"
+    lastname: "${AAP_USER_LASTNAME}"
     is_auditor: False
     is_superuser: True
     update_secrets: False
@@ -1330,8 +1399,20 @@ EOF</code></pre>
 </div>
 <div class="sect3">
 <h4 id="_job_template_to_create_new_gitlab_repositories_when_creating_additional_organizations"><a class="anchor" href="#_job_template_to_create_new_gitlab_repositories_when_creating_additional_organizations"></a>8.3.7. Job Template to create new GitLab repositories when creating additional organizations</h4>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+If groups and sub_groups are in use in GitLab, they must be configured here accordingly.
+</td>
+</tr>
+</table>
+</div>
 <div class="listingblock console-input">
-<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
+<div class="title"><mark>Ensure to have exported all the environment variables as described <a href="#_export_all_the_variables_to_be_used_in_the_next_steps">here</a></mark></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-gitlab/controller_jt_casc_gitlab_project_creation.yml &lt;&lt;EOF
 ---
@@ -1466,8 +1547,20 @@ EOF</code></pre>
 </div>
 <div class="sect3">
 <h4 id="_job_template_to_configure_the_gitlab_webhooks_for_each_organizations_repository_to_apply_the_cac"><a class="anchor" href="#_job_template_to_configure_the_gitlab_webhooks_for_each_organizations_repository_to_apply_the_cac"></a>8.3.8. Job Template to configure the GitLab webhooks for each organization&#8217;s repository to apply the CaC</h4>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+If groups and sub_groups are in use in GitLab, they must be configured here accordingly.
+</td>
+</tr>
+</table>
+</div>
 <div class="listingblock console-input">
-<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
+<div class="title"><mark>Ensure to have exported all the environment variables as described <a href="#_export_all_the_variables_to_be_used_in_the_next_steps">here</a></mark></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-gitlab/controller_jt_casc_gitlab_webhook.yml &lt;&lt;EOF
 ---
@@ -1715,8 +1808,20 @@ EOF</code></pre>
 </div>
 <div class="sect3">
 <h4 id="_workflow_job_template_to_create_all_the_components_of_a_new_regular_organization"><a class="anchor" href="#_workflow_job_template_to_create_all_the_components_of_a_new_regular_organization"></a>8.3.13. Workflow Job Template to create all the components of a new regular organization</h4>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+If groups and sub_groups are in use in GitLab, they must be configured here accordingly.
+</td>
+</tr>
+</table>
+</div>
 <div class="listingblock console-input">
-<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
+<div class="title"><mark>Ensure to have exported all the environment variables as described <a href="#_export_all_the_variables_to_be_used_in_the_next_steps">here</a></mark></div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_workflow_job_templates.d/controller_workflow_job_templates.yml &lt;&lt;EOF
 ---
@@ -1933,8 +2038,10 @@ EOF</code></pre>
 git add .
 git branch -m dev
 git remote add origin ${PROJECT_URL_CASC}
-git commit -m "Initial commit"
+git config user.email "${GITLAB_EMAIL}"
+git config user.name "${GITLAB_USERNAME}"
 git config core.sshCommand "ssh -i $PWD/id_rsa_gitlab"
+git commit -m "Initial commit"
 git push -u origin dev
 git checkout -b pro
 git push -u origin pro</code></pre>
@@ -1948,7 +2055,21 @@ git push -u origin pro</code></pre>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The previous commands are configuring the local Git repository to connect to the Gitlab server using the SSH private Key file generated at <a href="#ssh-key-generation">Create a SSH key pair for GitLab</a></p>
+<p>The previous commands are configuring the local Git repository to connect to the Gitlab server using the SSH private Key file generated at <a href="#GITLAB_SSH_PUBLIC_KEY">Create a SSH key pair for GitLab</a></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>At this point, the GitLab repository can be configured to have the branch <code>pro</code> as the default one, as described <a href="#gitlab-default-branch">here</a></p>
 </div>
 </td>
 </tr>
@@ -1973,7 +2094,7 @@ git push -u origin pro</code></pre>
 <div id="footnotes">
 <hr>
 <div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. <a href="https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html" class="bare">https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html</a>
+<a href="#_footnoteref_1">1</a>. <a href="https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html" class="bare" target="_blank" rel="noopener">https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html</a>
 </div>
 </div>
 <nav class="pagination">
