@@ -5,7 +5,8 @@
 * 2. CasC setup part 1 (to be executed by a controller admin user)
 ** DayZero
 *** xref:021-initial-dir-and-files.adoc#_pre_requisites[Pre-Requisites]
-*** xref:021-initial-dir-and-files.adoc#_housekeeping_optional_steps[Housekeeping (optional steps)]
+*** xref:021-initial-dir-and-files.adoc#_housekeeping[Housekeeping]
+*** xref:021-initial-dir-and-files.adoc#_export_all_the_variables_to_be_used_in_the_next_steps[Export all the variables to be used in the next steps]
 *** xref:021-initial-dir-and-files.adoc#_create_the_ansible_inventory_file_for_the_environment[Create the ansible inventory file for the environment]
 *** xref:021-initial-dir-and-files.adoc#_create_the_automation_directories_structure[Create the automation directories structure]
 *** xref:021-initial-dir-and-files.adoc#_configure_ansible_connection_to_the_aap_controllers_common_and_per_environment_variables[Configure ansible connection to the AAP Controllers (common and per environment variables)]

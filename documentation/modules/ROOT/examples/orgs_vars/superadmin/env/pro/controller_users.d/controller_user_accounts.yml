@@ -1,10 +1,10 @@
 ---
 controller_user_accounts:
-  - username: "<CHANGE_ME>"
-    password: "<CHANGE_ME>"
-    email: "<CHANGE_ME>"
-    firstname: "<CHANGE_ME>"
-    lastname: "<CHANGE_ME>"
+  - username: "${AAP_USER_NAME}"
+    password: "${AAP_USER_PASSWORD}"
+    email: "${AAP_USER_EMAIL}"
+    firstname: "${AAP_USER_FIRSTNAME}"
+    lastname: "${AAP_USER_LASTNAME}"
     is_auditor: False
     is_superuser: True
     update_secrets: False
