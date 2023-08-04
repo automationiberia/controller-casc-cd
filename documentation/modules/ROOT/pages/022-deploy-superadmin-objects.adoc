@@ -13,7 +13,6 @@ In order to be able to run the playbooks from the command line using `ansible-na
 [.console-input]
 [source,bash]
 ----
-read -e -s -p "Enter Vault password: " VAULT_PASSWORD
 echo "${VAULT_PASSWORD}" > .vault_password
 ----
 

@@ -20,9 +20,10 @@ The only prerequisite to run this lab is an *existing personal GitLab account* w
 +
 IMPORTANT: The name of the repository must be the same as the name of the organization that is being created in the next steps of the lab (see the variable xref:021-initial-dir-and-files.adoc#_export_all_the_variables_to_be_used_in_the_next_steps[`SUPERADMIN_ORG`]).
 +
+[#gitlab-default-branch]
 [IMPORTANT]
 ====
-The default branch for that GitLab Repository MUST be the branch `pro`
+The default branch for that GitLab Repository MUST be the branch `pro`. This will be configured in the xref:021-initial-dir-and-files.adoc#_commit_and_push_the_initial_version_of_cac[next steps of the lab].
 
 image::configure_gitlab_default_branch.png[]
 ====
@@ -31,15 +32,17 @@ image::configure_gitlab_default_branch.png[]
 =======
 All the files for the repo will be created from scratch and synchronized during this lab.
 
-The creation process for the new repository is not in the scope of the current workshop. For more info see: https://docs.gitlab.com/ee/user/project/repository/[Create a repository on Gitlab.com]
+The creation process for the new repository is not in the scope of the current workshop. For more info see: https://docs.gitlab.com/ee/user/project/repository/[Create a repository on Gitlab.com,window=_blank]
 =======
 
-* Go to the URL https://gitlab.com/-/profile/personal_access_tokens and create a new personal access token with *`api` scope*:
+* Go to the URL https://gitlab.com/-/profile/personal_access_tokens[window=_blank] and create a new personal access token with *`api` scope*:
 +
 image::configure_gitlab_personal_access_token.png[]
 +
-NOTE: For more information related to the personal access token creation, take a look at https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-personal-access-token[Create a personal access token on GitLab]
-* Configure a ssh key pair to access your empty project with write access:
+NOTE: For more information related to the personal access token creation, take a look at https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-personal-access-token[Create a personal access token on GitLab,window=_blank]
++
+IMPORTANT: Grab the generated personal access token to be used later.
+* [[GITLAB_SSH_PUBLIC_KEY]]Configure a ssh key pair to access your empty project with write access:
 +
 [.console-input]
 [source,bash]
@@ -51,7 +54,7 @@ NOTE: Any key type can be used. The possible values are `dsa`, `ecdsa`, `ecdsa-s
 +
 image::configure_gitlab_ssh_key.png[]
 +
-NOTE: For more information related to configure the SSH access to your GitLab account see: https://docs.gitlab.com/ee/user/ssh.html[Use SSH to communicate with GitLab]
+NOTE: For more information related to configure the SSH access to your GitLab account see: https://docs.gitlab.com/ee/user/ssh.html[Use SSH to communicate with GitLab,window=_blank]
 
 == Housekeeping
 
@@ -89,15 +92,41 @@ EOF
 [source,console]
 ----
 export PROJECT_URL_CASC_SETUP='https://github.com/automationiberia/casc_setup.git'
-# Controller hostname/IP (DEV):
-export CONTROLLER_DEV_HOST=<CHANGE_ME>
-# Controller host name/IP(PRO):
-export CONTROLLER_PRO_HOST=<CHANGE_ME>
-# Superadmin organization name:
-export SUPERADMIN_ORG=<CHANGE_ME>
-# Project URL for CasC (SSH format):
+export CONTROLLER_DEV_HOST='<CHANGE_ME>'
+export CONTROLLER_PRO_HOST='<CHANGE_ME>'
+export SUPERADMIN_ORG='<CHANGE_ME>'
 export PROJECT_URL_CASC='<CHANGE_ME>'
+export SSH_PRIVATE_KEY_FILE='<CHANGE_ME>'
+export GITLAB_USERNAME='<CHANGE_ME>'
+export GITLAB_API_TOKEN='<CHANGE_ME>'
+export GITLAB_EMAIL='<CHANGE_ME>'
+export VAULT_PASSWORD='<CHANGE_ME>'
+export AAP_USER_NAME='<CHANGE_ME>'
+export AAP_USER_PASSWORD='<CHANGE_ME>'
+export AAP_USER_EMAIL='<CHANGE_ME>'
+export AAP_USER_FIRSTNAME='<CHANGE_ME>'
+export AAP_USER_LASTNAME='<CHANGE_ME>'
+export ADMIN_DEV_PASSWORD='<CHANGE_ME>'
+export ADMIN_PRO_PASSWORD='<CHANGE_ME>'
 ----
+
+Where:
+
+* CONTROLLER_DEV_HOST: the hostname or IP address for the Automation Controller server (dev instance)
+* CONTROLLER_PRO_HOST: the hostname or IP address for the Automation Controller server (pro instance)
+* SUPERADMIN_ORG: Superadmin organization name
+* PROJECT_URL_CASC: Project URL for CasC (SSH format)
+* GITLAB_USERNAME: GitLab user name
+* SSH_PRIVATE_KEY_FILE: the private SSH key file that corresponds to the public SSH key attached to your gitlab account (<<GITLAB_SSH_PUBLIC_KEY,see prerequisites>>).
+* GITLAB_API_TOKEN: The Personal access token to let the New Organization Creation process to work as expected (must be able to create new projects into GitLab).
+* GITLAB_EMAIL: GitLab user email address
+* GITLAB_API_USER: GitLab user name
+* VAULT_PASSWORD: Ansible Vault password
+* AAP_USER_NAME: AAP User name
+* AAP_USER_PASSWORD: AAP User password
+* AAP_USER_EMAIL: APP User email address
+* AAP_USER_FIRSTNAME: APP User first name
+* AAP_USER_LASTNAME: APP User last name
 
 == Create the ansible inventory file for the environment
 
@@ -140,7 +169,7 @@ touch orgs_vars/${SUPERADMIN_ORG}/env/common/controller_{schedules.d/app-casc,wo
 
 == Configure ansible connection to the AAP Controllers (common and per environment variables)
 
-Initial configuration files must be created. First of all, the connection credentials to the controller are needed. They will be created under the `group_vars` directory as it will differ from one environment to another, and Ansible provides this method for the implementationfootnote:[https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html].
+Initial configuration files must be created. First of all, the connection credentials to the controller are needed. They will be created under the `group_vars` directory as it will differ from one environment to another, and Ansible provides this method for the implementationfootnote:[https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html[window=_blank]].
 
 [IMPORTANT]
 ======
@@ -161,7 +190,6 @@ EOF
 [.console-input]
 [source,bash]
 ----
-read -e -s -p ">>> Enter admin password for DEV environment? " ADMIN_DEV_PASSWORD
 cat > group_vars/dev/configure_connection_controller_credentials.yml <<EOF
 include::../examples/group_vars/dev/configure_connection_controller_credentials.yml[]
 EOF
@@ -171,7 +199,6 @@ EOF
 [.console-input]
 [source,bash]
 ----
-read -e -s -p ">>> Enter admin password for PRO environment? " ADMIN_PRO_PASSWORD
 cat > group_vars/pro/configure_connection_controller_credentials.yml <<EOF
 include::../examples/group_vars/pro/configure_connection_controller_credentials.yml[]
 EOF
@@ -198,7 +225,7 @@ You can also use the file `.vault-password` excluded from git together with the 
 
 Next, we need some playbooks that allow us to implement the CaC.
 
-All this playbooks are available on the repository https://gitlab.com/automationiberia/aap-cac/superadmin-workshop-template.git[SuperAdmin Workshop Template]
+All this playbooks are available on the repository https://gitlab.com/automationiberia/aap-cac/superadmin-workshop-template.git[SuperAdmin Workshop Template,window=_blank]
 
 .Download gitLab repository
 [.console-input]
@@ -243,7 +270,7 @@ Two distinct accesses to GitLab are required for the automation:
 See prerequisites on how to create the ssh access and personal token at the beginning of this page.
 ======
 
-.#Content with `<CHANGE_ME>` has to be customized with the private ssh key attached to your gitlab account (see prerequisites)#
+.#Ensure to have exported all the environment variables as described xref:021-initial-dir-and-files.adoc#_export_all_the_variables_to_be_used_in_the_next_steps[here]#
 [.console-input]
 [source,bash]
 ----
@@ -252,7 +279,7 @@ include::../examples/orgs_vars/superadmin/env/dev/controller_credentials.d/contr
 EOF
 ----
 
-.#Content with `<CHANGE_ME>` has to be customized with the access token attached to your gitlab account (see prerequisites)#
+.#Ensure to have exported all the environment variables as described xref:021-initial-dir-and-files.adoc#_export_all_the_variables_to_be_used_in_the_next_steps[here]#
 [.console-input]
 [source,bash]
 ----
@@ -274,7 +301,7 @@ ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials
 
 ==== Vault Credentials will let the Job Templates to decrypt the sensitive information from ``ansible-vault``ed files
 
-.#Content with `<CHANGE_ME>` has to be customized#
+.#Ensure to have exported all the environment variables as described xref:021-initial-dir-and-files.adoc#_export_all_the_variables_to_be_used_in_the_next_steps[here]#
 [.console-input]
 [source,bash]
 ----
@@ -352,7 +379,7 @@ EOF
 
 ==== Users that will be administrators of the superadmin organization
 
-.#Content with `<CHANGE_ME>` has to be customized#
+.#Ensure to have exported all the environment variables as described xref:021-initial-dir-and-files.adoc#_export_all_the_variables_to_be_used_in_the_next_steps[here]#
 [.console-input]
 [source,bash]
 ----
@@ -396,7 +423,7 @@ Two distinct accesses to GitLab are required for the automation:
 See prerequisites on how to create the ssh access and personal token at the beginning of this page.
 ======
 
-.#Content with `<CHANGE_ME>` has to be customized with the private ssh key attached to your gitlab account (see prerequisites)#
+.#Ensure to have exported all the environment variables as described xref:021-initial-dir-and-files.adoc#_export_all_the_variables_to_be_used_in_the_next_steps[here]#
 [.console-input]
 [source,bash]
 ----
@@ -405,7 +432,7 @@ include::../examples/orgs_vars/superadmin/env/pro/controller_credentials.d/contr
 EOF
 ----
 
-.#Content with `<CHANGE_ME>` has to be customized with the access token attached to your gitlab account (see prerequisites)#
+.#Ensure to have exported all the environment variables as described xref:021-initial-dir-and-files.adoc#_export_all_the_variables_to_be_used_in_the_next_steps[here]#
 [.console-input]
 [source,bash]
 ----
@@ -427,7 +454,8 @@ ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials
 
 ==== Vault Credentials will let the Job Templates to decrypt the sensitive information from ``ansible-vault``ed files
 
-.#Content with `<CHANGE_ME>` has to be customized#
+
+.#Ensure to have exported all the environment variables as described xref:021-initial-dir-and-files.adoc#_export_all_the_variables_to_be_used_in_the_next_steps[here]#
 [.console-input]
 [source,bash]
 ----
@@ -505,7 +533,7 @@ EOF
 
 ==== Users that will be administrators of the superadmin organization
 
-.#Content with `<CHANGE_ME>` has to be customized#
+.#Ensure to have exported all the environment variables as described xref:021-initial-dir-and-files.adoc#_export_all_the_variables_to_be_used_in_the_next_steps[here]#
 [.console-input]
 [source,bash]
 ----
@@ -585,7 +613,9 @@ EOF
 
 ==== Job Template to create new GitLab repositories when creating additional organizations
 
-.#Content with `<CHANGE_ME>` has to be customized#
+IMPORTANT: If groups and sub_groups are in use in GitLab, they must be configured here accordingly.
+
+.#Ensure to have exported all the environment variables as described xref:021-initial-dir-and-files.adoc#_export_all_the_variables_to_be_used_in_the_next_steps[here]#
 [.console-input]
 [source,bash]
 ----
@@ -596,7 +626,9 @@ EOF
 
 ==== Job Template to configure the GitLab webhooks for each organization's repository to apply the CaC
 
-.#Content with `<CHANGE_ME>` has to be customized#
+IMPORTANT: If groups and sub_groups are in use in GitLab, they must be configured here accordingly.
+
+.#Ensure to have exported all the environment variables as described xref:021-initial-dir-and-files.adoc#_export_all_the_variables_to_be_used_in_the_next_steps[here]#
 [.console-input]
 [source,bash]
 ----
@@ -647,7 +679,9 @@ EOF
 
 ==== Workflow Job Template to create all the components of a new regular organization
 
-.#Content with `<CHANGE_ME>` has to be customized#
+IMPORTANT: If groups and sub_groups are in use in GitLab, they must be configured here accordingly.
+
+.#Ensure to have exported all the environment variables as described xref:021-initial-dir-and-files.adoc#_export_all_the_variables_to_be_used_in_the_next_steps[here]#
 [.console-input]
 [source,bash]
 ----
@@ -667,8 +701,10 @@ git init .
 git add .
 git branch -m dev
 git remote add origin ${PROJECT_URL_CASC}
-git commit -m "Initial commit"
+git config user.email "${GITLAB_EMAIL}"
+git config user.name "${GITLAB_USERNAME}"
 git config core.sshCommand "ssh -i $PWD/id_rsa_gitlab"
+git commit -m "Initial commit"
 git push -u origin dev
 git checkout -b pro
 git push -u origin pro
@@ -676,8 +712,13 @@ git push -u origin pro
 
 [NOTE]
 ====
-The previous commands are configuring the local Git repository to connect to the Gitlab server using the SSH private Key file generated at <<ssh-key-generation, Create a SSH key pair for GitLab>>
+The previous commands are configuring the local Git repository to connect to the Gitlab server using the SSH private Key file generated at <<GITLAB_SSH_PUBLIC_KEY, Create a SSH key pair for GitLab>>
 ====
+
+[IMPORTANT]
+======
+At this point, the GitLab repository can be configured to have the branch `pro` as the default one, as described <<gitlab-default-branch,here>>
+======
 
 [TIP]
 ======
