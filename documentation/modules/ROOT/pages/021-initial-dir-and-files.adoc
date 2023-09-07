@@ -20,14 +20,6 @@ The only prerequisite to run this lab is an *existing personal GitLab account* w
 +
 IMPORTANT: The name of the repository must be the same as the name of the organization that is being created in the next steps of the lab (see the variable xref:021-initial-dir-and-files.adoc#_export_all_the_variables_to_be_used_in_the_next_steps[`SUPERADMIN_ORG`]).
 +
-[#gitlab-default-branch]
-[IMPORTANT]
-====
-The default branch for that GitLab Repository MUST be the branch `pro`. This will be configured in the xref:021-initial-dir-and-files.adoc#_commit_and_push_the_initial_version_of_cac[next steps of the lab].
-
-image::configure_gitlab_default_branch.png[]
-====
-+
 [NOTE]
 =======
 All the files for the repo will be created from scratch and synchronized during this lab.
@@ -57,6 +49,13 @@ image::configure_gitlab_ssh_key.png[]
 NOTE: For more information related to configure the SSH access to your GitLab account see: https://docs.gitlab.com/ee/user/ssh.html[Use SSH to communicate with GitLab,window=_blank]
 
 == Housekeeping
+
+.Create a new empty directory to start filling the project
+[.console-input]
+[source,console]
+----
+mkdir "${SUPERADMIN_ORG}" && cd "${SUPERADMIN_ORG}"
+----
 
 .Create the following `.gitignore` file to avoid accidentally uploading undesired files to the GitLab repository:
 [.console-input]
@@ -140,11 +139,6 @@ EOF
 
 == Create the automation directories structure
 
-[NOTE]
-======
-We will set the superadmin org name to *'superadmin'* for this workshop.
-======
-
 ======
 [.console-input]
 [source,console]
@@ -166,6 +160,16 @@ mkdir -p orgs_vars/${SUPERADMIN_ORG}/env/common/controller_{schedules.d/app-casc
 touch orgs_vars/${SUPERADMIN_ORG}/env/common/controller_{schedules.d/app-casc,workflow_job_templates.d/app-casc,job_templates.d/app-casc,job_templates.d/app-gitlab,projects.d/app-casc,projects.d/app-gitlab,teams.d,credential_types.d/app-casc,roles.d,inventories.d/app-casc,organizations.d/app-casc,credentials.d,groups.d/app-casc}/.gitkeep
 ----
 ======
+
+In order to be able to run the playbooks from the command line using `ansible-navigator` and to make the file encryption process easier, the file `.vault_password` is needed and must contain the vault password to decrypt the vaulted files:
+
+[.console-input]
+[source,bash]
+----
+echo "${VAULT_PASSWORD}" > .vault_password
+----
+
+That file may already be ignored in the contents of the `.gitignore`, so it can't be uploaded to the GitLab repository. See the xref:021-initial-dir-and-files.adoc#_housekeeping[Housekeeping] section for more information.
 
 == Configure ansible connection to the AAP Controllers (common and per environment variables)
 
@@ -208,7 +212,7 @@ EOF
 [.console-input]
 [source,console]
 ----
-ansible-vault encrypt \
+ansible-vault encrypt --vault-password-file .vault_password \
   group_vars/dev/configure_connection_controller_credentials.yml \
   group_vars/pro/configure_connection_controller_credentials.yml
 ----
@@ -296,7 +300,7 @@ These files should be encrypted as they contains the private key and a token tha
 [.console-input]
 [source,bash]
 ----
-ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/{controller_credentials_scm.yml,controller_credentials_gitlab_api_token.yml}
+ansible-vault encrypt --vault-password-file .vault_password orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/{controller_credentials_scm.yml,controller_credentials_gitlab_api_token.yml}
 ----
 
 ==== Vault Credentials will let the Job Templates to decrypt the sensitive information from ``ansible-vault``ed files
@@ -315,7 +319,7 @@ Encrypt the file in the same way as before:
 [.console-input]
 [source,bash]
 ----
-ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_vault.yml
+ansible-vault encrypt --vault-password-file .vault_password orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_vault.yml
 ----
 
 ////
@@ -335,7 +339,7 @@ Encrypt the file in the same way as before:
 [.console-input]
 [source,bash]
 ----
-ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_galaxy.yml
+ansible-vault encrypt --vault-password-file .vault_password orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_galaxy.yml
 ----
 
 ==== Registry Credential will let the Job Templates to connect to the Private Automation Hub and get the required Execution Environments
@@ -354,7 +358,7 @@ Encrypt the file in the same way as before:
 [.console-input]
 [source,bash]
 ----
-ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_registry.yml
+ansible-vault encrypt --vault-password-file .vault_password orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_registry.yml
 ----
 ////
 ==== Execution Environments to be used by the Job Templates
@@ -393,7 +397,7 @@ This file should be encrypted as it contains the password of the superadmin user
 [.console-input]
 [source,bash]
 ----
-ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_users.d/controller_user_accounts.yml
+ansible-vault encrypt --vault-password-file .vault_password orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_users.d/controller_user_accounts.yml
 ----
 
 === PRO environment
@@ -449,7 +453,7 @@ These files should be encrypted as they contains the private key and a token tha
 [.console-input]
 [source,bash]
 ----
-ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/{controller_credentials_scm.yml,controller_credentials_gitlab_api_token.yml}
+ansible-vault encrypt --vault-password-file .vault_password orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/{controller_credentials_scm.yml,controller_credentials_gitlab_api_token.yml}
 ----
 
 ==== Vault Credentials will let the Job Templates to decrypt the sensitive information from ``ansible-vault``ed files
@@ -469,7 +473,7 @@ Encrypt the file in the same way as before:
 [.console-input]
 [source,bash]
 ----
-ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/controller_credentials_vault.yml
+ansible-vault encrypt --vault-password-file .vault_password orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/controller_credentials_vault.yml
 ----
 
 ////
@@ -489,7 +493,7 @@ Encrypt the file in the same way as before:
 [.console-input]
 [source,bash]
 ----
-ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/controller_credentials_galaxy.yml
+ansible-vault encrypt --vault-password-file .vault_password orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/controller_credentials_galaxy.yml
 ----
 
 ==== Registry Credential will let the Job Templates to connect to the Private Automation Hub and get the required Execution Environments
@@ -508,7 +512,7 @@ Encrypt the file in the same way as before:
 [.console-input]
 [source,bash]
 ----
-ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/controller_credentials_registry.yml
+ansible-vault encrypt --vault-password-file .vault_password orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/controller_credentials_registry.yml
 ----
 ////
 ==== Execution Environments to be used by the Job Templates
@@ -547,7 +551,7 @@ This file should be encrypted as it contains the password of the superadmin user
 [.console-input]
 [source,bash]
 ----
-ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_users.d/controller_user_accounts.yml
+ansible-vault encrypt --vault-password-file .vault_password orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_users.d/controller_user_accounts.yml
 ----
 
 === Common to dev and pro environments
@@ -703,7 +707,7 @@ git branch -m dev
 git remote add origin ${PROJECT_URL_CASC}
 git config user.email "${GITLAB_EMAIL}"
 git config user.name "${GITLAB_USERNAME}"
-git config core.sshCommand "ssh -i $PWD/id_rsa_gitlab"
+git config core.sshCommand "ssh -i ${SSH_PRIVATE_KEY_FILE}"
 git commit -m "Initial commit"
 git push -u origin dev
 git checkout -b pro
@@ -715,12 +719,19 @@ git push -u origin pro
 The previous commands are configuring the local Git repository to connect to the Gitlab server using the SSH private Key file generated at <<GITLAB_SSH_PUBLIC_KEY, Create a SSH key pair for GitLab>>
 ====
 
-[IMPORTANT]
-======
-At this point, the GitLab repository can be configured to have the branch `pro` as the default one, as described <<gitlab-default-branch,here>>
-======
-
 [TIP]
 ======
 Take in consideration that in this documentation the branches `dev` and `pro` are used, but they can be any other branches if it have the corresponding environment configured as well inside `{{ orgs_vars }}` directory.
 ======
+
+== Change the default branch at the GitLab repository
+
+[IMPORTANT]
+====
+The default branch for that GitLab Repository MUST be the branch `pro`.
+====
+
+Go to the GitLab repository you created at <<_pre_requisites,Pre-Requisites>> and set the default branch to `pro`:
+
+image::configure_gitlab_default_branch.png[]
+
