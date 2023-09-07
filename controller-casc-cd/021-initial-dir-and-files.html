@@ -270,25 +270,6 @@ The name of the repository must be the same as the name of the organization that
 </tr>
 </table>
 </div>
-<div id="gitlab-default-branch" class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The default branch for that GitLab Repository MUST be the branch <code>pro</code>. This will be configured in the <a href="#_commit_and_push_the_initial_version_of_cac">next steps of the lab</a>.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/configure_gitlab_default_branch.png" alt="configure gitlab default branch">
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -383,6 +364,12 @@ For more information related to configure the SSH access to your GitLab account 
 <div class="sect1">
 <h2 id="_housekeeping"><a class="anchor" href="#_housekeeping"></a>2. Housekeeping</h2>
 <div class="sectionbody">
+<div class="listingblock console-input">
+<div class="title">Create a new empty directory to start filling the project</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">mkdir "${SUPERADMIN_ORG}" &amp;&amp; cd "${SUPERADMIN_ORG}"</code></pre>
+</div>
+</div>
 <div class="listingblock console-input">
 <div class="title">Create the following <code>.gitignore</code> file to avoid accidentally uploading undesired files to the GitLab repository:</div>
 <div class="content">
@@ -642,20 +629,6 @@ EOF</code></pre>
 <div class="sect1">
 <h2 id="_create_the_automation_directories_structure"><a class="anchor" href="#_create_the_automation_directories_structure"></a>5. Create the automation directories structure</h2>
 <div class="sectionbody">
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>We will set the superadmin org name to <strong>'superadmin'</strong> for this workshop.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock console-input">
@@ -676,6 +649,17 @@ touch orgs_vars/${SUPERADMIN_ORG}/env/common/controller_{schedules.d/app-casc,wo
 </div>
 </div>
 </div>
+</div>
+<div class="paragraph">
+<p>In order to be able to run the playbooks from the command line using <code>ansible-navigator</code> and to make the file encryption process easier, the file <code>.vault_password</code> is needed and must contain the vault password to decrypt the vaulted files:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">echo "${VAULT_PASSWORD}" &gt; .vault_password</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>That file may already be ignored in the contents of the <code>.gitignore</code>, so it can&#8217;t be uploaded to the GitLab repository. See the <a href="#_housekeeping">Housekeeping</a> section for more information.</p>
 </div>
 </div>
 </div>
@@ -737,7 +721,7 @@ EOF</code></pre>
 <div class="listingblock console-input">
 <div class="title">Encrypt the files with sensitive data</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">ansible-vault encrypt \
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">ansible-vault encrypt --vault-password-file .vault_password \
   group_vars/dev/configure_connection_controller_credentials.yml \
   group_vars/pro/configure_connection_controller_credentials.yml</code></pre>
 </div>
@@ -918,7 +902,7 @@ EOF</code></pre>
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/{controller_credentials_scm.yml,controller_credentials_gitlab_api_token.yml}</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-vault encrypt --vault-password-file .vault_password orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/{controller_credentials_scm.yml,controller_credentials_gitlab_api_token.yml}</code></pre>
 </div>
 </div>
 </div>
@@ -945,7 +929,7 @@ EOF</code></pre>
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_vault.yml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-vault encrypt --vault-password-file .vault_password orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_vault.yml</code></pre>
 </div>
 </div>
 </div>
@@ -1007,7 +991,7 @@ EOF</code></pre>
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_users.d/controller_user_accounts.yml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-vault encrypt --vault-password-file .vault_password orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_users.d/controller_user_accounts.yml</code></pre>
 </div>
 </div>
 </div>
@@ -1130,7 +1114,7 @@ EOF</code></pre>
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/{controller_credentials_scm.yml,controller_credentials_gitlab_api_token.yml}</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-vault encrypt --vault-password-file .vault_password orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/{controller_credentials_scm.yml,controller_credentials_gitlab_api_token.yml}</code></pre>
 </div>
 </div>
 </div>
@@ -1157,7 +1141,7 @@ EOF</code></pre>
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/controller_credentials_vault.yml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-vault encrypt --vault-password-file .vault_password orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/controller_credentials_vault.yml</code></pre>
 </div>
 </div>
 </div>
@@ -1219,7 +1203,7 @@ EOF</code></pre>
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-vault encrypt orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_users.d/controller_user_accounts.yml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-vault encrypt --vault-password-file .vault_password orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_users.d/controller_user_accounts.yml</code></pre>
 </div>
 </div>
 </div>
@@ -2040,7 +2024,7 @@ git branch -m dev
 git remote add origin ${PROJECT_URL_CASC}
 git config user.email "${GITLAB_EMAIL}"
 git config user.name "${GITLAB_USERNAME}"
-git config core.sshCommand "ssh -i $PWD/id_rsa_gitlab"
+git config core.sshCommand "ssh -i ${SSH_PRIVATE_KEY_FILE}"
 git commit -m "Initial commit"
 git push -u origin dev
 git checkout -b pro
@@ -2061,20 +2045,6 @@ git push -u origin pro</code></pre>
 </tr>
 </table>
 </div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>At this point, the GitLab repository can be configured to have the branch <code>pro</code> as the default one, as described <a href="#gitlab-default-branch">here</a></p>
-</div>
-</td>
-</tr>
-</table>
-</div>
 <div class="admonitionblock tip">
 <table>
 <tr>
@@ -2088,6 +2058,33 @@ git push -u origin pro</code></pre>
 </td>
 </tr>
 </table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_change_the_default_branch_at_the_gitlab_repository"><a class="anchor" href="#_change_the_default_branch_at_the_gitlab_repository"></a>10. Change the default branch at the GitLab repository</h2>
+<div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The default branch for that GitLab Repository MUST be the branch <code>pro</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Go to the GitLab repository you created at <a href="#_pre_requisites">Pre-Requisites</a> and set the default branch to <code>pro</code>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/configure_gitlab_default_branch.png" alt="configure gitlab default branch">
+</div>
 </div>
 </div>
 </div>
