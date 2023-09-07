@@ -8,20 +8,7 @@ Once all the objects are already configured at the GitLab repository, they can b
 
 [IMPORTANT]
 ====
-In order to be able to run the playbooks from the command line using `ansible-navigator`, the file `.vault_password` is needed and must contain the vault password to decrypt the vaulted files:
-
-[.console-input]
-[source,bash]
-----
-echo "${VAULT_PASSWORD}" > .vault_password
-----
-
-That file may already be ignored in the contents of the `.gitignore`, so it can't be uploaded to the GitLab repository. See the xref:021-initial-dir-and-files.adoc#_housekeeping[Housekeeping] section for more information.
-====
-
-[IMPORTANT]
-====
-Another important thing to remember is to add the public key part of
+One important thing to remember is to add the public key part of
 the private key configured at
 `orgs_vars/$\{SUPERADMIN_ORG\}/env/dev/controller_credentials.d/controller_credentials_scm.yml`
 to the GitLab repositories used by the configured projects. See the xref:021-initial-dir-and-files.adoc#_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup[(dev) Source Control Manager and GitLab API Token Credentials will let the Job Templates to connect to the GitLab repository/group]

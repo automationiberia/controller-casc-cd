@@ -4,6 +4,5 @@
 ifndef::imagesdir[:imagesdir: ../assets/images/]
 
 // Variables
-:neworg: <CHANGE_ME>
-:gitorg: git@gitlab.com:<CHANGE_ME>/$\{ORGNAME\}.git
+:neworg: ${SUPERADMIN_ORG}
 :controller_url: <CHANGE_ME>
