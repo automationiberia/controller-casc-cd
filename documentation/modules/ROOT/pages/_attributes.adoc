@@ -4,5 +4,5 @@
 ifndef::imagesdir[:imagesdir: ../assets/images/]
 
 // Variables
-:neworg: ${SUPERADMIN_ORG}
+:neworg: $\{SUPERADMIN_ORG}
 :controller_url: <CHANGE_ME>
