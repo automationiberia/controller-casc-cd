@@ -362,8 +362,269 @@ For more information related to configure the SSH access to your GitLab account 
 </div>
 </div>
 <div class="sect1">
-<h2 id="_housekeeping"><a class="anchor" href="#_housekeeping"></a>2. Housekeeping</h2>
+<h2 id="_export_all_the_variables_to_be_used_in_the_next_steps"><a class="anchor" href="#_export_all_the_variables_to_be_used_in_the_next_steps"></a>2. Export all the variables to be used in the next steps</h2>
 <div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+These variables are undefined when you close your terminal session, so they need to be populated each time you open a new terminal.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock console-input">
+<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">export PROJECT_URL_CASC_SETUP='https://github.com/automationiberia/casc_setup.git'
+export CONTROLLER_DEV_HOST='&lt;CHANGE_ME&gt;'
+export CONTROLLER_PRO_HOST='&lt;CHANGE_ME&gt;'
+export SUPERADMIN_ORG='&lt;CHANGE_ME&gt;'
+export PROJECT_URL_CASC='&lt;CHANGE_ME&gt;'
+export SSH_PRIVATE_KEY_FILE='&lt;CHANGE_ME&gt;'
+export GITLAB_USERNAME='&lt;CHANGE_ME&gt;'
+export GITLAB_API_TOKEN='&lt;CHANGE_ME&gt;'
+export GITLAB_EMAIL='&lt;CHANGE_ME&gt;'
+export VAULT_PASSWORD='&lt;CHANGE_ME&gt;'
+export AAP_USER_NAME='&lt;CHANGE_ME&gt;'
+export AAP_USER_PASSWORD='&lt;CHANGE_ME&gt;'
+export AAP_USER_EMAIL='&lt;CHANGE_ME&gt;'
+export AAP_USER_FIRSTNAME='&lt;CHANGE_ME&gt;'
+export AAP_USER_LASTNAME='&lt;CHANGE_ME&gt;'
+export ADMIN_DEV_PASSWORD='&lt;CHANGE_ME&gt;'
+export ADMIN_PRO_PASSWORD='&lt;CHANGE_ME&gt;'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Where:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>CONTROLLER_DEV_HOST: the hostname or IP address for the Automation Controller server (dev instance)</p>
+</li>
+<li>
+<p>CONTROLLER_PRO_HOST: the hostname or IP address for the Automation Controller server (pro instance)</p>
+</li>
+<li>
+<p>SUPERADMIN_ORG: Superadmin organization name</p>
+</li>
+<li>
+<p>PROJECT_URL_CASC: Project URL for CasC (SSH format)</p>
+</li>
+<li>
+<p>GITLAB_USERNAME: GitLab user name</p>
+</li>
+<li>
+<p>SSH_PRIVATE_KEY_FILE: the private SSH key file that corresponds to the public SSH key attached to your gitlab account (<a href="#GITLAB_SSH_PUBLIC_KEY">see prerequisites</a>).</p>
+</li>
+<li>
+<p>GITLAB_API_TOKEN: The Personal access token to let the New Organization Creation process to work as expected (must be able to create new projects into GitLab).</p>
+</li>
+<li>
+<p>GITLAB_EMAIL: GitLab user email address</p>
+</li>
+<li>
+<p>GITLAB_API_USER: GitLab user name</p>
+</li>
+<li>
+<p>VAULT_PASSWORD: Ansible Vault password</p>
+</li>
+<li>
+<p>AAP_USER_NAME: AAP User name</p>
+</li>
+<li>
+<p>AAP_USER_PASSWORD: AAP User password</p>
+</li>
+<li>
+<p>AAP_USER_EMAIL: APP User email address</p>
+</li>
+<li>
+<p>AAP_USER_FIRSTNAME: APP User first name</p>
+</li>
+<li>
+<p>AAP_USER_LASTNAME: APP User last name</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_housekeeping"><a class="anchor" href="#_housekeeping"></a>3. Housekeeping</h2>
+<div class="sectionbody">
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset1_speed-track"></a>Speed Track</p>
+</li>
+<li>
+<p><a id="tabset1_step-by-step"></a>Step by step</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset1_speed-track">
+<div class="paragraph">
+<p>For more information about the steps below, see the <a href="#tabset1_step-by-step">Step by step</a> tab.</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">mkdir "${SUPERADMIN_ORG}" &amp;&amp; cd "${SUPERADMIN_ORG}"
+
+cat &gt; .gitignore &lt;&lt;EOF
+collections/ansible_collections
+users.csv
+users_old.csv
+.vault*
+*artifact*
+ansible-navigator.log
+.*.swp
+inventory_bastions
+list
+p.yml
+id_rsa*
+venv
+EOF
+
+cat &gt; .yamllint.yml &lt;&lt;EOF
+---
+extends: default
+
+ignore: |
+  changelogs
+  group_vars/*/configure_connection_controller_credentials.yml
+  group_vars/*/vault
+  orgs_vars/*/env/*/controller_credentials.d/
+  orgs_vars/*/env/*/controller_users.d/
+  orgs_vars/*/env/*/controller_settings.d/authentication/controller_settings_ldap.yml
+
+yaml-files:
+  - '*.yaml'
+  - '*.yml'
+
+rules:
+  # 80 chars should be enough, but don't fail if a line is longer
+  line-length: disable
+  comments:
+    require-starting-space: true
+    ignore-shebangs: true
+    min-spaces-from-content: 2
+  commas:
+    max-spaces-before: 0
+    min-spaces-after: 1
+    max-spaces-after: 1
+  colons:
+    max-spaces-before: 0
+    max-spaces-after: -1
+  document-end: {present: true}
+  indentation:
+    level: error
+    indent-sequences: consistent
+  truthy:
+    level: error
+    allowed-values:
+      - 'True'
+      - 'False'
+      - 'true'
+      - 'false'
+      - 'on'
+...
+EOF
+
+cat &gt; .gitlab-ci.yml &lt;&lt;'EOF'
+---
+stages:
+  - lint
+  - check
+  - prepare
+  - release
+
+yamllint:
+  stage: lint
+  image: quay.io/automationiberia/aap/ee-casc:latest
+  tags:
+    - casc
+    - controller-group
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH &amp;&amp; $CI_OPEN_MERGE_REQUESTS'
+      when: never
+    - if: '$CI_COMMIT_BRANCH'
+  script:
+    - yamllint -c ./.yamllint.yml .
+
+check_names:
+  stage: check
+  # variables:
+  #   CI_DEBUG_TRACE: "true"
+  image: xcum2idas010.pre.npro.onpremise.es.bs/ee-casc:latest
+  tags:
+    - casc
+    - controller-group
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH &amp;&amp; $CI_OPEN_MERGE_REQUESTS'
+      when: never
+    - if: '$CI_COMMIT_BRANCH'
+  script:
+    - ansible-playbook check_playbook.yml
+
+generate_tag:
+  stage: prepare
+  image: registry.gitlab.com/gitlab-org/release-cli
+  tags:
+    - casc
+    - controller-group
+  rules:
+    - if: $CI_COMMIT_MESSAGE =~ /First Commit/
+      when: never
+    - if: $CI_COMMIT_TAG
+      when: never
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      exists:
+        - VERSION
+      changes:
+        - VERSION
+  script:
+    - echo "TAG=$(cat VERSION)" &gt; tag.env
+  artifacts:
+    reports:
+      dotenv: tag.env
+
+auto-release-master:
+  image: registry.gitlab.com/gitlab-org/release-cli
+  tags:
+    - casc
+    - controller-group
+  needs:
+    - job: generate_tag
+      artifacts: true
+  stage: release
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: never
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      exists:
+        - VERSION
+      changes:
+        - VERSION
+  script:
+    - echo "Release $TAG"
+  release:
+    name: "Release $TAG"
+    description: "Created using the release-cli $EXTRA_DESCRIPTION"
+    tag_name: v$TAG
+    ref: $CI_COMMIT_SHA
+...
+EOF</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset1_step-by-step">
 <div class="listingblock console-input">
 <div class="title">Create a new empty directory to start filling the project</div>
 <div class="content">
@@ -531,82 +792,6 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_export_all_the_variables_to_be_used_in_the_next_steps"><a class="anchor" href="#_export_all_the_variables_to_be_used_in_the_next_steps"></a>3. Export all the variables to be used in the next steps</h2>
-<div class="sectionbody">
-<div class="listingblock console-input">
-<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">export PROJECT_URL_CASC_SETUP='https://github.com/automationiberia/casc_setup.git'
-export CONTROLLER_DEV_HOST='&lt;CHANGE_ME&gt;'
-export CONTROLLER_PRO_HOST='&lt;CHANGE_ME&gt;'
-export SUPERADMIN_ORG='&lt;CHANGE_ME&gt;'
-export PROJECT_URL_CASC='&lt;CHANGE_ME&gt;'
-export SSH_PRIVATE_KEY_FILE='&lt;CHANGE_ME&gt;'
-export GITLAB_USERNAME='&lt;CHANGE_ME&gt;'
-export GITLAB_API_TOKEN='&lt;CHANGE_ME&gt;'
-export GITLAB_EMAIL='&lt;CHANGE_ME&gt;'
-export VAULT_PASSWORD='&lt;CHANGE_ME&gt;'
-export AAP_USER_NAME='&lt;CHANGE_ME&gt;'
-export AAP_USER_PASSWORD='&lt;CHANGE_ME&gt;'
-export AAP_USER_EMAIL='&lt;CHANGE_ME&gt;'
-export AAP_USER_FIRSTNAME='&lt;CHANGE_ME&gt;'
-export AAP_USER_LASTNAME='&lt;CHANGE_ME&gt;'
-export ADMIN_DEV_PASSWORD='&lt;CHANGE_ME&gt;'
-export ADMIN_PRO_PASSWORD='&lt;CHANGE_ME&gt;'</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Where:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>CONTROLLER_DEV_HOST: the hostname or IP address for the Automation Controller server (dev instance)</p>
-</li>
-<li>
-<p>CONTROLLER_PRO_HOST: the hostname or IP address for the Automation Controller server (pro instance)</p>
-</li>
-<li>
-<p>SUPERADMIN_ORG: Superadmin organization name</p>
-</li>
-<li>
-<p>PROJECT_URL_CASC: Project URL for CasC (SSH format)</p>
-</li>
-<li>
-<p>GITLAB_USERNAME: GitLab user name</p>
-</li>
-<li>
-<p>SSH_PRIVATE_KEY_FILE: the private SSH key file that corresponds to the public SSH key attached to your gitlab account (<a href="#GITLAB_SSH_PUBLIC_KEY">see prerequisites</a>).</p>
-</li>
-<li>
-<p>GITLAB_API_TOKEN: The Personal access token to let the New Organization Creation process to work as expected (must be able to create new projects into GitLab).</p>
-</li>
-<li>
-<p>GITLAB_EMAIL: GitLab user email address</p>
-</li>
-<li>
-<p>GITLAB_API_USER: GitLab user name</p>
-</li>
-<li>
-<p>VAULT_PASSWORD: Ansible Vault password</p>
-</li>
-<li>
-<p>AAP_USER_NAME: AAP User name</p>
-</li>
-<li>
-<p>AAP_USER_PASSWORD: AAP User password</p>
-</li>
-<li>
-<p>AAP_USER_EMAIL: APP User email address</p>
-</li>
-<li>
-<p>AAP_USER_FIRSTNAME: APP User first name</p>
-</li>
-<li>
-<p>AAP_USER_LASTNAME: APP User last name</p>
-</li>
-</ul>
 </div>
 </div>
 </div>
@@ -767,6 +952,899 @@ EOF</code></pre>
 <div class="sect1">
 <h2 id="_define_controller_objects_as_code"><a class="anchor" href="#_define_controller_objects_as_code"></a>8. Define Controller Objects as Code</h2>
 <div class="sectionbody">
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset2_speed-track"></a>Speed Track</p>
+</li>
+<li>
+<p><a id="tabset2_step-by-step"></a>Step by step</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset2_speed-track">
+<div class="paragraph">
+<p>For more information about the steps below, see the <a href="#tabset2_step-by-step">Step by step</a> tab.</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_aap.yml &lt;&lt;EOF
+---
+controller_credentials:
+  - name: "{{ orgs }} {{ env }} AAP Credential"
+    description: "{{ orgs }} {{ env }}  AAP Credential"
+    credential_type: "Red Hat Ansible Automation Platform"
+    organization: "{{ orgs }}"
+    inputs:
+      host: "{{ controller_hostname }}"
+      username: "{{ controller_username }}"
+      password: "{{ controller_password }}"
+      verify_ssl: "{{ controller_validate_certs }}"
+...
+EOF
+
+cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_scm.yml &lt;&lt;EOF
+---
+controller_credentials:
+  - name: "{{ orgs }} {{ env }} GitLab Credential"
+    description: "Credential to be used by the 'IaC_playbooks' project"
+    credential_type: "Source Control"
+    organization: "{{ orgs }}"
+    inputs:
+      username: "${GITLAB_USERNAME}"
+      ssh_key_data: |
+$(cat ${SSH_PRIVATE_KEY_FILE} | while read line; do echo "        ${line}"; done)
+...
+EOF
+
+cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_gitlab_api_token.yml &lt;&lt;EOF
+---
+controller_credentials:
+  - name: "{{ orgs }} {{ env }} GitLab API Token"
+    description: "{{ orgs }} {{ env }} GitLab API Token"
+    credential_type: "GitLab API Token"
+    organization: "{{ orgs }}"
+    inputs:
+      gitlab_token: "${GITLAB_API_TOKEN}"
+      gitlab_email: "${GITLAB_EMAIL}"
+      gitlab_user: "${GITLAB_USERNAME}"
+...
+EOF
+
+ansible-vault encrypt --vault-password-file .vault_password orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/{controller_credentials_scm.yml,controller_credentials_gitlab_api_token.yml}
+
+cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_vault.yml &lt;&lt;EOF
+---
+controller_credentials:
+  - name: "{{ orgs }} {{ env }} Vault Credential"
+    description: "{{ orgs }} {{ env }} Vault Credential"
+    credential_type: "Vault"
+    organization: "{{ orgs }}"
+    inputs:
+      vault_password: "${VAULT_PASSWORD}"
+...
+EOF
+
+ansible-vault encrypt --vault-password-file .vault_password orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_vault.yml
+
+cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_execution_environments.d/app-casc/controller_execution_environments_ee-casc.yml &lt;&lt;EOF
+---
+controller_execution_environments:
+  - name: "ee-casc"
+    image: "quay.io/automationiberia/aap/ee-casc:latest"
+    pull: missing
+...
+EOF
+
+cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_hosts.d/app-casc/controller_hosts.yml &lt;&lt;EOF
+---
+controller_hosts:
+  - name:  "${CONTROLLER_DEV_HOST}"
+    description: "Controller host"
+    inventory: "{{ orgs }} {{ env }} Controller"
+    enabled: true
+    variables:
+      ansible_host: "${CONTROLLER_DEV_HOST}"
+...
+EOF
+
+cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_users.d/controller_user_accounts.yml &lt;&lt;EOF
+---
+controller_user_accounts:
+  - username: "${AAP_USER_NAME}"
+    password: "${AAP_USER_PASSWORD}"
+    email: "${AAP_USER_EMAIL}"
+    firstname: "${AAP_USER_FIRSTNAME}"
+    lastname: "${AAP_USER_LASTNAME}"
+    is_auditor: False
+    is_superuser: True
+    update_secrets: False
+...
+EOF
+
+ansible-vault encrypt --vault-password-file .vault_password orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_users.d/controller_user_accounts.yml
+
+cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/controller_credentials_aap.yml &lt;&lt;EOF
+---
+controller_credentials:
+  - name: "{{ orgs }} {{ env }} AAP Credential"
+    description: "{{ orgs }} {{ env }}  AAP Credential"
+    credential_type: "Red Hat Ansible Automation Platform"
+    organization: "{{ orgs }}"
+    inputs:
+      host: "{{ controller_hostname }}"
+      username: "{{ controller_username }}"
+      password: "{{ controller_password }}"
+      verify_ssl: "{{ controller_validate_certs }}"
+...
+EOF
+
+cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/controller_credentials_scm.yml &lt;&lt;EOF
+---
+controller_credentials:
+  - name: "{{ orgs }} {{ env }} GitLab Credential"
+    description: "Credential to be used by the 'IaC_playbooks' project"
+    credential_type: "Source Control"
+    organization: "{{ orgs }}"
+    inputs:
+      username: "${GITLAB_USERNAME}"
+      ssh_key_data: |
+$(cat ${SSH_PRIVATE_KEY_FILE} | while read line; do echo "        ${line}"; done)
+...
+EOF
+
+cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/controller_credentials_gitlab_api_token.yml &lt;&lt;EOF
+---
+controller_credentials:
+  - name: "{{ orgs }} {{ env }} GitLab API Token"
+    description: "{{ orgs }} {{ env }} GitLab API Token"
+    credential_type: "GitLab API Token"
+    organization: "{{ orgs }}"
+    inputs:
+      gitlab_token: "${GITLAB_API_TOKEN}"
+      gitlab_email: "${GITLAB_EMAIL}"
+      gitlab_user: "${GITLAB_USERNAME}"
+...
+EOF
+
+ansible-vault encrypt --vault-password-file .vault_password orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/{controller_credentials_scm.yml,controller_credentials_gitlab_api_token.yml}
+
+cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/controller_credentials_vault.yml &lt;&lt;EOF
+---
+controller_credentials:
+  - name: "{{ orgs }} {{ env }} Vault Credential"
+    description: "{{ orgs }} {{ env }} Vault Credential"
+    credential_type: "Vault"
+    organization: "{{ orgs }}"
+    inputs:
+      vault_password: "${VAULT_PASSWORD}"
+...
+EOF
+
+ansible-vault encrypt --vault-password-file .vault_password orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/controller_credentials_vault.yml
+
+cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_execution_environments.d/app-casc/controller_execution_environments_ee-casc.yml &lt;&lt;EOF
+---
+controller_execution_environments:
+  - name: "ee-casc"
+    image: "quay.io/automationiberia/aap/ee-casc:latest"
+    pull: missing
+...
+EOF
+
+cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_hosts.d/app-casc/controller_hosts.yml &lt;&lt;EOF
+---
+controller_hosts:
+  - name:  "${CONTROLLER_PRO_HOST}"
+    description: "Controller host"
+    inventory: "{{ orgs }} {{ env }} Controller"
+    enabled: true
+    variables:
+      ansible_host: "${CONTROLLER_PRO_HOST}"
+...
+EOF
+
+cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_users.d/controller_user_accounts.yml &lt;&lt;EOF
+---
+controller_user_accounts:
+  - username: "${AAP_USER_NAME}"
+    password: "${AAP_USER_PASSWORD}"
+    email: "${AAP_USER_EMAIL}"
+    firstname: "${AAP_USER_FIRSTNAME}"
+    lastname: "${AAP_USER_LASTNAME}"
+    is_auditor: False
+    is_superuser: True
+    update_secrets: False
+...
+EOF
+
+ansible-vault encrypt --vault-password-file .vault_password orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_users.d/controller_user_accounts.yml
+
+cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_credential_types.d/app-casc/controller_credential_types_gitlab_api.yml &lt;&lt;EOF
+---
+controller_credential_types:
+  - name: "GitLab API Token"
+    kind: "cloud"
+    state: present
+    inputs:
+      fields:
+        - id: "gitlab_token"
+          help_text: "gitlab API token"
+          label: "API Token"
+          type: "string"
+          secret: true
+        - id: "gitlab_user"
+          help_text: "gitlab API user"
+          label: "API User"
+          type: "string"
+        - id: "gitlab_email"
+          help_text: "gitlab API user email"
+          label: "API User email"
+          type: "string"
+        - id: "gitlab_verify"
+          label: "Verify SSL Certificates"
+          type: "boolean"
+          default: false
+      required:
+        - "gitlab_token"
+        - "gitlab_user"
+        - "gitlab_email"
+    injectors:
+      extra_vars:
+        gitlab_api_token: !unsafe '{{ gitlab_token }}'
+        gitlab_api_user: !unsafe '{{ gitlab_user }}'
+        gitlab_api_user_mail: !unsafe '{{ gitlab_email }}'
+        gitlab_validate_certs: !unsafe '{{ gitlab_verify }}'
+...
+EOF
+
+cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_inventories.d/app-casc/controller_inventories_controller.yml &lt;&lt;EOF
+---
+controller_inventories:
+  - name: "{{ orgs }} {{ env }} Controller"
+    description: "Inventory for the Controller"
+    organization: "{{ orgs }}"
+...
+EOF
+
+cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_groups.d/app-casc/controller_groups.yml &lt;&lt;EOF
+---
+controller_groups:
+  - name: "{{ env }}"
+    inventory: "{{ orgs }} {{ env }} Controller"
+    hosts: "{{ groups[env] }}"
+...
+EOF
+
+cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-casc/controller_jt_casc_cd_webhook.yml &lt;&lt;EOF
+---
+controller_templates:
+  - name: "{{ orgs }} {{ env }} CasC Ctrl CD Webhook Trigger"
+    description: "Template to attend Controller CasC webhook"
+    organization: "{{ orgs }}"
+    project: "{{ orgs }} {{ env }} CasC Data"
+    inventory: "{{ orgs }} {{ env }} Controller"
+    playbook: "casc_ctrl_cd_webhook_trigger.yml"
+    job_type: run
+    fact_caching_enabled: false
+    credentials:
+      - "{{ orgs }} {{ env }} AAP Credential"
+      - "{{ orgs }} {{ env }} Vault Credential"
+    concurrent_jobs_enabled: true
+    webhook_service: "gitlab"
+    ask_scm_branch_on_launch: true
+    extra_vars:
+      ansible_python_interpreter: /usr/bin/python3
+      ansible_async_dir: /home/runner/.ansible_async/
+    execution_environment: "ee-casc"
+...
+EOF
+
+cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-casc/controller_jt_casc_config.yml &lt;&lt;EOF
+---
+controller_templates:
+  - name: "{{ orgs }} {{ env }} CasC Ctrl Config"
+    description: "Template to deploy Controller objects in Org {{ orgs }}"
+    organization: "{{ orgs }}"
+    project: "{{ orgs }} {{ env }} CasC Data"
+    inventory: "{{ orgs }} {{ env }} Controller"
+    playbook: "casc_ctrl_config.yml"
+    job_type: run
+    fact_caching_enabled: false
+    credentials:
+      - "{{ orgs }} {{ env }} AAP Credential"
+      - "{{ orgs }} {{ env }} Vault Credential"
+      - "{{ orgs }} {{ env }} GitLab API Token"
+    concurrent_jobs_enabled: true
+    ask_scm_branch_on_launch: true
+    ask_tags_on_launch: true
+    ask_verbosity_on_launch: true
+    ask_variables_on_launch: true
+    extra_vars:
+      ansible_python_interpreter: /usr/bin/python3
+      ansible_async_dir: /home/runner/.ansible_async/
+    execution_environment: "ee-casc"
+...
+EOF
+
+cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-casc/controller_jt_casc_drop_diff.yml &lt;&lt;EOF
+---
+controller_templates:
+  - name: "{{ orgs }} {{ env }} CasC Ctrl Drop Diff"
+    description: "Template to assure no difference between API and repository"
+    organization: "{{ orgs }}"
+    project: "{{ orgs }} {{ env }} CasC Data"
+    inventory: "{{ orgs }} {{ env }} Controller"
+    playbook: "casc_ctrl_drop_diff.yml"
+    job_type: run
+    fact_caching_enabled: false
+    credentials:
+      - "{{ orgs }} {{ env }} AAP Credential"
+      - "{{ orgs }} {{ env }} Vault Credential"
+      - "{{ orgs }} {{ env }} GitLab API Token"
+    concurrent_jobs_enabled: true
+    ask_scm_branch_on_launch: true
+    ask_tags_on_launch: true
+    ask_verbosity_on_launch: true
+    ask_variables_on_launch: true
+    extra_vars:
+      ansible_python_interpreter: /usr/bin/python3
+      ansible_async_dir: /home/runner/.ansible_async/
+      protect_not_empty_orgs: true
+    execution_environment: "ee-casc"
+...
+EOF
+
+cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-gitlab/controller_jt_casc_gitlab_project_creation.yml &lt;&lt;EOF
+---
+controller_templates:
+  - name: "{{ orgs }} {{ env }} Gitlab Project Creation"
+    description: "Template to create projet in gitlab"
+    organization: "{{ orgs }}"
+    project: "{{ orgs }} {{ env }} CasC GitLab Webhook"
+    inventory: "{{ orgs }} {{ env }} Controller"
+    playbook: "playbooks/gitlab_setup.yml"
+    job_type: run
+    fact_caching_enabled: false
+    credentials:
+      - "{{ orgs }} {{ env }} GitLab API Token"
+    concurrent_jobs_enabled: true
+    extra_vars:
+      ansible_python_interpreter: /usr/bin/python3
+      ansible_async_dir: /home/runner/.ansible_async/
+      gitlab_branches: !unsafe "{{ gitlab_branches_string.split('\n') }}"
+    execution_environment: "ee-casc"
+    survey_enabled: True
+    survey_spec:
+      name: '{{ orgs }} {{ env }} Survey_Gitlab_Project_Creation'
+      description: 'Survey_Gitlab_Project_Creation'
+      spec:
+        - question_name: controller_dev
+          required: true
+          type: multiplechoice
+          variable: controller_dev
+          min: 0
+          max: 1024
+          choices:
+            - "${CONTROLLER_DEV_HOST}"
+          default: "${CONTROLLER_DEV_HOST}"
+          new_question: true
+
+        - question_name: controller_pro
+          required: true
+          type: multiplechoice
+          variable: controller_pro
+          min: 0
+          max: 1024
+          choices:
+            - "${CONTROLLER_PRO_HOST}"
+          default: "${CONTROLLER_PRO_HOST}"
+          new_question: true
+
+        - question_name: gitlab_api_url
+          required: true
+          type: multiplechoice
+          variable: gitlab_api_url
+          min: 0
+          max: 1024
+          choices:
+            - "https://gitlab.com"
+          default: "https://gitlab.com"
+          new_question: true
+
+        - question_name: gitlab_group
+          required: false
+          type: text
+          variable: gitlab_group
+          min: 0
+          max: 1024
+          default: ""
+          new_question: true
+
+        - question_name: gitlab_subgroup
+          required: false
+          type: text
+          variable: gitlab_subgroup
+          min: 0
+          max: 1024
+          default: ""
+          new_question: true
+
+        - question_name: "gitlab_project"
+          required: true
+          type: text
+          variable: "gitlab_project"
+          min: 0
+          max: 80
+          new_question: true
+
+        - question_name: gitlab_visibility
+          required: true
+          type: multiplechoice
+          variable: gitlab_visibility
+          min: 0
+          max: 1024
+          choices:
+            - "internal"
+            - "public"
+          default: "public"
+          new_question: true
+
+        - question_name: gitlab_default_branch
+          required: true
+          type: multiplechoice
+          variable: gitlab_default_branch
+          min: 0
+          max: 1024
+          choices:
+            - "pro"
+          default: "pro"
+          new_question: true
+
+        - question_name: gitlab_http_protocol
+          required: true
+          type: multiplechoice
+          variable: gitlab_http_protocol
+          min: 0
+          max: 1024
+          choices:
+            - "https"
+            - "http"
+          default: "https"
+          new_question: true
+
+        - question_name: gitlab_branches_string
+          required: true
+          type: textarea
+          variable: gitlab_branches_string
+          min: 0
+          max: 1024
+          default: "dev\npro"
+          new_question: true
+...
+EOF
+
+cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-gitlab/controller_jt_casc_gitlab_webhook.yml &lt;&lt;EOF
+---
+controller_templates:
+  - name: "{{ orgs }} {{ env }} Gitlab Webhook Creation"
+    description: "Template to create webhook in the gitlab project"
+    organization: "{{ orgs }}"
+    project: "{{ orgs }} {{ env }} CasC GitLab Webhook"
+    inventory: "{{ orgs }} {{ env }} Controller"
+    playbook: "playbooks/gitlab_webhook.yml"
+    job_type: run
+    fact_caching_enabled: false
+    credentials:
+      - "{{ orgs }} {{ env }} AAP Credential"
+      - "{{ orgs }} {{ env }} GitLab API Token"
+    concurrent_jobs_enabled: true
+    extra_vars:
+      ansible_python_interpreter: /usr/bin/python3
+      ansible_async_dir: /home/runner/.ansible_async/
+    execution_environment: "ee-casc"
+    survey_enabled: True
+    survey_spec:
+      name: '{{ orgs }} {{ env }} Survey_Gitlab_Webhook_Creation'
+      description: 'Survey_Gitlab_Webhook_Creation'
+      spec:
+        - question_name: gitlab_api_url
+          required: true
+          type: multiplechoice
+          variable: gitlab_api_url
+          min: 0
+          max: 1024
+          choices:
+            - "https://gitlab.com"
+          default: "https://gitlab.com"
+          new_question: true
+
+        - question_name: gitlab_group
+          required: false
+          type: text
+          variable: gitlab_group
+          min: 0
+          max: 1024
+          default: ""
+          new_question: true
+
+        - question_name: gitlab_subgroup
+          required: false
+          type: text
+          variable: gitlab_subgroup
+          min: 0
+          max: 1024
+          default: ""
+          new_question: true
+
+        - question_name: Trigger hook on push events?
+          required: true
+          type: multiplechoice
+          variable: gitlab_action_push
+          min: 0
+          max: 30
+          choices: "true\nfalse"
+          default: "{{ 'true' if env != 'pro' else 'false' }}"
+          new_question: true
+
+        - question_name: gitlab_action_tag
+          required: true
+          type: multiplechoice
+          variable: gitlab_action_tag
+          min: 0
+          max: 1024
+          choices: "true\nfalse"
+          default: "{{ 'false' if env != 'pro' else 'true' }}"
+          new_question: true
+
+        - question_name: gitlab_branch_filter
+          required: true
+          type: multiplechoice
+          variable: gitlab_branch_filter
+          choices: "dev\npro"
+          default: "{{ 'dev' if env != 'pro' else 'pro' }}"
+          new_question: true
+
+        - question_name: "CasC Organization Name"
+          required: true
+          type: text
+          variable: casc_organization
+          min: 0
+          max: 40
+          default: "{{ orgs }}"
+          new_question: true
+
+        - question_name: "Organization / Gitlab Project Name"
+          required: true
+          type: text
+          variable: gitlab_project
+          min: 0
+          max: 40
+          new_question: true
+
+        - question_name: "Is a Workflow?"
+          required: true
+          type: multiplechoice
+          variable: "is_workflow"
+          min: 0
+          max: 30
+          choices: "true\nfalse"
+          default: "{{ 'false' }}"
+          new_question: true
+
+        - question_name: "(Workflow) Job Template Name"
+          required: true
+          type: text
+          variable: "job_template_name"
+          min: 0
+          max: 60
+          new_question: true
+
+...
+EOF
+
+cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/controller_job_templates.yml &lt;&lt;EOF
+---
+controller_templates:
+  - name: "{{ orgs }} {{ env }} New Organization Objects"
+    description: "Template to create new organization objects in Org {{ orgs }}"
+    organization: "{{ orgs }}"
+    project: "{{ orgs }} {{ env }} CasC Data"
+    inventory: "{{ orgs }} {{ env }} Controller"
+    playbook: "new_project.yml"
+    job_type: run
+    fact_caching_enabled: false
+    credentials:
+      - "{{ orgs }} {{ env }} AAP Credential"
+      - "{{ orgs }} {{ env }} Vault Credential"
+      - "{{ orgs }} {{ env }} GitLab API Token"
+    concurrent_jobs_enabled: false
+    ask_scm_branch_on_launch: true
+    ask_tags_on_launch: true
+    ask_verbosity_on_launch: true
+    ask_variables_on_launch: true
+    execution_environment: "ee-casc"
+    survey_enabled: True
+    survey_spec:
+      name: '{{ orgs }} {{ env }} Survey New Organization Objects'
+      description: 'Survey New Organization Objects'
+      spec:
+        - question_name: Organization name
+          required: true
+          type: text
+          variable: organization_name
+          min: 0
+          max: 80
+          default: ""
+          new_question: true
+
+        - question_name: Organization description
+          required: true
+          type: text
+          variable: organization_desc
+          min: 0
+          max: 1024
+          default: ""
+          new_question: true
+
+        - question_name: Admin user
+          required: true
+          type: text
+          variable: admin_user
+          min: 0
+          max: 80
+          default: ""
+          new_question: true
+...
+EOF
+
+cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_organizations.d/app-casc/controller_organization_superadmin.yml &lt;&lt;EOF
+---
+controller_organizations:
+  - name: "{{ orgs }}"
+    description: "Organization for objects that requiere superadmin powers"
+...
+EOF
+
+cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_projects.d/app-casc/controller_projects_casc.yml &lt;&lt;EOF
+---
+controller_projects:
+  - name: "{{ orgs }} {{ env }} CasC Data"
+    description: "Project to include the CasC playbooks"
+    organization: "{{ orgs }}"
+    scm_type: git
+    scm_url: "${PROJECT_URL_CASC}"
+    scm_credential: "{{ orgs }} {{ env }} GitLab Credential"
+    scm_branch: "{{ casc_gitlab_scm_branch | default(env) }}"
+    scm_clean: false
+    scm_delete_on_update: false
+    scm_update_on_launch: false
+    scm_update_cache_timeout: 86400
+    allow_override: true
+...
+EOF
+
+cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_projects.d/app-gitlab/controller_projects_gitlab.yml &lt;&lt;EOF
+---
+controller_projects:
+  - name: "{{ orgs }} {{ env }} CasC GitLab Webhook"
+    description: "Project to include playbooks to configure the GitLab Webhooks for the CasC to be able to run"
+    organization: "{{ orgs }}"
+    scm_type: git
+    scm_url: "${PROJECT_URL_CASC_SETUP}"
+    scm_credential: "{{ orgs }} {{ env }} GitLab Credential"
+    scm_branch: main
+    scm_clean: false
+    scm_delete_on_update: false
+    scm_update_on_launch: false
+    scm_update_cache_timeout: 86400
+    allow_override: true
+...
+EOF
+
+cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_workflow_job_templates.d/controller_workflow_job_templates.yml &lt;&lt;EOF
+---
+controller_workflows:
+  - name: "{{ orgs }} {{ env }} WF New Project"
+    state: present
+    description: "Workflow to create a new project"
+    ask_variables_on_launch: false
+    allow_simultaneous: true
+    scm_branch: "{{ env }}"
+    organization: "{{ orgs }}"
+    simplified_workflow_nodes:
+      - identifier: "Create Webhooks"
+        workflow_job_template: "{{ orgs }} {{ env }} WF New Project"
+        unified_job_template: "{{ orgs }} {{ env }} Gitlab Webhook Creation"
+        job_type: run
+        organization: "{{ orgs }}"
+        workflow: "{{ orgs }} {{ env }} WF New Project"
+
+      - identifier: "Create SuperAdmin Objects"
+        workflow_job_template: "{{ orgs }} {{ env }} WF New Project"
+        unified_job_template: "{{ orgs }} {{ env }} New Organization Objects"
+        job_type: run
+        organization: "{{ orgs }}"
+        workflow: "{{ orgs }} {{ env }} WF New Project"
+        success_nodes:
+          - "Create Webhooks"
+
+      - identifier: "Create GitLab Repo"
+        workflow_job_template: "{{ orgs }} {{ env }} WF New Project"
+        unified_job_template: "{{ orgs }} {{ env }} Gitlab Project Creation"
+        job_type: run
+        organization: "{{ orgs }}"
+        workflow: "{{ orgs }} {{ env }} WF New Project"
+        extra_data:
+          controller_dev: "${CONTROLLER_DEV_HOST}"
+          controller_pro: "${CONTROLLER_PRO_HOST}"
+          gitlab_api_url: "https://gitlab.com"
+          gitlab_group: ""
+          gitlab_subgroup: ""
+          gitlab_project: "dummy"
+          gitlab_visibility: "internal"
+          gitlab_default_branch: "pro"
+          gitlab_http_protocol: "https"
+          gitlab_branches_string: "dummy"
+        success_nodes:
+          - "Create SuperAdmin Objects"
+    notification_templates_started: []
+    notification_templates_success: []
+    notification_templates_error: []
+    notification_templates_approvals: []
+    extra_vars:
+      orgs: "{{ orgs }}"
+      orgs_vars: "{{ orgs_vars | default(dir_orgs_vars) }}"
+      env: "{{ env }}"
+    survey_enabled: True
+    survey_spec:
+      name: '{{ orgs }} {{ env }} Survey Gitlab Project Creation'
+      description: 'Survey Gitlab Project Creation'
+      spec:
+        - question_name: Name for the new Organization
+          question_description: Must be the same name of GitLab project to be created
+          required: true
+          type: text
+          variable: "organization_name"
+          min: 0
+          max: 80
+          new_question: true
+
+        - question_name: Organization description
+          required: true
+          type: text
+          variable: "organization_desc"
+          min: 0
+          max: 80
+          new_question: true
+
+        - question_name: Instance groups to assign the new organization to
+          required: false
+          type: text
+          variable: "instance_groups"
+          min: 0
+          max: 80
+          new_question: true
+
+        - question_name: Admin user for the new Organization
+          required: true
+          type: text
+          variable: "admin_user"
+          min: 0
+          max: 80
+          new_question: true
+
+        - question_name: Ansible Controller Host (Dev)
+          required: true
+          type: multiplechoice
+          variable: controller_dev
+          min: 0
+          max: 1024
+          choices:
+            - "${CONTROLLER_DEV_HOST}"
+          default: "${CONTROLLER_DEV_HOST}"
+          new_question: true
+
+        - question_name: Ansible Controller Host (Pro)
+          required: true
+          type: multiplechoice
+          variable: controller_pro
+          min: 0
+          max: 1024
+          choices:
+            - "${CONTROLLER_PRO_HOST}"
+          default: "${CONTROLLER_PRO_HOST}"
+          new_question: true
+
+        - question_name: GitLab API URL
+          required: true
+          type: multiplechoice
+          variable: gitlab_api_url
+          min: 0
+          max: 1024
+          choices:
+            - "https://gitlab.com"
+          default: "https://gitlab.com"
+          new_question: true
+
+        - question_name: GitLab group name
+          required: false
+          type: text
+          variable: gitlab_group
+          min: 0
+          max: 1024
+          default: ""
+          new_question: true
+
+        - question_name: GitLab subgroup name
+          required: false
+          type: text
+          variable: gitlab_subgroup
+          min: 0
+          max: 1024
+          default: ""
+          new_question: true
+
+        - question_name: GitLab Project
+          question_description: Must be the same name of the organization to be created
+          required: true
+          type: text
+          variable: "gitlab_project"
+          min: 0
+          max: 80
+          new_question: true
+
+        - question_name: GitLab project visibility
+          required: true
+          type: multiplechoice
+          variable: gitlab_visibility
+          min: 0
+          max: 1024
+          choices:
+            - "internal"
+            - "public"
+          default: "public"
+          new_question: true
+
+        - question_name: GitLab default branch
+          required: true
+          type: multiplechoice
+          variable: gitlab_default_branch
+          min: 0
+          max: 1024
+          choices:
+            - "pro"
+          default: "pro"
+          new_question: true
+
+        - question_name: GitLab http connection Protocol
+          required: true
+          type: multiplechoice
+          variable: gitlab_http_protocol
+          min: 0
+          max: 1024
+          choices:
+            - "https"
+            - "http"
+          default: "https"
+          new_question: true
+
+        - question_name: GitLab branches to be created
+          required: true
+          type: textarea
+          variable: gitlab_branches_string
+          min: 0
+          max: 1024
+          default: "dev\npro"
+          new_question: true
+...
+EOF</code></pre>
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset2_step-by-step">
 <div class="paragraph">
 <p>With these files, the SuperAdmin repo will have all the CaC related playbooks that will create and/or destroy the objects at the Ansible Controller.</p>
 </div>
@@ -784,10 +1862,16 @@ EOF</code></pre>
 </tr>
 </table>
 </div>
-<div class="sect2">
-<h3 id="_dev_environment"><a class="anchor" href="#_dev_environment"></a>8.1. Dev environment</h3>
-<div class="sect3">
-<h4 id="_ansible_automation_platform_credentials_will_let_the_job_templates_to_connect_to_the_controller"><a class="anchor" href="#_ansible_automation_platform_credentials_will_let_the_job_templates_to_connect_to_the_controller"></a>8.1.1. Ansible Automation Platform Credentials will let the Job Templates to connect to the Controller</h4>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>DEV environment</strong></p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Ansible Automation Platform Credentials will let the Job Templates to connect to the Controller</strong></p>
+</div>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_aap.yml &lt;&lt;EOF
@@ -821,8 +1905,12 @@ EOF</code></pre>
 </table>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup"><a class="anchor" href="#_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup"></a>8.1.2. Source Control Manager and GitLab API Token Credentials will let the Job Templates to connect to the GitLab repository/group</h4>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Source Control Manager and GitLab API Token Credentials will let the Job Templates to connect to the GitLab repository/group</strong></p>
+</div>
 <div class="paragraph">
 <p>Two distinct accesses to GitLab are required for the automation:</p>
 </div>
@@ -906,8 +1994,12 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_vault_credentials_will_let_the_job_templates_to_decrypt_the_sensitive_information_from_ansible_vaulted_files"><a class="anchor" href="#_vault_credentials_will_let_the_job_templates_to_decrypt_the_sensitive_information_from_ansible_vaulted_files"></a>8.1.3. Vault Credentials will let the Job Templates to decrypt the sensitive information from <code>ansible-vault</code>ed files</h4>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Vault Credentials will let the Job Templates to decrypt the sensitive information from <code>ansible-vault</code>ed files</strong></p>
+</div>
 <div class="listingblock console-input">
 <div class="title"><mark>Ensure to have exported all the environment variables as described <a href="#_export_all_the_variables_to_be_used_in_the_next_steps">here</a></mark></div>
 <div class="content">
@@ -933,8 +2025,12 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_execution_environments_to_be_used_by_the_job_templates"><a class="anchor" href="#_execution_environments_to_be_used_by_the_job_templates"></a>8.1.4. Execution Environments to be used by the Job Templates</h4>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Execution Environments to be used by the Job Templates</strong></p>
+</div>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_execution_environments.d/app-casc/controller_execution_environments_ee-casc.yml &lt;&lt;EOF
@@ -948,8 +2044,12 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_hosts_to_be_used_by_the_inventory_for_the_job_templates"><a class="anchor" href="#_hosts_to_be_used_by_the_inventory_for_the_job_templates"></a>8.1.5. Hosts to be used by the inventory for the Job Templates</h4>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Hosts to be used by the inventory for the Job Templates</strong></p>
+</div>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_hosts.d/app-casc/controller_hosts.yml &lt;&lt;EOF
@@ -966,8 +2066,12 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_users_that_will_be_administrators_of_the_superadmin_organization"><a class="anchor" href="#_users_that_will_be_administrators_of_the_superadmin_organization"></a>8.1.6. Users that will be administrators of the superadmin organization</h4>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Users that will be administrators of the superadmin organization</strong></p>
+</div>
 <div class="listingblock console-input">
 <div class="title"><mark>Ensure to have exported all the environment variables as described <a href="#_export_all_the_variables_to_be_used_in_the_next_steps">here</a></mark></div>
 <div class="content">
@@ -996,10 +2100,18 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_pro_environment"><a class="anchor" href="#_pro_environment"></a>8.2. PRO environment</h3>
-<div class="sect3">
-<h4 id="_ansible_automation_platform_credentials_will_let_the_job_templates_to_connect_to_the_controller_2"><a class="anchor" href="#_ansible_automation_platform_credentials_will_let_the_job_templates_to_connect_to_the_controller_2"></a>8.2.1. Ansible Automation Platform Credentials will let the Job Templates to connect to the Controller</h4>
+</div>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>PRO environment</strong></p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Ansible Automation Platform Credentials will let the Job Templates to connect to the Controller</strong></p>
+</div>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/controller_credentials_aap.yml &lt;&lt;EOF
@@ -1033,8 +2145,12 @@ EOF</code></pre>
 </table>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup_2"><a class="anchor" href="#_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup_2"></a>8.2.2. Source Control Manager and GitLab API Token Credentials will let the Job Templates to connect to the GitLab repository/group</h4>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Source Control Manager and GitLab API Token Credentials will let the Job Templates to connect to the GitLab repository/group</strong></p>
+</div>
 <div class="paragraph">
 <p>Two distinct accesses to GitLab are required for the automation:</p>
 </div>
@@ -1118,8 +2234,12 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_vault_credentials_will_let_the_job_templates_to_decrypt_the_sensitive_information_from_ansible_vaulted_files_2"><a class="anchor" href="#_vault_credentials_will_let_the_job_templates_to_decrypt_the_sensitive_information_from_ansible_vaulted_files_2"></a>8.2.3. Vault Credentials will let the Job Templates to decrypt the sensitive information from <code>ansible-vault</code>ed files</h4>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Vault Credentials will let the Job Templates to decrypt the sensitive information from <code>ansible-vault</code>ed files</strong></p>
+</div>
 <div class="listingblock console-input">
 <div class="title"><mark>Ensure to have exported all the environment variables as described <a href="#_export_all_the_variables_to_be_used_in_the_next_steps">here</a></mark></div>
 <div class="content">
@@ -1145,8 +2265,12 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_execution_environments_to_be_used_by_the_job_templates_2"><a class="anchor" href="#_execution_environments_to_be_used_by_the_job_templates_2"></a>8.2.4. Execution Environments to be used by the Job Templates</h4>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Execution Environments to be used by the Job Templates</strong></p>
+</div>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_execution_environments.d/app-casc/controller_execution_environments_ee-casc.yml &lt;&lt;EOF
@@ -1160,8 +2284,12 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_hosts_to_be_used_by_the_inventory_for_the_job_templates_2"><a class="anchor" href="#_hosts_to_be_used_by_the_inventory_for_the_job_templates_2"></a>8.2.5. Hosts to be used by the inventory for the Job Templates</h4>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Hosts to be used by the inventory for the Job Templates</strong></p>
+</div>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_hosts.d/app-casc/controller_hosts.yml &lt;&lt;EOF
@@ -1178,8 +2306,12 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_users_that_will_be_administrators_of_the_superadmin_organization_2"><a class="anchor" href="#_users_that_will_be_administrators_of_the_superadmin_organization_2"></a>8.2.6. Users that will be administrators of the superadmin organization</h4>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Users that will be administrators of the superadmin organization</strong></p>
+</div>
 <div class="listingblock console-input">
 <div class="title"><mark>Ensure to have exported all the environment variables as described <a href="#_export_all_the_variables_to_be_used_in_the_next_steps">here</a></mark></div>
 <div class="content">
@@ -1208,10 +2340,18 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_common_to_dev_and_pro_environments"><a class="anchor" href="#_common_to_dev_and_pro_environments"></a>8.3. Common to dev and pro environments</h3>
-<div class="sect3">
-<h4 id="_credential_types_that_will_be_needed_for_the_job_templates"><a class="anchor" href="#_credential_types_that_will_be_needed_for_the_job_templates"></a>8.3.1. Credential Types that will be needed for the Job Templates</h4>
+</div>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Common to dev and pro environments</strong></p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Credential Types that will be needed for the Job Templates</strong></p>
+</div>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_credential_types.d/app-casc/controller_credential_types_gitlab_api.yml &lt;&lt;EOF
@@ -1254,8 +2394,12 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_inventory_to_be_used_for_the_job_templates"><a class="anchor" href="#_inventory_to_be_used_for_the_job_templates"></a>8.3.2. Inventory to be used for the Job Templates</h4>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Inventory to be used for the Job Templates</strong></p>
+</div>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_inventories.d/app-casc/controller_inventories_controller.yml &lt;&lt;EOF
@@ -1269,8 +2413,12 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_groups_to_be_used_for_the_job_templates"><a class="anchor" href="#_groups_to_be_used_for_the_job_templates"></a>8.3.3. Groups to be used for the Job Templates</h4>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Groups to be used for the Job Templates</strong></p>
+</div>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_groups.d/app-casc/controller_groups.yml &lt;&lt;EOF
@@ -1284,8 +2432,12 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_job_template_to_receive_all_the_webhooks_from_gitlab"><a class="anchor" href="#_job_template_to_receive_all_the_webhooks_from_gitlab"></a>8.3.4. Job Template to receive all the webhooks from GitLab</h4>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Job Template to receive all the webhooks from GitLab</strong></p>
+</div>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-casc/controller_jt_casc_cd_webhook.yml &lt;&lt;EOF
@@ -1314,8 +2466,12 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_job_template_to_deploy_all_the_object_defined_as_code"><a class="anchor" href="#_job_template_to_deploy_all_the_object_defined_as_code"></a>8.3.5. Job Template to deploy all the object defined as code</h4>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Job Template to deploy all the object defined as code</strong></p>
+</div>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-casc/controller_jt_casc_config.yml &lt;&lt;EOF
@@ -1347,8 +2503,12 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_job_template_to_remove_all_the_objects_in_the_controller_that_are_not_defined_as_code"><a class="anchor" href="#_job_template_to_remove_all_the_objects_in_the_controller_that_are_not_defined_as_code"></a>8.3.6. Job Template to remove all the objects in the Controller that are not defined as code</h4>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Job Template to remove all the objects in the Controller that are not defined as code</strong></p>
+</div>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/app-casc/controller_jt_casc_drop_diff.yml &lt;&lt;EOF
@@ -1381,8 +2541,12 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_job_template_to_create_new_gitlab_repositories_when_creating_additional_organizations"><a class="anchor" href="#_job_template_to_create_new_gitlab_repositories_when_creating_additional_organizations"></a>8.3.7. Job Template to create new GitLab repositories when creating additional organizations</h4>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Job Template to create new GitLab repositories when creating additional organizations</strong></p>
+</div>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -1529,8 +2693,12 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_job_template_to_configure_the_gitlab_webhooks_for_each_organizations_repository_to_apply_the_cac"><a class="anchor" href="#_job_template_to_configure_the_gitlab_webhooks_for_each_organizations_repository_to_apply_the_cac"></a>8.3.8. Job Template to configure the GitLab webhooks for each organization&#8217;s repository to apply the CaC</h4>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Job Template to configure the GitLab webhooks for each organization&#8217;s repository to apply the CaC</strong></p>
+</div>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -1667,8 +2835,12 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_job_template_to_create_a_new_regular_organization"><a class="anchor" href="#_job_template_to_create_a_new_regular_organization"></a>8.3.9. Job Template to create a new regular organization</h4>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Job Template to create a new regular organization</strong></p>
+</div>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_job_templates.d/controller_job_templates.yml &lt;&lt;EOF
@@ -1728,8 +2900,12 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_organization_to_be_created_superadmin"><a class="anchor" href="#_organization_to_be_created_superadmin"></a>8.3.10. Organization to be created: <code>superadmin</code></h4>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Organization to be created: <code>superadmin</code></strong></p>
+</div>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_organizations.d/app-casc/controller_organization_superadmin.yml &lt;&lt;EOF
@@ -1742,8 +2918,12 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_project_to_get_the_cac_related_playbooks"><a class="anchor" href="#_project_to_get_the_cac_related_playbooks"></a>8.3.11. Project to get the CaC related playbooks</h4>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Project to get the CaC related playbooks</strong></p>
+</div>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_projects.d/app-casc/controller_projects_casc.yml &lt;&lt;EOF
@@ -1766,8 +2946,12 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_project_to_get_the_gitlab_related_playbooks"><a class="anchor" href="#_project_to_get_the_gitlab_related_playbooks"></a>8.3.12. Project to get the GitLab related playbooks</h4>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Project to get the GitLab related playbooks</strong></p>
+</div>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/${SUPERADMIN_ORG}/env/common/controller_projects.d/app-gitlab/controller_projects_gitlab.yml &lt;&lt;EOF
@@ -1790,8 +2974,12 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_workflow_job_template_to_create_all_the_components_of_a_new_regular_organization"><a class="anchor" href="#_workflow_job_template_to_create_all_the_components_of_a_new_regular_organization"></a>8.3.13. Workflow Job Template to create all the components of a new regular organization</h4>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Workflow Job Template to create all the components of a new regular organization</strong></p>
+</div>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -2004,6 +3192,11 @@ controller_workflows:
           new_question: true
 ...
 EOF</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
