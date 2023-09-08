@@ -71,7 +71,7 @@ To create the new objects, just run the following command:
 [.console-input]
 [source,console,subs="attributes"]
 ----
-ansible-playbook new_project.yml -e "{organization_name: {neworg}, organization_desc: '{neworg} Organization', instance_groups: [MADRID], admin_user: 'neworgadminuser', orgs_vars: 'orgs_vars', orgs: '$\{SUPERADMIN_ORG\}', env: dev, casc_gitlab_scm_branch: dev} -e@gitlab.credentials.yaml"
+ansible-playbook new_project.yml -e "{organization_name: {neworg}, organization_desc: '{neworg} Organization', instance_groups: [MADRID], admin_user: 'neworgadminuser', orgs_vars: 'orgs_vars', orgs: '{neworg}', env: dev, casc_gitlab_scm_branch: dev} -e@gitlab.credentials.yaml"
 ----
 +
 .See the output
