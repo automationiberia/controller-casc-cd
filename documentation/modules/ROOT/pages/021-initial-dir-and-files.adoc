@@ -106,7 +106,7 @@ A script to be executed in the terminal is provided:
 [.console-input]
 [source,bash]
 ----
-curl -s "https://gitlab.com/automationiberia/aap-cac/superadmin-workshop-template/-/raw/main/housekeeping.sh?ref_type=heads&inline=false" | bash
+curl -s "https://raw.githubusercontent.com/automationiberia/controller-casc-cd/improvements/documentation/modules/ROOT/examples/housekeeping.sh" | bash
 ----
 +
 The script contents can also be Copied and Pasted:
@@ -297,7 +297,7 @@ A script to be executed in the terminal is provided:
 [.console-input]
 [source,bash]
 ----
-curl -s "https://gitlab.com/automationiberia/aap-cac/superadmin-workshop-template/-/raw/main/housekeeping.sh?ref_type=heads&inline=false" | bash
+curl -s "https://raw.githubusercontent.com/automationiberia/controller-casc-cd/improvements/documentation/modules/ROOT/examples/definecontrollerobjects.sh" | bash
 ----
 +
 The script contents can also be Copied and Pasted:
