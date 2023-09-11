@@ -101,6 +101,23 @@ Speed Track::
 +
 For more information about the steps below, see the xref:#tabset1_step-by-step[Step by step] tab.
 +
+A script to be executed in the terminal is provided:
++
+[.console-input]
+[source,bash]
+----
+curl -s "https://raw.githubusercontent.com/automationiberia/controller-casc-cd/improvements/documentation/modules/ROOT/examples/housekeeping.sh" | bash
+----
++
+The script contents can also be Copied and Pasted:
++
+[.console-input]
+[source,console]
+----
+include::../examples/housekeeping.sh[]
+----
+////
++
 [.console-input]
 [source,console]
 ----
@@ -118,7 +135,7 @@ cat > .gitlab-ci.yml <<'EOF'
 include::../examples/dot.gitlab-ci.yml[]
 EOF
 ----
-
+////
 Step by step::
 +
 .Create a new empty directory to start filling the project
@@ -275,6 +292,23 @@ Speed Track::
 +
 For more information about the steps below, see the xref:#tabset2_step-by-step[Step by step] tab.
 +
+A script to be executed in the terminal is provided:
++
+[.console-input]
+[source,bash]
+----
+curl -s "https://raw.githubusercontent.com/automationiberia/controller-casc-cd/improvements/documentation/modules/ROOT/examples/definecontrollerobjects.sh" | bash
+----
++
+The script contents can also be Copied and Pasted:
++
+[.console-input]
+[source,console]
+----
+include::../examples/housekeeping.sh[]
+----
+////
++
 [.console-input]
 [source,bash]
 ----
@@ -398,7 +432,7 @@ cat > orgs_vars/${SUPERADMIN_ORG}/env/common/controller_workflow_job_templates.d
 include::../examples/orgs_vars/superadmin/env/common/controller_workflow_job_templates.d/controller_workflow_job_templates.yml[]
 EOF
 ----
-
+////
 Step by step::
 +
 With these files, the SuperAdmin repo will have all the CaC related playbooks that will create and/or destroy the objects at the Ansible Controller.
