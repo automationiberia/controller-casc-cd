@@ -39,7 +39,7 @@ IMPORTANT: Grab the generated personal access token to be used later.
 [.console-input]
 [source,bash]
 ----
-ssh-keygen -f id_rsa_gitlab
+ssh-keygen -f ~/.ssh/id_rsa_gitlab
 ----
 +
 NOTE: Any key type can be used. The possible values are `dsa`, `ecdsa`, `ecdsa-sk`, `ed25519`, `ed25519-sk`, or `rsa`.
@@ -250,7 +250,7 @@ ansible-vault encrypt --vault-password-file .vault_password \
 ======
 Write down the encryption password (always in a secure place :) ) as you will be using it more to encrypt and decrypt later on the workshop.
 
-You can also use the file `.vault-password` excluded from git together with the option `--vault-password-file` at your discretion
+You can use the file `.vault-password` (which is in the `.gitignore` file to avoid putting it to the remote GitLab repository) with the option `--vault-password-file` or you can ommit that option and the vault password will be asked interactively.
 ======
 
 == Create the CaC playbooks
