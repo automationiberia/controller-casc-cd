@@ -737,6 +737,7 @@ git commit -m "Initial commit"
 git push -u origin dev
 git checkout -b pro
 git push -u origin pro
+git checkout dev
 ----
 
 [NOTE]

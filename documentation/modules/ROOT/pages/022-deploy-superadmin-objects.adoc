@@ -34,7 +34,7 @@ ansible-navigator run casc_ctrl_config.yml -i inventory -l dev -e "{orgs: ${SUPE
 ansible-navigator run casc_ctrl_config.yml -i inventory -l pro -e "{orgs: ${SUPERADMIN_ORG}, dir_orgs_vars: orgs_vars, env: pro}" -m stdout --eei quay.io/automationiberia/aap/ee-casc:latest --vault-password-file .vault_password --pull-arguments=--tls-verify=false
 ----
 
-[TIP]
+[IMPORTANT]
 ====
 The following requirements must be taken in consideration:
 
@@ -51,11 +51,8 @@ include::../examples/collections/requirements.yaml[]
 =====
 
 * The target AAP Controller must be available when running the previous command
-====
 
-[TIP]
-====
-The file `.vault_password` used in the previous command, must exist and contain the vault password needed to access the vaulted variables
+* The file `.vault_password` used in the previous command, must exist and contain the vault password needed to access the vaulted variables
 ====
 
 [TIP]

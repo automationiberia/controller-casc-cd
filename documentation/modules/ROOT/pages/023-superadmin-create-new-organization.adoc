@@ -2,6 +2,11 @@ include::_attributes.adoc[]
 
 = Day-2: Create a new Organization
 
+[IMPORTANT]
+====
+New organizations are created from the `dev` Ansible Controller instance, and will be promoted to the `pro` one in next steps.
+====
+
 There are two ways to create a new Organization, which will be described below in the following sections:
 
 * xref:#tabset1_automatically[Automatically]: A Job Template to create all the required components for a new regular organization is provided.
@@ -13,7 +18,7 @@ As an overview, when creating a new Organization, some objects must be populated
 ======
 Automatically::
 +
-1. Locate the Job Template called `superadmin WF New Project` and Launch it.
+1. Locate the Job Template called `<ORGNAME> WF New Project` and Launch it.
 +
 image::new-project-workflow-1.png[]
 
