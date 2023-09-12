@@ -324,7 +324,7 @@ Grab the generated personal access token to be used later.
 <p><a id="GITLAB_SSH_PUBLIC_KEY"></a>Configure a ssh key pair to access your empty project with write access:</p>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ssh-keygen -f id_rsa_gitlab</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ssh-keygen -f ~/.ssh/id_rsa_gitlab</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -954,7 +954,7 @@ EOF</code></pre>
 <p>Write down the encryption password (always in a secure place :) ) as you will be using it more to encrypt and decrypt later on the workshop.</p>
 </div>
 <div class="paragraph">
-<p>You can also use the file <code>.vault-password</code> excluded from git together with the option <code>--vault-password-file</code> at your discretion</p>
+<p>You can use the file <code>.vault-password</code> (which is in the <code>.gitignore</code> file to avoid putting it to the remote GitLab repository) with the option <code>--vault-password-file</code> or you can ommit that option and the vault password will be asked interactively.</p>
 </div>
 </td>
 </tr>
