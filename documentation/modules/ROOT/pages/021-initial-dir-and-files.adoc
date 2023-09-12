@@ -40,7 +40,7 @@ IMPORTANT: Grab the generated personal access token to be used later.
 [source,bash]
 ----
 ssh-keygen -f ~/.ssh/id_rsa_gitlab
-echo "Copy the following public key to your GitLab project"
+echo -e "\nCopy the following public key to your GitLab project:\n"
 cat ~/.ssh/id_rsa_gitlab.pub
 ----
 +
