@@ -324,7 +324,9 @@ Grab the generated personal access token to be used later.
 <p><a id="GITLAB_SSH_PUBLIC_KEY"></a>Configure a ssh key pair to access your empty project with write access:</p>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ssh-keygen -f ~/.ssh/id_rsa_gitlab</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ssh-keygen -f ~/.ssh/id_rsa_gitlab
+echo "Copy the following public key to your GitLab project"
+cat ~/.ssh/id_rsa_gitlab.pub</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
