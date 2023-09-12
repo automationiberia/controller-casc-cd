@@ -848,18 +848,10 @@ EOF</code></pre>
 <div class="content">
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">mkdir -p group_vars/{all,dev,pro}</code></pre>
-</div>
-</div>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">mkdir -p orgs_vars/${SUPERADMIN_ORG}/env/{dev,pro}/controller_{instance_groups.d,hosts.d/app-casc,users.d,execution_environments.d/app-casc,settings.d/jobs,settings.d/user_interface,settings.d/authentication,settings.d/system,inventory_sources.d,credentials.d}
-touch orgs_vars/${SUPERADMIN_ORG}/env/{dev,pro}/controller_{instance_groups.d,hosts.d/app-casc,users.d,execution_environments.d/app-casc,settings.d/jobs,settings.d/user_interface,settings.d/authentication,settings.d/system,inventory_sources.d,credentials.d}/.gitkeep</code></pre>
-</div>
-</div>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">mkdir -p orgs_vars/${SUPERADMIN_ORG}/env/common/controller_{schedules.d/app-casc,workflow_job_templates.d/app-casc,job_templates.d/app-casc,job_templates.d/app-gitlab,projects.d/app-casc,projects.d/app-gitlab,teams.d,credential_types.d/app-casc,roles.d,inventories.d/app-casc,organizations.d/app-casc,credentials.d,groups.d/app-casc}
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">mkdir -p group_vars/{all,dev,pro}
+mkdir -p orgs_vars/${SUPERADMIN_ORG}/env/{dev,pro}/controller_{instance_groups.d,hosts.d/app-casc,users.d,execution_environments.d/app-casc,settings.d/jobs,settings.d/user_interface,settings.d/authentication,settings.d/system,inventory_sources.d,credentials.d}
+touch orgs_vars/${SUPERADMIN_ORG}/env/{dev,pro}/controller_{instance_groups.d,hosts.d/app-casc,users.d,execution_environments.d/app-casc,settings.d/jobs,settings.d/user_interface,settings.d/authentication,settings.d/system,inventory_sources.d,credentials.d}/.gitkeep
+mkdir -p orgs_vars/${SUPERADMIN_ORG}/env/common/controller_{schedules.d/app-casc,workflow_job_templates.d/app-casc,job_templates.d/app-casc,job_templates.d/app-gitlab,projects.d/app-casc,projects.d/app-gitlab,teams.d,credential_types.d/app-casc,roles.d,inventories.d/app-casc,organizations.d/app-casc,credentials.d,groups.d/app-casc}
 touch orgs_vars/${SUPERADMIN_ORG}/env/common/controller_{schedules.d/app-casc,workflow_job_templates.d/app-casc,job_templates.d/app-casc,job_templates.d/app-gitlab,projects.d/app-casc,projects.d/app-gitlab,teams.d,credential_types.d/app-casc,roles.d,inventories.d/app-casc,organizations.d/app-casc,credentials.d,groups.d/app-casc}/.gitkeep</code></pre>
 </div>
 </div>
