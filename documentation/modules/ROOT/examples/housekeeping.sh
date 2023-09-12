@@ -161,6 +161,3 @@ auto-release-master:
     ref: $CI_COMMIT_SHA
 ...
 EOF
-
-cd -
-
