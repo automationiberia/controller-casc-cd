@@ -325,7 +325,7 @@ Grab the generated personal access token to be used later.
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ssh-keygen -f ~/.ssh/id_rsa_gitlab
-echo "Copy the following public key to your GitLab project"
+echo -e "\nCopy the following public key to your GitLab project:\n"
 cat ~/.ssh/id_rsa_gitlab.pub</code></pre>
 </div>
 </div>
@@ -648,9 +648,7 @@ auto-release-master:
     tag_name: v$TAG
     ref: $CI_COMMIT_SHA
 ...
-EOF
-
-cd -</code></pre>
+EOF</code></pre>
 </div>
 </div>
 </div>
@@ -1175,9 +1173,7 @@ auto-release-master:
     tag_name: v$TAG
     ref: $CI_COMMIT_SHA
 ...
-EOF
-
-cd -</code></pre>
+EOF</code></pre>
 </div>
 </div>
 </div>
