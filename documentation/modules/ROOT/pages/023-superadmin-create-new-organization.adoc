@@ -18,7 +18,7 @@ As an overview, when creating a new Organization, some objects must be populated
 ======
 Automatically::
 +
-1. Locate the Job Template called `<ORGNAME> WF New Project` and Launch it.
+1. Locate the Job Template called `<ORGNAME> dev WF New Project` and Launch it.
 +
 image::new-project-workflow-1.png[]
 
@@ -35,6 +35,13 @@ image::new-project-workflow-2.2.png[]
 3. Let's the execution to finish:
 +
 image::new-project-workflow-3.png[]
++
+[IMPORTANT]
+====
+At this point, the new GitLab repository has been created and the Webhook for the `DEV` workflow has been created.
+
+The Webhook for the `PRO` workflow has to be created manually, following the steps described at xref:022-deploy-superadmin-objects.adoc#_pro_environment[Configure the GitLab Webhooks for the Pro environment] *AFTER* promoting the new organization to the `PRO` environment.
+====
 +
 4. Promote the new organization to PRO
 +
@@ -54,6 +61,8 @@ If it's not the case, the pipeline that is automatically creating the Tag just a
 +
 image::regular-user-new-tag-1.png[]
 image::regular-user-new-tag-2.png[]
++
+5. Create the Webhook for the `PRO` workflow following the steps described at xref:022-deploy-superadmin-objects.adoc#_pro_environment[Configure the GitLab Webhooks for the Pro environment].
 
 Manually::
 +
@@ -216,4 +225,7 @@ The configuration is almost the same shown at the previous section: xref:022-dep
 +
 .Configure Webhook for the {neworg} Organization
 image::configure_webhook_neworg_launch_params.png[]
++
+7. Create the Webhook for the `PRO` workflow following the steps described at xref:022-deploy-superadmin-objects.adoc#_pro_environment[Configure the GitLab Webhooks for the Pro environment].
 ======
+

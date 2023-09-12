@@ -70,7 +70,7 @@ Once the objects has been created at the Ansible Automation Controller, there ar
 =====
 Automatically::
 +
-A Job Template and a Project have been created to automatically configure the GitLab Webhook making use of the `GitLab API Token` credential defined and vaulted in the configuration files (take a look at [`orgs_vars/$\{SUPERADMIN_ORG\}/env/dev/controller_credentials.d/controller_credentials_gitlab_api_token.yml`](orgs_vars/superadmin/env/dev/controller_credentials.d/controller_credentials_gitlab_api_token.yml)):
+A Job Template and a Project have been created to automatically configure the GitLab Webhook making use of the `GitLab API Token` credential defined and vaulted in the configuration files (take a look at `orgs_vars/$\{SUPERADMIN_ORG\}/env/dev/controller_credentials.d/controller_credentials_gitlab_api_token.yml`):
 +
 Launch the Job Template called `{{ orgs }} dev Gitlab Webhook Creation`:
 +
