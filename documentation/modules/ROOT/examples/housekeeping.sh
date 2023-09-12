@@ -13,8 +13,6 @@ for var in ${VARS_REQUIRED[@]}; do
   fi
 done
 
-mkdir "${SUPERADMIN_ORG}" && cd "${SUPERADMIN_ORG}"
-
 cat > .gitignore <<EOF
 collections/ansible_collections
 users.csv

@@ -108,6 +108,8 @@ A script to be executed in the terminal is provided:
 [.console-input]
 [source,bash]
 ----
+mkdir "${SUPERADMIN_ORG}" && cd "${SUPERADMIN_ORG}"
+
 curl -s "https://raw.githubusercontent.com/automationiberia/controller-casc-cd/improvements/documentation/modules/ROOT/examples/housekeeping.sh" | bash
 ----
 +
