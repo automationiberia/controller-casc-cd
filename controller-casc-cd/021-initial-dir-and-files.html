@@ -662,7 +662,9 @@ sudo useradd --comment 'GitLab Runner' --create-home gitlab-runner --shell /bin/
 
 # Install and run as a service
 sudo /usr/bin/gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runner
-sudo /usr/bin/gitlab-runner start</code></pre>
+sudo /usr/bin/gitlab-runner start
+
+alias gitlab-runner='sudo gitlab-runner'</code></pre>
 </div>
 </div>
 </div>
@@ -838,7 +840,56 @@ EOF</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Additionally, a GitLab Runner instance must be created and configured to allow the GitLab Actions to be executed at <code>gitlab.com</code>. The previous step has already executed some actions to ease the configuration, so following are the remaining steps:</p>
+<p>Additionally, a GitLab Runner instance must be created and configured to allow the GitLab Actions to be executed at <code>gitlab.com</code>. The previous step has already executed some actions to ease the configuration the script (See <a href="https://github.com/automationiberia/controller-casc-cd/blob/99272f3dfa69c5a133d3eed3866d837be22f9eb6/documentation/modules/ROOT/examples/housekeeping.sh#L163C1-L175C34" target="_blank" rel="noopener">housekeeping.sh</a>), so following are the remaining steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the GitLab repository created at the first step, go to <code>Settings</code> &#8594; <code>CI/CD</code> &#8594; <code>Runners</code> &#8594; <code>Project Runners</code> &#8594; <code>New Project Runner</code>:</p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/gitlab-new-runner-1.png" alt="gitlab new runner 1"></span></p>
+</div>
+</li>
+<li>
+<p>Select <code>Linux</code> for the Platform and write down <code>casc, controller-group</code> to the <code>tags</code> field:</p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/gitlab-new-runner-2.png" alt="gitlab new runner 2"></span></p>
+</div>
+</li>
+<li>
+<p>Select the <code>Lock to current projects</code> option for the new runner:</p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/gitlab-new-runner-3.png" alt="gitlab new runner 3"></span></p>
+</div>
+</li>
+<li>
+<p>Run the given command to the assigned <code>DEV</code> controller server (using VSCode Terminal or SSH connection):</p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/gitlab-new-runner-4.png" alt="gitlab new runner 4"></span></p>
+</div>
+<div class="paragraph">
+<p>Enter the <code>shell</code> executor when asked:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/gitlab-new-runner-5.png" alt="gitlab new runner 5"></span></p>
+</div>
+</li>
+<li>
+<p>To test that the GitLab Runner is working properly, launch a test pipeline:</p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/gitlab-pipeline-test-run.png" alt="gitlab pipeline test run"></span></p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/gitlab-pipeline-test-run-2.png" alt="gitlab pipeline test run 2"></span></p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/gitlab-pipeline-test-run-3.png" alt="gitlab pipeline test run 3"></span></p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/gitlab-pipeline-test-run-4.png" alt="gitlab pipeline test run 4"></span></p>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -1194,7 +1245,9 @@ sudo useradd --comment 'GitLab Runner' --create-home gitlab-runner --shell /bin/
 
 # Install and run as a service
 sudo /usr/bin/gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runner
-sudo /usr/bin/gitlab-runner start</code></pre>
+sudo /usr/bin/gitlab-runner start
+
+alias gitlab-runner='sudo gitlab-runner'</code></pre>
 </div>
 </div>
 </div>
