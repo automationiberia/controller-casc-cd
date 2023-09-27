@@ -82,7 +82,7 @@ Where:
 * CONTROLLER_DEV_HOST: the hostname or IP address for the Automation Controller server (dev instance)
 * CONTROLLER_PRO_HOST: the hostname or IP address for the Automation Controller server (pro instance)
 * SUPERADMIN_ORG: Superadmin organization name
-* PROJECT_URL_CASC: Project URL for CasC (SSH format)
+* PROJECT_URL_CASC: Project URL created at xref:#_pre_requisites[the first] step for CasC (SSH format)
 * GITLAB_USERNAME: GitLab user name
 * SSH_PRIVATE_KEY_FILE: the private SSH key file that corresponds to the public SSH key attached to your gitlab account (<<GITLAB_SSH_PUBLIC_KEY,see prerequisites>>).
 * GITLAB_API_TOKEN: The Personal access token to let the New Organization Creation process to work as expected (must be able to create new projects into GitLab).
@@ -158,6 +158,10 @@ include::../examples/dot.gitlab-ci.yml[]
 EOF
 ----
 ====
+
+Additionally, a GitLab Runner instance must be created and configured to allow the GitLab Actions to be executed at `gitlab.com`. The previous step has already executed some actions to ease the configuration, so following are the remaining steps:
+
+
 
 == Create the ansible inventory file for the environment
 
