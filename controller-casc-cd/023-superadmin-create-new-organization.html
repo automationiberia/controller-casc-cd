@@ -263,7 +263,7 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Locate the Job Template called <code>&lt;ORGNAME&gt; WF New Project</code> and Launch it.</p>
+<p>Locate the Job Template called <code>&lt;ORGNAME&gt; dev WF New Project</code> and Launch it.</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/new-project-workflow-1.png" alt="new project workflow 1">
@@ -303,6 +303,23 @@
 <div class="content">
 <img src="_images/new-project-workflow-3.png" alt="new project workflow 3">
 </div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>At this point, the new GitLab repository has been created and the Webhook for the <code>DEV</code> workflow has been created.</p>
+</div>
+<div class="paragraph">
+<p>The Webhook for the <code>PRO</code> workflow has to be created manually, following the steps described at <a href="022-deploy-superadmin-objects.html#_pro_environment" class="xref page">Configure the GitLab Webhooks for the Pro environment</a> <strong>AFTER</strong> promoting the new organization to the <code>PRO</code> environment.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </li>
 <li>
@@ -349,6 +366,9 @@
 <img src="_images/regular-user-new-tag-2.png" alt="regular user new tag 2">
 </div>
 </div>
+</li>
+<li>
+<p>Create the Webhook for the <code>PRO</code> workflow following the steps described at <a href="022-deploy-superadmin-objects.html#_pro_environment" class="xref page">Configure the GitLab Webhooks for the Pro environment</a>.</p>
 </li>
 </ol>
 </div>
@@ -555,6 +575,9 @@ To ssh://gitlab.server.domain:2222/group/sub-group/casc/super-admin.git
 </div>
 <div class="title">Figure 4. Configure Webhook for the ${SUPERADMIN_ORG} Organization</div>
 </div>
+</li>
+<li>
+<p>Create the Webhook for the <code>PRO</code> workflow following the steps described at <a href="022-deploy-superadmin-objects.html#_pro_environment" class="xref page">Configure the GitLab Webhooks for the Pro environment</a>.</p>
 </li>
 </ol>
 </div>

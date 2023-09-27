@@ -415,7 +415,7 @@ export ADMIN_PRO_PASSWORD='&lt;CHANGE_ME&gt;'</code></pre>
 <p>SUPERADMIN_ORG: Superadmin organization name</p>
 </li>
 <li>
-<p>PROJECT_URL_CASC: Project URL for CasC (SSH format)</p>
+<p>PROJECT_URL_CASC: Project URL created at <a href="#_pre_requisites">the first</a> step for CasC (SSH format)</p>
 </li>
 <li>
 <p>GITLAB_USERNAME: GitLab user name</p>
@@ -648,7 +648,21 @@ auto-release-master:
     tag_name: v$TAG
     ref: $CI_COMMIT_SHA
 ...
-EOF</code></pre>
+EOF
+
+### Prepare for the GitLab Runner configuration
+# Download the binary for your system
+sudo curl -L --output /usr/bin/gitlab-runner https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-amd64
+
+# Give it permission to execute
+sudo chmod +x /usr/bin/gitlab-runner
+
+# Create a GitLab Runner user
+sudo useradd --comment 'GitLab Runner' --create-home gitlab-runner --shell /bin/bash
+
+# Install and run as a service
+sudo /usr/bin/gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runner
+sudo /usr/bin/gitlab-runner start</code></pre>
 </div>
 </div>
 </div>
@@ -822,6 +836,9 @@ EOF</code></pre>
 </div>
 </div>
 </div>
+</div>
+<div class="paragraph">
+<p>Additionally, a GitLab Runner instance must be created and configured to allow the GitLab Actions to be executed at <code>gitlab.com</code>. The previous step has already executed some actions to ease the configuration, so following are the remaining steps:</p>
 </div>
 </div>
 </div>
@@ -1163,7 +1180,21 @@ auto-release-master:
     tag_name: v$TAG
     ref: $CI_COMMIT_SHA
 ...
-EOF</code></pre>
+EOF
+
+### Prepare for the GitLab Runner configuration
+# Download the binary for your system
+sudo curl -L --output /usr/bin/gitlab-runner https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-amd64
+
+# Give it permission to execute
+sudo chmod +x /usr/bin/gitlab-runner
+
+# Create a GitLab Runner user
+sudo useradd --comment 'GitLab Runner' --create-home gitlab-runner --shell /bin/bash
+
+# Install and run as a service
+sudo /usr/bin/gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runner
+sudo /usr/bin/gitlab-runner start</code></pre>
 </div>
 </div>
 </div>
