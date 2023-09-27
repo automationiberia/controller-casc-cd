@@ -662,9 +662,7 @@ sudo useradd --comment 'GitLab Runner' --create-home gitlab-runner --shell /bin/
 
 # Install and run as a service
 sudo /usr/bin/gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runner
-sudo /usr/bin/gitlab-runner start
-
-alias gitlab-runner='sudo gitlab-runner'</code></pre>
+sudo /usr/bin/gitlab-runner start</code></pre>
 </div>
 </div>
 </div>
@@ -860,6 +858,25 @@ EOF</code></pre>
 <p>Select the <code>Lock to current projects</code> option for the new runner:</p>
 <div class="paragraph">
 <p><span class="image"><img src="_images/gitlab-new-runner-3.png" alt="gitlab new runner 3"></span></p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For the given command to work as expected, the following alias must be defined prior the registration of the new runner:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">alias gitlab-runner='sudo gitlab-runner'</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </li>
 <li>
@@ -1245,9 +1262,7 @@ sudo useradd --comment 'GitLab Runner' --create-home gitlab-runner --shell /bin/
 
 # Install and run as a service
 sudo /usr/bin/gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runner
-sudo /usr/bin/gitlab-runner start
-
-alias gitlab-runner='sudo gitlab-runner'</code></pre>
+sudo /usr/bin/gitlab-runner start</code></pre>
 </div>
 </div>
 </div>
