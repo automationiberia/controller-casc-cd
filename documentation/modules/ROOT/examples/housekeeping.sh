@@ -173,5 +173,3 @@ sudo useradd --comment 'GitLab Runner' --create-home gitlab-runner --shell /bin/
 # Install and run as a service
 sudo /usr/bin/gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runner
 sudo /usr/bin/gitlab-runner start
-
-alias gitlab-runner='sudo gitlab-runner'

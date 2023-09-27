@@ -170,6 +170,16 @@ image:gitlab-new-runner-2.png[]
 3. Select the `Lock to current projects` option for the new runner:
 +
 image:gitlab-new-runner-3.png[]
++
+[IMPORTANT]
+====
+For the given command to work as expected, the following alias must be defined prior the registration of the new runner:
+[.console-input]
+[source,bash]
+----
+alias gitlab-runner='sudo gitlab-runner'
+----
+====
 4. Run the given command to the assigned `DEV` controller server (using VSCode Terminal or SSH connection):
 +
 image:gitlab-new-runner-4.png[]
