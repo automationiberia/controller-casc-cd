@@ -159,3 +159,17 @@ auto-release-master:
     ref: $CI_COMMIT_SHA
 ...
 EOF
+
+### Prepare for the GitLab Runner configuration
+# Download the binary for your system
+sudo curl -L --output /usr/bin/gitlab-runner https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-amd64
+
+# Give it permission to execute
+sudo chmod +x /usr/bin/gitlab-runner
+
+# Create a GitLab Runner user
+sudo useradd --comment 'GitLab Runner' --create-home gitlab-runner --shell /bin/bash
+
+# Install and run as a service
+sudo /usr/bin/gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runner
+sudo /usr/bin/gitlab-runner start
