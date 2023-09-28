@@ -7,7 +7,7 @@ stages:
 
 yamllint:
   stage: lint
-  image: quay.io/automationiberia/aap/ee-casc:latest
+  image: quay.io/automationiberia/casc/ee-casc:latest
   tags:
     - casc
     - controller-group
@@ -33,6 +33,7 @@ check_names:
       when: never
     - if: '$CI_COMMIT_BRANCH'
   script:
+    - ansible-galaxy collection install community.general
     - ansible-playbook check_playbook.yml
 
 generate_tag:

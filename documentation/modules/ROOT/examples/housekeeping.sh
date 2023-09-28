@@ -83,7 +83,7 @@ stages:
 
 yamllint:
   stage: lint
-  image: quay.io/automationiberia/aap/ee-casc:latest
+  image: quay.io/automationiberia/casc/ee-casc:latest
   tags:
     - casc
     - controller-group
