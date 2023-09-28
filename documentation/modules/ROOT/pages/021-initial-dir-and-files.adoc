@@ -20,6 +20,8 @@ The only prerequisite to run this lab is an *existing personal GitLab account* w
 +
 IMPORTANT: The name of the repository must be the same as the name of the organization that is being created in the next steps of the lab (see the variable xref:021-initial-dir-and-files.adoc#_export_all_the_variables_to_be_used_in_the_next_steps[`SUPERADMIN_ORG`]).
 +
+IMPORTANT: When creating the new repository, be sure to uncheck the `Initialize repository with a README` checkbox.
++
 [NOTE]
 =======
 All the files for the repo will be created from scratch and synchronized during this lab.
