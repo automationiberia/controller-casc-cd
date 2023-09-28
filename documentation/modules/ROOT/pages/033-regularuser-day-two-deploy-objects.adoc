@@ -72,12 +72,29 @@ image::mergenewobjectstopro.png[Merge Pro Merge Request]
 
 === Check new objects in the Organization for the `pro` controller
 
-Go to #ToDo URL jobs#  and check that #To Do job names# were finished well.
+[NOTE]
+====
+The following examples will use the Ansible Automation Controller base URL `{controller_url}`, which should be customized as needed.
+====
 
-Go to #ToDo URL projects#  and check that %ORGNAME% New Job Template was created.
+==== Go to `{controller_url}#/jobs` and check that the jobs for CaC `{neworg} CasC Ctrl Drop Diff` and `{neworg} CasC Ctrl Config` finished successfully:
 
-Go to #ToDo URL job_template#  and check that %ORGNAME%_project_example was created.
+image::regular-user-webhook-jobs-pro-1.png[Regular User Webhook Triggered Jobs]
 
-Go to #ToDo URL inventory#  and check that %ORGNAME% Localhost was created and it has a host #ToDo URL host inventory#
+==== Go to `{controller_url}#/projects` and check that `{neworg}_project_example` was created:
 
-Go to #ToDo URL credential#  and check that %ORGNAME% Gitlab Credential %ORGNAME%_project_example was created.
+image::regular-user-webhook-projects-pro-1.png[Regular User Webhook Created Projects]
+
+==== Go to `{controller_url}#/templates` and check that `{neworg} New Job Template` was created:
+
+image::regular-user-webhook-templates-pro-1.png[Regular User Webhook Created Job Templates]
+
+==== Go to `{controller_url}#/inventories` and check that `{neworg} Localhost` was created and it has a host:
+
+image::regular-user-webhook-inventory-pro-1.png[Regular User Webhook Created Inventory]
+image::regular-user-webhook-inventory-pro-2.png[Regular User Webhook Created Inventory Host]
+
+==== Go to `{controller_url}#/credentials` and check that `{neworg} dev *` was created:
+
+image::regular-user-webhook-credentials-pro-1.png[Regular User Webhook Created Credentials]
+
