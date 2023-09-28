@@ -99,7 +99,7 @@ check_names:
   stage: check
   # variables:
   #   CI_DEBUG_TRACE: "true"
-  image: xcum2idas010.pre.npro.onpremise.es.bs/ee-casc:latest
+  image: quay.io/automationiberia/casc/ee-casc:latest
   tags:
     - casc
     - controller-group
