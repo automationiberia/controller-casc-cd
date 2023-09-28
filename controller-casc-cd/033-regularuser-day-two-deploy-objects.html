@@ -358,20 +358,64 @@ git push -u origin creation_new_objects</code></pre>
 </div>
 <div class="sect2">
 <h3 id="_check_new_objects_in_the_organization_for_the_pro_controller"><a class="anchor" href="#_check_new_objects_in_the_organization_for_the_pro_controller"></a>3.3. Check new objects in the Organization for the <code>pro</code> controller</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>Go to <mark>ToDo URL jobs</mark>  and check that <mark>To Do job names</mark> were finished well.</p>
+<p>The following examples will use the Ansible Automation Controller base URL <code>&lt;CHANGE_ME&gt;</code>, which should be customized as needed.</p>
 </div>
-<div class="paragraph">
-<p>Go to <mark>ToDo URL projects</mark>  and check that %ORGNAME% New Job Template was created.</p>
+</td>
+</tr>
+</table>
 </div>
-<div class="paragraph">
-<p>Go to <mark>ToDo URL job_template</mark>  and check that %ORGNAME%_project_example was created.</p>
+<div class="sect3">
+<h4 id="_go_to_change_mejobs_and_check_that_the_jobs_for_cac_superadmin_org_casc_ctrl_drop_diff_and_superadmin_org_casc_ctrl_config_finished_successfully_2"><a class="anchor" href="#_go_to_change_mejobs_and_check_that_the_jobs_for_cac_superadmin_org_casc_ctrl_drop_diff_and_superadmin_org_casc_ctrl_config_finished_successfully_2"></a>3.3.1. Go to <code>&lt;CHANGE_ME&gt;#/jobs</code> and check that the jobs for CaC <code>${SUPERADMIN_ORG} CasC Ctrl Drop Diff</code> and <code>${SUPERADMIN_ORG} CasC Ctrl Config</code> finished successfully:</h4>
+<div class="imageblock">
+<div class="content">
+<img src="_images/regular-user-webhook-jobs-pro-1.png" alt="Regular User Webhook Triggered Jobs">
 </div>
-<div class="paragraph">
-<p>Go to <mark>ToDo URL inventory</mark>  and check that %ORGNAME% Localhost was created and it has a host <mark>ToDo URL host inventory</mark></p>
 </div>
-<div class="paragraph">
-<p>Go to <mark>ToDo URL credential</mark>  and check that %ORGNAME% Gitlab Credential %ORGNAME%_project_example was created.</p>
+</div>
+<div class="sect3">
+<h4 id="_go_to_change_meprojects_and_check_that_superadmin_org_project_example_was_created_2"><a class="anchor" href="#_go_to_change_meprojects_and_check_that_superadmin_org_project_example_was_created_2"></a>3.3.2. Go to <code>&lt;CHANGE_ME&gt;#/projects</code> and check that <code>${SUPERADMIN_ORG}_project_example</code> was created:</h4>
+<div class="imageblock">
+<div class="content">
+<img src="_images/regular-user-webhook-projects-pro-1.png" alt="Regular User Webhook Created Projects">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_go_to_change_metemplates_and_check_that_superadmin_org_new_job_template_was_created_2"><a class="anchor" href="#_go_to_change_metemplates_and_check_that_superadmin_org_new_job_template_was_created_2"></a>3.3.3. Go to <code>&lt;CHANGE_ME&gt;#/templates</code> and check that <code>${SUPERADMIN_ORG} New Job Template</code> was created:</h4>
+<div class="imageblock">
+<div class="content">
+<img src="_images/regular-user-webhook-templates-pro-1.png" alt="Regular User Webhook Created Job Templates">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_go_to_change_meinventories_and_check_that_superadmin_org_localhost_was_created_and_it_has_a_host_2"><a class="anchor" href="#_go_to_change_meinventories_and_check_that_superadmin_org_localhost_was_created_and_it_has_a_host_2"></a>3.3.4. Go to <code>&lt;CHANGE_ME&gt;#/inventories</code> and check that <code>${SUPERADMIN_ORG} Localhost</code> was created and it has a host:</h4>
+<div class="imageblock">
+<div class="content">
+<img src="_images/regular-user-webhook-inventory-pro-1.png" alt="Regular User Webhook Created Inventory">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/regular-user-webhook-inventory-pro-2.png" alt="Regular User Webhook Created Inventory Host">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_go_to_change_mecredentials_and_check_that_superadmin_org_dev_was_created_2"><a class="anchor" href="#_go_to_change_mecredentials_and_check_that_superadmin_org_dev_was_created_2"></a>3.3.5. Go to <code>&lt;CHANGE_ME&gt;#/credentials</code> and check that <code>${SUPERADMIN_ORG} dev *</code> was created:</h4>
+<div class="imageblock">
+<div class="content">
+<img src="_images/regular-user-webhook-credentials-pro-1.png" alt="Regular User Webhook Created Credentials">
+</div>
+</div>
 </div>
 </div>
 </div>

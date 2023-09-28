@@ -234,7 +234,68 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_clone_the_repository_and_create_a_new_branch"><a class="anchor" href="#_clone_the_repository_and_create_a_new_branch"></a>1. Clone the repository and create a new branch</h2>
+<h2 id="_export_all_the_variables_to_be_used_in_the_next_steps"><a class="anchor" href="#_export_all_the_variables_to_be_used_in_the_next_steps"></a>1. Export all the variables to be used in the next steps</h2>
+<div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+These variables are undefined when you close your terminal session, so they need to be populated each time you open a new terminal.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock console-input">
+<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">export ORGNAME='&lt;CHANGE_ME&gt;'
+export PROJECT_URL_CASC='&lt;CHANGE_ME&gt;'
+export SSH_PRIVATE_KEY_FILE='&lt;CHANGE_ME&gt;'
+export GITLAB_USERNAME='&lt;CHANGE_ME&gt;'
+export GITLAB_EMAIL='&lt;CHANGE_ME&gt;'
+export VAULT_PASSWORD='&lt;CHANGE_ME&gt;'
+# export GITLAB_API_TOKEN='&lt;CHANGE_ME&gt;'
+# export AAP_USER_NAME='&lt;CHANGE_ME&gt;'
+# export AAP_USER_PASSWORD='&lt;CHANGE_ME&gt;'
+# export AAP_USER_EMAIL='&lt;CHANGE_ME&gt;'
+# export AAP_USER_FIRSTNAME='&lt;CHANGE_ME&gt;'
+# export AAP_USER_LASTNAME='&lt;CHANGE_ME&gt;'
+# export ADMIN_DEV_PASSWORD='&lt;CHANGE_ME&gt;'
+# export ADMIN_PRO_PASSWORD='&lt;CHANGE_ME&gt;'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Where:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>ORGNAME: Organization name</p>
+</li>
+<li>
+<p>PROJECT_URL_CASC: Project URL (SSH format)</p>
+</li>
+<li>
+<p>SSH_PRIVATE_KEY_FILE: the private SSH key file that corresponds to the public SSH key attached to your gitlab account (<a href="#GITLAB_SSH_PUBLIC_KEY">see prerequisites</a>).</p>
+</li>
+<li>
+<p>GITLAB_USERNAME: GitLab user name</p>
+</li>
+<li>
+<p>GITLAB_EMAIL: GitLab user email address</p>
+</li>
+<li>
+<p>VAULT_PASSWORD: Ansible Vault password</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_clone_the_repository_and_create_a_new_branch"><a class="anchor" href="#_clone_the_repository_and_create_a_new_branch"></a>2. Clone the repository and create a new branch</h2>
 <div class="sectionbody">
 <div class="admonitionblock note">
 <table>
@@ -251,17 +312,13 @@
 </table>
 </div>
 <div class="listingblock console-input">
-<div class="title">Export the repository URL <mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">read -e -s -p ">>> Organization Name: " ORGNAME
-read -e -s -p ">>> Git Organization URL (SSH)" GITORG</code></pre>
-</div>
-</div>
-<div class="listingblock console-input">
 <div class="title">The first step is cloning the repository</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">git clone ${GITORG}
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">ssh-add ~/.ssh/id_rsa_gitlab
+git clone ${PROJECT_URL_CASC}
 cd ${ORGNAME}/
+git config user.email "${GITLAB_EMAIL}"
+git config user.name "${GITLAB_USERNAME}"
 git checkout -b casc-dev-day0</code></pre>
 </div>
 </div>
@@ -278,14 +335,53 @@ git checkout -b casc-dev-day0</code></pre>
 </div>
 </div>
 </details>
+<details>
+<summary class="title">Enable an already existing SSH key the repository:</summary>
+<div class="content">
+<div class="imageblock">
+<div class="content">
+<img src="_images/configure_gitlab_add_existing_ssh_key.png" alt="configure gitlab add existing ssh key">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/configure_gitlab_add_existing_ssh_key_2.png" alt="configure gitlab add existing ssh key 2">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/configure_gitlab_add_existing_ssh_key_3.png" alt="configure gitlab add existing ssh key 3">
+</div>
+</div>
+</div>
+</details>
 <div class="paragraph">
 <p>Before using CasC as a GitOps approach, it is needed to launch an initialization from CLI which it is called Day-Zero.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_edit_credentials_to_connect_to_the_controller_for_day_zero"><a class="anchor" href="#_edit_credentials_to_connect_to_the_controller_for_day_zero"></a>2. Edit credentials to connect to the controller for day zero.</h2>
+<h2 id="_creating_the_vault_password_file"><a class="anchor" href="#_creating_the_vault_password_file"></a>3. Creating the <code>.vault_password</code> file</h2>
 <div class="sectionbody">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">echo "${VAULT_PASSWORD}" &gt; .vault_password</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_edit_credentials_to_connect_to_the_controller_for_day_zero"><a class="anchor" href="#_edit_credentials_to_connect_to_the_controller_for_day_zero"></a>4. Edit credentials to connect to the controller for day zero.</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The default credentials for the new organization admin user are similar to the following ones:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">username: org1admin # &lt;ORGNAME&gt;admin
+password: initialadminpass</code></pre>
+</div>
+</div>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">vi group_vars/dev/configure_connection_controller_credentials.yml</code></pre>
@@ -298,13 +394,15 @@ git checkout -b casc-dev-day0</code></pre>
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-vault encrypt group_vars/dev/configure_connection_controller_credentials.yml group_vars/pro/configure_connection_controller_credentials.yml</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-vault encrypt --vault-password-file .vault_password \
+  group_vars/dev/configure_connection_controller_credentials.yml \
+  group_vars/pro/configure_connection_controller_credentials.yml</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_edit_credentials_objects"><a class="anchor" href="#_edit_credentials_objects"></a>3. Edit credentials objects</h2>
+<h2 id="_edit_credentials_objects"><a class="anchor" href="#_edit_credentials_objects"></a>5. Edit credentials objects</h2>
 <div class="sectionbody">
 <div class="listingblock console-input">
 <div class="content">
@@ -318,13 +416,15 @@ git checkout -b casc-dev-day0</code></pre>
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-vault encrypt orgs_vars/${ORGNAME}/env/pro/controller_credentials.d/* orgs_vars/${ORGNAME}/env/dev/controller_credentials.d/*</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-vault encrypt --vault-password-file .vault_password \
+  orgs_vars/${ORGNAME}/env/pro/controller_credentials.d/* \
+  orgs_vars/${ORGNAME}/env/dev/controller_credentials.d/*</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_check_the_inventory_file"><a class="anchor" href="#_check_the_inventory_file"></a>4. Check the inventory file</h2>
+<h2 id="_check_the_inventory_file"><a class="anchor" href="#_check_the_inventory_file"></a>6. Check the inventory file</h2>
 <div class="sectionbody">
 <div class="listingblock console-input">
 <div class="content">
@@ -348,19 +448,7 @@ aap22prod.iam.lab</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_creating_the_vault_password_file"><a class="anchor" href="#_creating_the_vault_password_file"></a>5. Creating the <code>.vault_password</code> file</h2>
-<div class="sectionbody">
-<div class="listingblock console-input">
-<div class="title"><mark>Content with <code>&lt;CHANGE_ME&gt;</code> has to be customized</mark></div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">read -e -s -p "Enter Vault password: " VAULT_PASSWORD
-echo "${VAULT_PASSWORD}" &gt; .vault_password</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_launch_ansible_navigator_from_cli_to_setup_day_zero_of_casc"><a class="anchor" href="#_launch_ansible_navigator_from_cli_to_setup_day_zero_of_casc"></a>6. Launch ansible-navigator from CLI to setup day-zero of CasC</h2>
+<h2 id="_launch_ansible_navigator_from_cli_to_setup_day_zero_of_casc"><a class="anchor" href="#_launch_ansible_navigator_from_cli_to_setup_day_zero_of_casc"></a>7. Launch ansible-navigator from CLI to setup day-zero of CasC</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This step is needed for the day-zero, and is also useful when developing new changes, to apply them without pushing them to the GitLab repository and trigger the CaC workflow.</p>
@@ -392,7 +480,7 @@ echo "${VAULT_PASSWORD}" &gt; .vault_password</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_push_the_changes"><a class="anchor" href="#_push_the_changes"></a>7. Push the changes</h2>
+<h2 id="_push_the_changes"><a class="anchor" href="#_push_the_changes"></a>8. Push the changes</h2>
 <div class="sectionbody">
 <div class="listingblock console-input">
 <div class="content">
@@ -405,8 +493,22 @@ git push origin casc-dev-day0</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_pomote_the_casc_dev_day0_branch_to_dev_dev_branch"><a class="anchor" href="#_pomote_the_casc_dev_day0_branch_to_dev_dev_branch"></a>8. Pomote the <code>casc-dev-day0</code> branch to dev (<code>dev</code> branch)</h2>
+<h2 id="_promote_the_casc_dev_day0_branch_to_dev_dev_branch"><a class="anchor" href="#_promote_the_casc_dev_day0_branch_to_dev_dev_branch"></a>9. Promote the <code>casc-dev-day0</code> branch to dev (<code>dev</code> branch)</h2>
 <div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In order for the GitLab Actions to run successfully, a GitLab Runner must be configured for the GitLab project, following the same steps described <a href="021-initial-dir-and-files.html#_housekeeping" class="xref page" target="_blank" rel="noopener">here</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -433,12 +535,20 @@ git push origin casc-dev-day0</code></pre>
 </div>
 </div>
 </li>
+<li>
+<p>Check that the Merge Request has triggered the CasC Job at the <code>DEV</code> Controller:</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/newmrtodev-0-step4.png" alt="CasC Jobs">
+</div>
+</div>
+</li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_promote_the_dev_branch_to_pro_pro_branch"><a class="anchor" href="#_promote_the_dev_branch_to_pro_pro_branch"></a>9. Promote the <code>dev</code> branch to pro (<code>pro</code> branch)</h2>
+<h2 id="_promote_the_dev_branch_to_pro_pro_branch"><a class="anchor" href="#_promote_the_dev_branch_to_pro_pro_branch"></a>10. Promote the <code>dev</code> branch to pro (<code>pro</code> branch)</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>

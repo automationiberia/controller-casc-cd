@@ -845,6 +845,15 @@ EOF</code></pre>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
+<p>Configure the <code>DEV</code> Ansible Controller host to be docker compatible:</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">sudo dnf install -y podman-docker
+sudo systemctl enable --now podman.socket</code></pre>
+</div>
+</div>
+</li>
+<li>
 <p>In the GitLab repository created at the first step, go to <code>Settings</code> &#8594; <code>CI/CD</code> &#8594; <code>Runners</code> &#8594; <code>Project Runners</code> &#8594; <code>New Project Runner</code>:</p>
 <div class="paragraph">
 <p><span class="image"><img src="_images/gitlab-new-runner-1.png" alt="gitlab new runner 1"></span></p>
@@ -887,7 +896,7 @@ EOF</code></pre>
 <p><span class="image"><img src="_images/gitlab-new-runner-4.png" alt="gitlab new runner 4"></span></p>
 </div>
 <div class="paragraph">
-<p>Enter the <code>shell</code> executor when asked:</p>
+<p>Enter the <code>docker</code> executor when asked:</p>
 </div>
 <div class="paragraph">
 <p><span class="image"><img src="_images/gitlab-new-runner-5.png" alt="gitlab new runner 5"></span></p>
