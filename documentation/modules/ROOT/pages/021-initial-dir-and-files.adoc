@@ -159,7 +159,7 @@ EOF
 ----
 ====
 
-Additionally, a GitLab Runner instance must be created and configured to allow the GitLab Actions to be executed at `gitlab.com`. The previous step has already executed some actions to ease the configuration the script (See https://github.com/automationiberia/controller-casc-cd/blob/99272f3dfa69c5a133d3eed3866d837be22f9eb6/documentation/modules/ROOT/examples/housekeeping.sh#L163C1-L175C34[housekeeping.sh,window=_blank]), so following are the remaining steps:
+Additionally, a GitLab Runner instance must be created and configured to allow the GitLab Actions to be executed at `gitlab.com`. The previous step has already executed some actions to ease the configuration (See https://github.com/automationiberia/controller-casc-cd/blob/99272f3dfa69c5a133d3eed3866d837be22f9eb6/documentation/modules/ROOT/examples/housekeeping.sh#L163C1-L175C34[housekeeping.sh,window=_blank]), so following are the remaining steps:
 
 1. In the GitLab repository created at the first step, go to `Settings` -> `CI/CD` -> `Runners` -> `Project Runners` -> `New Project Runner`:
 +
@@ -187,7 +187,7 @@ image:gitlab-new-runner-4.png[]
 Enter the `shell` executor when asked:
 +
 image:gitlab-new-runner-5.png[]
-5. To test that the GitLab Runner is working properly, launch a test pipeline:
+5. To test that the GitLab Runner is working properly, launch a test pipeline (optional):
 +
 image:gitlab-pipeline-test-run.png[]
 +
