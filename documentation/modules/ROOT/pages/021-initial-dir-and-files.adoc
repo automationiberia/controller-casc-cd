@@ -188,15 +188,15 @@ image:gitlab-new-runner-4.png[]
 Enter the `shell` executor when asked:
 +
 image:gitlab-new-runner-5.png[]
-5. To test that the GitLab Runner is working properly, launch a test pipeline (optional):
-+
-image:gitlab-pipeline-test-run.png[]
-+
-image:gitlab-pipeline-test-run-2.png[]
-+
-image:gitlab-pipeline-test-run-3.png[]
-+
-image:gitlab-pipeline-test-run-4.png[]
+// 5. To test that the GitLab Runner is working properly, launch a test pipeline (optional):
+// +
+// image:gitlab-pipeline-test-run.png[]
+// +
+// image:gitlab-pipeline-test-run-2.png[]
+// +
+// image:gitlab-pipeline-test-run-3.png[]
+// +
+// image:gitlab-pipeline-test-run-4.png[]
 
 == Create the ansible inventory file for the environment
 
