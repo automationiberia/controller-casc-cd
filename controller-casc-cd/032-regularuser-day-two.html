@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Populate new organization objects :: Automation Controller configuration Continuous Deployment with CasC</title>
     <link rel="canonical" href="https://automationiberia.github.io/controller-casc-cd/controller-casc-cd/032-regularuser-day-two.html">
-    <link rel="prev" href="031-regularuser-day-zero.html">
+    <link rel="prev" href="031-regularuser-day-zero.html#_export_all_the_variables_to_be_used_in_the_next_steps">
     <link rel="next" href="033-regularuser-day-two-deploy-objects.html">
     <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../_/css/site.css">
@@ -86,10 +86,10 @@
     <a class="nav-link" href="021-initial-dir-and-files.html#_pre_requisites">Pre-Requisites</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="021-initial-dir-and-files.html#_housekeeping">Housekeeping</a>
+    <a class="nav-link" href="021-initial-dir-and-files.html#_export_all_the_variables_to_be_used_in_the_next_steps">Export all the variables to be used in the next steps</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="021-initial-dir-and-files.html#_export_all_the_variables_to_be_used_in_the_next_steps">Export all the variables to be used in the next steps</a>
+    <a class="nav-link" href="021-initial-dir-and-files.html#_housekeeping">Housekeeping</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="021-initial-dir-and-files.html#_create_the_ansible_inventory_file_for_the_environment">Create the ansible inventory file for the environment</a>
@@ -108,6 +108,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="021-initial-dir-and-files.html#_commit_and_push_the_initial_version_of_cac">Commit and push the initial version of CaC</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_change_the_default_branch_at_the_gitlab_repository">Change the default branch at the GitLab repository</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="022-deploy-superadmin-objects.html">Deploy the SuperAdmin objects</a>
@@ -134,7 +137,13 @@
     <span class="nav-text">Day Zero</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="031-regularuser-day-zero.html">Clone the newly assigned GitLab Repository</a>
+    <a class="nav-link" href="031-regularuser-day-zero.html#_export_all_the_variables_to_be_used_in_the_next_steps">Export all the variables to be used in the next steps</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_clone_the_repository_and_create_a_new_branch">Clone the newly assigned GitLab Repository</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_creating_the_vault_password_file">Creating the .vault_password file</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="031-regularuser-day-zero.html#_edit_credentials_to_connect_to_the_controller_for_day_zero">Edit credentials to connect to the controller for day zero</a>
@@ -218,13 +227,8 @@
 <article class="doc">
 <h1 class="page">Populate new organization objects</h1>
 <div class="sect1">
-<h2 id="_create_the_organization_directory_structure_and_initial_files"><a class="anchor" href="#_create_the_organization_directory_structure_and_initial_files"></a>1. Create the organization directory structure and initial files</h2>
+<h2 id="_populate_a_new_project"><a class="anchor" href="#_populate_a_new_project"></a>1. Populate a new project</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>The following lines will show the organization directory structure creation and how to populate the new objects for this organization.</p>
-</div>
-<div class="sect2">
-<h3 id="_populate_a_new_project"><a class="anchor" href="#_populate_a_new_project"></a>1.1. Populate a new project</h3>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">cat &gt; orgs_vars/${ORGNAME}/env/common/controller_projects.d/project_example.yaml &lt;&lt;EOF
@@ -246,8 +250,10 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_populate_a_new_job_template"><a class="anchor" href="#_populate_a_new_job_template"></a>1.2. Populate a new job_template</h3>
+</div>
+<div class="sect1">
+<h2 id="_populate_a_new_job_template"><a class="anchor" href="#_populate_a_new_job_template"></a>2. Populate a new job_template</h2>
+<div class="sectionbody">
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">cat &gt; orgs_vars/${ORGNAME}/env/common/controller_job_templates.d/job_template_example.yaml &lt;&lt;EOF
@@ -266,9 +272,8 @@ EOF</code></pre>
 </div>
 </div>
 </div>
-</div>
 <nav class="pagination">
-  <span class="prev"><a href="031-regularuser-day-zero.html">Clone the newly assigned GitLab Repository</a></span>
+  <span class="prev"><a href="031-regularuser-day-zero.html#_export_all_the_variables_to_be_used_in_the_next_steps">Export all the variables to be used in the next steps</a></span>
   <span class="next"><a href="033-regularuser-day-two-deploy-objects.html">Push the changes to create the new objects</a></span>
 </nav>
 </article>
