@@ -2,11 +2,7 @@ include::_attributes.adoc[]
 
 = Populate new organization objects
 
-== Create the organization directory structure and initial files
-
-The following lines will show the organization directory structure creation and how to populate the new objects for this organization.
-
-=== Populate a new project
+== Populate a new project
 [.console-input]
 [source,console]
 ----
@@ -28,7 +24,7 @@ controller_projects:
 EOF
 ----
 
-=== Populate a new job_template
+== Populate a new job_template
 [.console-input]
 [source,console]
 ----
