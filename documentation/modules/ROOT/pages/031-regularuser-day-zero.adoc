@@ -283,7 +283,7 @@ git checkout -b add_info_job_template
 ----
 
 3. Add a new Playbook and a new Job Template
-
++
 File: `new_playbook1.yaml`
 +
 [.console-input]
@@ -303,7 +303,7 @@ cat > new_playbook1.yaml <<EOF
 ...
 EOF
 ----
-
++
 File: `new_playbook2.yaml`
 +
 [.console-input]
@@ -324,7 +324,7 @@ cat > new_playbook2.yaml <<EOF
 ...
 EOF
 ----
-
++
 File: `orgs_vars/NewOrg/env/common/controller_job_templates.d/new_job_template.yaml`
 +
 [.console-input]
@@ -362,11 +362,11 @@ git push -u origin add_info_job_template
 ----
 
 5. Create a Merge Request to `dev` branch
-
++
 * Go to Merge Requests and create a new merge request
 +
 image:mrtodev.png[New merge request]
-
++
 * Select the source branch `add_info_job_template` and `dev` as the destination one
   image:newmrtodev.png[New merge request to dev]
 
