@@ -263,7 +263,7 @@ image::newmrtoprostep3.png[Merge the Merge Request]
 
 == GitOps flow
 
-1. Clone the given repository:
+=== 1. Clone the given repository:
 +
 [.console-input]
 [source,bash]
@@ -273,7 +273,7 @@ git clone git@gitlab.iam.lab:automationiberia/aap-cac/NewOrg.git
 cd NewOrg/
 ----
 
-2. Create a new branch from `dev` to introduce the new items:
+=== 2. Create a new branch from `dev` to introduce the new items:
 +
 [.console-input]
 [source,bash]
@@ -282,7 +282,7 @@ git checkout dev
 git checkout -b add_info_job_template
 ----
 
-3. Add a new Playbook and a new Job Template
+=== 3. Add a new Playbook and a new Job Template
 +
 --
 File: `new_playbook1.yaml`
@@ -353,7 +353,7 @@ EOF
 ----
 --
 
-4. Commit the changes to the new branch
+=== 4. Commit the changes to the new branch
 +
 [.console-input]
 [source,bash]
@@ -363,7 +363,7 @@ git commit -am "Add new playbook and job template to show server information"
 git push -u origin add_info_job_template
 ----
 
-5. [[mrtodev]]Create a Merge Request to `dev` branch
+=== 5. [[mrtodev]]Create a Merge Request to `dev` branch
 +
 --
 * Go to Merge Requests and create a new merge request
@@ -397,7 +397,7 @@ Of course, the new Job Template has been created:
 image::newjtdev.png[New Job Template Dev]
 --
 
-6. [[mrdevtopro]]Promote the `dev` branch to production (`pro` branch)
+=== 6. [[mrdevtopro]]Promote the `dev` branch to production (`pro` branch)
 +
 --
 Similarly to the <<mrtodev,step 5>>, create a new Merge Request from the `dev` branch to the `pro` branch:
@@ -422,7 +422,7 @@ When the Merge Request is already merged, the new Job Template is also created i
 image::newjtpro.png[New Job Template Pro]
 --
 
-7. [[runjtpro]]Run the new Job Template at PRO
+=== 7. [[runjtpro]]Run the new Job Template at PRO
 +
 --
 Run the Job Template:
@@ -434,7 +434,7 @@ and check that it is failing:
 image::jtprofailed.png[Job Template PRO failed]
 --
 
-8. Rollback the PRO environment to previously working tag
+=== 8. Rollback the PRO environment to previously working tag
 +
 --
 To rollback the status of the controller to a previous working version, it's only needed to run the following Job Templates:
@@ -448,7 +448,7 @@ image::rollbackddv0.2.png[Run the JT casc-twitch-demo CasC_JobTemplates_AAP_Drop
 image::rollbackccv0.2.png[Run the JT casc-twitch-demo CasC_JobTemplates_AAP_CD_Config_Controller]
 --
 
-9. Fix your playbook
+=== 9. Fix your playbook
 +
 --
 [.console-input]
@@ -502,7 +502,7 @@ image::newmrtodev-fix_playbook-step3.png[Merge the Request]
 Repeat the steps to create a new Merge Request from `dev` to `pro`, as described at <<mrdevtopro,step 6>>.
 --
 
-10. [[runjtpro-again]]Run again the new Job Template at PRO
+=== 10. [[runjtpro-again]]Run again the new Job Template at PRO
 +
 --
 Run again the Job Template:
