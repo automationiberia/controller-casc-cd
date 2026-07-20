@@ -261,7 +261,6 @@ image::newmrtoprostep2.png[Fill in the merge request information]
 +
 image::newmrtoprostep3.png[Merge the Merge Request]
 
-////
 ### GitOps flow
 
 1. Clone the given repository:
@@ -465,4 +464,4 @@ image::newmrtoprostep3.png[Merge the Merge Request]
 
     and check that it is working fine now:
     ![Job Template PRO failed](images/jtprosuccess.png "Job Template PRO failed")
-////
+
