@@ -263,8 +263,9 @@ image::newmrtoprostep3.png[Merge the Merge Request]
 
 == GitOps flow
 
-=== 1. Clone the given repository:
-+
+[[gitops-clone]]
+=== Clone the given repository
+
 [.console-input]
 [source,bash]
 ----
@@ -273,8 +274,9 @@ git clone git@gitlab.iam.lab:automationiberia/aap-cac/NewOrg.git
 cd NewOrg/
 ----
 
-=== 2. Create a new branch from `dev` to introduce the new items:
-+
+[[gitops-branch]]
+=== Create a new branch from `dev` to introduce the new items
+
 [.console-input]
 [source,bash]
 ----
@@ -282,9 +284,9 @@ git checkout dev
 git checkout -b add_info_job_template
 ----
 
-=== 3. Add a new Playbook and a new Job Template
-+
---
+[[gitops-playbooks]]
+=== Add a new Playbook and a new Job Template
+
 File: `new_playbook1.yaml`
 
 [.console-input]
@@ -351,10 +353,10 @@ controller_templates:
 ...
 EOF
 ----
---
 
-=== 4. Commit the changes to the new branch
-+
+[[gitops-commit]]
+=== Commit the changes to the new branch
+
 [.console-input]
 [source,bash]
 ----
@@ -363,9 +365,9 @@ git commit -am "Add new playbook and job template to show server information"
 git push -u origin add_info_job_template
 ----
 
-=== 5. [[mrtodev]]Create a Merge Request to `dev` branch
-+
---
+[[mrtodev]]
+=== Create a Merge Request to `dev` branch
+
 * Go to Merge Requests and create a new merge request
 +
 image::mrtodev.png[New merge request]
@@ -395,12 +397,11 @@ image::workflowdiagram.png[Workflow Diagram]
 Of course, the new Job Template has been created:
 
 image::newjtdev.png[New Job Template Dev]
---
 
-=== 6. [[mrdevtopro]]Promote the `dev` branch to production (`pro` branch)
-+
---
-Similarly to the <<mrtodev,step 5>>, create a new Merge Request from the `dev` branch to the `pro` branch:
+[[mrdevtopro]]
+=== Promote the `dev` branch to production (`pro` branch)
+
+Similarly to the <<mrtodev,previous step>>, create a new Merge Request from the `dev` branch to the `pro` branch:
 
 * Select the source branch as `dev` and `pro` as the destination one
 +
@@ -420,11 +421,10 @@ image::newmrtoprostep2.png[Fill in the merge request information]
 When the Merge Request is already merged, the new Job Template is also created in the `pro` environment:
 
 image::newjtpro.png[New Job Template Pro]
---
 
-=== 7. [[runjtpro]]Run the new Job Template at PRO
-+
---
+[[runjtpro]]
+=== Run the new Job Template at PRO
+
 Run the Job Template:
 
 image::launchjtpro.png[Run the JT]
@@ -432,11 +432,10 @@ image::launchjtpro.png[Run the JT]
 and check that it is failing:
 
 image::jtprofailed.png[Job Template PRO failed]
---
 
-=== 8. Rollback the PRO environment to previously working tag
-+
---
+[[gitops-rollback]]
+=== Rollback the PRO environment to previously working tag
+
 To rollback the status of the controller to a previous working version, it's only needed to run the following Job Templates:
 
 * Run the Job Template `casc-twitch-demo CasC_JobTemplates_AAP_Drop_Diff` with the previous working version:
@@ -446,11 +445,10 @@ image::rollbackddv0.2.png[Run the JT casc-twitch-demo CasC_JobTemplates_AAP_Drop
 * Run the Job Template `casc-twitch-demo CasC_JobTemplates_AAP_CD_Config_Controller` with the previous working version:
 +
 image::rollbackccv0.2.png[Run the JT casc-twitch-demo CasC_JobTemplates_AAP_CD_Config_Controller]
---
 
-=== 9. Fix your playbook
-+
---
+[[gitops-fix]]
+=== Fix your playbook
+
 [.console-input]
 [source,bash]
 ----
@@ -499,12 +497,11 @@ image::newmrtodev-fix_playbook.png[Create New Merge Request from fix_playbook to
 image::newmrtodev-fix_playbook-step2.png[New Merge Request from fix_playbook to Dev]
 image::newmrtodev-fix_playbook-step3.png[Merge the Request]
 
-Repeat the steps to create a new Merge Request from `dev` to `pro`, as described at <<mrdevtopro,step 6>>.
---
+Repeat the steps to create a new Merge Request from `dev` to `pro`, as described at <<mrdevtopro>>.
 
-=== 10. [[runjtpro-again]]Run again the new Job Template at PRO
-+
---
+[[runjtpro-again]]
+=== Run again the new Job Template at PRO
+
 Run again the Job Template:
 
 image::launchjtpro.png[Run the JT]
@@ -512,4 +509,3 @@ image::launchjtpro.png[Run the JT]
 and check that it is working fine now:
 
 image::jtprosuccess.png[Job Template PRO success]
---
