@@ -605,6 +605,343 @@ git push origin casc-dev-day0</code></pre>
 </li>
 </ul>
 </div>
+<div class="sect2">
+<h3 id="_gitops_flow"><a class="anchor" href="#_gitops_flow"></a>10.1. GitOps flow</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Clone the given repository:</p>
+<div class="literalblock">
+<div class="content">
+<pre>```
+git clone git@gitlab.iam.lab:automationiberia/aap-cac/NewOrg.git</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>cd NewOrg/
+```</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a new branch from <code>dev</code> to introduce the new items:</p>
+<div class="literalblock">
+<div class="content">
+<pre>```
+git checkout dev
+git checkout -b add_info_job_template
+```</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add a new Playbook and a new Job Template</p>
+<div class="literalblock">
+<div class="content">
+<pre>File: `new_playbook1.yaml`
+```
+cat &gt; new_playbook1.yaml &lt;&lt;EOF
+---
+- name: "Play to show the hostname"
+  hosts: all
+  tasks:
+    - name: "Show the hostname"
+      debug:
+        msg:
+          - "This server is called (from Ansible inventory):     {{ inventory_hostname }}"
+          - "This server is called (from Execution Environment): {{ lookup('pipe', 'cat /etc/hostname') }}"
+          - "Running as user: {{ lookup('pipe', 'id') }}"
+...
+EOF
+```</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>File: `new_playbook2.yaml`
+```
+cat &gt; new_playbook2.yaml &lt;&lt;EOF
+---
+- name: "Play to show the hostname"
+  hosts: all
+  connection: local
+  tasks:
+    - name: "Show the hostname"
+      debug:
+        msg:
+          - "This server is called (from Ansible inventory):     {{ inventory_hostname }}"
+          - "This server is called (from Execution Environment): {{ lookup('pipe', 'cat /etc/hostname') }}"
+          - "Running as user: {{ lookup('pipe', 'id') }}"
+...
+EOF
+```</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>File: `orgs_vars/NewOrg/env/common/controller_job_templates.d/new_job_template.yaml`
+```
+cat &gt; orgs_vars/NewOrg/env/common/controller_job_templates.d/new_job_template.yaml &lt;&lt;EOF
+---
+controller_templates:
+  - name: "{{ orgs }} New Job Template"
+    description: "Template to show how to add a new JT"
+    organization: "{{ orgs }}"
+    project: "{{ orgs }} CasC_Data"
+    inventory: "{{ orgs }} Localhost"
+    playbook: "new_playbook1.yaml"
+    job_type: run
+    fact_caching_enabled: false
+    concurrent_jobs_enabled: true
+    ask_scm_branch_on_launch: true
+    extra_vars:
+      ansible_python_interpreter: /usr/bin/python3
+      ansible_async_dir: /home/runner/.ansible_async/
+    execution_environment: "ee-casc"
+...
+EOF
+```</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Commit the changes to the new branch</p>
+<div class="literalblock">
+<div class="content">
+<pre>```
+git add -A .
+git commit -am "Add new playbook and job template to show server information"
+git push -u origin add_info_job_template
+```</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a Merge Request to <code>dev</code> branch &lt;a name="mrtodev"&gt;&lt;/a&gt;</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Go to Merge Requests and create a new merge request
+![New merge request](images/mrtodev.png "New merge request")</p>
+</li>
+<li>
+<p>Select the source branch <code>add_info_job_template</code> and <code>dev</code> as the destination one
+![New merge request to dev](images/newmrtodev.png "New merge request to dev")</p>
+</li>
+<li>
+<p>Fill in the merge request information
+![Fill in the merge request information](images/newmrtodevstep2.png "Fill in the merge request information")</p>
+</li>
+<li>
+<p>Merge the merge request
+![Merge the merge request](images/newmrtodevstep3.png "Merge the merge request")</p>
+<hr>
+<div class="literalblock">
+<div class="content">
+<pre>The following automated process has ben executed at the Ansible Automation Controller:</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>![Look at the Ansible Automation Controller's jobs](images/devworkflowjobs.png "Look at the Ansible Automation Controller's jobs")</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>The following diagram shows the components of the workflow:</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>![Workflow Diagram](images/workflowdiagram.png "Workflow Diagram")</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Of course, the new Job Template has been created:</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>![New Job Template Dev](images/newjtdev.png "New Job Template Dev")</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Pomote the <code>dev</code> branch to production (<code>pro</code> branch) &lt;a name="mrdevtopro"&gt;&lt;/a&gt;</p>
+<div class="literalblock">
+<div class="content">
+<pre>Similarly to the [step 5](#mrtodev), create a new Merge Request from the `dev` branch to the `pro` branch:</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Select the source branch as <code>dev</code> and <code>pro</code> as the destination one]
+![New Merge Request Pro](images/newmrtopro.png "New Merge Request Pro")</p>
+</li>
+<li>
+<p>Fill in the merge request information
+![Fill in the merge request information](images/newmrtoprostep2.png "Fill in the merge request information")</p>
+<div class="literalblock">
+<div class="content">
+<pre>&gt; :warning: **Be sure to write a title that have sense for the Merge Request**: The default value here is `dev`, that is not usefull at all!</pre>
+</div>
+</div>
+<hr>
+<div class="literalblock">
+<div class="content">
+<pre>When the Merge Request is already merged, the new Job Template is also created in the `pro` environment:</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>![New Job Template Pro](images/newjtpro.png "New Job Template Pro")</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Run the new Job Template at PRO &lt;a name="runjtpro"&gt;&lt;/a&gt;</p>
+<div class="literalblock">
+<div class="content">
+<pre>Run the Job Template:
+![Run the JT](images/launchjtpro.png "Run the JT")</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>and check that it is failing:
+![Job Template PRO failed](images/jtprofailed.png "Job Template PRO failed")</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Rollback the PRO environment to previously working tag</p>
+<div class="literalblock">
+<div class="content">
+<pre>To rollback the status of the controller to a previous working version, it's only needed to run the following Job Templates:</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Run the Job Template <code>casc-twitch-demo CasC_JobTemplates_AAP_Drop_Diff</code> with the previous working version:
+![Run the JT casc-twitch-demo CasC_JobTemplates_AAP_Drop_Diff](images/rollbackddv0.2.png "Run the JT casc-twitch-demo CasC_JobTemplates_AAP_Drop_Diff")</p>
+</li>
+<li>
+<p>Run the Job Template <code>casc-twitch-demo CasC_JobTemplates_AAP_CD_Config_Controller</code> with the previous working version:
+![Run the JT casc-twitch-demo CasC_JobTemplates_AAP_CD_Config_Controller](images/rollbackccv0.2.png "Run the JT casc-twitch-demo CasC_JobTemplates_AAP_CD_Config_Controller")</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Fix your playbook</p>
+<div class="literalblock">
+<div class="content">
+<pre>```
+git checkout dev
+git pull
+git checkout -b fix_playbook
+```</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Modify the Job Template to use the correct playbook:</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>`playbook: "new_playbook2.yaml"`</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Updated file: `orgs_vars/NewOrg/env/common/controller_job_templates.d/new_job_template.yaml`
+```yaml
+---
+controller_templates:
+  - name: "{{ orgs }} New Job Template"
+    description: "Template to show how to add a new JT"
+    organization: "{{ orgs }}"
+    project: "{{ orgs }} CasC_Data"
+    inventory: "{{ orgs }} Localhost"
+    playbook: "new_playbook2.yaml"
+    job_type: run
+    fact_caching_enabled: false
+    concurrent_jobs_enabled: true
+    ask_scm_branch_on_launch: true
+    extra_vars:
+      ansible_python_interpreter: /usr/bin/python3
+      ansible_async_dir: /home/runner/.ansible_async/
+    execution_environment: "ee-casc"
+...
+```</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Commit and push your changes:</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>```
+git commit -am "Fix the connection method"
+git push -u origin fix_playbook
+```</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Create a Merge Request to `dev` branch:</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>![Create New Merge Request from <code>fix_playbook</code> to Dev](images/newmrtodev-fix_playbook.png "Create New Merge Request from <code>fix_playbook</code> to Dev")</p>
+</li>
+<li>
+<p>![New Merge Request from <code>fix_playbook</code> to Dev](images/newmrtodev-fix_playbook-step2.png "New Merge Request from <code>fix_playbook</code> to Dev")</p>
+</li>
+<li>
+<p>![Merge the Request](images/newmrtodev-fix_playbook-step3.png "Merge the Request")</p>
+<div class="literalblock">
+<div class="content">
+<pre>Repeat the steps to create a new Merge Request from `dev` to `pro`, as described at [step 6](#mrdevtopro)</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Run again the new Job Template at PRO &lt;a name="runjtpro"&gt;&lt;/a&gt;</p>
+<div class="literalblock">
+<div class="content">
+<pre>Run again the Job Template:
+![Run the JT](images/launchjtpro.png "Run the JT")</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>and check that it is working fine now:
+![Job Template PRO failed](images/jtprosuccess.png "Job Template PRO failed")</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
 </div>
 </div>
 <nav class="pagination">
