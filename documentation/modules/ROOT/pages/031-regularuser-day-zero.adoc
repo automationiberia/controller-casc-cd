@@ -361,7 +361,7 @@ git commit -am "Add new playbook and job template to show server information"
 git push -u origin add_info_job_template
 ----
 
-5. Create a Merge Request to `dev` branch
+5. Create a Merge Request to `dev` branch <a name="mrtodev"></a>
 
 * Go to Merge Requests and create a new merge request
 +
@@ -393,7 +393,7 @@ Of course, the new Job Template has been created:
 +
 image:newjtdev.png[New Job Template Dev]
 
-6. Pomote the `dev` branch to production (`pro` branch)
+6. Pomote the `dev` branch to production (`pro` branch) <a name="mrdevtopro"></a>
 +
 Similarly to the [step 5](#mrtodev), create a new Merge Request from the `dev` branch to the `pro` branch:
 +
@@ -410,7 +410,7 @@ When the Merge Request is already merged, the new Job Template is also created i
 
 image:newjtpro.png[New Job Template Pro]
 
-7. Run the new Job Template at PRO
+7. Run the new Job Template at PRO <a name="runjtpro"></a>
 
    Run the Job Template:
 
