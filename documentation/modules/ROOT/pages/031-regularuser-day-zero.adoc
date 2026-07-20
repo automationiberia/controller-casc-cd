@@ -382,6 +382,8 @@ image::newmrtodevstep2.png[Fill in the merge request information]
 +
 image::newmrtodevstep3.png[Merge the merge request]
 
+'''
+
 The following automated process has been executed at the Ansible Automation Controller:
 
 image::devworkflowjobs.png[Look at the Ansible Automation Controller's jobs]
@@ -412,6 +414,8 @@ image::newmrtoprostep2.png[Fill in the merge request information]
 ====
 **Be sure to write a title that makes sense for the Merge Request**: The default value here is `dev`, that is not useful at all!
 ====
+
+'''
 
 When the Merge Request is already merged, the new Job Template is also created in the `pro` environment:
 
