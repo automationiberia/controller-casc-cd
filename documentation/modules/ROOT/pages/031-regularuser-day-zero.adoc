@@ -265,11 +265,13 @@ image::newmrtoprostep3.png[Merge the Merge Request]
 
 1. Clone the given repository:
    +
-   ```
+   [.console-input]
+   [source,bash]
+   ----
    git clone git@gitlab.iam.lab:automationiberia/aap-cac/NewOrg.git
 
    cd NewOrg/
-   ```
+   ----
 
 2. Create a new branch from `dev` to introduce the new items:
 
