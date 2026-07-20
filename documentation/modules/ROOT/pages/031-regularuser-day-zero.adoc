@@ -368,14 +368,17 @@ git push -u origin add_info_job_template
 image:mrtodev.png[New merge request]
 +
 * Select the source branch `add_info_job_template` and `dev` as the destination one
-  image:newmrtodev.png[New merge request to dev]
++
+image:newmrtodev.png[New merge request to dev]
 
 * Fill in the merge request information
-  image:newmrtodevstep2.png[Fill in the merge request information]
++
+image:newmrtodevstep2.png[Fill in the merge request information]
 
 * Merge the merge request
-  image:newmrtodevstep3.png[Merge the merge request]
-
++
+image:newmrtodevstep3.png[Merge the merge request]
++
 ---
 
 The following automated process has ben executed at the Ansible Automation Controller:
