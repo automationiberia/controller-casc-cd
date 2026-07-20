@@ -348,11 +348,7 @@ image::newmrtoprostep3.png[Merge the Merge Request]
 
 5. Create a Merge Request to `dev` branch
 
-   * Go to Merge Requests and create a new merge request
-
-     image::mrtodev.png[New merge request]
-
-     ![New merge request](images/mrtodev.png "New merge request")
+   * Go to Merge Requests and create a new merge request image::mrtodev.png[New merge request] image:mrtodev.png[New merge request] ![New merge request](images/mrtodev.png "New merge request")
 
    * Select the source branch `add_info_job_template` and `dev` as the destination one
      +
