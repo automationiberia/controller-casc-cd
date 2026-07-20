@@ -739,12 +739,6 @@ git push -u origin add_info_job_template</code></pre>
 <p><span class="image"><img src="_images/newmrtodevstep3.png" alt="Merge the merge request"></span></p>
 </div>
 <hr>
-</li>
-</ul>
-</div>
-</li>
-</ol>
-</div>
 <div class="paragraph">
 <p>The following automated process has ben executed at the Ansible Automation Controller:</p>
 </div>
@@ -763,14 +757,14 @@ git push -u origin add_info_job_template</code></pre>
 <div class="paragraph">
 <p><span class="image"><img src="_images/newjtdev.png" alt="New Job Template Dev"></span></p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Pomote the <code>dev</code> branch to production (<code>pro</code> branch) &lt;a name="mrdevtopro"&gt;&lt;/a&gt;</p>
-<div class="literalblock">
-<div class="content">
-<pre>Similarly to the [step 5](#mrtodev), create a new Merge Request from the `dev` branch to the `pro` branch:</pre>
+</li>
+</ul>
 </div>
+</li>
+<li>
+<p>Pomote the <code>dev</code> branch to production (<code>pro</code> branch)</p>
+<div class="paragraph">
+<p>Similarly to the [step 5](#mrtodev), create a new Merge Request from the <code>dev</code> branch to the <code>pro</code> branch:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -782,21 +776,21 @@ git push -u origin add_info_job_template</code></pre>
 <p>Fill in the merge request information
 <span class="image"><img src="_images/newmrtoprostep2.png" alt="Fill in the merge request information"></span>
 &gt; :warning: <strong>Be sure to write a title that have sense for the Merge Request</strong>: The default value here is <code>dev</code>, that is not usefull at all!</p>
-<hr>
-<div class="literalblock">
-<div class="content">
-<pre>When the Merge Request is already merged, the new Job Template is also created in the `pro` environment:</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>image:newjtpro.png[New Job Template Pro]</pre>
-</div>
-</div>
 </li>
 </ul>
 </div>
 </li>
+</ol>
+</div>
+<hr>
+<div class="paragraph">
+<p>When the Merge Request is already merged, the new Job Template is also created in the <code>pro</code> environment:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/newjtpro.png" alt="New Job Template Pro"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p>Run the new Job Template at PRO</p>
 <div class="literalblock">
