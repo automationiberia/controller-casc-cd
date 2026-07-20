@@ -264,117 +264,131 @@ image::newmrtoprostep3.png[Merge the Merge Request]
 ## GitOps flow
 
 1. Clone the given repository:
-   +
-   [.console-input]
-   [source,bash]
-   ----
-   git clone git@gitlab.iam.lab:automationiberia/aap-cac/NewOrg.git
++
+[.console-input]
+[source,bash]
+----
+git clone git@gitlab.iam.lab:automationiberia/aap-cac/NewOrg.git
 
-   cd NewOrg/
-   ----
+cd NewOrg/
+----
 
 2. Create a new branch from `dev` to introduce the new items:
-
-   ```
-   git checkout dev
-   git checkout -b add_info_job_template
-   ```
++
+[.console-input]
+[source,bash]
+----
+git checkout dev
+git checkout -b add_info_job_template
+----
 
 3. Add a new Playbook and a new Job Template
 
-   File: `new_playbook1.yaml`
-   ```
-   cat > new_playbook1.yaml <<EOF
-   ---
-   - name: "Play to show the hostname"
-     hosts: all
-     tasks:
-       - name: "Show the hostname"
-         debug:
-           msg:
-             - "This server is called (from Ansible inventory):     {{ inventory_hostname }}"
-             - "This server is called (from Execution Environment): {{ lookup('pipe', 'cat /etc/hostname') }}"
-             - "Running as user: {{ lookup('pipe', 'id') }}"
-   ...
-   EOF
-   ```
+File: `new_playbook1.yaml`
++
+[.console-input]
+[source,bash]
+----
+cat > new_playbook1.yaml <<EOF
+---
+- name: "Play to show the hostname"
+  hosts: all
+  tasks:
+    - name: "Show the hostname"
+      debug:
+        msg:
+          - "This server is called (from Ansible inventory):     {{ inventory_hostname }}"
+          - "This server is called (from Execution Environment): {{ lookup('pipe', 'cat /etc/hostname') }}"
+          - "Running as user: {{ lookup('pipe', 'id') }}"
+...
+EOF
+----
 
-   File: `new_playbook2.yaml`
-   ```
-   cat > new_playbook2.yaml <<EOF
-   ---
-   - name: "Play to show the hostname"
-     hosts: all
-     connection: local
-     tasks:
-       - name: "Show the hostname"
-         debug:
-           msg:
-             - "This server is called (from Ansible inventory):     {{ inventory_hostname }}"
-             - "This server is called (from Execution Environment): {{ lookup('pipe', 'cat /etc/hostname') }}"
-             - "Running as user: {{ lookup('pipe', 'id') }}"
-   ...
-   EOF
-   ```
+File: `new_playbook2.yaml`
++
+[.console-input]
+[source,bash]
+----
+cat > new_playbook2.yaml <<EOF
+---
+- name: "Play to show the hostname"
+  hosts: all
+  connection: local
+  tasks:
+    - name: "Show the hostname"
+      debug:
+        msg:
+          - "This server is called (from Ansible inventory):     {{ inventory_hostname }}"
+          - "This server is called (from Execution Environment): {{ lookup('pipe', 'cat /etc/hostname') }}"
+          - "Running as user: {{ lookup('pipe', 'id') }}"
+...
+EOF
+----
 
-   File: `orgs_vars/NewOrg/env/common/controller_job_templates.d/new_job_template.yaml`
-   ```
-   cat > orgs_vars/NewOrg/env/common/controller_job_templates.d/new_job_template.yaml <<EOF
-   ---
-   controller_templates:
-     - name: "{{ orgs }} New Job Template"
-       description: "Template to show how to add a new JT"
-       organization: "{{ orgs }}"
-       project: "{{ orgs }} CasC_Data"
-       inventory: "{{ orgs }} Localhost"
-       playbook: "new_playbook1.yaml"
-       job_type: run
-       fact_caching_enabled: false
-       concurrent_jobs_enabled: true
-       ask_scm_branch_on_launch: true
-       extra_vars:
-         ansible_python_interpreter: /usr/bin/python3
-         ansible_async_dir: /home/runner/.ansible_async/
-       execution_environment: "ee-casc"
-   ...
-   EOF
-   ```
+File: `orgs_vars/NewOrg/env/common/controller_job_templates.d/new_job_template.yaml`
++
+[.console-input]
+[source,bash]
+----
+cat > orgs_vars/NewOrg/env/common/controller_job_templates.d/new_job_template.yaml <<EOF
+---
+controller_templates:
+  - name: "{{ orgs }} New Job Template"
+    description: "Template to show how to add a new JT"
+    organization: "{{ orgs }}"
+    project: "{{ orgs }} CasC_Data"
+    inventory: "{{ orgs }} Localhost"
+    playbook: "new_playbook1.yaml"
+    job_type: run
+    fact_caching_enabled: false
+    concurrent_jobs_enabled: true
+    ask_scm_branch_on_launch: true
+    extra_vars:
+      ansible_python_interpreter: /usr/bin/python3
+      ansible_async_dir: /home/runner/.ansible_async/
+    execution_environment: "ee-casc"
+...
+EOF
+----
 
 4. Commit the changes to the new branch
-
-   ```
-   git add -A .
-   git commit -am "Add new playbook and job template to show server information"
-   git push -u origin add_info_job_template
-   ```
++
+[.console-input]
+[source,bash]
+----
+git add -A .
+git commit -am "Add new playbook and job template to show server information"
+git push -u origin add_info_job_template
+----
 
 5. Create a Merge Request to `dev` branch
 
-   * Go to Merge Requests and create a new merge request
-     image:mrtodev.png[New merge request]
+* Go to Merge Requests and create a new merge request
++
+image:mrtodev.png[New merge request]
 
-   * Select the source branch `add_info_job_template` and `dev` as the destination one
-     image:newmrtodev.png[New merge request to dev]
+* Select the source branch `add_info_job_template` and `dev` as the destination one
+  image:newmrtodev.png[New merge request to dev]
 
-   * Fill in the merge request information
-     image:newmrtodevstep2.png[Fill in the merge request information]
+* Fill in the merge request information
+  image:newmrtodevstep2.png[Fill in the merge request information]
 
-   * Merge the merge request
-     image:newmrtodevstep3.png[Merge the merge request]
+* Merge the merge request
+  image:newmrtodevstep3.png[Merge the merge request]
 
-   ---
+---
 
-   The following automated process has ben executed at the Ansible Automation Controller:
+The following automated process has ben executed at the Ansible Automation Controller:
 
-   image:devworkflowjobs.png[Look at the Ansible Automation Controller's jobs]
+image:devworkflowjobs.png[Look at the Ansible Automation Controller's jobs]
 
-   The following diagram shows the components of the workflow:
+The following diagram shows the components of the workflow:
 
-   image:workflowdiagram.png[Workflow Diagram]
+image:workflowdiagram.png[Workflow Diagram]
 
-   Of course, the new Job Template has been created:
+Of course, the new Job Template has been created:
 
-   image:newjtdev.png[New Job Template Dev]
+image:newjtdev.png[New Job Template Dev]
 
 6. Pomote the `dev` branch to production (`pro` branch) <a name="mrdevtopro"></a>
 
