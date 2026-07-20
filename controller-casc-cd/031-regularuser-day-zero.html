@@ -613,37 +613,38 @@ git push origin casc-dev-day0</code></pre>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Clone the given repository:
-+
-[.console-input]
-[source,bash]
-----
-git clone <a href="mailto:git@gitlab.iam.lab">git@gitlab.iam.lab</a>:automationiberia/aap-cac/NewOrg.git</p>
-<div class="literalblock">
+<p>Clone the given repository:</p>
+<div class="listingblock console-input">
 <div class="content">
-<pre>cd NewOrg/
-----</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone git@gitlab.iam.lab:automationiberia/aap-cac/NewOrg.git
+
+cd NewOrg/</code></pre>
 </div>
 </div>
 </li>
 <li>
 <p>Create a new branch from <code>dev</code> to introduce the new items:</p>
-<div class="literalblock">
+<div class="listingblock console-input">
 <div class="content">
-<pre>```
-git checkout dev
-git checkout -b add_info_job_template
-```</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git checkout dev
+git checkout -b add_info_job_template</code></pre>
 </div>
 </div>
 </li>
 <li>
 <p>Add a new Playbook and a new Job Template</p>
-<div class="literalblock">
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>File: <code>new_playbook1.yaml</code></p>
+</div>
+<div class="paragraph">
+<p>+</p>
+</div>
+<div class="listingblock console-input">
 <div class="content">
-<pre>File: `new_playbook1.yaml`
-```
-cat &gt; new_playbook1.yaml &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; new_playbook1.yaml &lt;&lt;EOF
 ---
 - name: "Play to show the hostname"
   hosts: all
@@ -655,15 +656,18 @@ cat &gt; new_playbook1.yaml &lt;&lt;EOF
           - "This server is called (from Execution Environment): {{ lookup('pipe', 'cat /etc/hostname') }}"
           - "Running as user: {{ lookup('pipe', 'id') }}"
 ...
-EOF
-```</pre>
+EOF</code></pre>
 </div>
 </div>
-<div class="literalblock">
+<div class="paragraph">
+<p>File: <code>new_playbook2.yaml</code></p>
+</div>
+<div class="paragraph">
+<p>+</p>
+</div>
+<div class="listingblock console-input">
 <div class="content">
-<pre>File: `new_playbook2.yaml`
-```
-cat &gt; new_playbook2.yaml &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; new_playbook2.yaml &lt;&lt;EOF
 ---
 - name: "Play to show the hostname"
   hosts: all
@@ -676,15 +680,18 @@ cat &gt; new_playbook2.yaml &lt;&lt;EOF
           - "This server is called (from Execution Environment): {{ lookup('pipe', 'cat /etc/hostname') }}"
           - "Running as user: {{ lookup('pipe', 'id') }}"
 ...
-EOF
-```</pre>
+EOF</code></pre>
 </div>
 </div>
-<div class="literalblock">
+<div class="paragraph">
+<p>File: <code>orgs_vars/NewOrg/env/common/controller_job_templates.d/new_job_template.yaml</code></p>
+</div>
+<div class="paragraph">
+<p>+</p>
+</div>
+<div class="listingblock console-input">
 <div class="content">
-<pre>File: `orgs_vars/NewOrg/env/common/controller_job_templates.d/new_job_template.yaml`
-```
-cat &gt; orgs_vars/NewOrg/env/common/controller_job_templates.d/new_job_template.yaml &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cat &gt; orgs_vars/NewOrg/env/common/controller_job_templates.d/new_job_template.yaml &lt;&lt;EOF
 ---
 controller_templates:
   - name: "{{ orgs }} New Job Template"
@@ -702,20 +709,18 @@ controller_templates:
       ansible_async_dir: /home/runner/.ansible_async/
     execution_environment: "ee-casc"
 ...
-EOF
-```</pre>
+EOF</code></pre>
 </div>
 </div>
-</li>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p>Commit the changes to the new branch</p>
-<div class="literalblock">
+<div class="listingblock console-input">
 <div class="content">
-<pre>```
-git add -A .
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git add -A .
 git commit -am "Add new playbook and job template to show server information"
-git push -u origin add_info_job_template
-```</pre>
+git push -u origin add_info_job_template</code></pre>
 </div>
 </div>
 </li>
@@ -724,8 +729,10 @@ git push -u origin add_info_job_template
 <div class="ulist">
 <ul>
 <li>
-<p>Go to Merge Requests and create a new merge request
-<span class="image"><img src="_images/mrtodev.png" alt="New merge request"></span></p>
+<p>Go to Merge Requests and create a new merge request</p>
+<div class="paragraph">
+<p><span class="image"><img src="_images/mrtodev.png" alt="New merge request"></span></p>
+</div>
 </li>
 <li>
 <p>Select the source branch <code>add_info_job_template</code> and <code>dev</code> as the destination one
@@ -738,41 +745,33 @@ git push -u origin add_info_job_template
 <li>
 <p>Merge the merge request
 <span class="image"><img src="_images/newmrtodevstep3.png" alt="Merge the merge request"></span></p>
-<hr>
-<div class="literalblock">
-<div class="content">
-<pre>The following automated process has ben executed at the Ansible Automation Controller:</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>image:devworkflowjobs.png[Look at the Ansible Automation Controller's jobs]</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>The following diagram shows the components of the workflow:</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>image:workflowdiagram.png[Workflow Diagram]</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>Of course, the new Job Template has been created:</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>image:newjtdev.png[New Job Template Dev]</pre>
-</div>
-</div>
 </li>
 </ul>
 </div>
 </li>
+</ol>
+</div>
+<hr>
+<div class="paragraph">
+<p>The following automated process has ben executed at the Ansible Automation Controller:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/devworkflowjobs.png" alt="Look at the Ansible Automation Controller&#8217;s jobs"></span></p>
+</div>
+<div class="paragraph">
+<p>The following diagram shows the components of the workflow:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/workflowdiagram.png" alt="Workflow Diagram"></span></p>
+</div>
+<div class="paragraph">
+<p>Of course, the new Job Template has been created:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/newjtdev.png" alt="New Job Template Dev"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p>Pomote the <code>dev</code> branch to production (<code>pro</code> branch) &lt;a name="mrdevtopro"&gt;&lt;/a&gt;</p>
 <div class="literalblock">
