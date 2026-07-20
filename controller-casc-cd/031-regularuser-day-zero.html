@@ -633,6 +633,8 @@ git checkout -b add_info_job_template</code></pre>
 </li>
 <li>
 <p>Add a new Playbook and a new Job Template</p>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>File: <code>new_playbook1.yaml</code></p>
 </div>
@@ -700,6 +702,8 @@ controller_templates:
 EOF</code></pre>
 </div>
 </div>
+</div>
+</div>
 </li>
 <li>
 <p>Commit the changes to the new branch</p>
@@ -711,163 +715,198 @@ git push -u origin add_info_job_template</code></pre>
 </div>
 </div>
 </li>
-</ol>
-</div>
-<div id="mrtodev" class="olist arabic">
-<ol class="arabic">
 <li>
-<p>Create a Merge Request to <code>dev</code> branch</p>
+<p><a id="mrtodev"></a>Create a Merge Request to <code>dev</code> branch</p>
+<div class="openblock">
+<div class="content">
 <div class="ulist">
 <ul>
 <li>
 <p>Go to Merge Requests and create a new merge request</p>
-<div class="paragraph">
-<p><span class="image"><img src="_images/mrtodev.png" alt="New merge request"></span></p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/mrtodev.png" alt="New merge request">
+</div>
 </div>
 </li>
 <li>
 <p>Select the source branch <code>add_info_job_template</code> and <code>dev</code> as the destination one</p>
-<div class="paragraph">
-<p><span class="image"><img src="_images/newmrtodev.png" alt="New merge request to dev"></span></p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/newmrtodev.png" alt="New merge request to dev">
+</div>
 </div>
 </li>
 <li>
 <p>Fill in the merge request information</p>
-<div class="paragraph">
-<p><span class="image"><img src="_images/newmrtodevstep2.png" alt="Fill in the merge request information"></span></p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/newmrtodevstep2.png" alt="Fill in the merge request information">
+</div>
 </div>
 </li>
 <li>
 <p>Merge the merge request</p>
-<div class="paragraph">
-<p><span class="image"><img src="_images/newmrtodevstep3.png" alt="Merge the merge request"></span></p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/newmrtodevstep3.png" alt="Merge the merge request">
 </div>
-<hr>
-<div class="paragraph">
-<p>The following automated process has ben executed at the Ansible Automation Controller:</p>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="_images/devworkflowjobs.png" alt="Look at the Ansible Automation Controller&#8217;s jobs"></span></p>
-</div>
-<div class="paragraph">
-<p>The following diagram shows the components of the workflow:</p>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="_images/workflowdiagram.png" alt="Workflow Diagram"></span></p>
-</div>
-<div class="paragraph">
-<p>Of course, the new Job Template has been created:</p>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="_images/newjtdev.png" alt="New Job Template Dev"></span></p>
 </div>
 </li>
 </ul>
 </div>
-</li>
-</ol>
+<div class="paragraph">
+<p>The following automated process has been executed at the Ansible Automation Controller:</p>
 </div>
-<div id="mrdevtopro" class="olist arabic">
-<ol class="arabic">
+<div class="imageblock">
+<div class="content">
+<img src="_images/devworkflowjobs.png" alt="Look at the Ansible Automation Controller&#8217;s jobs">
+</div>
+</div>
+<div class="paragraph">
+<p>The following diagram shows the components of the workflow:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/workflowdiagram.png" alt="Workflow Diagram">
+</div>
+</div>
+<div class="paragraph">
+<p>Of course, the new Job Template has been created:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/newjtdev.png" alt="New Job Template Dev">
+</div>
+</div>
+</div>
+</div>
+</li>
 <li>
-<p>Pomote the <code>dev</code> branch to production (<code>pro</code> branch)</p>
+<p><a id="mrdevtopro"></a>Promote the <code>dev</code> branch to production (<code>pro</code> branch)</p>
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>Similarly to the <a href="#mrtodev">step 5</a>, create a new Merge Request from the <code>dev</code> branch to the <code>pro</code> branch:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Select the source branch as <code>dev</code> and <code>pro</code> as the destination one]</p>
-<div class="paragraph">
-<p><span class="image"><img src="_images/newmrtopro.png" alt="New Merge Request Pro"></span></p>
+<p>Select the source branch as <code>dev</code> and <code>pro</code> as the destination one</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/newmrtopro.png" alt="New Merge Request Pro">
+</div>
 </div>
 </li>
 <li>
 <p>Fill in the merge request information</p>
-<div class="paragraph">
-<p><span class="image"><img src="_images/newmrtoprostep2.png" alt="Fill in the merge request information"></span></p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/newmrtoprostep2.png" alt="Fill in the merge request information">
 </div>
-<div class="quoteblock">
-<blockquote>
-
-</blockquote>
-</div>
-<hr>
-<div class="paragraph">
-<p>When the Merge Request is already merged, the new Job Template is also created in the <code>pro</code> environment:</p>
-</div>
-<div class="paragraph">
-<p><span class="image"><img src="_images/newjtpro.png" alt="New Job Template Pro"></span></p>
 </div>
 </li>
 </ul>
 </div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>Be sure to write a title that makes sense for the Merge Request</strong>: The default value here is <code>dev</code>, that is not useful at all!</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When the Merge Request is already merged, the new Job Template is also created in the <code>pro</code> environment:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/newjtpro.png" alt="New Job Template Pro">
+</div>
+</div>
+</div>
+</div>
 </li>
 <li>
-<p>Run the new Job Template at PRO &lt;a name="runjtpro"&gt;&lt;/a&gt;</p>
-<div class="literalblock">
+<p><a id="runjtpro"></a>Run the new Job Template at PRO</p>
+<div class="openblock">
 <div class="content">
-<pre>Run the Job Template:</pre>
+<div class="paragraph">
+<p>Run the Job Template:</p>
 </div>
-</div>
-<div class="literalblock">
+<div class="imageblock">
 <div class="content">
-<pre>image:launchjtpro.png[Run the JT]</pre>
+<img src="_images/launchjtpro.png" alt="Run the JT">
 </div>
 </div>
-<div class="literalblock">
+<div class="paragraph">
+<p>and check that it is failing:</p>
+</div>
+<div class="imageblock">
 <div class="content">
-<pre>and check that it is failing:
-image:jtprofailed.png[Job Template PRO failed]</pre>
+<img src="_images/jtprofailed.png" alt="Job Template PRO failed">
+</div>
+</div>
 </div>
 </div>
 </li>
 <li>
 <p>Rollback the PRO environment to previously working tag</p>
-<div class="literalblock">
+<div class="openblock">
 <div class="content">
-<pre>To rollback the status of the controller to a previous working version, it's only needed to run the following Job Templates:</pre>
-</div>
+<div class="paragraph">
+<p>To rollback the status of the controller to a previous working version, it&#8217;s only needed to run the following Job Templates:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Run the Job Template <code>casc-twitch-demo CasC_JobTemplates_AAP_Drop_Diff</code> with the previous working version:
-<span class="image"><img src="_images/rollbackddv0.2.png" alt="Run the JT casc-twitch-demo CasC_JobTemplates_AAP_Drop_Diff"></span></p>
+<p>Run the Job Template <code>casc-twitch-demo CasC_JobTemplates_AAP_Drop_Diff</code> with the previous working version:</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rollbackddv0.2.png" alt="Run the JT casc-twitch-demo CasC_JobTemplates_AAP_Drop_Diff">
+</div>
+</div>
 </li>
 <li>
-<p>Run the Job Template <code>casc-twitch-demo CasC_JobTemplates_AAP_CD_Config_Controller</code> with the previous working version:
-<span class="image"><img src="_images/rollbackccv0.2.png" alt="Run the JT casc-twitch-demo CasC_JobTemplates_AAP_CD_Config_Controller"></span></p>
+<p>Run the Job Template <code>casc-twitch-demo CasC_JobTemplates_AAP_CD_Config_Controller</code> with the previous working version:</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rollbackccv0.2.png" alt="Run the JT casc-twitch-demo CasC_JobTemplates_AAP_CD_Config_Controller">
+</div>
+</div>
 </li>
 </ul>
+</div>
+</div>
 </div>
 </li>
 <li>
 <p>Fix your playbook</p>
-<div class="literalblock">
+<div class="openblock">
 <div class="content">
-<pre>```
-git checkout dev
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git checkout dev
 git pull
-git checkout -b fix_playbook
-```</pre>
+git checkout -b fix_playbook</code></pre>
 </div>
 </div>
-<div class="literalblock">
+<div class="paragraph">
+<p>Modify the Job Template to use the correct playbook: <code>playbook: "new_playbook2.yaml"</code></p>
+</div>
+<div class="paragraph">
+<p>Updated file: <code>orgs_vars/NewOrg/env/common/controller_job_templates.d/new_job_template.yaml</code></p>
+</div>
+<div class="listingblock">
 <div class="content">
-<pre>Modify the Job Template to use the correct playbook:</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>`playbook: "new_playbook2.yaml"`</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>Updated file: `orgs_vars/NewOrg/env/common/controller_job_templates.d/new_job_template.yaml`
-```yaml
----
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
 controller_templates:
   - name: "{{ orgs }} New Job Template"
     description: "Template to show how to add a new JT"
@@ -883,63 +922,62 @@ controller_templates:
       ansible_python_interpreter: /usr/bin/python3
       ansible_async_dir: /home/runner/.ansible_async/
     execution_environment: "ee-casc"
-...
-```</pre>
+...</code></pre>
 </div>
 </div>
-<div class="literalblock">
+<div class="paragraph">
+<p>Commit and push your changes:</p>
+</div>
+<div class="listingblock console-input">
 <div class="content">
-<pre>Commit and push your changes:</pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git commit -am "Fix the connection method"
+git push -u origin fix_playbook</code></pre>
 </div>
 </div>
-<div class="literalblock">
+<div class="paragraph">
+<p>Create a Merge Request to <code>dev</code> branch:</p>
+</div>
+<div class="imageblock">
 <div class="content">
-<pre>```
-git commit -am "Fix the connection method"
-git push -u origin fix_playbook
-```</pre>
+<img src="_images/newmrtodev-fix_playbook.png" alt="Create New Merge Request from fix_playbook to Dev">
 </div>
 </div>
-<div class="literalblock">
+<div class="imageblock">
 <div class="content">
-<pre>Create a Merge Request to `dev` branch:</pre>
+<img src="_images/newmrtodev-fix_playbook-step2.png" alt="New Merge Request from fix_playbook to Dev">
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><span class="image"><img src="_images/newmrtodev-fix_playbook.png" alt="Create New Merge Request from <code>fix_playbook</code> to Dev"></span></p>
-</li>
-<li>
-<p><span class="image"><img src="_images/newmrtodev-fix_playbook-step2.png" alt="New Merge Request from <code>fix_playbook</code> to Dev"></span></p>
-</li>
-<li>
-<p><span class="image"><img src="_images/newmrtodev-fix_playbook-step3.png" alt="Merge the Request"></span></p>
-<div class="literalblock">
+<div class="imageblock">
 <div class="content">
-<pre>Repeat the steps to create a new Merge Request from `dev` to `pro`, as described at xref:mrdevtopro[step 6]</pre>
+<img src="_images/newmrtodev-fix_playbook-step3.png" alt="Merge the Request">
 </div>
 </div>
-</li>
-</ul>
+<div class="paragraph">
+<p>Repeat the steps to create a new Merge Request from <code>dev</code> to <code>pro</code>, as described at <a href="#mrdevtopro">step 6</a>.</p>
+</div>
+</div>
 </div>
 </li>
 <li>
-<p>Run again the new Job Template at PRO &lt;a name="runjtpro"&gt;&lt;/a&gt;</p>
-<div class="literalblock">
+<p><a id="runjtpro-again"></a>Run again the new Job Template at PRO</p>
+<div class="openblock">
 <div class="content">
-<pre>Run again the Job Template:</pre>
+<div class="paragraph">
+<p>Run again the Job Template:</p>
 </div>
-</div>
-<div class="literalblock">
+<div class="imageblock">
 <div class="content">
-<pre>image:launchjtpro.png[Run the JT]</pre>
+<img src="_images/launchjtpro.png" alt="Run the JT">
 </div>
 </div>
-<div class="literalblock">
+<div class="paragraph">
+<p>and check that it is working fine now:</p>
+</div>
+<div class="imageblock">
 <div class="content">
-<pre>and check that it is working fine now:
-image:jtprosuccess.png[Job Template PRO failed]</pre>
+<img src="_images/jtprosuccess.png" alt="Job Template PRO success">
+</div>
+</div>
 </div>
 </div>
 </li>
