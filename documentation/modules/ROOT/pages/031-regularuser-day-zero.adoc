@@ -264,7 +264,7 @@ image::newmrtoprostep3.png[Merge the Merge Request]
 ## GitOps flow
 
 1. Clone the given repository:
-
+   +
    ```
    git clone git@gitlab.iam.lab:automationiberia/aap-cac/NewOrg.git
 
