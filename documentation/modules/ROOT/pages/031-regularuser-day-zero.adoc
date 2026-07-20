@@ -141,7 +141,7 @@ vi group_vars/pro/configure_connection_controller_credentials.yml
 ----
 ansible-vault encrypt --vault-password-file .vault_password \
   group_vars/dev/configure_connection_controller_credentials.yml \
-  group_vars/pro/configure_connection_controller_credentials.yml 
+  group_vars/pro/configure_connection_controller_credentials.yml
 ----
 
 == Edit credentials objects
@@ -261,7 +261,7 @@ image::newmrtoprostep2.png[Fill in the merge request information]
 +
 image::newmrtoprostep3.png[Merge the Merge Request]
 
-### GitOps flow
+## GitOps flow
 
 1. Clone the given repository:
 
@@ -349,6 +349,7 @@ image::newmrtoprostep3.png[Merge the Merge Request]
 5. Create a Merge Request to `dev` branch <a name="mrtodev"></a>
 
    * Go to Merge Requests and create a new merge request
+     image::mrtodev.png[New merge request]
      ![New merge request](images/mrtodev.png "New merge request")
 
    * Select the source branch `add_info_job_template` and `dev` as the destination one
